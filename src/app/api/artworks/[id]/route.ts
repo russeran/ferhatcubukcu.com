@@ -5,6 +5,7 @@ import {
   writeArtworks,
   ensureUniqueSlug,
 } from "@/lib/data";
+import { diskWriteErrorMessage } from "@/lib/disk-write-error";
 import { getSessionFromCookies } from "@/lib/auth";
 import type { Artwork } from "@/lib/types";
 import { z } from "zod";
@@ -84,7 +85,15 @@ export async function PATCH(
   };
   const prevSlug = current.slug;
   list[idx] = updated;
-  await writeArtworks(list);
+  try {
+    await writeArtworks(list);
+  } catch (e) {
+    list[idx] = current;
+    return NextResponse.json(
+      { error: diskWriteErrorMessage(e) },
+      { status: 503 }
+    );
+  }
   revalidateGallery(prevSlug);
   if (updated.slug !== prevSlug) revalidateGallery(updated.slug);
   return NextResponse.json(updated);
@@ -105,7 +114,14 @@ export async function DELETE(
   if (next.length === list.length) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
-  await writeArtworks(next);
+  try {
+    await writeArtworks(next);
+  } catch (e) {
+    return NextResponse.json(
+      { error: diskWriteErrorMessage(e) },
+      { status: 503 }
+    );
+  }
   if (removed) revalidateGallery(removed.slug);
   return NextResponse.json({ ok: true });
 }

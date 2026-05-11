@@ -1,7 +1,7 @@
 import { AdminNav } from "@/components/admin/AdminNav";
 import { AdminSignOut } from "@/components/admin/AdminSignOut";
 import { requireAdminSession } from "@/lib/admin-guard";
-import { Link } from "@/i18n/navigation";
+import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -33,7 +33,8 @@ export default async function AdminDashboardPage({ params }: Props) {
         <AdminNav />
         <div className="grid gap-6 md:grid-cols-2">
           <Link
-            href="/admin/artworks"
+            href={`/${locale}/admin/artworks`}
+            prefetch={false}
             className="group rounded-xl border border-white/10 bg-black/20 p-6 transition hover:border-goldleaf/40"
           >
             <p className="font-serif text-xl text-goldleaf">{t("artworks")}</p>
@@ -42,7 +43,8 @@ export default async function AdminDashboardPage({ params }: Props) {
             </p>
           </Link>
           <Link
-            href="/admin/settings"
+            href={`/${locale}/admin/settings`}
+            prefetch={false}
             className="group rounded-xl border border-white/10 bg-black/20 p-6 transition hover:border-goldleaf/40"
           >
             <p className="font-serif text-xl text-goldleaf">{t("settings")}</p>

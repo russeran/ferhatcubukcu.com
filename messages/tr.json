@@ -65,6 +65,10 @@
     "titleTr": "Başlık (Türkçe)",
     "descriptionEn": "Açıklama (İngilizce)",
     "descriptionTr": "Açıklama (Türkçe)",
-    "loginError": "Şifre hatalı."
+    "loginError": "Şifre hatalı.",
+    "loadFailed": "Liste yüklenemedi",
+    "saveFailed": "Kayıt başarısız",
+    "uploadFailed": "Yükleme başarısız",
+    "saved": "Kaydedildi."
   }
 }

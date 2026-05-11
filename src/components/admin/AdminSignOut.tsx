@@ -1,16 +1,17 @@
 "use client";
 
-import { useRouter } from "@/i18n/navigation";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 export function AdminSignOut() {
   const t = useTranslations("admin");
-  const router = useRouter();
+  const locale = useLocale();
 
   async function signOut() {
-    await fetch("/api/auth/logout", { method: "POST" });
-    router.replace("/");
-    router.refresh();
+    await fetch("/api/auth/logout", {
+      method: "POST",
+      credentials: "same-origin",
+    });
+    window.location.assign(`/${locale}`);
   }
 
   return (

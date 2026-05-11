@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { writeFile, mkdir } from "fs/promises";
 import path from "path";
 import { randomUUID } from "crypto";
+import { diskWriteErrorMessage } from "@/lib/disk-write-error";
 import { getSessionFromCookies } from "@/lib/auth";
 
 const ALLOWED = new Set(["image/jpeg", "image/png", "image/webp", "image/gif"]);
@@ -33,7 +34,14 @@ export async function POST(req: Request) {
           : "gif";
   const name = `${randomUUID()}.${ext}`;
   const dir = path.join(process.cwd(), "public", "uploads");
-  await mkdir(dir, { recursive: true });
-  await writeFile(path.join(dir, name), buf);
+  try {
+    await mkdir(dir, { recursive: true });
+    await writeFile(path.join(dir, name), buf);
+  } catch (e) {
+    return NextResponse.json(
+      { error: diskWriteErrorMessage(e) },
+      { status: 503 }
+    );
+  }
   return NextResponse.json({ url: `/uploads/${name}` });
 }

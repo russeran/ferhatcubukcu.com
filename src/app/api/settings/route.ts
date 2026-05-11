@@ -1,6 +1,7 @@
 import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 import { readSettings, writeSettings } from "@/lib/data";
+import { diskWriteErrorMessage } from "@/lib/disk-write-error";
 import { getSessionFromCookies } from "@/lib/auth";
 import { z } from "zod";
 import { routing } from "@/i18n/routing";
@@ -48,7 +49,15 @@ export async function PATCH(req: Request) {
       ? { contactEmail: parsed.data.contactEmail || "" }
       : {}),
   };
-  const next = await writeSettings(cleaned);
+  let next;
+  try {
+    next = await writeSettings(cleaned);
+  } catch (e) {
+    return NextResponse.json(
+      { error: diskWriteErrorMessage(e) },
+      { status: 503 }
+    );
+  }
   revalidateSite();
   return NextResponse.json(next);
 }

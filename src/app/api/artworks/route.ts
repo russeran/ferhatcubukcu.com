@@ -1,6 +1,7 @@
 import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 import { readArtworks, writeArtworks, ensureUniqueSlug } from "@/lib/data";
+import { diskWriteErrorMessage } from "@/lib/disk-write-error";
 import { getSessionFromCookies } from "@/lib/auth";
 import type { Artwork } from "@/lib/types";
 import { z } from "zod";
@@ -75,7 +76,15 @@ export async function POST(req: Request) {
     createdAt: new Date().toISOString(),
   };
   list.push(row);
-  await writeArtworks(list);
+  try {
+    await writeArtworks(list);
+  } catch (e) {
+    list.pop();
+    return NextResponse.json(
+      { error: diskWriteErrorMessage(e) },
+      { status: 503 }
+    );
+  }
   revalidateGallery(row.slug);
   return NextResponse.json(row);
 }

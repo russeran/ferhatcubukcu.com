@@ -1,12 +1,11 @@
 "use client";
 
-import { useRouter } from "@/i18n/navigation";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 
 export function AdminLoginForm() {
   const t = useTranslations("admin");
-  const router = useRouter();
+  const locale = useLocale();
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
@@ -19,6 +18,7 @@ export function AdminLoginForm() {
       const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "same-origin",
         body: JSON.stringify({ password }),
       });
       const data = await res.json();
@@ -26,8 +26,7 @@ export function AdminLoginForm() {
         setError(data.message || t("loginError"));
         return;
       }
-      router.replace("/admin");
-      router.refresh();
+      window.location.assign(`/${locale}/admin`);
     } finally {
       setPending(false);
     }

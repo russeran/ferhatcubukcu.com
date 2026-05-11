@@ -1,9 +1,12 @@
 "use client";
 
 import type { Artwork } from "@/lib/types";
+import { readApiError } from "@/lib/read-api-error";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
+
+const fetchOpts: RequestInit = { credentials: "same-origin" };
 
 const emptyForm = {
   titleEn: "",
@@ -27,13 +30,19 @@ export function AdminArtworks() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [edit, setEdit] = useState(emptyForm);
   const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const load = useCallback(async () => {
-    const res = await fetch("/api/artworks?admin=1");
-    if (!res.ok) return;
+    setError(null);
+    const res = await fetch("/api/artworks?admin=1", fetchOpts);
+    if (!res.ok) {
+      setError(`${t("loadFailed")}: ${await readApiError(res)}`);
+      setItems([]);
+      return;
+    }
     const data = (await res.json()) as Artwork[];
     setItems(data);
-  }, []);
+  }, [t]);
 
   useEffect(() => {
     load().finally(() => setLoading(false));
@@ -41,13 +50,25 @@ export function AdminArtworks() {
 
   async function uploadFile(file: File, target: "create" | "edit") {
     setUploading(true);
+    setError(null);
     try {
       const fd = new FormData();
       fd.set("file", file);
-      const res = await fetch("/api/upload", { method: "POST", body: fd });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Upload failed");
-      const url = data.url as string;
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: fd,
+        credentials: "same-origin",
+      });
+      if (!res.ok) {
+        setError(`${t("uploadFailed")}: ${await readApiError(res)}`);
+        return;
+      }
+      const data = (await res.json()) as { url?: string };
+      const url = data.url;
+      if (!url) {
+        setError(t("uploadFailed"));
+        return;
+      }
       if (target === "create") {
         setCreate((c) => ({ ...c, image: url }));
       } else {
@@ -60,21 +81,27 @@ export function AdminArtworks() {
 
   async function addArtwork(e: React.FormEvent) {
     e.preventDefault();
+    setError(null);
     const res = await fetch("/api/artworks", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      credentials: "same-origin",
       body: JSON.stringify({
         ...create,
         slug: create.slug.trim() || undefined,
       }),
     });
-    if (!res.ok) return;
+    if (!res.ok) {
+      setError(`${t("saveFailed")}: ${await readApiError(res)}`);
+      return;
+    }
     setCreate(emptyForm);
     await load();
   }
 
   function startEdit(a: Artwork) {
     setEditingId(a.id);
+    setError(null);
     setEdit({
       titleEn: a.titleEn,
       titleTr: a.titleTr,
@@ -93,23 +120,36 @@ export function AdminArtworks() {
   async function saveEdit(e: React.FormEvent) {
     e.preventDefault();
     if (!editingId) return;
+    setError(null);
     const order = items.find((x) => x.id === editingId)?.order ?? 0;
     const res = await fetch(`/api/artworks/${editingId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
+      credentials: "same-origin",
       body: JSON.stringify({
         ...edit,
         order,
       }),
     });
-    if (!res.ok) return;
+    if (!res.ok) {
+      setError(`${t("saveFailed")}: ${await readApiError(res)}`);
+      return;
+    }
     setEditingId(null);
     await load();
   }
 
   async function remove(id: string) {
     if (!confirm("Delete this artwork?")) return;
-    await fetch(`/api/artworks/${id}`, { method: "DELETE" });
+    setError(null);
+    const res = await fetch(`/api/artworks/${id}`, {
+      method: "DELETE",
+      credentials: "same-origin",
+    });
+    if (!res.ok) {
+      setError(`${t("saveFailed")}: ${await readApiError(res)}`);
+      return;
+    }
     await load();
   }
 
@@ -119,6 +159,15 @@ export function AdminArtworks() {
 
   return (
     <div className="space-y-12">
+      {error ? (
+        <p
+          className="rounded-lg border border-oxide/50 bg-oxide/10 px-4 py-3 text-sm text-oxide"
+          role="alert"
+        >
+          {error}
+        </p>
+      ) : null}
+
       <section className="rounded-xl border border-white/10 bg-black/20 p-6">
         <h2 className="font-serif text-xl text-goldleaf">{t("addArtwork")}</h2>
         <form onSubmit={addArtwork} className="mt-6 grid gap-4 md:grid-cols-2">

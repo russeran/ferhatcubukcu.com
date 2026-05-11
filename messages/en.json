@@ -65,6 +65,10 @@
     "titleTr": "Title (Turkish)",
     "descriptionEn": "Description (English)",
     "descriptionTr": "Description (Turkish)",
-    "loginError": "Invalid password."
+    "loginError": "Invalid password.",
+    "loadFailed": "Could not load list",
+    "saveFailed": "Save failed",
+    "uploadFailed": "Upload failed",
+    "saved": "Saved."
   }
 }

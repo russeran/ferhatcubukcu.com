@@ -1,6 +1,7 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import NextLink from "next/link";
+import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
@@ -13,6 +14,7 @@ const links = [
 
 export function SiteHeader() {
   const t = useTranslations("nav");
+  const locale = useLocale();
 
   return (
     <header className="sticky top-0 z-50 border-b border-umber/10 bg-parchment/85 backdrop-blur-md">
@@ -34,12 +36,13 @@ export function SiteHeader() {
             </Link>
           ))}
           <LanguageSwitcher />
-          <Link
-            href="/admin"
+          <NextLink
+            href={`/${locale}/admin`}
+            prefetch={false}
             className="text-xs font-medium uppercase tracking-[0.2em] text-patina hover:text-oxide md:text-[13px]"
           >
             {t("admin")}
-          </Link>
+          </NextLink>
         </nav>
       </div>
     </header>
