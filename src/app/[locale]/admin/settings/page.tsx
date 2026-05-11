@@ -4,8 +4,11 @@ import { AdminSignOut } from "@/components/admin/AdminSignOut";
 import { requireAdminSession } from "@/lib/admin-guard";
 import { getTranslations } from "next-intl/server";
 
-export default async function AdminSettingsPage() {
-  await requireAdminSession();
+type Props = { params: Promise<{ locale: string }> };
+
+export default async function AdminSettingsPage({ params }: Props) {
+  const { locale } = await params;
+  await requireAdminSession(locale);
   const t = await getTranslations("admin");
 
   return (

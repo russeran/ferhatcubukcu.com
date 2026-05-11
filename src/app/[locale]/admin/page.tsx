@@ -4,8 +4,11 @@ import { requireAdminSession } from "@/lib/admin-guard";
 import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 
-export default async function AdminDashboardPage() {
-  await requireAdminSession();
+type Props = { params: Promise<{ locale: string }> };
+
+export default async function AdminDashboardPage({ params }: Props) {
+  const { locale } = await params;
+  await requireAdminSession(locale);
   const t = await getTranslations("admin");
 
   return (

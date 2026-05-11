@@ -3,10 +3,13 @@ import { getSessionFromCookies } from "@/lib/auth";
 import { redirect } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 
-export default async function AdminLoginPage() {
+type Props = { params: Promise<{ locale: string }> };
+
+export default async function AdminLoginPage({ params }: Props) {
+  const { locale } = await params;
   const session = await getSessionFromCookies();
   if (session) {
-    redirect("/admin");
+    redirect({ href: "/admin", locale });
   }
   const t = await getTranslations("admin");
 

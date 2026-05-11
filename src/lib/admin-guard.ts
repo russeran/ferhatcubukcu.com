@@ -1,9 +1,9 @@
 import { getSessionFromCookies } from "@/lib/auth";
 import { redirect } from "@/i18n/navigation";
 
-export async function requireAdminSession() {
+export async function requireAdminSession(locale: string) {
   const ok = await getSessionFromCookies();
   if (!ok) {
-    redirect("/admin/login");
+    redirect({ href: "/admin/login", locale });
   }
 }
