@@ -1,27 +1,28 @@
 {
   "meta": {
-    "title": "Ferhat Çubukçu — Painter",
-    "description": "Contemporary painting — studio works, exhibitions, and contact."
+    "title": "Ferhat Çubukçu — Digital design",
+    "description": "Graphic and digital design portfolio — brand, editorial, and campaign work. İstanbul."
   },
   "nav": {
     "home": "Home",
-    "gallery": "Gallery",
+    "gallery": "Work",
     "about": "About",
     "contact": "Contact",
     "admin": "Admin"
   },
   "home": {
-    "viewWork": "View work",
-    "studio": "Studio",
-    "statementLead": "Oil, pigment, and surface — compositions built from observation and memory."
+    "viewWork": "View projects",
+    "studio": "Digital design · İstanbul",
+    "statementLead": "Clarity, grids, and restraint — identity systems, editorial layouts, and campaign visuals shaped for real brands and busy audiences."
   },
   "gallery": {
-    "title": "Gallery",
-    "empty": "Works will appear here once added in the admin panel.",
+    "title": "Selected work",
+    "eyebrow": "Portfolio",
+    "empty": "Projects will appear here once you add them in the admin panel.",
     "detail": "Details",
     "year": "Year",
-    "medium": "Medium",
-    "dimensions": "Dimensions"
+    "medium": "Format",
+    "dimensions": "Scope"
   },
   "about": {
     "title": "About"
@@ -30,11 +31,12 @@
     "title": "Contact",
     "email": "Email",
     "instagram": "Instagram",
-    "studio": "Studio",
-    "reachOut": "For commissions, exhibitions, or print inquiries, please write."
+    "studio": "Based in İstanbul",
+    "reachOut": "For brand, campaign, or editorial commissions, please get in touch."
   },
   "footer": {
-    "rights": "All works © Ferhat Çubukçu unless noted."
+    "rights": "© Ferhat Çubukçu. All projects shown are for portfolio context unless credited otherwise.",
+    "tagline": "Identity · editorial · digital"
   },
   "admin": {
     "loginTitle": "Admin sign-in",
@@ -42,9 +44,9 @@
     "signIn": "Sign in",
     "signOut": "Sign out",
     "dashboard": "Dashboard",
-    "artworks": "Artworks",
+    "artworks": "Projects",
     "settings": "Site settings",
-    "addArtwork": "Add artwork",
+    "addArtwork": "Add project",
     "save": "Save",
     "delete": "Delete",
     "uploadImage": "Upload image",

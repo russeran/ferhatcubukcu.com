@@ -1,23 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="">
   <defs>
-    <linearGradient id="h1" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#3d291f"/>
-      <stop offset="45%" stop-color="#a84632"/>
-      <stop offset="100%" stop-color="#2f4f4f"/>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f6f6f4"/>
+      <stop offset="50%" stop-color="#e8e8e4"/>
+      <stop offset="100%" stop-color="#dbeafe"/>
     </linearGradient>
-    <radialGradient id="h2" cx="30%" cy="25%" r="70%">
-      <stop offset="0%" stop-color="#f4efe6" stop-opacity="0.35"/>
-      <stop offset="100%" stop-color="#f4efe6" stop-opacity="0"/>
-    </radialGradient>
-    <filter id="grain">
-      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/>
-      <feColorMatrix type="saturate" values="0"/>
-      <feComponentTransfer>
-        <feFuncA type="table" tableValues="0 0.06"/>
-      </feComponentTransfer>
-    </filter>
   </defs>
-  <rect width="1600" height="900" fill="url(#h1)"/>
-  <rect width="1600" height="900" fill="url(#h2)"/>
-  <rect width="1600" height="900" filter="url(#grain)" opacity="0.5"/>
+  <rect width="1600" height="900" fill="url(#g)"/>
+  <g fill="none" stroke="#18181b" stroke-opacity="0.12" stroke-width="1">
+    <path d="M0 0l1600 900M1600 0L0 900"/>
+  </g>
+  <g opacity="0.9">
+    <rect x="120" y="120" width="420" height="64" fill="#18181b"/>
+    <rect x="120" y="220" width="280" height="20" fill="#64748b" opacity="0.5"/>
+    <rect x="120" y="260" width="200" height="20" fill="#64748b" opacity="0.35"/>
+    <rect x="120" y="380" width="520" height="8" fill="#2563eb"/>
+    <rect x="120" y="420" width="360" height="240" fill="#18181b" opacity="0.06" stroke="#18181b" stroke-opacity="0.15"/>
+    <rect x="520" y="420" width="240" height="110" fill="#06b6d4" opacity="0.35"/>
+    <rect x="520" y="550" width="240" height="110" fill="#2563eb" opacity="0.2"/>
+  </g>
 </svg>

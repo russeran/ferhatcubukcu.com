@@ -11,10 +11,10 @@ export default async function AboutPage({ params }: Props) {
 
   return (
     <div className="mx-auto max-w-3xl px-5 py-14 md:py-24">
-      <p className="text-xs uppercase tracking-[0.35em] text-patina">
+      <p className="font-mono text-[11px] uppercase tracking-[0.35em] text-patina">
         {locale === "tr" ? "Biyografi" : "Biography"}
       </p>
-      <h1 className="mt-4 font-serif text-4xl text-umber-deep md:text-5xl">
+      <h1 className="mt-4 font-serif text-4xl font-semibold tracking-tight text-umber-deep md:text-5xl">
         {t("title")}
       </h1>
       <div className="mt-10 space-y-6 text-base leading-relaxed text-umber/80 md:text-lg">

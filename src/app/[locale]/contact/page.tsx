@@ -12,10 +12,10 @@ export default async function ContactPage({ params }: Props) {
 
   return (
     <div className="mx-auto max-w-3xl px-5 py-14 md:py-24">
-      <p className="text-xs uppercase tracking-[0.35em] text-patina">
-        {locale === "tr" ? "Atölye" : "Studio"}
+      <p className="font-mono text-[11px] uppercase tracking-[0.35em] text-patina">
+        {t("studio")}
       </p>
-      <h1 className="mt-4 font-serif text-4xl text-umber-deep md:text-5xl">
+      <h1 className="mt-4 font-serif text-4xl font-semibold tracking-tight text-umber-deep md:text-5xl">
         {t("title")}
       </h1>
       <p className="mt-8 max-w-xl text-lg text-umber/75">{t("reachOut")}</p>

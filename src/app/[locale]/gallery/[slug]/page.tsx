@@ -34,12 +34,12 @@ export default async function GalleryDetailPage({ params }: Props) {
     <article className="mx-auto max-w-6xl px-5 py-14 md:py-20">
       <Link
         href="/gallery"
-        className="text-sm text-patina underline-offset-4 hover:underline"
+        className="text-sm font-medium text-oxide underline-offset-4 hover:underline"
       >
         ← {t("title")}
       </Link>
       <div className="mt-10 grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
-        <div className="relative aspect-[3/4] w-full overflow-hidden rounded-sm bg-parchment-dark ring-1 ring-umber/10 lg:aspect-[4/5]">
+        <div className="relative aspect-[3/4] w-full overflow-hidden rounded-lg bg-white shadow-sm ring-1 ring-umber/10 lg:aspect-[4/5]">
           <Image
             src={artwork.image}
             alt={title}
@@ -51,7 +51,7 @@ export default async function GalleryDetailPage({ params }: Props) {
         </div>
         <div className="space-y-8">
           <header className="space-y-3 border-b border-umber/10 pb-8">
-            <h1 className="font-serif text-4xl text-umber-deep md:text-[2.75rem] leading-tight">
+            <h1 className="font-serif text-4xl font-semibold leading-tight tracking-tight text-umber-deep md:text-[2.75rem]">
               {title}
             </h1>
             <dl className="grid gap-3 text-sm text-umber/70">

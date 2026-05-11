@@ -9,38 +9,43 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        /** Warm paper — digital portfolio base */
         parchment: {
-          DEFAULT: "#f2ebe3",
-          dark: "#e8dfd4",
+          DEFAULT: "#f6f6f4",
+          dark: "#e8e8e4",
         },
+        /** Primary ink */
         umber: {
-          DEFAULT: "#5c3d2e",
-          deep: "#3d291f",
+          DEFAULT: "#52525b",
+          deep: "#18181b",
         },
+        /** Accent — links & primary actions */
         oxide: {
-          DEFAULT: "#a84632",
-          muted: "#8f5c4a",
+          DEFAULT: "#2563eb",
+          muted: "#3b82f6",
         },
+        /** Secondary text / UI chrome */
         patina: {
-          DEFAULT: "#2f4f4f",
-          light: "#3d6565",
+          DEFAULT: "#64748b",
+          light: "#94a3b8",
         },
-        goldleaf: "#c9a227",
+        /** Highlights (admin, key labels) */
+        goldleaf: "#06b6d4",
       },
       fontFamily: {
-        serif: ["var(--font-display)", "Georgia", "serif"],
+        serif: ["var(--font-display)", "system-ui", "sans-serif"],
         sans: ["var(--font-body)", "system-ui", "sans-serif"],
       },
       backgroundImage: {
-        "canvas-grain":
-          "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E\")",
+        "site-grid":
+          "linear-gradient(to right, rgb(24 24 27 / 0.045) 1px, transparent 1px), linear-gradient(rgb(24 24 27 / 0.045) 1px, transparent 1px)",
       },
       animation: {
-        "fade-up": "fadeUp 0.8s ease-out forwards",
+        "fade-up": "fadeUp 0.7s ease-out forwards",
       },
       keyframes: {
         fadeUp: {
-          from: { opacity: "0", transform: "translateY(16px)" },
+          from: { opacity: "0", transform: "translateY(12px)" },
           to: { opacity: "1", transform: "translateY(0)" },
         },
       },

@@ -15,11 +15,11 @@ export function SiteHeader() {
   const t = useTranslations("nav");
 
   return (
-    <header className="border-b border-umber/15 bg-parchment/90 backdrop-blur-md sticky top-0 z-50">
+    <header className="sticky top-0 z-50 border-b border-umber/10 bg-parchment/85 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-5 py-4 md:py-5">
         <Link
           href="/"
-          className="font-serif text-xl tracking-tight text-umber-deep md:text-2xl"
+          className="font-serif text-lg font-semibold tracking-tight text-umber-deep md:text-xl"
         >
           Ferhat Çubukçu
         </Link>
@@ -28,7 +28,7 @@ export function SiteHeader() {
             <Link
               key={l.key}
               href={l.href}
-              className="text-umber/85 hover:text-oxide transition-colors"
+              className="text-umber/80 transition-colors hover:text-oxide"
             >
               {t(l.key)}
             </Link>
@@ -36,7 +36,7 @@ export function SiteHeader() {
           <LanguageSwitcher />
           <Link
             href="/admin"
-            className="text-patina hover:text-patina-light text-xs uppercase tracking-widest md:text-[13px]"
+            className="text-xs font-medium uppercase tracking-[0.2em] text-patina hover:text-oxide md:text-[13px]"
           >
             {t("admin")}
           </Link>

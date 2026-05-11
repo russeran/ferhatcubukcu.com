@@ -1,27 +1,28 @@
 {
   "meta": {
-    "title": "Ferhat Çubukçu — Ressam",
-    "description": "Çağdaş resim — atölye çalışmaları, sergiler ve iletişim."
+    "title": "Ferhat Çubukçu — Dijital tasarım",
+    "description": "Grafik ve dijital tasarım portföyü — kurumsal kimlik, editoryal ve kampanya çalışmaları. İstanbul."
   },
   "nav": {
     "home": "Ana sayfa",
-    "gallery": "Galeri",
+    "gallery": "Çalışmalar",
     "about": "Hakkında",
     "contact": "İletişim",
     "admin": "Yönetim"
   },
   "home": {
-    "viewWork": "Çalışmaları gör",
-    "studio": "Atölye",
-    "statementLead": "Yağlı boya, pigment ve yüzey — gözlem ve hafızadan inşa edilen kompozisyonlar."
+    "viewWork": "Projeleri gör",
+    "studio": "Dijital tasarım · İstanbul",
+    "statementLead": "Netlik, ızgara ve duruluk — gerçek markalar ve yoğun kitleler için kimlik sistemleri, editoryal yerleşimler ve kampanya görselleri."
   },
   "gallery": {
-    "title": "Galeri",
-    "empty": "Yönetim panelinden eser eklendiğinde burada görünecektir.",
+    "title": "Seçili işler",
+    "eyebrow": "Portföy",
+    "empty": "Yönetim panelinden proje eklendiğinde burada görünecektir.",
     "detail": "Detay",
     "year": "Yıl",
-    "medium": "Malzeme",
-    "dimensions": "Ölçü"
+    "medium": "Format",
+    "dimensions": "Kapsam"
   },
   "about": {
     "title": "Hakkında"
@@ -30,11 +31,12 @@
     "title": "İletişim",
     "email": "E-posta",
     "instagram": "Instagram",
-    "studio": "Atölye",
-    "reachOut": "Sipariş, sergi veya baskı için lütfen yazın."
+    "studio": "İstanbul",
+    "reachOut": "Marka, kampanya veya editoryal iş birlikleri için yazabilirsiniz."
   },
   "footer": {
-    "rights": "Tüm eserler © Ferhat Çubukçu (aksi belirtilmedikçe)."
+    "rights": "© Ferhat Çubukçu. Gösterilen projeler portföy amaçlıdır; aksi belirtilmedikçe.",
+    "tagline": "Kimlik · editoryal · dijital"
   },
   "admin": {
     "loginTitle": "Yönetici girişi",
@@ -42,9 +44,9 @@
     "signIn": "Giriş yap",
     "signOut": "Çıkış",
     "dashboard": "Panel",
-    "artworks": "Eserler",
+    "artworks": "Projeler",
     "settings": "Site ayarları",
-    "addArtwork": "Eser ekle",
+    "addArtwork": "Proje ekle",
     "save": "Kaydet",
     "delete": "Sil",
     "uploadImage": "Görsel yükle",

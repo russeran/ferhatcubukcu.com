@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { DM_Sans, Instrument_Serif } from "next/font/google";
+import { Inter, Syne } from "next/font/google";
 import "./globals.css";
 
-const display = Instrument_Serif({
+const display = Syne({
   subsets: ["latin", "latin-ext"],
-  weight: ["400"],
+  weight: ["500", "600", "700", "800"],
   variable: "--font-display",
 });
 
-const body = DM_Sans({
+const body = Inter({
   subsets: ["latin", "latin-ext"],
   weight: ["400", "500", "600"],
   variable: "--font-body",
