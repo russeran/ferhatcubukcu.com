@@ -1,3 +1,4 @@
+import { timingSafeEqual } from "crypto";
 import fs from "fs/promises";
 import path from "path";
 import bcrypt from "bcryptjs";
@@ -23,45 +24,37 @@ async function readPasswordHashFromDisk(): Promise<string | null> {
   return null;
 }
 
-async function bootstrapPasswordHashFromEnvPlain(): Promise<string> {
+function timingSafeStringEqual(a: string, b: string): boolean {
+  const bufA = Buffer.from(a, "utf8");
+  const bufB = Buffer.from(b, "utf8");
+  if (bufA.length !== bufB.length) return false;
+  return timingSafeEqual(bufA, bufB);
+}
+
+/**
+ * 1) ADMIN_PASSWORD_HASH (bcrypt) if set
+ * 2) data/auth.json bcrypt hash if present (legacy / password change)
+ * 3) ADMIN_PASSWORD plain text from env (timing-safe compare; works on Vercel without disk)
+ */
+export async function verifyPassword(password: string): Promise<boolean> {
+  const envHash = process.env.ADMIN_PASSWORD_HASH?.trim();
+  if (envHash) {
+    return bcrypt.compare(password, envHash);
+  }
+
+  const fromDisk = await readPasswordHashFromDisk();
+  if (fromDisk) {
+    return bcrypt.compare(password, fromDisk);
+  }
+
   const plain = process.env.ADMIN_PASSWORD;
   if (!plain || plain === "change-this-password") {
     throw new Error(
-      "Set ADMIN_PASSWORD (writable disk) or ADMIN_PASSWORD_HASH (any host). See README."
+      "Set ADMIN_PASSWORD in your environment (see README). Optional: ADMIN_PASSWORD_HASH or data/auth.json."
     );
   }
-  const passwordHash = await bcrypt.hash(plain, SALT_ROUNDS);
-  const auth = { passwordHash };
-  try {
-    await fs.mkdir(getDataDir(), { recursive: true });
-    await fs.writeFile(
-      path.join(getDataDir(), "auth.json"),
-      JSON.stringify(auth, null, 2),
-      "utf-8"
-    );
-  } catch (err) {
-    const detail = err instanceof Error ? err.message : String(err);
-    throw new Error(
-      `Cannot write data/auth.json (${detail}). On Vercel set ADMIN_PASSWORD_HASH (bcrypt). Run: npm run hash-admin-password -- "YourPassword" and paste the hash into env.`
-    );
-  }
-  return passwordHash;
-}
 
-/** Prefer ADMIN_PASSWORD_HASH on serverless; else data/auth.json; else bootstrap from ADMIN_PASSWORD. */
-async function resolvePasswordHash(): Promise<string> {
-  const envHash = process.env.ADMIN_PASSWORD_HASH?.trim();
-  if (envHash) return envHash;
-
-  const fromDisk = await readPasswordHashFromDisk();
-  if (fromDisk) return fromDisk;
-
-  return bootstrapPasswordHashFromEnvPlain();
-}
-
-export async function verifyPassword(password: string): Promise<boolean> {
-  const hash = await resolvePasswordHash();
-  return bcrypt.compare(password, hash);
+  return timingSafeStringEqual(password, plain);
 }
 
 export async function changeAdminPassword(newPlain: string): Promise<void> {
