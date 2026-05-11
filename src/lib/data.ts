@@ -2,6 +2,7 @@ import type { Artwork, SiteSettings } from "@/lib/types";
 import fs from "fs/promises";
 import path from "path";
 import { getDataDir } from "@/lib/auth";
+import { getRedis, redisKeys } from "@/lib/kv";
 
 const SETTINGS_FILE = "settings.json";
 const ARTWORKS_FILE = "artworks.json";
@@ -35,7 +36,29 @@ function slugify(input: string): string {
     .slice(0, 80);
 }
 
+function parseRedisJson<T>(raw: unknown): T | null {
+  if (raw == null) return null;
+  if (typeof raw === "string") {
+    try {
+      return JSON.parse(raw) as T;
+    } catch {
+      return null;
+    }
+  }
+  return raw as T;
+}
+
 export async function readSettings(): Promise<SiteSettings> {
+  const redis = getRedis();
+  if (redis) {
+    const raw = await redis.get(redisKeys().settings);
+    const parsed = parseRedisJson<Partial<SiteSettings>>(raw);
+    if (parsed) {
+      return { ...defaultSettings, ...parsed };
+    }
+    return { ...defaultSettings };
+  }
+
   const file = path.join(getDataDir(), SETTINGS_FILE);
   try {
     const raw = await fs.readFile(file, "utf-8");
@@ -64,6 +87,12 @@ export async function writeSettings(
 ): Promise<SiteSettings> {
   const current = await readSettings();
   const next = { ...current, ...partial };
+  const redis = getRedis();
+  if (redis) {
+    await redis.set(redisKeys().settings, JSON.stringify(next));
+    return next;
+  }
+
   await fs.mkdir(getDataDir(), { recursive: true });
   await fs.writeFile(
     path.join(getDataDir(), SETTINGS_FILE),
@@ -133,6 +162,16 @@ function defaultSeedArtworks(): Artwork[] {
 }
 
 export async function readArtworks(): Promise<Artwork[]> {
+  const redis = getRedis();
+  if (redis) {
+    const raw = await redis.get(redisKeys().artworks);
+    const parsed = parseRedisJson<Artwork[]>(raw);
+    if (parsed && Array.isArray(parsed)) {
+      return parsed;
+    }
+    return defaultSeedArtworks();
+  }
+
   const file = path.join(getDataDir(), ARTWORKS_FILE);
   try {
     const raw = await fs.readFile(file, "utf-8");
@@ -154,6 +193,12 @@ export async function readArtworks(): Promise<Artwork[]> {
 }
 
 export async function writeArtworks(list: Artwork[]): Promise<void> {
+  const redis = getRedis();
+  if (redis) {
+    await redis.set(redisKeys().artworks, JSON.stringify(list));
+    return;
+  }
+
   await fs.mkdir(getDataDir(), { recursive: true });
   await fs.writeFile(
     path.join(getDataDir(), ARTWORKS_FILE),

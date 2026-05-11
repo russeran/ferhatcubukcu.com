@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { writeFile, mkdir } from "fs/promises";
 import path from "path";
 import { randomUUID } from "crypto";
+import { hasBlobUpload, uploadImageBlob } from "@/lib/blob-upload";
 import { diskWriteErrorMessage } from "@/lib/disk-write-error";
 import { getSessionFromCookies } from "@/lib/auth";
 
@@ -33,13 +34,28 @@ export async function POST(req: Request) {
           ? "webp"
           : "gif";
   const name = `${randomUUID()}.${ext}`;
+
+  if (hasBlobUpload()) {
+    try {
+      const url = await uploadImageBlob(name, buf, file.type);
+      return NextResponse.json({ url });
+    } catch (e) {
+      return NextResponse.json(
+        { error: diskWriteErrorMessage(e) },
+        { status: 503 }
+      );
+    }
+  }
+
   const dir = path.join(process.cwd(), "public", "uploads");
   try {
     await mkdir(dir, { recursive: true });
     await writeFile(path.join(dir, name), buf);
   } catch (e) {
     return NextResponse.json(
-      { error: diskWriteErrorMessage(e) },
+      {
+        error: `${diskWriteErrorMessage(e)} Or link Vercel Blob and set BLOB_READ_WRITE_TOKEN.`,
+      },
       { status: 503 }
     );
   }

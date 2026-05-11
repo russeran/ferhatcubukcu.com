@@ -40,7 +40,9 @@ The **`message`** field in a **400** response from `POST /api/auth/login` explai
 
 - Technical SEO included: **`/sitemap.xml`**, **`/robots.txt`** (blocks `/api/` and admin), per-page **title/description**, **hreflang** alternates (`en` / `tr`), **Open Graph / Twitter** cards, **JSON-LD** `Person` on the home page, and meaningful **hero `alt`** text.
 - After launch, add the property in **[Google Search Console](https://search.google.com/search-console)** and submit `https://your-domain/sitemap.xml`.
-- Runtime data is stored under `data/` (JSON) and uploads under `public/uploads/`. **Serverless hosts do not persist `data/`** between invocations unless you add storage; admin login with **`ADMIN_PASSWORD` alone still works** because it lives only in environment variables.
+- Set **`NEXT_PUBLIC_SITE_URL`** to your canonical origin (e.g. `https://ferhatcubukcu.com`) on Vercel so `metadataBase`, the sitemap, and social preview URLs use the custom domain instead of the default `*.vercel.app` host.
+- **Persisting admin changes on Vercel**: the server filesystem is read-only. Configure **Upstash Redis** (project → Storage → Redis) so **`UPSTASH_REDIS_REST_URL`** and **`UPSTASH_REDIS_REST_TOKEN`** are set — the app then stores `artworks` and `settings` there instead of `data/*.json`. For **image uploads**, add **Vercel Blob** and set **`BLOB_READ_WRITE_TOKEN`**. Without Redis, paintings/settings only live in memory per request; without Blob, uploads fall back to `public/uploads/` (which will fail on Vercel unless you use another host).
+- Locally, **`data/`** and **`public/uploads/`** still work when Redis/Blob env vars are unset.
 - Use a strong `ADMIN_PASSWORD` and `AUTH_SECRET` in production. Plain env passwords are acceptable for a small private admin panel; use `ADMIN_PASSWORD_HASH` if you prefer the password not stored in plain form in the host UI.
 
 ## License
