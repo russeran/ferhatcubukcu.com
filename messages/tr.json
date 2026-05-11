@@ -15,11 +15,13 @@
     "studio": "Ressam · İstanbul",
     "statementLead": "Fibonacci dizisinin altın orana yaklaşımından doğan sarmallar, figür ve kompozisyonlara işlenir — çoğunlukla 80×100 cm ve üzeri tuval üzerine yağlıboya.",
     "featuredTitle": "Seçili resimler",
-    "featuredSubtitle": "Yayınlanan tüm eserler için galeriye göz atın."
+    "featuredSubtitle": "Yayınlanan tüm eserler için galeriye göz atın.",
+    "heroAlt": "Ferhat Çubukçu — yağlıboya, İstanbul atölyesi"
   },
   "gallery": {
     "title": "Galeri",
     "eyebrow": "Tuval üzerine yağlıboya",
+    "seoDescription": "Ferhat Çubukçu’nun yağlıboya galerisi — Fibonacci, altın oran ve figüratif kompozisyon üzerine İstanbul merkezli ressam.",
     "empty": "Yönetim panelinden eser eklendiğinde burada görünecektir.",
     "detail": "Detay",
     "year": "Yıl",
@@ -27,10 +29,12 @@
     "dimensions": "Ölçü"
   },
   "about": {
-    "title": "Hakkında"
+    "title": "Hakkında",
+    "seoDescription": "Biyografi ve atölye pratiği — tuval üzerine yağlıboya, kompozisyonda Fibonacci ve altın oran, Türkiye’deki sergiler."
   },
   "contact": {
     "title": "İletişim",
+    "seoDescription": "Ferhat Çubukçu ile sipariş, sergi ve atölye ziyaretleri için iletişim — İstanbul ressamı. Portföy Behance’te.",
     "email": "E-posta",
     "instagram": "Instagram",
     "behance": "Behance",

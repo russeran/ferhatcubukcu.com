@@ -1,9 +1,47 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
+import { HomeJsonLd } from "@/components/HomeJsonLd";
+import { localeAlternates } from "@/lib/seo-helpers";
+import { absoluteUrl } from "@/lib/site-url";
 import { readArtworks, readSettings } from "@/lib/data";
 
 type Props = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({
+  params,
+}: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const messages = (await import(`../../../messages/${locale}.json`)).default;
+  const settings = await readSettings();
+  const title = messages.meta.title as string;
+  const description = messages.meta.description as string;
+  const hero = settings.heroImage || "/hero-placeholder.svg";
+  const ogImage = hero.startsWith("http")
+    ? hero
+    : absoluteUrl(hero.startsWith("/") ? hero : `/${hero}`);
+  return {
+    title: { absolute: title },
+    description,
+    alternates: localeAlternates("", locale),
+    openGraph: {
+      title,
+      description,
+      url: absoluteUrl(`/${locale}`),
+      siteName: "Ferhat Çubukçu",
+      locale: locale === "tr" ? "tr_TR" : "en_US",
+      type: "website",
+      images: [{ url: ogImage, alt: messages.home.heroAlt as string }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [ogImage],
+    },
+  };
+}
 
 export default async function HomePage({ params }: Props) {
   const { locale } = await params;
@@ -19,6 +57,7 @@ export default async function HomePage({ params }: Props) {
 
   return (
     <>
+      <HomeJsonLd locale={locale} settings={settings} />
       <section className="relative overflow-hidden border-b border-umber/10">
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/40 to-transparent" />
         <div className="relative mx-auto grid max-w-6xl gap-12 px-5 py-16 md:grid-cols-2 md:items-center md:gap-16 md:py-28">
@@ -51,7 +90,7 @@ export default async function HomePage({ params }: Props) {
           <div className="relative aspect-[4/3] w-full animate-fade-up overflow-hidden rounded-lg bg-parchment-dark shadow-[0_28px_90px_-28px_rgba(60,20,25,0.45)] ring-1 ring-umber/15 md:aspect-[5/4]">
             <Image
               src={settings.heroImage || "/hero-placeholder.svg"}
-              alt=""
+              alt={t("heroAlt")}
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 50vw"

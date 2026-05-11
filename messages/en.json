@@ -15,11 +15,13 @@
     "studio": "Painter · İstanbul",
     "statementLead": "Spirals drawn from Fibonacci’s approach to the golden ratio, woven through figures and compositions — oil on canvas, often at 80×100 cm and beyond.",
     "featuredTitle": "Selected paintings",
-    "featuredSubtitle": "Browse the full gallery for every published piece."
+    "featuredSubtitle": "Browse the full gallery for every published piece.",
+    "heroAlt": "Ferhat Çubukçu — oil painting, İstanbul studio"
   },
   "gallery": {
     "title": "Gallery",
     "eyebrow": "Oil on canvas",
+    "seoDescription": "Gallery of oil paintings by Ferhat Çubukçu — İstanbul artist working with Fibonacci, golden ratio, and figurative composition.",
     "empty": "Works will appear here once you add them in the admin panel.",
     "detail": "Details",
     "year": "Year",
@@ -27,10 +29,12 @@
     "dimensions": "Dimensions"
   },
   "about": {
-    "title": "About"
+    "title": "About",
+    "seoDescription": "Biography and studio practice — oil on canvas, Fibonacci and golden ratio in composition, exhibitions in Türkiye."
   },
   "contact": {
     "title": "Contact",
+    "seoDescription": "Contact Ferhat Çubukçu for commissions, exhibitions, and studio visits — İstanbul painter. Portfolio on Behance.",
     "email": "Email",
     "instagram": "Instagram",
     "behance": "Behance",

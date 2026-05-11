@@ -1,12 +1,57 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
+import { localeAlternates, seoTruncate } from "@/lib/seo-helpers";
+import { absoluteUrl } from "@/lib/site-url";
 import { readArtworks } from "@/lib/data";
 
 type Props = {
   params: Promise<{ locale: string; slug: string }>;
 };
+
+export async function generateMetadata({
+  params,
+}: Props): Promise<Metadata> {
+  const { locale, slug } = await params;
+  const list = await readArtworks();
+  const artwork = list.find((a) => a.slug === slug && a.published);
+  if (!artwork) {
+    return { title: "Gallery" };
+  }
+
+  const title = locale === "tr" ? artwork.titleTr : artwork.titleEn;
+  const rawDesc =
+    locale === "tr" ? artwork.descriptionTr : artwork.descriptionEn;
+  const description = seoTruncate(rawDesc || title);
+
+  const imageUrl = artwork.image.startsWith("http")
+    ? artwork.image
+    : absoluteUrl(
+        artwork.image.startsWith("/") ? artwork.image : `/${artwork.image}`
+      );
+
+  return {
+    title,
+    description,
+    alternates: localeAlternates(`/gallery/${slug}`, locale),
+    openGraph: {
+      title: `${title} · Ferhat Çubukçu`,
+      description,
+      url: absoluteUrl(`/${locale}/gallery/${slug}`),
+      siteName: "Ferhat Çubukçu",
+      type: "article",
+      images: [{ url: imageUrl, alt: title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} · Ferhat Çubukçu`,
+      description,
+      images: [imageUrl],
+    },
+  };
+}
 
 export async function generateStaticParams() {
   const artworks = await readArtworks();

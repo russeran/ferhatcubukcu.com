@@ -1,9 +1,38 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
+import { localeAlternates } from "@/lib/seo-helpers";
+import { absoluteUrl } from "@/lib/site-url";
 import { readArtworks } from "@/lib/data";
 
 type Props = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({
+  params,
+}: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const messages = (await import(`../../../../messages/${locale}.json`)).default;
+  const title = messages.nav.gallery as string;
+  const description = messages.gallery.seoDescription as string;
+  return {
+    title,
+    description,
+    alternates: localeAlternates("/gallery", locale),
+    openGraph: {
+      title: `${title} · Ferhat Çubukçu`,
+      description,
+      url: absoluteUrl(`/${locale}/gallery`),
+      siteName: "Ferhat Çubukçu",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} · Ferhat Çubukçu`,
+      description,
+    },
+  };
+}
 
 export default async function GalleryPage({ params }: Props) {
   const { locale } = await params;

@@ -38,6 +38,8 @@ The **`message`** field in a **400** response from `POST /api/auth/login` explai
 
 ## Deployment notes
 
+- Technical SEO included: **`/sitemap.xml`**, **`/robots.txt`** (blocks `/api/` and admin), per-page **title/description**, **hreflang** alternates (`en` / `tr`), **Open Graph / Twitter** cards, **JSON-LD** `Person` on the home page, and meaningful **hero `alt`** text.
+- After launch, add the property in **[Google Search Console](https://search.google.com/search-console)** and submit `https://your-domain/sitemap.xml`.
 - Runtime data is stored under `data/` (JSON) and uploads under `public/uploads/`. **Serverless hosts do not persist `data/`** between invocations unless you add storage; admin login with **`ADMIN_PASSWORD` alone still works** because it lives only in environment variables.
 - Use a strong `ADMIN_PASSWORD` and `AUTH_SECRET` in production. Plain env passwords are acceptable for a small private admin panel; use `ADMIN_PASSWORD_HASH` if you prefer the password not stored in plain form in the host UI.
 
