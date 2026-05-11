@@ -2,7 +2,7 @@
 export function diskWriteErrorMessage(err: unknown): string {
   const m = err instanceof Error ? err.message : String(err);
   if (/EROFS|EPERM|EACCES|read-only|ENOTSUP/i.test(m)) {
-    return "Could not write local files — filesystem is read-only (typical on Vercel). Add Upstash Redis (UPSTASH_REDIS_REST_URL + UPSTASH_REDIS_REST_TOKEN) for paintings/settings, and Vercel Blob (BLOB_READ_WRITE_TOKEN) for image uploads. See README.";
+    return "Could not write local files — filesystem is read-only (typical on Vercel). Free options: Supabase (SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY + SQL table portfolio_kv; see README), Upstash Redis free tier, or Vercel Blob for uploads only.";
   }
   return m;
 }

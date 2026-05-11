@@ -10,6 +10,7 @@
     "hash-admin-password": "node scripts/hash-admin-password.mjs"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.49.1",
     "@upstash/redis": "^1.34.3",
     "@vercel/blob": "^0.27.1",
     "bcryptjs": "^2.4.3",

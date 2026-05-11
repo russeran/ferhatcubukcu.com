@@ -3,6 +3,11 @@ import fs from "fs/promises";
 import path from "path";
 import { getDataDir } from "@/lib/auth";
 import { getRedis, redisKeys } from "@/lib/kv";
+import {
+  getSupabaseAdmin,
+  supabaseGetJson,
+  supabaseSetJson,
+} from "@/lib/supabase-store";
 
 const SETTINGS_FILE = "settings.json";
 const ARTWORKS_FILE = "artworks.json";
@@ -49,6 +54,14 @@ function parseRedisJson<T>(raw: unknown): T | null {
 }
 
 export async function readSettings(): Promise<SiteSettings> {
+  if (getSupabaseAdmin()) {
+    const v = await supabaseGetJson("settings");
+    if (v && typeof v === "object" && !Array.isArray(v)) {
+      return { ...defaultSettings, ...(v as Partial<SiteSettings>) };
+    }
+    return { ...defaultSettings };
+  }
+
   const redis = getRedis();
   if (redis) {
     const raw = await redis.get(redisKeys().settings);
@@ -87,6 +100,11 @@ export async function writeSettings(
 ): Promise<SiteSettings> {
   const current = await readSettings();
   const next = { ...current, ...partial };
+  if (getSupabaseAdmin()) {
+    await supabaseSetJson("settings", next);
+    return next;
+  }
+
   const redis = getRedis();
   if (redis) {
     await redis.set(redisKeys().settings, JSON.stringify(next));
@@ -162,6 +180,14 @@ function defaultSeedArtworks(): Artwork[] {
 }
 
 export async function readArtworks(): Promise<Artwork[]> {
+  if (getSupabaseAdmin()) {
+    const v = await supabaseGetJson("artworks");
+    if (Array.isArray(v)) {
+      return v as Artwork[];
+    }
+    return defaultSeedArtworks();
+  }
+
   const redis = getRedis();
   if (redis) {
     const raw = await redis.get(redisKeys().artworks);
@@ -193,6 +219,11 @@ export async function readArtworks(): Promise<Artwork[]> {
 }
 
 export async function writeArtworks(list: Artwork[]): Promise<void> {
+  if (getSupabaseAdmin()) {
+    await supabaseSetJson("artworks", list);
+    return;
+  }
+
   const redis = getRedis();
   if (redis) {
     await redis.set(redisKeys().artworks, JSON.stringify(list));
