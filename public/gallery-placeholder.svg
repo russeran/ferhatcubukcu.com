@@ -1,16 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" role="img" aria-label="">
-  <rect width="800" height="1000" fill="#f6f6f4"/>
-  <g stroke="#18181b" stroke-opacity="0.08" stroke-width="1">
-    <line x1="0" y1="0" x2="800" y2="1000"/>
-    <line x1="800" y1="0" x2="0" y2="1000"/>
-  </g>
-  <rect x="80" y="120" width="640" height="640" fill="#ffffff" stroke="#e4e4e7" stroke-width="1"/>
-  <rect x="120" y="180" width="200" height="24" fill="#18181b" opacity="0.85"/>
-  <rect x="120" y="230" width="320" height="14" fill="#64748b" opacity="0.45"/>
-  <rect x="120" y="260" width="240" height="14" fill="#64748b" opacity="0.3"/>
-  <rect x="120" y="360" width="560" height="4" fill="#2563eb" opacity="0.7"/>
-  <circle cx="400" cy="520" r="120" fill="none" stroke="#06b6d4" stroke-width="3" opacity="0.5"/>
-  <rect x="120" y="720" width="160" height="160" fill="#2563eb" opacity="0.15"/>
-  <rect x="320" y="720" width="160" height="160" fill="#06b6d4" opacity="0.2"/>
-  <rect x="520" y="720" width="160" height="160" fill="#18181b" opacity="0.08"/>
+  <rect width="800" height="1000" fill="#f3efe8"/>
+  <path fill="none" stroke="#9b2335" stroke-opacity="0.14" stroke-width="1.5" d="M80 880 C 200 320, 600 320, 720 880"/>
+  <rect x="120" y="140" width="560" height="560" fill="#faf7f2" stroke="#e6dfd4" stroke-width="1"/>
+  <path fill="none" stroke="#c6a04f" stroke-opacity="0.5" stroke-width="1" d="M400 200v520M200 400h400"/>
+  <ellipse cx="400" cy="420" rx="140" ry="78" fill="none" stroke="#1f1b16" stroke-opacity="0.1"/>
+  <rect x="180" y="760" width="440" height="6" fill="#9b2335" opacity="0.45"/>
 </svg>

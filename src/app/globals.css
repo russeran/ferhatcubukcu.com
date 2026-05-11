@@ -8,14 +8,14 @@
 
 body {
   @apply bg-parchment text-umber-deep antialiased;
-  background-image: theme(backgroundImage.site-grid);
-  background-size: 28px 28px;
+  background-image: theme(backgroundImage.fibonacci-hint),
+    theme(backgroundImage.grain-fine);
 }
 
 ::selection {
-  @apply bg-oxide/15 text-umber-deep;
+  @apply bg-goldleaf/25 text-umber-deep;
 }
 
 .focus-ring {
-  @apply outline-none ring-2 ring-oxide/35 ring-offset-2 ring-offset-parchment;
+  @apply outline-none ring-2 ring-oxide/30 ring-offset-2 ring-offset-parchment;
 }

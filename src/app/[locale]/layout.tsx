@@ -42,7 +42,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   return (
     <NextIntlClientProvider messages={messages}>
       <LocaleHtml />
-      <SiteChrome>{children}</SiteChrome>
+      <SiteChrome locale={locale}>{children}</SiteChrome>
     </NextIntlClientProvider>
   );
 }

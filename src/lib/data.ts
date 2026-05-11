@@ -8,17 +8,21 @@ const ARTWORKS_FILE = "artworks.json";
 
 const defaultSettings: SiteSettings = {
   artistName: "Ferhat Çubukçu",
-  taglineEn: "Digital & graphic design — identity, editorial, campaigns",
-  taglineTr: "Dijital ve grafik tasarım — kimlik, editoryal, kampanyalar",
+  taglineEn: "Oil on canvas — İstanbul · Fibonacci and the golden ratio in composition",
+  taglineTr:
+    "Tuval üzerine yağlıboya — İstanbul · kompozisyonda Fibonacci ve altın oran",
   bioEn:
-    "Ferhat Çubukçu is a freelance digital designer based in İstanbul, working with brands on visual systems, layout, and campaign-ready artwork. His background spans retail, automotive, and airport environments — contexts where clear hierarchy and calm typography matter. He combines structured grids with a restrained palette so each project reads quickly and holds up in print and on screen.\n\nPublic profiles list long-term freelance graphic design practice alongside studies in business administration; this site is a curated selection of portfolio-style pieces. Replace this text anytime from the admin settings.",
+    "Ferhat Çubukçu (b. 4 March 1990, Bursa) is a painter based in İstanbul, Türkiye. He studied automotive technologies at Yüzüncü Yıl University and has painted for more than two decades, continuing training after high school at the Ertuğrul Topsakal Art Workshop. His practice centres on oil on canvas, often at 80×100 cm and larger formats.\n\nOn his Behance profile he describes his approach as growing from the spiral implied by the Fibonacci sequence’s approach to the golden ratio: spirals are woven into overall compositions and figures, with Fibonacci intervals considered on and between forms. He has shown in group exhibitions in Bursa, Van, and İstanbul, among others. More paintings, process, and exhibition notes appear on Behance and Instagram — replace this text anytime from the admin panel.",
   bioTr:
-    "Ferhat Çubukçu, İstanbul merkezli serbest dijital tasarımcıdır; markalarla görsel sistemler, yerleşim ve kampanyaya hazır görseller üzerinde çalışır. Perakende, otomotiv ve havalimanı gibi ortamlardan gelen deneyimi, net hiyerarşi ve sakin tipografinin önemli olduğu işlere taşır. Izgara ve sınırlı bir paletle, projelerin hem baskıda hem ekranda hızlı okunmasını hedefler.\n\nKamu profillerinde uzun süreli grafik tasarım serbest çalışması ve işletme lisansı eğitimi yer alır; bu site seçilmiş portföy örneklerini sunar. Metni yönetim panelinden dilediğiniz zaman güncelleyebilirsiniz.",
+    "Ferhat Çubukçu (4 Mart 1990, Bursa doğumlu) İstanbul merkezli bir ressamdır. Yüzüncü Yıl Üniversitesi’nde otomotiv teknolojileri okumuş, yirmi yılı aşkın süredir resim yapmaktadır; liseden sonra Ertuğrul Topsakal Sanat Atölyesi’nde çalışmalarını sürdürmüştür. Pratiği ağırlıklı olarak tuval üzerine yağlıboya ve sıkça 80×100 cm ile daha büyük ölçülerdedir.\n\nBehance profilinde yaklaşımını, Fibonacci dizisinin altın orana yaklaşımından doğan sarmal biçimden beslendiğini; bu sarmalların genel kompozisyon ve figürlere entegre edildiğini ve figürler üzerinde ve aralarında Fibonacci ölçülerinin dikkate alındığını anlatır. Bursa, Van ve İstanbul başta olmak üzere karma sergilerde yer almıştır. Daha çok eser ve sergi notları Behance ve Instagram’da — metni yönetim panelinden dilediğiniz zaman güncelleyebilirsiniz.",
   heroImage: "/hero-placeholder.svg",
-  contactEmail: "hello@ferhatcubukcu.com",
+  contactEmail: "studio@ferhatcubukcu.com",
   instagram: "https://www.instagram.com/ferhatcubukcu/",
-  studioNoteEn: "Response time is usually within a few business days.",
-  studioNoteTr: "Dönüş süresi genelde birkaç iş günü içindedir.",
+  behance: "https://www.behance.net/ferhat_cubukcu",
+  studioNoteEn:
+    "For availability, commissions, or exhibition proposals, please write. Full portfolio and project views: Behance.",
+  studioNoteTr:
+    "Müsaitlik, sipariş veya sergi önerileri için yazabilirsiniz. Tam portföy ve proje görünümleri: Behance.",
 };
 
 function slugify(input: string): string {
@@ -70,54 +74,54 @@ export async function readArtworks(): Promise<Artwork[]> {
     const seed: Artwork[] = [
       {
         id: "seed-1",
-        slug: "identity-grid-study",
-        titleEn: "Identity grid study",
-        titleTr: "Kimlik ızgara çalışması",
+        slug: "istanbul-in-depth",
+        titleEn: "İstanbul in depth",
+        titleTr: "İstanbul in depth",
         descriptionEn:
-          "Modular logo lockups, spacing rhythm, and typographic scale for a fictitious studio mark — built to stress-test clarity at small sizes.",
+          "A series exploring the city’s layers — architecture, light, and crowd rhythms rendered in oil with Fibonacci-guided structure in the composition.",
         descriptionTr:
-          "Hayali bir stüdyo işareti için modüler logo yerleşimi, aralık ritmi ve tipografik ölçek — küçük boyutlarda okunabilirliği test etmek için.",
+          "Şehrin katmanlarını araştıran bir seri — mimari, ışık ve kalabalık ritimleri; kompozisyonda Fibonacci rehberli yapıyla yağlıboya.",
         image: "/gallery-placeholder.svg",
         year: "2024",
-        mediumEn: "Brand guidelines · digital PDF",
-        mediumTr: "Marka kılavuzu · dijital PDF",
-        dimensions: "Full system",
+        mediumEn: "Oil on canvas",
+        mediumTr: "Tuval üzerine yağlıboya",
+        dimensions: "Various",
         order: 0,
         published: true,
         createdAt: new Date().toISOString(),
       },
       {
         id: "seed-2",
-        slug: "editorial-spread",
-        titleEn: "Editorial spread",
-        titleTr: "Editoryal yayın sayfası",
+        slug: "red-hagia-sophia",
+        titleEn: "Red Ayasofya (Hagia Sophia)",
+        titleTr: "Kırmızı Ayasofya",
         descriptionEn:
-          "Two-column magazine rhythm with oversized numerals and restrained photography crops — print-first hierarchy translated to web mockups.",
+          "80×100 cm — a saturated red reading of Hagia Sophia’s mass and dome silhouette, where spiral geometry underpins the placement of masses and voids.",
         descriptionTr:
-          "Büyük rakamlar ve sakin fotoğraf kırpımlarıyla iki sütunlu dergi ritmi — baskı öncelikli hiyerarşinin web maketlerine aktarımı.",
+          "80×100 cm — Ayasofya kütle ve kubbe siluetinin doygun kırmızı bir yorumu; kütle ve boşlukların yerleşiminde sarmal geometri.",
         image: "/gallery-placeholder.svg",
-        year: "2025",
-        mediumEn: "InDesign · Figma",
-        mediumTr: "InDesign · Figma",
-        dimensions: "Spread + digital",
+        year: "2023",
+        mediumEn: "Oil on canvas",
+        mediumTr: "Tuval üzerine yağlıboya",
+        dimensions: "80 × 100 cm",
         order: 1,
         published: true,
         createdAt: new Date().toISOString(),
       },
       {
         id: "seed-3",
-        slug: "campaign-key-visual",
-        titleEn: "Campaign key visual",
-        titleTr: "Kampanya ana görseli",
+        slug: "invisible-faces-2",
+        titleEn: "Invisible faces II",
+        titleTr: "Görünmez yüzler II",
         descriptionEn:
-          "Hero composition for a launch narrative: bold type, single accent, and negative space tuned for social crops and out-of-home ratios.",
+          "80×100 cm — figures on the edge of recognition; Fibonacci intervals measured between facial landmarks and the painting’s outer spiral tension.",
         descriptionTr:
-          "Lansman anlatısı için ana kompozisyon: cesur tipografi, tek vurgu rengi ve sosyal kırpımlar ile dış mekân oranları için ayarlanmış negatif alan.",
+          "80×100 cm — tanınmanın eşiğinde figürler; yüz işaretleri ile tablonun dış sarmal gerilimi arasında Fibonacci aralıkları.",
         image: "/gallery-placeholder.svg",
         year: "2025",
-        mediumEn: "Photoshop · motion stills",
-        mediumTr: "Photoshop · hareketli kare",
-        dimensions: "Multi-ratio kit",
+        mediumEn: "Oil on canvas",
+        mediumTr: "Tuval üzerine yağlıboya",
+        dimensions: "80 × 100 cm",
         order: 2,
         published: true,
         createdAt: new Date().toISOString(),

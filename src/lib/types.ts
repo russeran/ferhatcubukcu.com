@@ -24,6 +24,8 @@ export type SiteSettings = {
   heroImage?: string;
   contactEmail: string;
   instagram?: string;
+  /** Full URL to Behance profile */
+  behance?: string;
   studioNoteEn?: string;
   studioNoteTr?: string;
 };

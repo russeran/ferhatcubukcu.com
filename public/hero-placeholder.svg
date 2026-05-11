@@ -1,22 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="">
   <defs>
-    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#f6f6f4"/>
-      <stop offset="50%" stop-color="#e8e8e4"/>
-      <stop offset="100%" stop-color="#dbeafe"/>
+    <linearGradient id="sky" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e8dfd4"/>
+      <stop offset="55%" stop-color="#f3efe8"/>
+      <stop offset="100%" stop-color="#d4c4b8"/>
     </linearGradient>
   </defs>
-  <rect width="1600" height="900" fill="url(#g)"/>
-  <g fill="none" stroke="#18181b" stroke-opacity="0.12" stroke-width="1">
-    <path d="M0 0l1600 900M1600 0L0 900"/>
-  </g>
-  <g opacity="0.9">
-    <rect x="120" y="120" width="420" height="64" fill="#18181b"/>
-    <rect x="120" y="220" width="280" height="20" fill="#64748b" opacity="0.5"/>
-    <rect x="120" y="260" width="200" height="20" fill="#64748b" opacity="0.35"/>
-    <rect x="120" y="380" width="520" height="8" fill="#2563eb"/>
-    <rect x="120" y="420" width="360" height="240" fill="#18181b" opacity="0.06" stroke="#18181b" stroke-opacity="0.15"/>
-    <rect x="520" y="420" width="240" height="110" fill="#06b6d4" opacity="0.35"/>
-    <rect x="520" y="550" width="240" height="110" fill="#2563eb" opacity="0.2"/>
-  </g>
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <path fill="none" stroke="#9b2335" stroke-opacity="0.18" stroke-width="2" d="M200 680 C 420 200, 1180 200, 1400 680"/>
+  <path fill="none" stroke="#c6a04f" stroke-opacity="0.35" stroke-width="1.5" d="M780 120 L780 780 M520 420 L1040 420"/>
+  <ellipse cx="800" cy="380" rx="220" ry="120" fill="none" stroke="#1f1b16" stroke-opacity="0.12" stroke-width="2"/>
+  <rect x="480" y="520" width="640" height="8" fill="#9b2335" opacity="0.55"/>
+  <rect x="620" y="560" width="360" height="4" fill="#c6a04f" opacity="0.7"/>
 </svg>

@@ -19,7 +19,7 @@ export default async function AdminDashboardPage({ params }: Props) {
             {t("dashboard")}
           </h1>
           <p className="mt-2 max-w-lg text-sm text-parchment/65">
-            Manage bilingual project entries, hero image path, and bio text.
+            Manage bilingual painting entries, hero image path, and biography.
             File uploads go to{" "}
             <code className="rounded bg-black/30 px-1.5 py-0.5 text-xs">
               /public/uploads
@@ -38,7 +38,7 @@ export default async function AdminDashboardPage({ params }: Props) {
           >
             <p className="font-serif text-xl text-goldleaf">{t("artworks")}</p>
             <p className="mt-2 text-sm text-parchment/60">
-              Images, EN/TR copy, slug, sort order, and publish toggle.
+              Images, EN/TR titles & descriptions, slug, sort order, publish.
             </p>
           </Link>
           <Link
@@ -47,7 +47,7 @@ export default async function AdminDashboardPage({ params }: Props) {
           >
             <p className="font-serif text-xl text-goldleaf">{t("settings")}</p>
             <p className="mt-2 text-sm text-parchment/60">
-              Taglines, bio, hero path, contact email, Instagram, notes.
+              Taglines, bio, hero path, email, Instagram, Behance, studio notes.
             </p>
           </Link>
         </div>

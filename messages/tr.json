@@ -1,28 +1,30 @@
 {
   "meta": {
-    "title": "Ferhat Çubukçu — Dijital tasarım",
-    "description": "Grafik ve dijital tasarım portföyü — kurumsal kimlik, editoryal ve kampanya çalışmaları. İstanbul."
+    "title": "Ferhat Çubukçu — Ressam",
+    "description": "İstanbul’dan çağdaş yağlıboya — Fibonacci, altın oran ve sergi çalışmaları. Tam portföy için Behance."
   },
   "nav": {
     "home": "Ana sayfa",
-    "gallery": "Çalışmalar",
+    "gallery": "Galeri",
     "about": "Hakkında",
     "contact": "İletişim",
     "admin": "Yönetim"
   },
   "home": {
-    "viewWork": "Projeleri gör",
-    "studio": "Dijital tasarım · İstanbul",
-    "statementLead": "Netlik, ızgara ve duruluk — gerçek markalar ve yoğun kitleler için kimlik sistemleri, editoryal yerleşimler ve kampanya görselleri."
+    "viewWork": "Tabloları gör",
+    "studio": "Ressam · İstanbul",
+    "statementLead": "Fibonacci dizisinin altın orana yaklaşımından doğan sarmallar, figür ve kompozisyonlara işlenir — çoğunlukla 80×100 cm ve üzeri tuval üzerine yağlıboya.",
+    "featuredTitle": "Seçili resimler",
+    "featuredSubtitle": "Yayınlanan tüm eserler için galeriye göz atın."
   },
   "gallery": {
-    "title": "Seçili işler",
-    "eyebrow": "Portföy",
-    "empty": "Yönetim panelinden proje eklendiğinde burada görünecektir.",
+    "title": "Galeri",
+    "eyebrow": "Tuval üzerine yağlıboya",
+    "empty": "Yönetim panelinden eser eklendiğinde burada görünecektir.",
     "detail": "Detay",
     "year": "Yıl",
-    "medium": "Format",
-    "dimensions": "Kapsam"
+    "medium": "Malzeme",
+    "dimensions": "Ölçü"
   },
   "about": {
     "title": "Hakkında"
@@ -31,12 +33,15 @@
     "title": "İletişim",
     "email": "E-posta",
     "instagram": "Instagram",
-    "studio": "İstanbul",
-    "reachOut": "Marka, kampanya veya editoryal iş birlikleri için yazabilirsiniz."
+    "behance": "Behance",
+    "behanceLink": "Behance’te resimler ve sergiler",
+    "studio": "Atölye · İstanbul",
+    "reachOut": "Sipariş, sergi veya atölye ziyareti için yazabilirsiniz. Daha çok iş ve özgeçmiş bağlamı Behance’te."
   },
   "footer": {
-    "rights": "© Ferhat Çubukçu. Gösterilen projeler portföy amaçlıdır; aksi belirtilmedikçe.",
-    "tagline": "Kimlik · editoryal · dijital"
+    "rights": "© Ferhat Çubukçu. Tüm eserler saklıdır; aksi belirtilmedikçe.",
+    "tagline": "Fibonacci · altın oran · yağlıboya",
+    "behanceCta": "Tam portföy Behance’te"
   },
   "admin": {
     "loginTitle": "Yönetici girişi",
@@ -44,9 +49,9 @@
     "signIn": "Giriş yap",
     "signOut": "Çıkış",
     "dashboard": "Panel",
-    "artworks": "Projeler",
+    "artworks": "Eserler",
     "settings": "Site ayarları",
-    "addArtwork": "Proje ekle",
+    "addArtwork": "Eser ekle",
     "save": "Kaydet",
     "delete": "Sil",
     "uploadImage": "Görsel yükle",

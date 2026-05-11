@@ -9,10 +9,12 @@ export default async function ContactPage({ params }: Props) {
   const settings = await readSettings();
   const note =
     locale === "tr" ? settings.studioNoteTr : settings.studioNoteEn;
+  const behanceUrl =
+    settings.behance?.trim() || "https://www.behance.net/ferhat_cubukcu";
 
   return (
     <div className="mx-auto max-w-3xl px-5 py-14 md:py-24">
-      <p className="font-mono text-[11px] uppercase tracking-[0.35em] text-patina">
+      <p className="font-serif text-[11px] uppercase tracking-[0.38em] text-patina">
         {t("studio")}
       </p>
       <h1 className="mt-4 font-serif text-4xl font-semibold tracking-tight text-umber-deep md:text-5xl">
@@ -50,13 +52,28 @@ export default async function ContactPage({ params }: Props) {
                 }
                 target="_blank"
                 rel="noreferrer"
-                className="text-lg text-patina hover:text-patina-light underline-offset-4 hover:underline"
+                className="text-lg text-patina hover:text-oxide underline-offset-4 hover:underline"
               >
                 {settings.instagram}
               </a>
             </dd>
           </div>
         ) : null}
+        <div>
+          <dt className="text-xs uppercase tracking-[0.25em] text-umber/45">
+            {t("behance")}
+          </dt>
+          <dd className="mt-2">
+            <a
+              href={behanceUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="text-lg font-medium text-oxide underline-offset-4 hover:underline"
+            >
+              {t("behanceLink")}
+            </a>
+          </dd>
+        </div>
       </dl>
     </div>
   );

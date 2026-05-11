@@ -19,7 +19,7 @@ export default async function AdminLoginPage({ params }: Props) {
         {t("loginTitle")}
       </h1>
       <p className="mt-3 max-w-md text-sm text-parchment/60">
-        Secure admin · bilingual projects & site copy
+        Secure admin · bilingual paintings & site copy
       </p>
       <div className="mt-10">
         <AdminLoginForm />

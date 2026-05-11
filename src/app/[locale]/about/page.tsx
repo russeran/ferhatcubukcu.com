@@ -11,7 +11,7 @@ export default async function AboutPage({ params }: Props) {
 
   return (
     <div className="mx-auto max-w-3xl px-5 py-14 md:py-24">
-      <p className="font-mono text-[11px] uppercase tracking-[0.35em] text-patina">
+      <p className="font-serif text-[11px] uppercase tracking-[0.38em] text-patina">
         {locale === "tr" ? "Biyografi" : "Biography"}
       </p>
       <h1 className="mt-4 font-serif text-4xl font-semibold tracking-tight text-umber-deep md:text-5xl">

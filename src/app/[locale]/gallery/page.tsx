@@ -15,7 +15,7 @@ export default async function GalleryPage({ params }: Props) {
   return (
     <div className="mx-auto max-w-6xl px-5 py-14 md:py-20">
       <header className="mb-12 max-w-2xl">
-        <p className="font-mono text-[11px] uppercase tracking-[0.35em] text-patina">
+        <p className="font-serif text-[11px] uppercase tracking-[0.38em] text-patina">
           {t("eyebrow")}
         </p>
         <h1 className="mt-3 font-serif text-4xl font-semibold tracking-tight text-umber-deep md:text-5xl">
@@ -29,7 +29,7 @@ export default async function GalleryPage({ params }: Props) {
           {list.map((a) => (
             <li key={a.id}>
               <Link href={`/gallery/${a.slug}`} className="group block">
-                <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-white shadow-sm ring-1 ring-umber/10">
+                <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-parchment-dark shadow-sm ring-1 ring-umber/12">
                   <Image
                     src={a.image}
                     alt={locale === "tr" ? a.titleTr : a.titleEn}

@@ -1,28 +1,30 @@
 {
   "meta": {
-    "title": "Ferhat Çubukçu — Digital design",
-    "description": "Graphic and digital design portfolio — brand, editorial, and campaign work. İstanbul."
+    "title": "Ferhat Çubukçu — Painter",
+    "description": "Contemporary oil painting from İstanbul — Fibonacci, golden ratio, and exhibition work. See Behance for the full portfolio."
   },
   "nav": {
     "home": "Home",
-    "gallery": "Work",
+    "gallery": "Gallery",
     "about": "About",
     "contact": "Contact",
     "admin": "Admin"
   },
   "home": {
-    "viewWork": "View projects",
-    "studio": "Digital design · İstanbul",
-    "statementLead": "Clarity, grids, and restraint — identity systems, editorial layouts, and campaign visuals shaped for real brands and busy audiences."
+    "viewWork": "View paintings",
+    "studio": "Painter · İstanbul",
+    "statementLead": "Spirals drawn from Fibonacci’s approach to the golden ratio, woven through figures and compositions — oil on canvas, often at 80×100 cm and beyond.",
+    "featuredTitle": "Selected paintings",
+    "featuredSubtitle": "Browse the full gallery for every published piece."
   },
   "gallery": {
-    "title": "Selected work",
-    "eyebrow": "Portfolio",
-    "empty": "Projects will appear here once you add them in the admin panel.",
+    "title": "Gallery",
+    "eyebrow": "Oil on canvas",
+    "empty": "Works will appear here once you add them in the admin panel.",
     "detail": "Details",
     "year": "Year",
-    "medium": "Format",
-    "dimensions": "Scope"
+    "medium": "Medium",
+    "dimensions": "Dimensions"
   },
   "about": {
     "title": "About"
@@ -31,12 +33,15 @@
     "title": "Contact",
     "email": "Email",
     "instagram": "Instagram",
-    "studio": "Based in İstanbul",
-    "reachOut": "For brand, campaign, or editorial commissions, please get in touch."
+    "behance": "Behance",
+    "behanceLink": "Paintings & exhibitions on Behance",
+    "studio": "Studio · İstanbul",
+    "reachOut": "For commissions, exhibitions, or studio visits, please write. More work and CV context live on Behance."
   },
   "footer": {
-    "rights": "© Ferhat Çubukçu. All projects shown are for portfolio context unless credited otherwise.",
-    "tagline": "Identity · editorial · digital"
+    "rights": "© Ferhat Çubukçu. All works reserved unless noted.",
+    "tagline": "Fibonacci · golden ratio · oil",
+    "behanceCta": "Full portfolio on Behance"
   },
   "admin": {
     "loginTitle": "Admin sign-in",
@@ -44,9 +49,9 @@
     "signIn": "Sign in",
     "signOut": "Sign out",
     "dashboard": "Dashboard",
-    "artworks": "Projects",
+    "artworks": "Paintings",
     "settings": "Site settings",
-    "addArtwork": "Add project",
+    "addArtwork": "Add painting",
     "save": "Save",
     "delete": "Delete",
     "uploadImage": "Upload image",
