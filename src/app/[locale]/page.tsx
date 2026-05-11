@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
-import { Link } from "@/i18n/routing";
+import { Link } from "@/i18n/navigation";
 import { readArtworks, readSettings } from "@/lib/data";
 
 type Props = { params: Promise<{ locale: string }> };

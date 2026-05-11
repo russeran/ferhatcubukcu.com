@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { Link } from "@/i18n/routing";
+import { Link } from "@/i18n/navigation";
 import { readArtworks } from "@/lib/data";
 
 type Props = {

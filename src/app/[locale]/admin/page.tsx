@@ -1,7 +1,7 @@
 import { AdminNav } from "@/components/admin/AdminNav";
 import { AdminSignOut } from "@/components/admin/AdminSignOut";
 import { requireAdminSession } from "@/lib/admin-guard";
-import { Link } from "@/i18n/routing";
+import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 
 export default async function AdminDashboardPage() {
