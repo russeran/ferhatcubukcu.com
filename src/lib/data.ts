@@ -39,14 +39,22 @@ export async function readSettings(): Promise<SiteSettings> {
   const file = path.join(getDataDir(), SETTINGS_FILE);
   try {
     const raw = await fs.readFile(file, "utf-8");
-    return { ...defaultSettings, ...JSON.parse(raw) };
+    try {
+      return { ...defaultSettings, ...JSON.parse(raw) };
+    } catch {
+      return { ...defaultSettings };
+    }
   } catch {
-    await fs.mkdir(getDataDir(), { recursive: true });
-    await fs.writeFile(
-      file,
-      JSON.stringify(defaultSettings, null, 2),
-      "utf-8"
-    );
+    try {
+      await fs.mkdir(getDataDir(), { recursive: true });
+      await fs.writeFile(
+        file,
+        JSON.stringify(defaultSettings, null, 2),
+        "utf-8"
+      );
+    } catch {
+      /* e.g. serverless read-only FS — still serve defaults */
+    }
     return { ...defaultSettings };
   }
 }
@@ -65,13 +73,8 @@ export async function writeSettings(
   return next;
 }
 
-export async function readArtworks(): Promise<Artwork[]> {
-  const file = path.join(getDataDir(), ARTWORKS_FILE);
-  try {
-    const raw = await fs.readFile(file, "utf-8");
-    return JSON.parse(raw) as Artwork[];
-  } catch {
-    const seed: Artwork[] = [
+function defaultSeedArtworks(): Artwork[] {
+  return [
       {
         id: "seed-1",
         slug: "istanbul-in-depth",
@@ -127,8 +130,25 @@ export async function readArtworks(): Promise<Artwork[]> {
         createdAt: new Date().toISOString(),
       },
     ];
-    await fs.mkdir(getDataDir(), { recursive: true });
-    await fs.writeFile(file, JSON.stringify(seed, null, 2), "utf-8");
+}
+
+export async function readArtworks(): Promise<Artwork[]> {
+  const file = path.join(getDataDir(), ARTWORKS_FILE);
+  try {
+    const raw = await fs.readFile(file, "utf-8");
+    try {
+      return JSON.parse(raw) as Artwork[];
+    } catch {
+      return defaultSeedArtworks();
+    }
+  } catch {
+    const seed = defaultSeedArtworks();
+    try {
+      await fs.mkdir(getDataDir(), { recursive: true });
+      await fs.writeFile(file, JSON.stringify(seed, null, 2), "utf-8");
+    } catch {
+      /* e.g. serverless read-only FS — still serve seed list in memory */
+    }
     return seed;
   }
 }
