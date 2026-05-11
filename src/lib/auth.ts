@@ -4,37 +4,64 @@ import bcrypt from "bcryptjs";
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 
-const COOKIE = "fc_admin";
+export const ADMIN_SESSION_COOKIE = "fc_admin";
 const SALT_ROUNDS = 12;
 
 export function getDataDir() {
   return path.join(process.cwd(), "data");
 }
 
-async function ensureAuthFile(): Promise<{ passwordHash: string }> {
-  const dir = getDataDir();
-  await fs.mkdir(dir, { recursive: true });
-  const authPath = path.join(dir, "auth.json");
+async function readPasswordHashFromDisk(): Promise<string | null> {
+  const authPath = path.join(getDataDir(), "auth.json");
   try {
     const raw = await fs.readFile(authPath, "utf-8");
-    return JSON.parse(raw) as { passwordHash: string };
+    const parsed = JSON.parse(raw) as { passwordHash?: string };
+    if (parsed?.passwordHash) return parsed.passwordHash;
   } catch {
-    const plain = process.env.ADMIN_PASSWORD;
-    if (!plain || plain === "change-this-password") {
-      throw new Error(
-        "Set ADMIN_PASSWORD in .env.local before using the admin panel."
-      );
-    }
-    const passwordHash = await bcrypt.hash(plain, SALT_ROUNDS);
-    const auth = { passwordHash };
-    await fs.writeFile(authPath, JSON.stringify(auth, null, 2), "utf-8");
-    return auth;
+    /* missing or invalid */
   }
+  return null;
+}
+
+async function bootstrapPasswordHashFromEnvPlain(): Promise<string> {
+  const plain = process.env.ADMIN_PASSWORD;
+  if (!plain || plain === "change-this-password") {
+    throw new Error(
+      "Set ADMIN_PASSWORD (writable disk) or ADMIN_PASSWORD_HASH (any host). See README."
+    );
+  }
+  const passwordHash = await bcrypt.hash(plain, SALT_ROUNDS);
+  const auth = { passwordHash };
+  try {
+    await fs.mkdir(getDataDir(), { recursive: true });
+    await fs.writeFile(
+      path.join(getDataDir(), "auth.json"),
+      JSON.stringify(auth, null, 2),
+      "utf-8"
+    );
+  } catch (err) {
+    const detail = err instanceof Error ? err.message : String(err);
+    throw new Error(
+      `Cannot write data/auth.json (${detail}). On Vercel set ADMIN_PASSWORD_HASH (bcrypt). Run: npm run hash-admin-password -- "YourPassword" and paste the hash into env.`
+    );
+  }
+  return passwordHash;
+}
+
+/** Prefer ADMIN_PASSWORD_HASH on serverless; else data/auth.json; else bootstrap from ADMIN_PASSWORD. */
+async function resolvePasswordHash(): Promise<string> {
+  const envHash = process.env.ADMIN_PASSWORD_HASH?.trim();
+  if (envHash) return envHash;
+
+  const fromDisk = await readPasswordHashFromDisk();
+  if (fromDisk) return fromDisk;
+
+  return bootstrapPasswordHashFromEnvPlain();
 }
 
 export async function verifyPassword(password: string): Promise<boolean> {
-  const auth = await ensureAuthFile();
-  return bcrypt.compare(password, auth.passwordHash);
+  const hash = await resolvePasswordHash();
+  return bcrypt.compare(password, hash);
 }
 
 export async function changeAdminPassword(newPlain: string): Promise<void> {
@@ -52,7 +79,9 @@ function getSecret(): Uint8Array {
   let s = process.env.AUTH_SECRET;
   if (!s || s === "change-me-to-a-long-random-string") {
     if (process.env.NODE_ENV !== "development") {
-      throw new Error("Set AUTH_SECRET in .env.local for secure sessions.");
+      throw new Error(
+        "Set AUTH_SECRET in your host environment (e.g. Vercel) to a long random string."
+      );
     }
     s = "dev-only-insecure-secret-do-not-use-in-production";
   }
@@ -81,22 +110,6 @@ export async function verifySessionToken(
 
 export async function getSessionFromCookies(): Promise<boolean> {
   const jar = await cookies();
-  const token = jar.get(COOKIE)?.value;
+  const token = jar.get(ADMIN_SESSION_COOKIE)?.value;
   return verifySessionToken(token);
-}
-
-export async function setSessionCookie(token: string): Promise<void> {
-  const jar = await cookies();
-  jar.set(COOKIE, token, {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
-    path: "/",
-    maxAge: 60 * 60 * 24 * 7,
-  });
-}
-
-export async function clearSessionCookie(): Promise<void> {
-  const jar = await cookies();
-  jar.set(COOKIE, "", { httpOnly: true, path: "/", maxAge: 0 });
 }
