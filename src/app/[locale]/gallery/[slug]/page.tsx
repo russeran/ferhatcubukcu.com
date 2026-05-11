@@ -1,0 +1,91 @@
+import Image from "next/image";
+import { getTranslations } from "next-intl/server";
+import { notFound } from "next/navigation";
+import { Link } from "@/i18n/routing";
+import { readArtworks } from "@/lib/data";
+
+type Props = {
+  params: Promise<{ locale: string; slug: string }>;
+};
+
+export async function generateStaticParams() {
+  const artworks = await readArtworks();
+  const published = artworks.filter((a) => a.published);
+  const locales = ["en", "tr"] as const;
+  return locales.flatMap((locale) =>
+    published.map((a) => ({ locale, slug: a.slug }))
+  );
+}
+
+export default async function GalleryDetailPage({ params }: Props) {
+  const { locale, slug } = await params;
+  const t = await getTranslations({ locale, namespace: "gallery" });
+  const list = await readArtworks();
+  const artwork = list.find((a) => a.slug === slug && a.published);
+  if (!artwork) notFound();
+
+  const title = locale === "tr" ? artwork.titleTr : artwork.titleEn;
+  const description =
+    locale === "tr" ? artwork.descriptionTr : artwork.descriptionEn;
+  const medium =
+    locale === "tr" ? artwork.mediumTr : artwork.mediumEn;
+
+  return (
+    <article className="mx-auto max-w-6xl px-5 py-14 md:py-20">
+      <Link
+        href="/gallery"
+        className="text-sm text-patina underline-offset-4 hover:underline"
+      >
+        ← {t("title")}
+      </Link>
+      <div className="mt-10 grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
+        <div className="relative aspect-[3/4] w-full overflow-hidden rounded-sm bg-parchment-dark ring-1 ring-umber/10 lg:aspect-[4/5]">
+          <Image
+            src={artwork.image}
+            alt={title}
+            fill
+            className="object-cover"
+            sizes="(max-width: 1024px) 100vw, 55vw"
+            priority
+          />
+        </div>
+        <div className="space-y-8">
+          <header className="space-y-3 border-b border-umber/10 pb-8">
+            <h1 className="font-serif text-4xl text-umber-deep md:text-[2.75rem] leading-tight">
+              {title}
+            </h1>
+            <dl className="grid gap-3 text-sm text-umber/70">
+              {artwork.year ? (
+                <div className="flex gap-4">
+                  <dt className="w-28 shrink-0 uppercase tracking-wider text-umber/45">
+                    {t("year")}
+                  </dt>
+                  <dd>{artwork.year}</dd>
+                </div>
+              ) : null}
+              {medium ? (
+                <div className="flex gap-4">
+                  <dt className="w-28 shrink-0 uppercase tracking-wider text-umber/45">
+                    {t("medium")}
+                  </dt>
+                  <dd>{medium}</dd>
+                </div>
+              ) : null}
+              {artwork.dimensions ? (
+                <div className="flex gap-4">
+                  <dt className="w-28 shrink-0 uppercase tracking-wider text-umber/45">
+                    {t("dimensions")}
+                  </dt>
+                  <dd>{artwork.dimensions}</dd>
+                </div>
+              ) : null}
+            </dl>
+          </header>
+          <div className="prose prose-neutral max-w-none prose-p:text-umber/80 prose-p:leading-relaxed">
+            <p className="whitespace-pre-wrap">{description}</p>
+          </div>
+        </div>
+      </div>
+    </article>
+  );
+}

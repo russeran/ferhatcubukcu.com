@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  @apply bg-parchment text-umber-deep antialiased;
+  background-image: theme(backgroundImage.canvas-grain);
+}
+
+::selection {
+  @apply bg-oxide/25 text-umber-deep;
+}
+
+.focus-ring {
+  @apply outline-none ring-2 ring-patina/40 ring-offset-2 ring-offset-parchment;
+}

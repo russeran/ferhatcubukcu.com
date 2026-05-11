@@ -1,0 +1,59 @@
+{
+  "meta": {
+    "title": "Ferhat Çubukçu — Ressam",
+    "description": "Çağdaş resim — atölye çalışmaları, sergiler ve iletişim."
+  },
+  "nav": {
+    "home": "Ana sayfa",
+    "gallery": "Galeri",
+    "about": "Hakkında",
+    "contact": "İletişim",
+    "admin": "Yönetim"
+  },
+  "home": {
+    "viewWork": "Çalışmaları gör",
+    "studio": "Atölye",
+    "statementLead": "Yağlı boya, pigment ve yüzey — gözlem ve hafızadan inşa edilen kompozisyonlar."
+  },
+  "gallery": {
+    "title": "Galeri",
+    "empty": "Yönetim panelinden eser eklendiğinde burada görünecektir.",
+    "detail": "Detay",
+    "year": "Yıl",
+    "medium": "Malzeme",
+    "dimensions": "Ölçü"
+  },
+  "about": {
+    "title": "Hakkında"
+  },
+  "contact": {
+    "title": "İletişim",
+    "email": "E-posta",
+    "instagram": "Instagram",
+    "studio": "Atölye",
+    "reachOut": "Sipariş, sergi veya baskı için lütfen yazın."
+  },
+  "footer": {
+    "rights": "Tüm eserler © Ferhat Çubukçu (aksi belirtilmedikçe)."
+  },
+  "admin": {
+    "loginTitle": "Yönetici girişi",
+    "password": "Şifre",
+    "signIn": "Giriş yap",
+    "signOut": "Çıkış",
+    "dashboard": "Panel",
+    "artworks": "Eserler",
+    "settings": "Site ayarları",
+    "addArtwork": "Eser ekle",
+    "save": "Kaydet",
+    "delete": "Sil",
+    "uploadImage": "Görsel yükle",
+    "published": "Yayında",
+    "slug": "URL adresi (slug)",
+    "titleEn": "Başlık (İngilizce)",
+    "titleTr": "Başlık (Türkçe)",
+    "descriptionEn": "Açıklama (İngilizce)",
+    "descriptionTr": "Açıklama (Türkçe)",
+    "loginError": "Şifre hatalı."
+  }
+}

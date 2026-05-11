@@ -1,0 +1,59 @@
+{
+  "meta": {
+    "title": "Ferhat Çubukçu — Painter",
+    "description": "Contemporary painting — studio works, exhibitions, and contact."
+  },
+  "nav": {
+    "home": "Home",
+    "gallery": "Gallery",
+    "about": "About",
+    "contact": "Contact",
+    "admin": "Admin"
+  },
+  "home": {
+    "viewWork": "View work",
+    "studio": "Studio",
+    "statementLead": "Oil, pigment, and surface — compositions built from observation and memory."
+  },
+  "gallery": {
+    "title": "Gallery",
+    "empty": "Works will appear here once added in the admin panel.",
+    "detail": "Details",
+    "year": "Year",
+    "medium": "Medium",
+    "dimensions": "Dimensions"
+  },
+  "about": {
+    "title": "About"
+  },
+  "contact": {
+    "title": "Contact",
+    "email": "Email",
+    "instagram": "Instagram",
+    "studio": "Studio",
+    "reachOut": "For commissions, exhibitions, or print inquiries, please write."
+  },
+  "footer": {
+    "rights": "All works © Ferhat Çubukçu unless noted."
+  },
+  "admin": {
+    "loginTitle": "Admin sign-in",
+    "password": "Password",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "dashboard": "Dashboard",
+    "artworks": "Artworks",
+    "settings": "Site settings",
+    "addArtwork": "Add artwork",
+    "save": "Save",
+    "delete": "Delete",
+    "uploadImage": "Upload image",
+    "published": "Published",
+    "slug": "URL slug",
+    "titleEn": "Title (English)",
+    "titleTr": "Title (Turkish)",
+    "descriptionEn": "Description (English)",
+    "descriptionTr": "Description (Turkish)",
+    "loginError": "Invalid password."
+  }
+}
