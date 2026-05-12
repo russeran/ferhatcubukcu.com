@@ -41,29 +41,15 @@ The **`message`** field in a **400** response from `POST /api/auth/login` explai
 - Technical SEO included: **`/sitemap.xml`**, **`/robots.txt`** (blocks `/api/` and admin), per-page **title/description**, **hreflang** alternates (`en` / `tr`), **Open Graph / Twitter** cards, **JSON-LD** `Person` on the home page, and meaningful **hero `alt`** text.
 - After launch, add the property in **[Google Search Console](https://search.google.com/search-console)** and submit `https://your-domain/sitemap.xml`.
 - Set **`NEXT_PUBLIC_SITE_URL`** to your canonical origin (e.g. `https://ferhatcubukcu.com`) on Vercel so `metadataBase`, the sitemap, and social preview URLs use the custom domain instead of the default `*.vercel.app` host.
-- **Persisting admin changes on Vercel** (filesystem is read-only). Pick **one** backend (all have usable **free tiers**):
+- **Persisting admin changes on Vercel** (filesystem is read-only). Pick **one** backend (usable **free tiers**):
 
-  **A — Supabase (recommended “all free”)**  
-  1. Create a project at [supabase.com](https://supabase.com) (free tier).  
-  2. **Settings → API**: copy **Project URL** into **`SUPABASE_URL`** (or `NEXT_PUBLIC_SUPABASE_URL`) and the **`service_role`** secret into **`SUPABASE_SERVICE_ROLE_KEY`** (server-only on Vercel — never commit or expose in client code).  
-  3. **SQL → New query** — run:
-
-```sql
-create table if not exists public.portfolio_kv (
-  key text primary key,
-  value jsonb not null,
-  updated_at timestamptz default now()
-);
-alter table public.portfolio_kv enable row level security;
-```
-
-  4. **Storage**: create a **public** bucket named **`portfolio-media`** (or set **`SUPABASE_STORAGE_BUCKET`** to your bucket name). The app uploads to `gallery/…` inside that bucket.  
-  If **`SUPABASE_*`** is set, **JSON** (paintings + settings) is stored in Supabase **before** Redis. **Image uploads** try **Vercel Blob** first (if `BLOB_READ_WRITE_TOKEN` is set), then **Supabase Storage**, then local disk.
+  **A — Supabase (simplest with Vercel integration)**  
+  Connect Supabase in Vercel so **`SUPABASE_URL`** and **`SUPABASE_SERVICE_ROLE_KEY`** are set (plus the usual `NEXT_PUBLIC_*` keys). **No SQL and no manual Storage buckets are required:** on first save, the app **creates** two buckets if missing — **`portfolio-site-kv`** (private JSON: `kv/settings.json`, `kv/artworks.json`) and **`portfolio-media`** (public images under `gallery/`). Optional env: **`SUPABASE_KV_BUCKET`**, **`SUPABASE_STORAGE_BUCKET`** to override those names. **Image uploads** still prefer **Vercel Blob** when **`BLOB_READ_WRITE_TOKEN`** is set; otherwise Supabase Storage is used.
 
   **B — Upstash Redis + Vercel Blob**  
-  [Upstash](https://upstash.com) Redis has a **free tier**; link from Vercel **Storage** and set **`UPSTASH_REDIS_REST_URL`** / **`UPSTASH_REDIS_REST_TOKEN`**. Images: **Vercel Blob** with **`BLOB_READ_WRITE_TOKEN`**.
+  [Upstash](https://upstash.com) Redis free tier; **`UPSTASH_REDIS_REST_URL`** / **`UPSTASH_REDIS_REST_TOKEN`**. Images: **Vercel Blob** with **`BLOB_READ_WRITE_TOKEN`**.
 
-  If **none** of these env vars are set, **`data/`** and **`public/uploads/`** are used (fine on your laptop; not durable on Vercel).
+  If **none** of these remote backends are configured, **`data/`** and **`public/uploads/`** are used (fine locally; not durable on Vercel).
 - Use a strong `ADMIN_PASSWORD` and `AUTH_SECRET` in production. Plain env passwords are acceptable for a small private admin panel; use `ADMIN_PASSWORD_HASH` if you prefer the password not stored in plain form in the host UI.
 
 ## License
