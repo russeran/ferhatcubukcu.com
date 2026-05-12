@@ -3,6 +3,7 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { HomeHeroGalleryShowcase } from "@/components/HomeHeroGalleryShowcase";
+import { HomeJsonLd } from "@/components/HomeJsonLd";
 import { SoldStamp } from "@/components/SoldStamp";
 import { localeAlternates } from "@/lib/seo-helpers";
 import { absoluteUrl } from "@/lib/site-url";
@@ -76,31 +77,32 @@ export default async function HomePage({ params }: Props) {
     <>
       <HomeJsonLd locale={locale} settings={settings} />
       <section className="relative overflow-hidden border-b border-umber/10">
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/40 to-transparent" />
-        <div className="relative mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:gap-12 sm:px-5 sm:py-16 md:grid-cols-2 md:items-center md:gap-16 md:py-28">
-          <div className="animate-fade-up space-y-5 sm:space-y-6">
-            <p className="font-serif text-[10px] uppercase tracking-[0.38em] text-patina sm:text-[11px]">
-              {t("studio")}
-            </p>
-            <h1 className="font-serif text-3xl font-semibold leading-[1.05] tracking-tight text-umber-deep sm:text-4xl md:text-5xl lg:text-[3.1rem]">
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/55 via-parchment/30 to-parchment-dark/25" />
+        <div className="pointer-events-none absolute -right-24 top-1/2 h-[min(85vw,520px)] w-[min(85vw,520px)] -translate-y-1/2 rounded-full bg-oxide/[0.055] blur-3xl md:-right-32" />
+        <div className="pointer-events-none absolute -left-32 bottom-0 h-72 w-72 rounded-full bg-goldleaf/[0.07] blur-3xl" />
+        <div className="relative mx-auto grid max-w-6xl gap-12 px-4 py-16 sm:gap-14 sm:px-5 sm:py-20 md:grid-cols-2 md:items-center md:gap-16 md:py-28">
+          <div className="animate-fade-up space-y-6 border-l-2 border-goldleaf/45 pl-6 sm:space-y-7 sm:pl-8">
+            <div className="gold-rule" aria-hidden />
+            <p className="editorial-eyebrow">{t("studio")}</p>
+            <h1 className="text-balance font-serif text-3xl font-semibold leading-[1.06] tracking-tight text-umber-deep sm:text-4xl md:text-5xl lg:text-[3.15rem]">
               {settings.artistName}
             </h1>
-            <p className="max-w-md text-base text-umber/90 sm:text-lg md:text-xl">
+            <p className="max-w-md text-balance text-base leading-snug text-umber/90 sm:text-lg md:text-xl">
               {tagline}
             </p>
-            <p className="max-w-xl text-sm leading-relaxed text-umber/70 md:text-base">
+            <p className="max-w-xl text-pretty text-sm leading-relaxed text-umber/68 md:text-base">
               {t("statementLead")}
             </p>
-            <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap">
+            <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:flex-wrap">
               <Link
                 href="/gallery"
-                className="inline-flex items-center justify-center rounded-full bg-umber-deep px-7 py-3 text-sm font-semibold text-parchment shadow-sm transition hover:bg-oxide"
+                className="inline-flex items-center justify-center rounded-full bg-umber-deep px-8 py-3.5 text-sm font-semibold tracking-wide text-parchment shadow-gallery transition duration-300 ease-out-expo hover:bg-oxide hover:shadow-gallery-hover"
               >
                 {t("viewWork")}
               </Link>
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center rounded-full border border-umber/20 bg-parchment/70 px-7 py-3 text-sm font-medium text-umber-deep backdrop-blur-sm transition hover:border-oxide/45 hover:text-oxide"
+                className="inline-flex items-center justify-center rounded-full border border-umber/20 bg-parchment/80 px-8 py-3.5 text-sm font-medium tracking-wide text-umber-deep shadow-sm backdrop-blur-sm transition duration-300 ease-out-expo hover:border-goldleaf/50 hover:text-oxide"
               >
                 {locale === "tr" ? "İletişim" : "Contact"}
               </Link>
@@ -115,32 +117,31 @@ export default async function HomePage({ params }: Props) {
       </section>
 
       {newsTeaser.length > 0 ? (
-        <section className="border-b border-umber/10 bg-parchment-dark/40 py-14 sm:py-16">
+        <section className="border-b border-umber/10 bg-gradient-to-b from-parchment-dark/50 to-parchment-dark/30 py-16 sm:py-20">
           <div className="mx-auto max-w-6xl px-4 sm:px-5">
-            <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div className="mb-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <p className="font-serif text-[10px] uppercase tracking-[0.38em] text-patina sm:text-[11px]">
-                  {t("newsTeaser")}
-                </p>
-                <h2 className="mt-2 font-serif text-xl font-semibold text-umber-deep sm:text-2xl">
+                <div className="gold-rule mb-4" aria-hidden />
+                <p className="editorial-eyebrow">{t("newsTeaser")}</p>
+                <h2 className="mt-3 text-balance font-serif text-2xl font-semibold text-umber-deep sm:text-3xl">
                   {t("newsTeaserSubtitle")}
                 </h2>
               </div>
               <Link
                 href="/news"
-                className="text-sm font-medium text-oxide underline-offset-4 hover:underline sm:shrink-0"
+                className="text-sm font-semibold tracking-wide text-oxide underline-offset-[6px] transition hover:text-umber-deep hover:underline sm:shrink-0"
               >
                 {t("newsViewAll")}
               </Link>
             </div>
-            <ul className="grid gap-8 sm:grid-cols-3">
+            <ul className="grid gap-8 sm:grid-cols-3 sm:gap-6">
               {newsTeaser.map((p) => (
                 <li key={p.id}>
                   <Link
                     href={`/news/${p.slug}`}
-                    className="group block rounded-lg border border-umber/10 bg-parchment/90 p-5 shadow-sm transition hover:border-oxide/35 hover:shadow-md"
+                    className="group block h-full rounded-md border border-umber/10 bg-parchment/95 p-6 shadow-sm ring-1 ring-transparent backdrop-blur-sm transition duration-500 ease-out-expo hover:-translate-y-0.5 hover:border-goldleaf/30 hover:shadow-gallery hover:ring-goldleaf/15"
                   >
-                    <h3 className="font-serif text-lg font-medium text-umber-deep group-hover:text-oxide">
+                    <h3 className="font-serif text-lg font-medium text-umber-deep transition-colors duration-300 group-hover:text-oxide">
                       {resolvedNewsTitle(p, locale)}
                     </h3>
                     <p className="mt-2 line-clamp-3 text-sm text-umber/70">
@@ -154,19 +155,20 @@ export default async function HomePage({ params }: Props) {
         </section>
       ) : null}
 
-      <section className="mx-auto max-w-6xl px-4 py-14 sm:px-5 sm:py-16 md:py-24">
-        <div className="mb-8 flex flex-col gap-4 border-b border-umber/10 pb-8 sm:mb-12 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
-          <div>
-            <h2 className="font-serif text-xl font-semibold text-umber-deep sm:text-2xl md:text-3xl">
+      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-5 sm:py-20 md:py-28">
+        <div className="mb-10 flex flex-col gap-6 border-b border-umber/10 pb-10 sm:mb-14 sm:flex-row sm:items-end sm:justify-between sm:gap-8 sm:pb-12">
+          <div className="max-w-2xl">
+            <div className="gold-rule mb-5" aria-hidden />
+            <h2 className="text-balance font-serif text-2xl font-semibold text-umber-deep sm:text-3xl md:text-4xl">
               {t("featuredTitle")}
             </h2>
-            <p className="mt-2 max-w-xl text-sm text-umber/60">
+            <p className="mt-3 max-w-xl text-pretty text-sm leading-relaxed text-umber/58 md:text-base">
               {t("featuredSubtitle")}
             </p>
           </div>
           <Link
             href="/gallery"
-            className="shrink-0 text-sm font-medium text-oxide underline-offset-4 hover:underline sm:self-end md:inline md:self-auto"
+            className="shrink-0 text-sm font-semibold tracking-wide text-oxide underline-offset-[6px] transition hover:text-umber-deep hover:underline sm:self-end md:inline md:self-auto"
           >
             {locale === "tr" ? "Tümü" : "View all"}
           </Link>
@@ -178,7 +180,7 @@ export default async function HomePage({ params }: Props) {
               : "No published paintings yet."}
           </p>
         ) : (
-          <ul className="grid gap-8 sm:grid-cols-2 sm:gap-10 lg:grid-cols-3">
+          <ul className="grid gap-10 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-12 lg:grid-cols-3 lg:gap-x-10 lg:gap-y-14">
             {artworks.map((a, i) => {
               const price = resolvedArtworkPrice(a, locale);
               return (
@@ -188,20 +190,20 @@ export default async function HomePage({ params }: Props) {
                 style={{ animationDelay: `${i * 70}ms` }}
               >
                 <Link href={`/gallery/${a.slug}`} className="group block">
-                  <div className="relative aspect-[3/4] overflow-hidden rounded-lg bg-parchment-dark shadow-sm ring-1 ring-umber/12 transition-shadow group-hover:shadow-md">
+                  <div className="gallery-image-frame gallery-image-frame-hover relative aspect-[3/4]">
                     <Image
                       src={a.image}
                       alt={locale === "tr" ? a.titleTr : a.titleEn}
                       fill
-                      className="object-cover transition duration-500 group-hover:scale-[1.02]"
+                      className="object-cover transition duration-[1100ms] ease-out-expo motion-safe:group-hover:scale-[1.035]"
                       sizes="(max-width: 640px) 100vw, 33vw"
                     />
                     {a.sold ? <SoldStamp label={tg("sold")} /> : null}
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-umber-deep/25 via-transparent to-transparent opacity-0 transition group-hover:opacity-100" />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-umber-deep/35 via-umber-deep/5 to-transparent opacity-0 transition duration-500 ease-out-expo group-hover:opacity-100" />
                   </div>
-                  <div className="mt-4 flex items-start justify-between gap-3">
+                  <div className="mt-5 flex items-start justify-between gap-3">
                     <div>
-                      <p className="font-serif text-base font-medium text-umber-deep sm:text-lg">
+                      <p className="font-serif text-lg font-medium text-umber-deep transition-colors duration-300 group-hover:text-oxide sm:text-xl">
                         {locale === "tr" ? a.titleTr : a.titleEn}
                       </p>
                       {a.year ? (

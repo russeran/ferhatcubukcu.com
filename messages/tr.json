@@ -99,7 +99,8 @@
   "footer": {
     "rights": "© Ferhat Çubukçu. Tüm eserler saklıdır; aksi belirtilmedikçe.",
     "tagline": "Fibonacci · altın oran · yağlıboya",
-    "behanceCta": "Tam portföy Behance’te"
+    "behanceCta": "Tam portföy Behance’te",
+    "footerNavAria": "Site bölümleri"
   },
   "admin": {
     "loginTitle": "Yönetici girişi",

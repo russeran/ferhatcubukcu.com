@@ -6,6 +6,10 @@
   color-scheme: light;
 }
 
+html {
+  text-rendering: optimizeLegibility;
+}
+
 body {
   @apply bg-parchment text-umber-deep antialiased;
   background-image: theme(backgroundImage.fibonacci-hint),
@@ -13,6 +17,21 @@ body {
   /* Respect display cutouts (notched phones) without fighting page max-width containers */
   padding-left: env(safe-area-inset-left, 0px);
   padding-right: env(safe-area-inset-right, 0px);
+}
+
+@layer components {
+  .editorial-eyebrow {
+    @apply font-serif text-[10px] uppercase tracking-[0.42em] text-patina sm:text-[11px];
+  }
+  .gold-rule {
+    @apply h-px w-14 bg-gradient-to-r from-goldleaf/80 via-goldleaf/35 to-transparent sm:w-20;
+  }
+  .gallery-image-frame {
+    @apply overflow-hidden rounded-md bg-parchment-dark shadow-gallery ring-1 ring-umber/10 transition-[box-shadow,transform] duration-700 ease-out-expo;
+  }
+  .gallery-image-frame-hover {
+    @apply group-hover:shadow-gallery-hover group-hover:ring-goldleaf/25;
+  }
 }
 
 ::selection {

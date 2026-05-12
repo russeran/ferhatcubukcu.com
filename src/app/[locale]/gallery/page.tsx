@@ -65,10 +65,9 @@ export default async function GalleryPage({ params, searchParams }: Props) {
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-5 sm:py-14 md:py-20">
       <header className="mb-8 flex flex-col gap-6 border-b border-umber/10 pb-8 sm:mb-10 sm:gap-8 sm:pb-10 md:flex-row md:items-end md:justify-between">
         <div className="max-w-2xl">
-          <p className="font-serif text-[10px] uppercase tracking-[0.38em] text-patina sm:text-[11px]">
-            {t("eyebrow")}
-          </p>
-          <h1 className="mt-2 font-serif text-3xl font-semibold tracking-tight text-umber-deep sm:mt-3 sm:text-4xl md:text-5xl">
+          <div className="gold-rule mb-4" aria-hidden />
+          <p className="editorial-eyebrow">{t("eyebrow")}</p>
+          <h1 className="mt-4 text-balance font-serif text-3xl font-semibold tracking-tight text-umber-deep sm:text-4xl md:text-5xl">
             {t("title")}
           </h1>
         </div>
@@ -92,15 +91,16 @@ export default async function GalleryPage({ params, searchParams }: Props) {
             return (
             <li key={a.id}>
               <Link href={`/gallery/${a.slug}`} className="group block">
-                <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-parchment-dark shadow-sm ring-1 ring-umber/12">
+                <div className="gallery-image-frame gallery-image-frame-hover relative aspect-[4/5]">
                   <Image
                     src={a.image}
                     alt={locale === "tr" ? a.titleTr : a.titleEn}
                     fill
-                    className="object-cover transition duration-700 group-hover:scale-[1.02]"
+                    className="object-cover transition duration-[1100ms] ease-out-expo motion-safe:group-hover:scale-[1.03]"
                     sizes="(max-width: 640px) 100vw, 50vw"
                   />
                   {a.sold ? <SoldStamp label={t("sold")} /> : null}
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-umber-deep/30 via-transparent to-transparent opacity-0 transition duration-500 ease-out-expo group-hover:opacity-100" />
                 </div>
                 <div className="mt-5 space-y-1">
                   <h2 className="font-serif text-xl font-medium text-umber-deep sm:text-2xl">

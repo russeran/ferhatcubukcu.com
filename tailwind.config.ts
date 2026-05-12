@@ -36,6 +36,18 @@ const config: Config = {
         serif: ["var(--font-display)", "Georgia", "serif"],
         sans: ["var(--font-body)", "system-ui", "sans-serif"],
       },
+      letterSpacing: {
+        editorial: "0.22em",
+      },
+      transitionTimingFunction: {
+        "out-expo": "cubic-bezier(0.16, 1, 0.3, 1)",
+      },
+      boxShadow: {
+        gallery:
+          "0 28px 56px -16px rgba(31, 27, 22, 0.14), 0 8px 20px -8px rgba(31, 27, 22, 0.08)",
+        "gallery-hover":
+          "0 36px 72px -20px rgba(31, 27, 22, 0.18), 0 12px 28px -10px rgba(155, 35, 53, 0.08)",
+      },
       backgroundImage: {
         "fibonacci-hint":
           "radial-gradient(ellipse 100% 70% at 12% 18%, rgba(155,35,53,0.07), transparent 52%), radial-gradient(circle at 88% 12%, rgba(198,160,79,0.12), transparent 38%), radial-gradient(circle at 70% 85%, rgba(74,85,104,0.06), transparent 45%)",

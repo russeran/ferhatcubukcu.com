@@ -6,6 +6,7 @@ import { createPortal } from "react-dom";
 import { useLocale, useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { cn } from "@/lib/utils";
 
 const links = [
   { href: "/", key: "home" as const },
@@ -15,6 +16,11 @@ const links = [
   { href: "/about", key: "about" as const },
   { href: "/contact", key: "contact" as const },
 ];
+
+function pathMatchesNav(pathname: string, href: string) {
+  if (href === "/") return pathname === "/" || pathname === "";
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
 
 function MenuIcon({ open }: { open: boolean }) {
   if (open) {
@@ -113,11 +119,15 @@ export function SiteHeader({ showAdminNav }: { showAdminNav: boolean }) {
   }, [menuOpen]);
 
   return (
-    <header className="sticky top-0 z-[100] border-b border-umber/10 bg-parchment/90 backdrop-blur-md supports-[padding:max(0px)]:pt-[env(safe-area-inset-top,0px)]">
+    <header className="relative sticky top-0 z-[100] border-b border-umber/10 bg-parchment/92 backdrop-blur-md supports-[padding:max(0px)]:pt-[env(safe-area-inset-top,0px)]">
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-goldleaf/50 to-transparent"
+        aria-hidden
+      />
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-5 md:py-5">
         <Link
           href="/"
-          className="min-h-11 min-w-0 shrink font-serif text-base font-semibold leading-tight tracking-tight text-umber-deep sm:text-lg md:text-xl"
+          className="min-h-11 min-w-0 shrink font-serif text-base font-semibold leading-tight tracking-[0.02em] text-umber-deep transition-colors hover:text-oxide sm:text-lg md:text-xl"
         >
           Ferhat Çubukçu
         </Link>
@@ -136,14 +146,18 @@ export function SiteHeader({ showAdminNav }: { showAdminNav: boolean }) {
         </button>
 
         <nav
-          className="hidden items-center gap-6 text-sm md:flex md:gap-8 md:text-[15px]"
+          className="hidden items-center gap-2 text-sm md:flex md:gap-1 md:text-[15px]"
           aria-label="Main"
         >
           {links.map((l) => (
             <Link
               key={l.key}
               href={l.href}
-              className="text-umber/80 transition-colors hover:text-oxide"
+              className={cn(
+                "relative rounded-md px-3 py-2 text-[13px] font-medium tracking-wide text-umber/70 transition-colors duration-300 ease-out-expo hover:text-umber-deep md:text-sm",
+                pathMatchesNav(pathname, l.href) &&
+                  "text-umber-deep after:pointer-events-none after:absolute after:bottom-1 after:left-3 after:right-3 after:h-px after:rounded-full after:bg-gradient-to-r after:from-goldleaf after:to-goldleaf/40"
+              )}
             >
               {t(l.key)}
             </Link>
@@ -153,7 +167,7 @@ export function SiteHeader({ showAdminNav }: { showAdminNav: boolean }) {
             <NextLink
               href={`/${locale}/admin`}
               prefetch={false}
-              className="text-xs font-medium uppercase tracking-[0.2em] text-patina hover:text-oxide md:text-[13px]"
+              className="text-xs font-medium uppercase tracking-editorial text-patina transition-colors hover:text-oxide md:text-[13px]"
             >
               {t("admin")}
             </NextLink>
@@ -182,7 +196,11 @@ export function SiteHeader({ showAdminNav }: { showAdminNav: boolean }) {
                     <Link
                       key={l.key}
                       href={l.href}
-                      className="rounded-md py-3.5 text-base font-medium text-umber-deep transition-colors hover:bg-umber/5 hover:text-oxide"
+                      className={cn(
+                        "rounded-md border-l-2 border-transparent py-3.5 pl-3 text-base font-medium text-umber-deep transition-colors hover:border-goldleaf/35 hover:bg-umber/5 hover:text-oxide",
+                        pathMatchesNav(pathname, l.href) &&
+                          "border-goldleaf/60 bg-umber/[0.04] text-umber-deep"
+                      )}
                       onClick={() => setMenuOpen(false)}
                     >
                       {t(l.key)}

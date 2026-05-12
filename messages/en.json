@@ -99,7 +99,8 @@
   "footer": {
     "rights": "© Ferhat Çubukçu. All works reserved unless noted.",
     "tagline": "Fibonacci · golden ratio · oil",
-    "behanceCta": "Full portfolio on Behance"
+    "behanceCta": "Full portfolio on Behance",
+    "footerNavAria": "Site sections"
   },
   "admin": {
     "loginTitle": "Admin sign-in",
