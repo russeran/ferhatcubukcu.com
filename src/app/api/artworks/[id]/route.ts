@@ -13,9 +13,10 @@ import { routing } from "@/i18n/routing";
 
 function revalidateGallery(slug?: string) {
   for (const locale of routing.locales) {
-    revalidatePath(`/${locale}`);
-    revalidatePath(`/${locale}/gallery`);
-    if (slug) revalidatePath(`/${locale}/gallery/${slug}`);
+    revalidatePath(`/${locale}`, "layout");
+    if (slug) {
+      revalidatePath(`/${locale}/gallery/${slug}`, "page");
+    }
   }
 }
 

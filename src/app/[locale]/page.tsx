@@ -9,6 +9,9 @@ import { readArtworks, readSettings } from "@/lib/data";
 
 type Props = { params: Promise<{ locale: string }> };
 
+/** Fresh artworks/settings after admin edits (avoid stale static cache). */
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata({
   params,
 }: Props): Promise<Metadata> {

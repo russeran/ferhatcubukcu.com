@@ -8,6 +8,8 @@ import { readArtworks } from "@/lib/data";
 
 type Props = { params: Promise<{ locale: string }> };
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata({
   params,
 }: Props): Promise<Metadata> {
