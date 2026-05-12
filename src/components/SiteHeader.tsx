@@ -2,6 +2,7 @@
 
 import NextLink from "next/link";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { useLocale, useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
@@ -52,11 +53,16 @@ function MenuIcon({ open }: { open: boolean }) {
   );
 }
 
-export function SiteHeader() {
+export function SiteHeader({ showAdminNav }: { showAdminNav: boolean }) {
   const t = useTranslations("nav");
   const locale = useLocale();
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [portalReady, setPortalReady] = useState(false);
+
+  useEffect(() => {
+    setPortalReady(true);
+  }, []);
 
   useEffect(() => {
     setMenuOpen(false);
@@ -143,57 +149,64 @@ export function SiteHeader() {
             </Link>
           ))}
           <LanguageSwitcher />
-          <NextLink
-            href={`/${locale}/admin`}
-            prefetch={false}
-            className="text-xs font-medium uppercase tracking-[0.2em] text-patina hover:text-oxide md:text-[13px]"
-          >
-            {t("admin")}
-          </NextLink>
+          {showAdminNav ? (
+            <NextLink
+              href={`/${locale}/admin`}
+              prefetch={false}
+              className="text-xs font-medium uppercase tracking-[0.2em] text-patina hover:text-oxide md:text-[13px]"
+            >
+              {t("admin")}
+            </NextLink>
+          ) : null}
         </nav>
       </div>
 
-      {menuOpen ? (
-        <>
-          <button
-            type="button"
-            className="fixed inset-0 z-[90] bg-umber-deep/45 md:hidden"
-            aria-label={t("closeMenu")}
-            onClick={() => setMenuOpen(false)}
-          />
-          <div
-            id="mobile-drawer"
-            className="fixed inset-y-0 right-0 z-[95] flex w-[min(100%,20rem)] flex-col border-l border-umber/15 bg-parchment shadow-2xl md:hidden supports-[padding:max(0px)]:pb-[env(safe-area-inset-bottom,0px)] supports-[padding:max(0px)]:pt-[env(safe-area-inset-top,0px)]"
-            role="dialog"
-            aria-modal="true"
-            aria-label={t("mobileNav")}
-          >
-            <nav className="flex flex-1 flex-col gap-1 overflow-y-auto px-5 py-6">
-              {links.map((l) => (
-                <Link
-                  key={l.key}
-                  href={l.href}
-                  className="rounded-md py-3.5 text-base font-medium text-umber-deep transition-colors hover:bg-umber/5 hover:text-oxide"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  {t(l.key)}
-                </Link>
-              ))}
-              <div className="mt-6 flex flex-col gap-4 border-t border-umber/10 pt-6">
-                <LanguageSwitcher />
-                <NextLink
-                  href={`/${locale}/admin`}
-                  prefetch={false}
-                  className="rounded-md py-3 text-sm font-medium uppercase tracking-[0.18em] text-patina hover:text-oxide"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  {t("admin")}
-                </NextLink>
+      {portalReady && menuOpen
+        ? createPortal(
+            <>
+              <button
+                type="button"
+                className="fixed inset-0 z-[200] bg-umber-deep/45 md:hidden"
+                aria-label={t("closeMenu")}
+                onClick={() => setMenuOpen(false)}
+              />
+              <div
+                id="mobile-drawer"
+                className="fixed inset-y-0 right-0 z-[210] flex max-h-[100dvh] w-[min(100%,20rem)] flex-col border-l border-umber/15 bg-parchment shadow-2xl md:hidden supports-[padding:max(0px)]:pb-[env(safe-area-inset-bottom,0px)] supports-[padding:max(0px)]:pt-[env(safe-area-inset-top,0px)]"
+                role="dialog"
+                aria-modal="true"
+                aria-label={t("mobileNav")}
+              >
+                <nav className="flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto overscroll-contain px-5 py-6">
+                  {links.map((l) => (
+                    <Link
+                      key={l.key}
+                      href={l.href}
+                      className="rounded-md py-3.5 text-base font-medium text-umber-deep transition-colors hover:bg-umber/5 hover:text-oxide"
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      {t(l.key)}
+                    </Link>
+                  ))}
+                  <div className="mt-6 flex flex-col gap-4 border-t border-umber/10 pt-6">
+                    <LanguageSwitcher />
+                    {showAdminNav ? (
+                      <NextLink
+                        href={`/${locale}/admin`}
+                        prefetch={false}
+                        className="rounded-md py-3 text-sm font-medium uppercase tracking-[0.18em] text-patina hover:text-oxide"
+                        onClick={() => setMenuOpen(false)}
+                      >
+                        {t("admin")}
+                      </NextLink>
+                    ) : null}
+                  </div>
+                </nav>
               </div>
-            </nav>
-          </div>
-        </>
-      ) : null}
+            </>,
+            document.body
+          )
+        : null}
     </header>
   );
 }
