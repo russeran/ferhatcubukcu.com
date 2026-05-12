@@ -8,6 +8,11 @@ import { z } from "zod";
 import { randomUUID } from "crypto";
 import { routing } from "@/i18n/routing";
 
+function normOptionalText(s: string | undefined): string | undefined {
+  const t = s?.trim();
+  return t ? t : undefined;
+}
+
 function revalidateGallery(slug?: string) {
   for (const locale of routing.locales) {
     revalidatePath(`/${locale}`, "layout");
@@ -33,6 +38,11 @@ const artworkInput = z.object({
   mediumEn: z.string().optional(),
   mediumTr: z.string().optional(),
   dimensions: z.string().optional(),
+  priceEn: z.string().max(160).optional(),
+  priceTr: z.string().max(160).optional(),
+  exhibitionEn: z.string().max(240).optional(),
+  exhibitionTr: z.string().max(240).optional(),
+  sold: z.boolean().optional(),
   published: z.boolean(),
   slug: z.string().optional(),
 });
@@ -82,7 +92,12 @@ export async function POST(req: Request) {
     mediumEn: parsed.data.mediumEn,
     mediumTr: parsed.data.mediumTr,
     dimensions: parsed.data.dimensions,
+    priceEn: normOptionalText(parsed.data.priceEn),
+    priceTr: normOptionalText(parsed.data.priceTr),
+    exhibitionEn: normOptionalText(parsed.data.exhibitionEn),
+    exhibitionTr: normOptionalText(parsed.data.exhibitionTr),
     order: maxOrder + 1,
+    sold: parsed.data.sold ?? false,
     published: parsed.data.published,
     createdAt: new Date().toISOString(),
   };

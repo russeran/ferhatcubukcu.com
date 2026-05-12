@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { localeAlternates } from "@/lib/seo-helpers";
 import { absoluteUrl } from "@/lib/site-url";
 import { readSettings } from "@/lib/data";
+import { TrackedOutboundLink } from "@/components/TrackedOutboundLink";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -42,14 +43,16 @@ export default async function ContactPage({ params }: Props) {
     settings.behance?.trim() || "https://www.behance.net/ferhat_cubukcu";
 
   return (
-    <div className="mx-auto max-w-3xl px-5 py-14 md:py-24">
-      <p className="font-serif text-[11px] uppercase tracking-[0.38em] text-patina">
+    <div className="mx-auto max-w-3xl px-4 py-12 sm:px-5 sm:py-14 md:py-24">
+      <p className="font-serif text-[10px] uppercase tracking-[0.38em] text-patina sm:text-[11px]">
         {t("studio")}
       </p>
-      <h1 className="mt-4 font-serif text-4xl font-semibold tracking-tight text-umber-deep md:text-5xl">
+      <h1 className="mt-3 font-serif text-3xl font-semibold tracking-tight text-umber-deep sm:mt-4 sm:text-4xl md:text-5xl">
         {t("title")}
       </h1>
-      <p className="mt-8 max-w-xl text-lg text-umber/75">{t("reachOut")}</p>
+      <p className="mt-6 max-w-xl text-base text-umber/75 sm:mt-8 sm:text-lg">
+        {t("reachOut")}
+      </p>
       {note ? (
         <p className="mt-4 max-w-xl text-sm text-umber/60">{note}</p>
       ) : null}
@@ -59,12 +62,13 @@ export default async function ContactPage({ params }: Props) {
             {t("email")}
           </dt>
           <dd className="mt-2">
-            <a
+            <TrackedOutboundLink
+              event="contact_email_click"
               href={`mailto:${settings.contactEmail}`}
-              className="text-lg text-oxide hover:text-umber-deep underline-offset-4 hover:underline"
+              className="break-words text-base text-oxide hover:text-umber-deep underline-offset-4 hover:underline sm:text-lg"
             >
               {settings.contactEmail}
-            </a>
+            </TrackedOutboundLink>
           </dd>
         </div>
         {settings.instagram ? (
@@ -73,18 +77,19 @@ export default async function ContactPage({ params }: Props) {
               {t("instagram")}
             </dt>
             <dd className="mt-2">
-              <a
+              <TrackedOutboundLink
+                event="contact_instagram_click"
                 href={
                   settings.instagram.startsWith("http")
                     ? settings.instagram
                     : `https://instagram.com/${settings.instagram.replace("@", "")}`
                 }
                 target="_blank"
-                rel="noreferrer"
-                className="text-lg text-patina hover:text-oxide underline-offset-4 hover:underline"
+                rel="noopener noreferrer"
+                className="break-words text-base text-patina hover:text-oxide underline-offset-4 hover:underline sm:text-lg"
               >
                 {settings.instagram}
-              </a>
+              </TrackedOutboundLink>
             </dd>
           </div>
         ) : null}
@@ -93,17 +98,22 @@ export default async function ContactPage({ params }: Props) {
             {t("behance")}
           </dt>
           <dd className="mt-2">
-            <a
+            <TrackedOutboundLink
+              event="contact_behance_click"
               href={behanceUrl}
               target="_blank"
-              rel="noreferrer"
-              className="text-lg font-medium text-oxide underline-offset-4 hover:underline"
+              rel="noopener noreferrer"
+              className="break-words text-base font-medium text-oxide underline-offset-4 hover:underline sm:text-lg"
             >
               {t("behanceLink")}
-            </a>
+            </TrackedOutboundLink>
           </dd>
         </div>
       </dl>
+      <div className="mt-12 space-y-4 border-t border-umber/10 pt-10 text-sm leading-relaxed text-umber/65">
+        <p>{t("trustShipping")}</p>
+        <p>{t("trustOrdering")}</p>
+      </div>
     </div>
   );
 }

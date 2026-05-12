@@ -1,12 +1,20 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { Suspense } from "react";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
+import { GallerySortSelect } from "@/components/GallerySortSelect";
+import { SoldStamp } from "@/components/SoldStamp";
 import { localeAlternates } from "@/lib/seo-helpers";
+import { sortPublishedArtworks, normalizeGallerySort } from "@/lib/gallery-sort";
 import { absoluteUrl } from "@/lib/site-url";
 import { readArtworks } from "@/lib/data";
+import { resolvedArtworkPrice } from "@/lib/artwork-price";
 
-type Props = { params: Promise<{ locale: string }> };
+type Props = {
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<{ sort?: string }>;
+};
 
 export const dynamic = "force-dynamic";
 
@@ -36,28 +44,52 @@ export async function generateMetadata({
   };
 }
 
-export default async function GalleryPage({ params }: Props) {
+export default async function GalleryPage({ params, searchParams }: Props) {
   const { locale } = await params;
+  const { sort: sortRaw } = await searchParams;
+  const sort = normalizeGallerySort(sortRaw);
   const t = await getTranslations({ locale, namespace: "gallery" });
-  const list = (await readArtworks())
-    .filter((a) => a.published)
-    .sort((a, b) => a.order - b.order);
+  const list = sortPublishedArtworks(await readArtworks(), sort, locale);
+
+  const sortOptions = [
+    { id: "order" as const, label: t("sortOrder") },
+    { id: "year-desc" as const, label: t("sortYearDesc") },
+    { id: "year-asc" as const, label: t("sortYearAsc") },
+    { id: "title-asc" as const, label: t("sortTitleAsc") },
+    { id: "title-desc" as const, label: t("sortTitleDesc") },
+    { id: "available-first" as const, label: t("sortAvailableFirst") },
+    { id: "sold-first" as const, label: t("sortSoldFirst") },
+  ];
 
   return (
-    <div className="mx-auto max-w-6xl px-5 py-14 md:py-20">
-      <header className="mb-12 max-w-2xl">
-        <p className="font-serif text-[11px] uppercase tracking-[0.38em] text-patina">
-          {t("eyebrow")}
-        </p>
-        <h1 className="mt-3 font-serif text-4xl font-semibold tracking-tight text-umber-deep md:text-5xl">
-          {t("title")}
-        </h1>
+    <div className="mx-auto max-w-6xl px-4 py-12 sm:px-5 sm:py-14 md:py-20">
+      <header className="mb-8 flex flex-col gap-6 border-b border-umber/10 pb-8 sm:mb-10 sm:gap-8 sm:pb-10 md:flex-row md:items-end md:justify-between">
+        <div className="max-w-2xl">
+          <p className="font-serif text-[10px] uppercase tracking-[0.38em] text-patina sm:text-[11px]">
+            {t("eyebrow")}
+          </p>
+          <h1 className="mt-2 font-serif text-3xl font-semibold tracking-tight text-umber-deep sm:mt-3 sm:text-4xl md:text-5xl">
+            {t("title")}
+          </h1>
+        </div>
+        <Suspense
+          fallback={
+            <div
+              className="h-10 w-full max-w-[14rem] shrink-0 animate-pulse rounded-md bg-umber/10 sm:ml-auto"
+              aria-hidden
+            />
+          }
+        >
+          <GallerySortSelect label={t("sortLabel")} options={sortOptions} />
+        </Suspense>
       </header>
       {list.length === 0 ? (
         <p className="text-umber/60">{t("empty")}</p>
       ) : (
-        <ul className="grid gap-x-10 gap-y-14 sm:grid-cols-2">
-          {list.map((a) => (
+        <ul className="grid gap-x-6 gap-y-10 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-12 md:gap-x-10 md:gap-y-14">
+          {list.map((a) => {
+            const price = resolvedArtworkPrice(a, locale);
+            return (
             <li key={a.id}>
               <Link href={`/gallery/${a.slug}`} className="group block">
                 <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-parchment-dark shadow-sm ring-1 ring-umber/12">
@@ -68,9 +100,10 @@ export default async function GalleryPage({ params }: Props) {
                     className="object-cover transition duration-700 group-hover:scale-[1.02]"
                     sizes="(max-width: 640px) 100vw, 50vw"
                   />
+                  {a.sold ? <SoldStamp label={t("sold")} /> : null}
                 </div>
                 <div className="mt-5 space-y-1">
-                  <h2 className="font-serif text-2xl font-medium text-umber-deep">
+                  <h2 className="font-serif text-xl font-medium text-umber-deep sm:text-2xl">
                     {locale === "tr" ? a.titleTr : a.titleEn}
                   </h2>
                   <p className="text-sm text-umber/55">
@@ -78,10 +111,16 @@ export default async function GalleryPage({ params }: Props) {
                       .filter(Boolean)
                       .join(" · ")}
                   </p>
+                  {price ? (
+                    <p className="text-sm font-medium text-umber-deep/95">
+                      {price}
+                    </p>
+                  ) : null}
                 </div>
               </Link>
             </li>
-          ))}
+            );
+          })}
         </ul>
       )}
     </div>

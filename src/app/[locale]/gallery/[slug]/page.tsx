@@ -3,9 +3,12 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
+import { SoldStamp } from "@/components/SoldStamp";
+import { GalleryArtworkJsonLd } from "@/components/GalleryArtworkJsonLd";
 import { localeAlternates, seoTruncate } from "@/lib/seo-helpers";
 import { absoluteUrl } from "@/lib/site-url";
 import { readArtworks } from "@/lib/data";
+import { resolvedArtworkPrice, resolvedArtworkExhibition } from "@/lib/artwork-price";
 
 type Props = {
   params: Promise<{ locale: string; slug: string }>;
@@ -76,16 +79,20 @@ export default async function GalleryDetailPage({ params }: Props) {
     locale === "tr" ? artwork.descriptionTr : artwork.descriptionEn;
   const medium =
     locale === "tr" ? artwork.mediumTr : artwork.mediumEn;
+  const price = resolvedArtworkPrice(artwork, locale);
+  const exhibition = resolvedArtworkExhibition(artwork, locale);
 
   return (
-    <article className="mx-auto max-w-6xl px-5 py-14 md:py-20">
+    <>
+      <GalleryArtworkJsonLd locale={locale} artwork={artwork} />
+    <article className="mx-auto max-w-6xl px-4 py-12 sm:px-5 sm:py-14 md:py-20">
       <Link
         href="/gallery"
         className="text-sm font-medium text-oxide underline-offset-4 hover:underline"
       >
         ← {t("title")}
       </Link>
-      <div className="mt-10 grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
+      <div className="mt-8 grid gap-8 sm:mt-10 sm:gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-start lg:gap-12">
         <div className="relative aspect-[3/4] w-full overflow-hidden rounded-lg bg-white shadow-sm ring-1 ring-umber/10 lg:aspect-[4/5]">
           <Image
             src={artwork.image}
@@ -95,35 +102,64 @@ export default async function GalleryDetailPage({ params }: Props) {
             sizes="(max-width: 1024px) 100vw, 55vw"
             priority
           />
+          {artwork.sold ? <SoldStamp label={t("sold")} /> : null}
         </div>
         <div className="space-y-8">
           <header className="space-y-3 border-b border-umber/10 pb-8">
-            <h1 className="font-serif text-4xl font-semibold leading-tight tracking-tight text-umber-deep md:text-[2.75rem]">
+            <h1 className="font-serif text-3xl font-semibold leading-tight tracking-tight text-umber-deep sm:text-4xl md:text-[2.75rem]">
               {title}
             </h1>
-            <dl className="grid gap-3 text-sm text-umber/70">
+            <dl className="grid gap-4 text-sm text-umber/70 sm:gap-3">
+              <div className="flex flex-col gap-0.5 sm:flex-row sm:gap-4">
+                <dt className="shrink-0 text-xs uppercase tracking-wider text-umber/45 sm:w-28 sm:text-sm">
+                  {t("availability")}
+                </dt>
+                <dd
+                  className={`min-w-0 sm:flex-1 ${artwork.sold ? "font-medium text-umber-deep" : ""}`}
+                >
+                  {artwork.sold ? t("sold") : t("available")}
+                </dd>
+              </div>
               {artwork.year ? (
-                <div className="flex gap-4">
-                  <dt className="w-28 shrink-0 uppercase tracking-wider text-umber/45">
+                <div className="flex flex-col gap-0.5 sm:flex-row sm:gap-4">
+                  <dt className="shrink-0 text-xs uppercase tracking-wider text-umber/45 sm:w-28 sm:text-sm">
                     {t("year")}
                   </dt>
-                  <dd>{artwork.year}</dd>
+                  <dd className="min-w-0 sm:flex-1">{artwork.year}</dd>
                 </div>
               ) : null}
               {medium ? (
-                <div className="flex gap-4">
-                  <dt className="w-28 shrink-0 uppercase tracking-wider text-umber/45">
+                <div className="flex flex-col gap-0.5 sm:flex-row sm:gap-4">
+                  <dt className="shrink-0 text-xs uppercase tracking-wider text-umber/45 sm:w-28 sm:text-sm">
                     {t("medium")}
                   </dt>
-                  <dd>{medium}</dd>
+                  <dd className="min-w-0 sm:flex-1">{medium}</dd>
                 </div>
               ) : null}
               {artwork.dimensions ? (
-                <div className="flex gap-4">
-                  <dt className="w-28 shrink-0 uppercase tracking-wider text-umber/45">
+                <div className="flex flex-col gap-0.5 sm:flex-row sm:gap-4">
+                  <dt className="shrink-0 text-xs uppercase tracking-wider text-umber/45 sm:w-28 sm:text-sm">
                     {t("dimensions")}
                   </dt>
-                  <dd>{artwork.dimensions}</dd>
+                  <dd className="min-w-0 sm:flex-1">{artwork.dimensions}</dd>
+                </div>
+              ) : null}
+              {exhibition ? (
+                <div className="flex flex-col gap-0.5 sm:flex-row sm:gap-4">
+                  <dt className="shrink-0 text-xs uppercase tracking-wider text-umber/45 sm:w-28 sm:text-sm">
+                    {t("exhibition")}
+                  </dt>
+                  <dd className="min-w-0 sm:flex-1">{exhibition}</dd>
+                </div>
+              ) : null}
+              {price ? (
+                <div className="flex flex-col gap-0.5 sm:flex-row sm:gap-4">
+                  <dt className="shrink-0 text-xs uppercase tracking-wider text-umber/45 sm:w-28 sm:text-sm">
+                    {t("price")}
+                  </dt>
+                  <dd className="min-w-0 font-medium text-umber-deep sm:flex-1">
+                    {price}
+                  </dd>
                 </div>
               ) : null}
             </dl>
@@ -135,11 +171,11 @@ export default async function GalleryDetailPage({ params }: Props) {
       </div>
 
       {artwork.detailImages && artwork.detailImages.length > 0 ? (
-        <section className="mt-16 border-t border-umber/10 pt-12">
-          <h2 className="mb-8 font-serif text-2xl font-semibold text-umber-deep md:text-3xl">
+        <section className="mt-12 border-t border-umber/10 pt-10 sm:mt-16 sm:pt-12">
+          <h2 className="mb-6 font-serif text-xl font-semibold text-umber-deep sm:mb-8 sm:text-2xl md:text-3xl">
             {t("detailViews")}
           </h2>
-          <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+          <ul className="grid grid-cols-2 gap-3 sm:gap-4 sm:grid-cols-3 lg:grid-cols-4">
             {artwork.detailImages.map((src, i) => (
               <li
                 key={`${src}-${i}`}
@@ -158,5 +194,6 @@ export default async function GalleryDetailPage({ params }: Props) {
         </section>
       ) : null}
     </article>
+    </>
   );
 }

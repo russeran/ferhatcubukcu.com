@@ -6,9 +6,13 @@
   "nav": {
     "home": "Home",
     "gallery": "Gallery",
+    "news": "News",
     "about": "About",
     "contact": "Contact",
-    "admin": "Admin"
+    "admin": "Admin",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "mobileNav": "Site menu"
   },
   "home": {
     "viewWork": "View paintings",
@@ -16,7 +20,10 @@
     "statementLead": "Spirals drawn from Fibonacci’s approach to the golden ratio, woven through figures and compositions — oil on canvas, often at 80×100 cm and beyond.",
     "featuredTitle": "Selected paintings",
     "featuredSubtitle": "Browse the full gallery for every published piece.",
-    "heroAlt": "Ferhat Çubukçu — oil painting, İstanbul studio"
+    "heroAlt": "Ferhat Çubukçu — oil painting, İstanbul studio",
+    "newsTeaser": "Studio & news",
+    "newsTeaserSubtitle": "Exhibitions, social posts, and updates from the studio.",
+    "newsViewAll": "All updates"
   },
   "gallery": {
     "title": "Gallery",
@@ -27,7 +34,33 @@
     "year": "Year",
     "medium": "Medium",
     "dimensions": "Dimensions",
-    "detailViews": "Details & texture"
+    "exhibition": "Exhibition / venue",
+    "detailViews": "Details & texture",
+    "sold": "SOLD",
+    "available": "Available",
+    "availability": "Availability",
+    "sortLabel": "Sort by",
+    "sortOrder": "Manual order (admin)",
+    "sortYearDesc": "Year (newest first)",
+    "sortYearAsc": "Year (oldest first)",
+    "sortTitleAsc": "Title (A–Z)",
+    "sortTitleDesc": "Title (Z–A)",
+    "sortAvailableFirst": "Available first",
+    "sortSoldFirst": "Sold first",
+    "price": "Price"
+  },
+  "news": {
+    "title": "News & updates",
+    "eyebrow": "Studio",
+    "intro": "Exhibitions, press, social posts, and notes from the studio.",
+    "empty": "No published updates yet.",
+    "readMore": "Read more",
+    "openExternal": "Open link",
+    "seoDescription": "News, exhibitions, and studio updates from painter Ferhat Çubukçu — İstanbul.",
+    "kind_news": "News",
+    "kind_social": "Social",
+    "kind_press": "Press",
+    "kind_studio": "Studio"
   },
   "about": {
     "title": "About",
@@ -41,7 +74,9 @@
     "behance": "Behance",
     "behanceLink": "Paintings & exhibitions on Behance",
     "studio": "Studio · İstanbul",
-    "reachOut": "For commissions, exhibitions, or studio visits, please write. More work and CV context live on Behance."
+    "reachOut": "For commissions, exhibitions, or studio visits, please write. More work and CV context live on Behance.",
+    "trustShipping": "Shipping, VAT, and customs depend on destination and current regulations — details are confirmed in writing before any sale.",
+    "trustOrdering": "Availability and pricing on this site are for reference; a short email thread usually clarifies framing, delivery, and payment."
   },
   "footer": {
     "rights": "© Ferhat Çubukçu. All works reserved unless noted.",
@@ -55,6 +90,20 @@
     "signOut": "Sign out",
     "dashboard": "Dashboard",
     "artworks": "Paintings",
+    "news": "News & updates",
+    "newsIntro": "Bilingual posts with optional image and external link (Instagram, Behance, press).",
+    "addNews": "Add update",
+    "newsKind": "Type",
+    "newsKind_news": "News",
+    "newsKind_social": "Social media",
+    "newsKind_press": "Press",
+    "newsKind_studio": "Studio note",
+    "newsExcerptEn": "Excerpt (English)",
+    "newsExcerptTr": "Excerpt (Turkish)",
+    "newsBodyEn": "Body (English)",
+    "newsBodyTr": "Body (Turkish)",
+    "newsExternalUrl": "External link (optional)",
+    "newsImage": "Image (optional)",
     "settings": "Site settings",
     "addArtwork": "Add painting",
     "save": "Save",
@@ -69,10 +118,20 @@
     "titleTr": "Title (Turkish)",
     "descriptionEn": "Description (English)",
     "descriptionTr": "Description (Turkish)",
-    "loginError": "Invalid password.",
+    "exhibitionEn": "Exhibition / venue (English)",
+    "exhibitionTr": "Exhibition / venue (Turkish)",
+    "exhibitionHint": "Optional — e.g. group show title and city.",
+    "exhibitionSection": "Exhibition / venue",
     "loadFailed": "Could not load list",
     "saveFailed": "Save failed",
     "uploadFailed": "Upload failed",
-    "saved": "Saved."
+    "saved": "Saved.",
+    "markSold": "Mark as sold",
+    "soldHint": "Sold works remain in the public gallery with a SOLD label on the image.",
+    "statusSold": "Sold",
+    "priceSection": "Price",
+    "priceEn": "English",
+    "priceTr": "Turkish",
+    "priceHint": "Optional. Free text — e.g. €4,500, TL equivalent, or “On request”. Shown on gallery and painting pages; leave blank to hide."
   }
 }

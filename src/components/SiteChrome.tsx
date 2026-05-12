@@ -11,7 +11,7 @@ export function SiteChrome({
   return (
     <>
       <SiteHeader />
-      <main className="flex-1">{children}</main>
+      <main className="min-h-0 flex-1 overflow-x-hidden">{children}</main>
       <SiteFooter locale={locale} />
     </>
   );

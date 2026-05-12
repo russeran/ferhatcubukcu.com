@@ -1,13 +1,13 @@
 import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 import {
-  readArtworks,
-  writeArtworks,
-  ensureUniqueSlug,
+  readNewsPosts,
+  writeNewsPosts,
+  ensureUniqueNewsSlug,
 } from "@/lib/data";
 import { diskWriteErrorMessage } from "@/lib/disk-write-error";
 import { getSessionFromCookies } from "@/lib/auth";
-import type { Artwork } from "@/lib/types";
+import type { NewsKind, NewsPost } from "@/lib/types";
 import { z } from "zod";
 import { routing } from "@/i18n/routing";
 
@@ -16,36 +16,30 @@ function normOptionalText(s: string | undefined): string | undefined {
   return t ? t : undefined;
 }
 
-function revalidateGallery(slug?: string) {
+function revalidateNews(slug?: string) {
   for (const locale of routing.locales) {
     revalidatePath(`/${locale}`, "layout");
+    revalidatePath(`/${locale}/news`, "page");
     if (slug) {
-      revalidatePath(`/${locale}/gallery/${slug}`, "page");
+      revalidatePath(`/${locale}/news/${slug}`, "page");
     }
   }
 }
 
-const detailImagesField = z
-  .array(z.string().min(1).max(2048))
-  .max(24)
-  .optional();
+const kindEnum = z.enum(["news", "social", "press", "studio"]);
 
 const patchSchema = z.object({
+  kind: kindEnum.optional(),
   titleEn: z.string().min(1).optional(),
   titleTr: z.string().min(1).optional(),
-  descriptionEn: z.string().optional(),
-  descriptionTr: z.string().optional(),
-  image: z.string().min(1).optional(),
-  detailImages: detailImagesField,
-  year: z.string().optional(),
-  mediumEn: z.string().optional(),
-  mediumTr: z.string().optional(),
-  dimensions: z.string().optional(),
-  priceEn: z.string().max(160).optional(),
-  priceTr: z.string().max(160).optional(),
-  exhibitionEn: z.string().max(240).optional(),
-  exhibitionTr: z.string().max(240).optional(),
-  sold: z.boolean().optional(),
+  excerptEn: z.string().max(400).optional(),
+  excerptTr: z.string().max(400).optional(),
+  bodyEn: z.string().optional(),
+  bodyTr: z.string().optional(),
+  image: z.string().max(2048).optional(),
+  externalUrl: z
+    .union([z.string().url().max(2048), z.literal("")])
+    .optional(),
   published: z.boolean().optional(),
   slug: z.string().optional(),
   order: z.number().int().optional(),
@@ -56,8 +50,8 @@ export async function GET(
   ctx: { params: Promise<{ id: string }> }
 ) {
   const { id } = await ctx.params;
-  const list = await readArtworks();
-  const row = list.find((a) => a.id === id);
+  const list = await readNewsPosts();
+  const row = list.find((p) => p.id === id);
   if (!row) return NextResponse.json({ error: "Not found" }, { status: 404 });
   return NextResponse.json(row);
 }
@@ -71,8 +65,8 @@ export async function PATCH(
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   const { id } = await ctx.params;
-  const list = await readArtworks();
-  const idx = list.findIndex((a) => a.id === id);
+  const list = await readNewsPosts();
+  const idx = list.findIndex((p) => p.id === id);
   if (idx === -1) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
@@ -84,7 +78,7 @@ export async function PATCH(
   const current = list[idx];
   let slug = current.slug;
   if (parsed.data.slug !== undefined && parsed.data.slug.trim() !== "") {
-    slug = ensureUniqueSlug(parsed.data.slug.trim(), list, id);
+    slug = ensureUniqueNewsSlug(parsed.data.slug.trim(), list, id);
   } else if (
     parsed.data.titleEn !== undefined ||
     parsed.data.titleTr !== undefined
@@ -93,36 +87,37 @@ export async function PATCH(
       parsed.data.titleEn ??
       parsed.data.titleTr ??
       current.titleEn;
-    slug = ensureUniqueSlug(base, list, id);
+    slug = ensureUniqueNewsSlug(base, list, id);
   }
   const patch = { ...parsed.data };
-  if (patch.detailImages === undefined) {
-    delete patch.detailImages;
-  }
-  if (patch.sold === undefined) {
-    delete patch.sold;
-  }
-  const updated: Artwork = {
+  delete patch.externalUrl;
+  const updated: NewsPost = {
     ...current,
     ...patch,
     slug,
   };
-  if (parsed.data.priceEn !== undefined) {
-    updated.priceEn = normOptionalText(parsed.data.priceEn);
+  if (parsed.data.kind !== undefined) {
+    updated.kind = parsed.data.kind as NewsKind;
   }
-  if (parsed.data.priceTr !== undefined) {
-    updated.priceTr = normOptionalText(parsed.data.priceTr);
+  if (parsed.data.excerptEn !== undefined) {
+    updated.excerptEn = normOptionalText(parsed.data.excerptEn);
   }
-  if (parsed.data.exhibitionEn !== undefined) {
-    updated.exhibitionEn = normOptionalText(parsed.data.exhibitionEn);
+  if (parsed.data.excerptTr !== undefined) {
+    updated.excerptTr = normOptionalText(parsed.data.excerptTr);
   }
-  if (parsed.data.exhibitionTr !== undefined) {
-    updated.exhibitionTr = normOptionalText(parsed.data.exhibitionTr);
+  if (parsed.data.image !== undefined) {
+    updated.image = normOptionalText(parsed.data.image);
+  }
+  if (parsed.data.externalUrl !== undefined) {
+    updated.externalUrl =
+      parsed.data.externalUrl === ""
+        ? undefined
+        : parsed.data.externalUrl.trim();
   }
   const prevSlug = current.slug;
   list[idx] = updated;
   try {
-    await writeArtworks(list);
+    await writeNewsPosts(list);
   } catch (e) {
     list[idx] = current;
     return NextResponse.json(
@@ -130,8 +125,8 @@ export async function PATCH(
       { status: 503 }
     );
   }
-  revalidateGallery(prevSlug);
-  if (updated.slug !== prevSlug) revalidateGallery(updated.slug);
+  revalidateNews(prevSlug);
+  if (updated.slug !== prevSlug) revalidateNews(updated.slug);
   return NextResponse.json(updated);
 }
 
@@ -144,20 +139,20 @@ export async function DELETE(
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   const { id } = await ctx.params;
-  const list = await readArtworks();
-  const removed = list.find((a) => a.id === id);
-  const next = list.filter((a) => a.id !== id);
+  const list = await readNewsPosts();
+  const removed = list.find((p) => p.id === id);
+  const next = list.filter((p) => p.id !== id);
   if (next.length === list.length) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
   try {
-    await writeArtworks(next);
+    await writeNewsPosts(next);
   } catch (e) {
     return NextResponse.json(
       { error: diskWriteErrorMessage(e) },
       { status: 503 }
     );
   }
-  if (removed) revalidateGallery(removed.slug);
+  if (removed) revalidateNews(removed.slug);
   return NextResponse.json({ ok: true });
 }

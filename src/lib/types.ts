@@ -13,7 +13,15 @@ export type Artwork = {
   mediumEn?: string;
   mediumTr?: string;
   dimensions?: string;
+  /** Shown on gallery and detail (e.g. €4,500, On request). */
+  priceEn?: string;
+  priceTr?: string;
+  /** Optional exhibition or venue line. */
+  exhibitionEn?: string;
+  exhibitionTr?: string;
   order: number;
+  /** When true, visitors see a SOLD mark; work stays in the gallery. */
+  sold?: boolean;
   published: boolean;
   createdAt: string;
 };
@@ -31,4 +39,25 @@ export type SiteSettings = {
   behance?: string;
   studioNoteEn?: string;
   studioNoteTr?: string;
+};
+
+/** News, social, press, or studio updates — admin-managed, public under /news. */
+export type NewsKind = "news" | "social" | "press" | "studio";
+
+export type NewsPost = {
+  id: string;
+  slug: string;
+  kind: NewsKind;
+  titleEn: string;
+  titleTr: string;
+  excerptEn?: string;
+  excerptTr?: string;
+  bodyEn: string;
+  bodyTr: string;
+  image?: string;
+  /** Instagram post, article, Behance update, etc. */
+  externalUrl?: string;
+  order: number;
+  published: boolean;
+  createdAt: string;
 };

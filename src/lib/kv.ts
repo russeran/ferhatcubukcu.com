@@ -2,6 +2,7 @@ import { Redis } from "@upstash/redis";
 
 const SETTINGS_KEY = "fc_site:settings:v1";
 const ARTWORKS_KEY = "fc_site:artworks:v1";
+const NEWS_KEY = "fc_site:news:v1";
 
 let cached: Redis | null | undefined;
 
@@ -23,5 +24,5 @@ export function getRedis(): Redis | null {
 }
 
 export function redisKeys() {
-  return { settings: SETTINGS_KEY, artworks: ARTWORKS_KEY };
+  return { settings: SETTINGS_KEY, artworks: ARTWORKS_KEY, news: NEWS_KEY };
 }

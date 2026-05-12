@@ -9,8 +9,8 @@ export async function SiteFooter({ locale }: { locale: string }) {
   const behance = settings.behance?.trim() || DEFAULT_BEHANCE;
 
   return (
-    <footer className="mt-auto border-t border-umber/12 bg-parchment-dark/85">
-      <div className="mx-auto flex max-w-6xl flex-col gap-6 px-5 py-10 text-sm text-umber/60 md:flex-row md:items-center md:justify-between">
+    <footer className="mt-auto border-t border-umber/12 bg-parchment-dark/85 supports-[padding:max(0px)]:pb-[env(safe-area-inset-bottom,0px)]">
+      <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-10 text-sm text-umber/60 sm:px-5 md:flex-row md:items-center md:justify-between">
         <div className="space-y-3">
           <p>{t("rights")}</p>
           <a

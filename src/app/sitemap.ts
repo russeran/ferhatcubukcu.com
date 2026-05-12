@@ -1,9 +1,9 @@
 import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
-import { readArtworks } from "@/lib/data";
+import { readArtworks, readNewsPosts } from "@/lib/data";
 import { absoluteUrl } from "@/lib/site-url";
 
-const staticPaths = ["", "/gallery", "/about", "/contact"] as const;
+const staticPaths = ["", "/gallery", "/news", "/about", "/contact"] as const;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries: MetadataRoute.Sitemap = [];
@@ -14,7 +14,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       entries.push({
         url: absoluteUrl(path),
         changeFrequency: p === "" ? "weekly" : "monthly",
-        priority: p === "" ? 1 : 0.85,
+        priority: p === "" ? 1 : p === "/news" ? 0.8 : 0.85,
       });
     }
   }
@@ -27,6 +27,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           url: absoluteUrl(`/${locale}/gallery/${a.slug}`),
           changeFrequency: "monthly",
           priority: 0.65,
+        });
+      }
+    }
+  } catch {
+    /* build without data */
+  }
+
+  try {
+    const posts = await readNewsPosts();
+    for (const post of posts.filter((x) => x.published)) {
+      for (const locale of routing.locales) {
+        entries.push({
+          url: absoluteUrl(`/${locale}/news/${post.slug}`),
+          changeFrequency: "weekly",
+          priority: 0.55,
         });
       }
     }

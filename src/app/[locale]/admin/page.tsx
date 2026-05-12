@@ -19,8 +19,8 @@ export default async function AdminDashboardPage({ params }: Props) {
             {t("dashboard")}
           </h1>
           <p className="mt-2 max-w-lg text-sm text-parchment/65">
-            Manage bilingual painting entries, hero image path, and biography.
-            File uploads go to{" "}
+            Manage bilingual paintings, news and social posts, hero image path,
+            and biography. File uploads go to{" "}
             <code className="rounded bg-black/30 px-1.5 py-0.5 text-xs">
               /public/uploads
             </code>
@@ -31,7 +31,7 @@ export default async function AdminDashboardPage({ params }: Props) {
       </div>
       <div className="mt-10 space-y-8">
         <AdminNav />
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           <Link
             href={`/${locale}/admin/artworks`}
             prefetch={false}
@@ -43,9 +43,20 @@ export default async function AdminDashboardPage({ params }: Props) {
             </p>
           </Link>
           <Link
-            href={`/${locale}/admin/settings`}
+            href={`/${locale}/admin/news`}
             prefetch={false}
             className="group rounded-xl border border-white/10 bg-black/20 p-6 transition hover:border-goldleaf/40"
+          >
+            <p className="font-serif text-xl text-goldleaf">{t("news")}</p>
+            <p className="mt-2 text-sm text-parchment/60">
+              Studio updates, press, and social links — bilingual, with optional
+              image and external URL.
+            </p>
+          </Link>
+          <Link
+            href={`/${locale}/admin/settings`}
+            prefetch={false}
+            className="group rounded-xl border border-white/10 bg-black/20 p-6 transition hover:border-goldleaf/40 md:col-span-2 lg:col-span-1"
           >
             <p className="font-serif text-xl text-goldleaf">{t("settings")}</p>
             <p className="mt-2 text-sm text-parchment/60">

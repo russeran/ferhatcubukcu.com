@@ -1,4 +1,4 @@
-import type { Artwork, SiteSettings } from "@/lib/types";
+import type { Artwork, NewsPost, SiteSettings } from "@/lib/types";
 import fs from "fs/promises";
 import path from "path";
 import { getDataDir } from "@/lib/auth";
@@ -11,6 +11,7 @@ import {
 
 const SETTINGS_FILE = "settings.json";
 const ARTWORKS_FILE = "artworks.json";
+const NEWS_FILE = "news.json";
 
 const defaultSettings: SiteSettings = {
   artistName: "Ferhat Çubukçu",
@@ -137,6 +138,7 @@ function defaultSeedArtworks(): Artwork[] {
         mediumTr: "Tuval üzerine yağlıboya",
         dimensions: "Various",
         order: 0,
+        sold: false,
         published: true,
         createdAt: new Date().toISOString(),
       },
@@ -155,6 +157,7 @@ function defaultSeedArtworks(): Artwork[] {
         mediumTr: "Tuval üzerine yağlıboya",
         dimensions: "80 × 100 cm",
         order: 1,
+        sold: false,
         published: true,
         createdAt: new Date().toISOString(),
       },
@@ -173,6 +176,7 @@ function defaultSeedArtworks(): Artwork[] {
         mediumTr: "Tuval üzerine yağlıboya",
         dimensions: "80 × 100 cm",
         order: 2,
+        sold: false,
         published: true,
         createdAt: new Date().toISOString(),
       },
@@ -261,3 +265,76 @@ export function ensureUniqueSlug(
 }
 
 export { slugify };
+
+export function ensureUniqueNewsSlug(
+  base: string,
+  existing: NewsPost[],
+  exceptId?: string
+): string {
+  let slug = slugify(base) || "update";
+  let n = 1;
+  while (existing.some((p) => p.slug === slug && p.id !== exceptId)) {
+    slug = `${slugify(base) || "update"}-${n++}`;
+  }
+  return slug;
+}
+
+export async function readNewsPosts(): Promise<NewsPost[]> {
+  if (getSupabaseAdmin()) {
+    const v = await supabaseGetJson("news");
+    if (Array.isArray(v)) {
+      return v as NewsPost[];
+    }
+    return [];
+  }
+
+  const redis = getRedis();
+  if (redis) {
+    const raw = await redis.get(redisKeys().news);
+    const parsed = parseRedisJson<NewsPost[]>(raw);
+    if (parsed && Array.isArray(parsed)) {
+      return parsed;
+    }
+    return [];
+  }
+
+  const file = path.join(getDataDir(), NEWS_FILE);
+  try {
+    const raw = await fs.readFile(file, "utf-8");
+    try {
+      const parsed = JSON.parse(raw) as NewsPost[];
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
+  } catch {
+    return [];
+  }
+}
+
+export async function writeNewsPosts(list: NewsPost[]): Promise<void> {
+  if (getSupabaseAdmin()) {
+    await supabaseSetJson("news", list);
+    return;
+  }
+
+  const redis = getRedis();
+  if (redis) {
+    await redis.set(redisKeys().news, JSON.stringify(list));
+    return;
+  }
+
+  await fs.mkdir(getDataDir(), { recursive: true });
+  await fs.writeFile(
+    path.join(getDataDir(), NEWS_FILE),
+    JSON.stringify(list, null, 2),
+    "utf-8"
+  );
+}
+
+export async function getNewsPostBySlug(
+  slug: string
+): Promise<NewsPost | undefined> {
+  const all = await readNewsPosts();
+  return all.find((p) => p.slug === slug && p.published);
+}

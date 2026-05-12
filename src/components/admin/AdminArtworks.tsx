@@ -21,7 +21,12 @@ const emptyForm = {
   mediumEn: "",
   mediumTr: "",
   dimensions: "",
+  priceEn: "",
+  priceTr: "",
+  exhibitionEn: "",
+  exhibitionTr: "",
   published: true,
+  sold: false,
   slug: "",
 };
 
@@ -161,7 +166,12 @@ export function AdminArtworks() {
       mediumEn: a.mediumEn ?? "",
       mediumTr: a.mediumTr ?? "",
       dimensions: a.dimensions ?? "",
+      priceEn: a.priceEn ?? "",
+      priceTr: a.priceTr ?? "",
+      exhibitionEn: a.exhibitionEn ?? "",
+      exhibitionTr: a.exhibitionTr ?? "",
       published: a.published,
+      sold: Boolean(a.sold),
       slug: a.slug,
     });
   }
@@ -382,6 +392,84 @@ export function AdminArtworks() {
               }
             />
           </label>
+          <div className="md:col-span-2 space-y-3 rounded-md border border-white/10 bg-black/15 p-4">
+            <span className="text-xs uppercase tracking-wider text-parchment/45">
+              {t("priceSection")}
+            </span>
+            <p className="text-xs text-parchment/50">{t("priceHint")}</p>
+            <div className="grid gap-4 md:grid-cols-2">
+              <label className="space-y-1">
+                <span className="text-xs text-parchment/55">{t("priceEn")}</span>
+                <input
+                  className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+                  value={create.priceEn}
+                  onChange={(e) =>
+                    setCreate({ ...create, priceEn: e.target.value })
+                  }
+                  maxLength={160}
+                />
+              </label>
+              <label className="space-y-1">
+                <span className="text-xs text-parchment/55">{t("priceTr")}</span>
+                <input
+                  className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+                  value={create.priceTr}
+                  onChange={(e) =>
+                    setCreate({ ...create, priceTr: e.target.value })
+                  }
+                  maxLength={160}
+                />
+              </label>
+            </div>
+          </div>
+          <div className="md:col-span-2 space-y-3 rounded-md border border-white/10 bg-black/15 p-4">
+            <span className="text-xs uppercase tracking-wider text-parchment/45">
+              {t("exhibitionSection")}
+            </span>
+            <p className="text-xs text-parchment/50">{t("exhibitionHint")}</p>
+            <div className="grid gap-4 md:grid-cols-2">
+              <label className="space-y-1">
+                <span className="text-xs text-parchment/55">
+                  {t("exhibitionEn")}
+                </span>
+                <input
+                  className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+                  value={create.exhibitionEn}
+                  onChange={(e) =>
+                    setCreate({ ...create, exhibitionEn: e.target.value })
+                  }
+                  maxLength={240}
+                />
+              </label>
+              <label className="space-y-1">
+                <span className="text-xs text-parchment/55">
+                  {t("exhibitionTr")}
+                </span>
+                <input
+                  className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+                  value={create.exhibitionTr}
+                  onChange={(e) =>
+                    setCreate({ ...create, exhibitionTr: e.target.value })
+                  }
+                  maxLength={240}
+                />
+              </label>
+            </div>
+          </div>
+          <label className="flex items-center gap-3 md:col-span-2">
+            <input
+              type="checkbox"
+              checked={create.sold}
+              onChange={(e) =>
+                setCreate({ ...create, sold: e.target.checked })
+              }
+              className="h-4 w-4 rounded border-white/25 bg-black/40"
+            />
+            <span className="text-sm text-parchment/80">{t("markSold")}</span>
+          </label>
+          <p className="-mt-1 text-xs text-parchment/45 md:col-span-2">
+            {t("soldHint")}
+          </p>
           <label className="flex items-center gap-3 md:col-span-2">
             <input
               type="checkbox"
@@ -421,6 +509,11 @@ export function AdminArtworks() {
                     className="object-cover"
                     sizes="120px"
                   />
+                  {a.sold ? (
+                    <span className="absolute left-1.5 top-1.5 rounded bg-black/75 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-parchment">
+                      {t("statusSold")}
+                    </span>
+                  ) : null}
                 </div>
                 <div className="min-w-0 flex-1 space-y-1">
                   <p className="font-serif text-lg text-parchment">
@@ -631,6 +724,90 @@ export function AdminArtworks() {
                       }
                     />
                   </label>
+                  <div className="md:col-span-2 space-y-3 rounded-md border border-white/10 bg-black/15 p-4">
+                    <span className="text-xs uppercase tracking-wider text-parchment/45">
+                      {t("priceSection")}
+                    </span>
+                    <p className="text-xs text-parchment/50">{t("priceHint")}</p>
+                    <div className="grid gap-4 md:grid-cols-2">
+                      <label className="space-y-1">
+                        <span className="text-xs text-parchment/55">
+                          {t("priceEn")}
+                        </span>
+                        <input
+                          className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+                          value={edit.priceEn}
+                          onChange={(e) =>
+                            setEdit({ ...edit, priceEn: e.target.value })
+                          }
+                          maxLength={160}
+                        />
+                      </label>
+                      <label className="space-y-1">
+                        <span className="text-xs text-parchment/55">
+                          {t("priceTr")}
+                        </span>
+                        <input
+                          className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+                          value={edit.priceTr}
+                          onChange={(e) =>
+                            setEdit({ ...edit, priceTr: e.target.value })
+                          }
+                          maxLength={160}
+                        />
+                      </label>
+                    </div>
+                  </div>
+                  <div className="md:col-span-2 space-y-3 rounded-md border border-white/10 bg-black/15 p-4">
+                    <span className="text-xs uppercase tracking-wider text-parchment/45">
+                      {t("exhibitionSection")}
+                    </span>
+                    <p className="text-xs text-parchment/50">{t("exhibitionHint")}</p>
+                    <div className="grid gap-4 md:grid-cols-2">
+                      <label className="space-y-1">
+                        <span className="text-xs text-parchment/55">
+                          {t("exhibitionEn")}
+                        </span>
+                        <input
+                          className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+                          value={edit.exhibitionEn}
+                          onChange={(e) =>
+                            setEdit({ ...edit, exhibitionEn: e.target.value })
+                          }
+                          maxLength={240}
+                        />
+                      </label>
+                      <label className="space-y-1">
+                        <span className="text-xs text-parchment/55">
+                          {t("exhibitionTr")}
+                        </span>
+                        <input
+                          className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+                          value={edit.exhibitionTr}
+                          onChange={(e) =>
+                            setEdit({ ...edit, exhibitionTr: e.target.value })
+                          }
+                          maxLength={240}
+                        />
+                      </label>
+                    </div>
+                  </div>
+                  <label className="flex items-center gap-3 md:col-span-2">
+                    <input
+                      type="checkbox"
+                      checked={edit.sold}
+                      onChange={(e) =>
+                        setEdit({ ...edit, sold: e.target.checked })
+                      }
+                      className="h-4 w-4 rounded border-white/25 bg-black/40"
+                    />
+                    <span className="text-sm text-parchment/80">
+                      {t("markSold")}
+                    </span>
+                  </label>
+                  <p className="-mt-1 text-xs text-parchment/45 md:col-span-2">
+                    {t("soldHint")}
+                  </p>
                   <label className="flex items-center gap-3 md:col-span-2">
                     <input
                       type="checkbox"

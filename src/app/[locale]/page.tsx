@@ -3,9 +3,12 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { HomeJsonLd } from "@/components/HomeJsonLd";
+import { SoldStamp } from "@/components/SoldStamp";
 import { localeAlternates } from "@/lib/seo-helpers";
 import { absoluteUrl } from "@/lib/site-url";
-import { readArtworks, readSettings } from "@/lib/data";
+import { readArtworks, readNewsPosts, readSettings } from "@/lib/data";
+import { resolvedNewsExcerpt, resolvedNewsTitle } from "@/lib/news-display";
+import { resolvedArtworkPrice } from "@/lib/artwork-price";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -49,11 +52,17 @@ export async function generateMetadata({
 export default async function HomePage({ params }: Props) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "home" });
+  const tg = await getTranslations({ locale, namespace: "gallery" });
   const settings = await readSettings();
   const artworks = (await readArtworks())
     .filter((a) => a.published)
     .sort((a, b) => a.order - b.order)
     .slice(0, 6);
+
+  const newsTeaser = (await readNewsPosts())
+    .filter((p) => p.published)
+    .sort((a, b) => a.order - b.order)
+    .slice(0, 3);
 
   const tagline =
     locale === "tr" ? settings.taglineTr : settings.taglineEn;
@@ -63,19 +72,21 @@ export default async function HomePage({ params }: Props) {
       <HomeJsonLd locale={locale} settings={settings} />
       <section className="relative overflow-hidden border-b border-umber/10">
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/40 to-transparent" />
-        <div className="relative mx-auto grid max-w-6xl gap-12 px-5 py-16 md:grid-cols-2 md:items-center md:gap-16 md:py-28">
-          <div className="animate-fade-up space-y-6">
-            <p className="font-serif text-[11px] uppercase tracking-[0.38em] text-patina">
+        <div className="relative mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:gap-12 sm:px-5 sm:py-16 md:grid-cols-2 md:items-center md:gap-16 md:py-28">
+          <div className="animate-fade-up space-y-5 sm:space-y-6">
+            <p className="font-serif text-[10px] uppercase tracking-[0.38em] text-patina sm:text-[11px]">
               {t("studio")}
             </p>
-            <h1 className="font-serif text-4xl font-semibold leading-[1.05] tracking-tight text-umber-deep md:text-5xl lg:text-[3.1rem]">
+            <h1 className="font-serif text-3xl font-semibold leading-[1.05] tracking-tight text-umber-deep sm:text-4xl md:text-5xl lg:text-[3.1rem]">
               {settings.artistName}
             </h1>
-            <p className="max-w-md text-lg text-umber/90 md:text-xl">{tagline}</p>
+            <p className="max-w-md text-base text-umber/90 sm:text-lg md:text-xl">
+              {tagline}
+            </p>
             <p className="max-w-xl text-sm leading-relaxed text-umber/70 md:text-base">
               {t("statementLead")}
             </p>
-            <div className="flex flex-wrap gap-3 pt-2">
+            <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap">
               <Link
                 href="/gallery"
                 className="inline-flex items-center justify-center rounded-full bg-umber-deep px-7 py-3 text-sm font-semibold text-parchment shadow-sm transition hover:bg-oxide"
@@ -104,10 +115,50 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 py-16 md:py-24">
-        <div className="mb-12 flex items-end justify-between gap-6 border-b border-umber/10 pb-8">
+      {newsTeaser.length > 0 ? (
+        <section className="border-b border-umber/10 bg-parchment-dark/40 py-14 sm:py-16">
+          <div className="mx-auto max-w-6xl px-4 sm:px-5">
+            <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p className="font-serif text-[10px] uppercase tracking-[0.38em] text-patina sm:text-[11px]">
+                  {t("newsTeaser")}
+                </p>
+                <h2 className="mt-2 font-serif text-xl font-semibold text-umber-deep sm:text-2xl">
+                  {t("newsTeaserSubtitle")}
+                </h2>
+              </div>
+              <Link
+                href="/news"
+                className="text-sm font-medium text-oxide underline-offset-4 hover:underline sm:shrink-0"
+              >
+                {t("newsViewAll")}
+              </Link>
+            </div>
+            <ul className="grid gap-8 sm:grid-cols-3">
+              {newsTeaser.map((p) => (
+                <li key={p.id}>
+                  <Link
+                    href={`/news/${p.slug}`}
+                    className="group block rounded-lg border border-umber/10 bg-parchment/90 p-5 shadow-sm transition hover:border-oxide/35 hover:shadow-md"
+                  >
+                    <h3 className="font-serif text-lg font-medium text-umber-deep group-hover:text-oxide">
+                      {resolvedNewsTitle(p, locale)}
+                    </h3>
+                    <p className="mt-2 line-clamp-3 text-sm text-umber/70">
+                      {resolvedNewsExcerpt(p, locale)}
+                    </p>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      ) : null}
+
+      <section className="mx-auto max-w-6xl px-4 py-14 sm:px-5 sm:py-16 md:py-24">
+        <div className="mb-8 flex flex-col gap-4 border-b border-umber/10 pb-8 sm:mb-12 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
           <div>
-            <h2 className="font-serif text-2xl font-semibold text-umber-deep md:text-3xl">
+            <h2 className="font-serif text-xl font-semibold text-umber-deep sm:text-2xl md:text-3xl">
               {t("featuredTitle")}
             </h2>
             <p className="mt-2 max-w-xl text-sm text-umber/60">
@@ -116,7 +167,7 @@ export default async function HomePage({ params }: Props) {
           </div>
           <Link
             href="/gallery"
-            className="hidden text-sm font-medium text-oxide underline-offset-4 hover:underline md:inline"
+            className="shrink-0 text-sm font-medium text-oxide underline-offset-4 hover:underline sm:self-end md:inline md:self-auto"
           >
             {locale === "tr" ? "Tümü" : "View all"}
           </Link>
@@ -128,8 +179,10 @@ export default async function HomePage({ params }: Props) {
               : "No published paintings yet."}
           </p>
         ) : (
-          <ul className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-            {artworks.map((a, i) => (
+          <ul className="grid gap-8 sm:grid-cols-2 sm:gap-10 lg:grid-cols-3">
+            {artworks.map((a, i) => {
+              const price = resolvedArtworkPrice(a, locale);
+              return (
               <li
                 key={a.id}
                 className="animate-fade-up"
@@ -144,11 +197,12 @@ export default async function HomePage({ params }: Props) {
                       className="object-cover transition duration-500 group-hover:scale-[1.02]"
                       sizes="(max-width: 640px) 100vw, 33vw"
                     />
+                    {a.sold ? <SoldStamp label={tg("sold")} /> : null}
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-umber-deep/25 via-transparent to-transparent opacity-0 transition group-hover:opacity-100" />
                   </div>
                   <div className="mt-4 flex items-start justify-between gap-3">
                     <div>
-                      <p className="font-serif text-lg font-medium text-umber-deep">
+                      <p className="font-serif text-base font-medium text-umber-deep sm:text-lg">
                         {locale === "tr" ? a.titleTr : a.titleEn}
                       </p>
                       {a.year ? (
@@ -156,11 +210,17 @@ export default async function HomePage({ params }: Props) {
                           {a.year}
                         </p>
                       ) : null}
+                      {price ? (
+                        <p className="mt-1 text-sm font-medium text-umber-deep/90">
+                          {price}
+                        </p>
+                      ) : null}
                     </div>
                   </div>
                 </Link>
               </li>
-            ))}
+              );
+            })}
           </ul>
         )}
       </section>
