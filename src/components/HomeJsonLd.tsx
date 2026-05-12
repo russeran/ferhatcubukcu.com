@@ -24,18 +24,35 @@ export function HomeJsonLd({ locale, settings }: Props) {
     ? hero
     : absoluteUrl(hero.startsWith("/") ? hero : `/${hero}`);
 
+  const pageUrl = absoluteUrl(`/${locale}`);
+  const personId = `${pageUrl}#person`;
+  const websiteId = `${pageUrl}#website`;
+
   const json = {
     "@context": "https://schema.org",
-    "@type": "Person",
-    name: settings.artistName,
-    url: absoluteUrl(`/${locale}`),
-    image: imageUrl,
-    jobTitle: locale === "tr" ? "Ressam" : "Painter",
-    sameAs,
-    homeLocation: {
-      "@type": "Place",
-      name: "İstanbul, Türkiye",
-    },
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": websiteId,
+        url: pageUrl,
+        name: settings.artistName,
+        inLanguage: locale === "tr" ? "tr-TR" : "en-US",
+        publisher: { "@id": personId },
+      },
+      {
+        "@type": "Person",
+        "@id": personId,
+        name: settings.artistName,
+        url: pageUrl,
+        image: imageUrl,
+        jobTitle: locale === "tr" ? "Ressam" : "Painter",
+        sameAs,
+        homeLocation: {
+          "@type": "Place",
+          name: "İstanbul, Türkiye",
+        },
+      },
+    ],
   };
 
   return (

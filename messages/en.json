@@ -7,6 +7,7 @@
     "home": "Home",
     "gallery": "Gallery",
     "news": "News",
+    "instagram": "Instagram",
     "about": "About",
     "contact": "Contact",
     "admin": "Admin",
@@ -77,6 +78,21 @@
     "reachOut": "For commissions, exhibitions, or studio visits, please write. More work and CV context live on Behance.",
     "trustShipping": "Shipping, VAT, and customs depend on destination and current regulations — details are confirmed in writing before any sale.",
     "trustOrdering": "Availability and pricing on this site are for reference; a short email thread usually clarifies framing, delivery, and payment."
+  },
+  "instagram": {
+    "title": "Instagram",
+    "eyebrow": "Studio feed",
+    "intro": "Recent posts from the studio Instagram. Tap any image to open it on Instagram.",
+    "seoDescription": "Instagram feed — studio posts, process, and exhibitions from painter Ferhat Çubukçu in İstanbul.",
+    "profileCta": "Open Instagram profile",
+    "videoBadge": "Video",
+    "emptyPosts": "No posts were returned for this account yet.",
+    "configureTitle": "Instagram feed is not connected",
+    "configureP1": "To show every post here, this site uses Meta’s Instagram Graph API. The account must be a professional Instagram profile (Business or Creator) linked to a Facebook Page — personal accounts cannot be queried by the API.",
+    "configureP2": "Create a long-lived access token in the Meta developer tools, then set INSTAGRAM_USER_ID (the Instagram business account ID) and INSTAGRAM_ACCESS_TOKEN on the server (for example in Vercel environment variables). Redeploy after saving.",
+    "configureP3": "See .env.example in the repository for variable names. Until then, use the button above to visit the profile on Instagram.",
+    "loadErrorTitle": "Could not load the feed",
+    "loadErrorHint": "The token may have expired or lost permissions. Generate a new long-lived token in Meta for Developers and update INSTAGRAM_ACCESS_TOKEN, then redeploy."
   },
   "footer": {
     "rights": "© Ferhat Çubukçu. All works reserved unless noted.",

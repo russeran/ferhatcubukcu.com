@@ -7,6 +7,7 @@
     "home": "Ana sayfa",
     "gallery": "Galeri",
     "news": "Haberler",
+    "instagram": "Instagram",
     "about": "Hakkında",
     "contact": "İletişim",
     "admin": "Yönetim",
@@ -77,6 +78,21 @@
     "reachOut": "Sipariş, sergi veya atölye ziyareti için yazabilirsiniz. Daha çok iş ve özgeçmiş bağlamı Behance’te.",
     "trustShipping": "Kargo, KDV ve gümrük, varış ülkesi ve güncel mevzuata göre değişir — satış öncesi yazılı olarak netleştirilir.",
     "trustOrdering": "Sitedeki müsaitlik ve fiyatlar referans içindir; çerçeve, teslimat ve ödeme genelde kısa bir e-posta trafiğiyle netleşir."
+  },
+  "instagram": {
+    "title": "Instagram",
+    "eyebrow": "Atölye akışı",
+    "intro": "Atölye Instagram hesabından son paylaşımlar. Bir görsele dokunarak Instagram’da açabilirsiniz.",
+    "seoDescription": "Instagram akışı — İstanbul’daki ressam Ferhat Çubukçu’nun atölye paylaşımları, süreç ve sergiler.",
+    "profileCta": "Instagram profilini aç",
+    "videoBadge": "Video",
+    "emptyPosts": "Bu hesap için henüz paylaşım dönmedi.",
+    "configureTitle": "Instagram akışı bağlı değil",
+    "configureP1": "Tüm paylaşımları burada göstermek için site Meta’nın Instagram Graph API’sini kullanır. Hesap, bir Facebook Sayfasına bağlı profesyonel (İşletme veya İçerik Üretici) bir Instagram profili olmalıdır — kişisel hesaplar API ile okunamaz.",
+    "configureP2": "Meta geliştirici araçlarında uzun ömürlü bir erişim jetonu oluşturun; ardından sunucuda INSTAGRAM_USER_ID (Instagram iş hesabı kimliği) ve INSTAGRAM_ACCESS_TOKEN değişkenlerini ayarlayın (örneğin Vercel ortam değişkenleri). Kaydettikten sonra yeniden yayınlayın.",
+    "configureP3": "Değişken adları için depodaki .env.example dosyasına bakın. Bu yapılandırma tamamlanana kadar yukarıdaki düğme ile Instagram’daki profile gidebilirsiniz.",
+    "loadErrorTitle": "Akış yüklenemedi",
+    "loadErrorHint": "Jeton süresi dolmuş veya izinler eksik olabilir. Meta for Developers üzerinden yeni bir uzun ömürlü jeton üretin ve INSTAGRAM_ACCESS_TOKEN değerini güncelleyip yeniden yayınlayın."
   },
   "footer": {
     "rights": "© Ferhat Çubukçu. Tüm eserler saklıdır; aksi belirtilmedikçe.",

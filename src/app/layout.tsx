@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { getSiteUrl } from "@/lib/site-url";
 import { Cormorant_Garamond, Source_Sans_3 } from "next/font/google";
 import "./globals.css";
@@ -16,12 +17,18 @@ const body = Source_Sans_3({
   variable: "--font-body",
 });
 
+const googleVerification =
+  process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION?.trim();
+
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
   icons: {
     icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
     shortcut: "/favicon.svg",
   },
+  ...(googleVerification
+    ? { verification: { google: googleVerification } }
+    : {}),
 };
 
 export const viewport: Viewport = {
@@ -41,6 +48,7 @@ export default function RootLayout({
       <body className="font-sans min-h-screen flex flex-col">
         {children}
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

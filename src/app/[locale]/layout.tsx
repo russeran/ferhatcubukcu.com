@@ -28,6 +28,7 @@ export async function generateMetadata({
       template: `%s · Ferhat Çubukçu`,
     },
     description: messages.meta.description as string,
+    robots: { index: true, follow: true },
   };
 }
 
