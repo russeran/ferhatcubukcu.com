@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { getSiteUrl } from "@/lib/site-url";
 import { Cormorant_Garamond, Source_Sans_3 } from "next/font/google";
 import "./globals.css";
@@ -30,7 +31,10 @@ export default function RootLayout({
 }>) {
   return (
     <html suppressHydrationWarning className={`${display.variable} ${body.variable}`}>
-      <body className="font-sans min-h-screen flex flex-col">{children}</body>
+      <body className="font-sans min-h-screen flex flex-col">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }

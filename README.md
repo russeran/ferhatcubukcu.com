@@ -40,6 +40,7 @@ The **`message`** field in a **400** response from `POST /api/auth/login` explai
 
 - Technical SEO included: **`/sitemap.xml`**, **`/robots.txt`** (blocks `/api/` and admin), per-page **title/description**, **hreflang** alternates (`en` / `tr`), **Open Graph / Twitter** cards, **JSON-LD** `Person` on the home page, and meaningful **hero `alt`** text.
 - After launch, add the property in **[Google Search Console](https://search.google.com/search-console)** and submit `https://your-domain/sitemap.xml`.
+- **Vercel Web Analytics**: `@vercel/analytics` is wired in the root layout. In the Vercel project, open **Analytics → Web Analytics** and enable it so page views appear in the dashboard.
 - Set **`NEXT_PUBLIC_SITE_URL`** to your canonical origin (e.g. `https://ferhatcubukcu.com`) on Vercel so `metadataBase`, the sitemap, and social preview URLs use the custom domain instead of the default `*.vercel.app` host.
 - **Persisting admin changes on Vercel** (filesystem is read-only). Pick **one** backend (usable **free tiers**):
 
