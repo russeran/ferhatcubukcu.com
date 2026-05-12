@@ -20,12 +20,18 @@ function revalidateGallery(slug?: string) {
   }
 }
 
+const detailImagesField = z
+  .array(z.string().min(1).max(2048))
+  .max(24)
+  .optional();
+
 const patchSchema = z.object({
   titleEn: z.string().min(1).optional(),
   titleTr: z.string().min(1).optional(),
   descriptionEn: z.string().optional(),
   descriptionTr: z.string().optional(),
   image: z.string().min(1).optional(),
+  detailImages: detailImagesField,
   year: z.string().optional(),
   mediumEn: z.string().optional(),
   mediumTr: z.string().optional(),
@@ -79,9 +85,13 @@ export async function PATCH(
       current.titleEn;
     slug = ensureUniqueSlug(base, list, id);
   }
+  const patch = { ...parsed.data };
+  if (patch.detailImages === undefined) {
+    delete patch.detailImages;
+  }
   const updated: Artwork = {
     ...current,
-    ...parsed.data,
+    ...patch,
     slug,
   };
   const prevSlug = current.slug;

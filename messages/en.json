@@ -26,7 +26,8 @@
     "detail": "Details",
     "year": "Year",
     "medium": "Medium",
-    "dimensions": "Dimensions"
+    "dimensions": "Dimensions",
+    "detailViews": "Details & texture"
   },
   "about": {
     "title": "About",
@@ -59,6 +60,9 @@
     "save": "Save",
     "delete": "Delete",
     "uploadImage": "Upload image",
+    "mainImage": "Main image (listing & page hero)",
+    "detailImages": "Detail photos",
+    "detailImagesHint": "Optional close-ups, frame, or texture. Select multiple files; up to 24 per painting.",
     "published": "Published",
     "slug": "URL slug",
     "titleEn": "Title (English)",

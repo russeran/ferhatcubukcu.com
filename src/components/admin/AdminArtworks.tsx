@@ -8,12 +8,15 @@ import { useCallback, useEffect, useState } from "react";
 
 const fetchOpts: RequestInit = { credentials: "same-origin" };
 
+const MAX_DETAIL_IMAGES = 24;
+
 const emptyForm = {
   titleEn: "",
   titleTr: "",
   descriptionEn: "",
   descriptionTr: "",
   image: "/gallery-placeholder.svg",
+  detailImages: [] as string[],
   year: "",
   mediumEn: "",
   mediumTr: "",
@@ -48,34 +51,77 @@ export function AdminArtworks() {
     load().finally(() => setLoading(false));
   }, [load]);
 
-  async function uploadFile(file: File, target: "create" | "edit") {
+  async function uploadOne(file: File): Promise<string | null> {
+    const fd = new FormData();
+    fd.set("file", file);
+    const res = await fetch("/api/upload", {
+      method: "POST",
+      body: fd,
+      credentials: "same-origin",
+    });
+    if (!res.ok) {
+      setError(`${t("uploadFailed")}: ${await readApiError(res)}`);
+      return null;
+    }
+    const data = (await res.json()) as { url?: string };
+    return data.url ?? null;
+  }
+
+  async function uploadMain(file: File, mode: "create" | "edit") {
     setUploading(true);
     setError(null);
     try {
-      const fd = new FormData();
-      fd.set("file", file);
-      const res = await fetch("/api/upload", {
-        method: "POST",
-        body: fd,
-        credentials: "same-origin",
-      });
-      if (!res.ok) {
-        setError(`${t("uploadFailed")}: ${await readApiError(res)}`);
-        return;
-      }
-      const data = (await res.json()) as { url?: string };
-      const url = data.url;
-      if (!url) {
-        setError(t("uploadFailed"));
-        return;
-      }
-      if (target === "create") {
-        setCreate((c) => ({ ...c, image: url }));
-      } else {
-        setEdit((c) => ({ ...c, image: url }));
+      const url = await uploadOne(file);
+      if (!url) return;
+      if (mode === "create") setCreate((c) => ({ ...c, image: url }));
+      else setEdit((c) => ({ ...c, image: url }));
+    } finally {
+      setUploading(false);
+    }
+  }
+
+  async function uploadDetails(
+    fileList: FileList | null,
+    mode: "create" | "edit"
+  ) {
+    if (!fileList?.length) return;
+    setUploading(true);
+    setError(null);
+    try {
+      const files = Array.from(fileList);
+      for (const file of files) {
+        const url = await uploadOne(file);
+        if (!url) continue;
+        if (mode === "create") {
+          setCreate((c) =>
+            c.detailImages.length >= MAX_DETAIL_IMAGES
+              ? c
+              : { ...c, detailImages: [...c.detailImages, url] }
+          );
+        } else {
+          setEdit((c) =>
+            c.detailImages.length >= MAX_DETAIL_IMAGES
+              ? c
+              : { ...c, detailImages: [...c.detailImages, url] }
+          );
+        }
       }
     } finally {
       setUploading(false);
+    }
+  }
+
+  function removeDetail(idx: number, mode: "create" | "edit") {
+    if (mode === "create") {
+      setCreate((c) => ({
+        ...c,
+        detailImages: c.detailImages.filter((_, i) => i !== idx),
+      }));
+    } else {
+      setEdit((c) => ({
+        ...c,
+        detailImages: c.detailImages.filter((_, i) => i !== idx),
+      }));
     }
   }
 
@@ -89,6 +135,8 @@ export function AdminArtworks() {
       body: JSON.stringify({
         ...create,
         slug: create.slug.trim() || undefined,
+        detailImages:
+          create.detailImages.length > 0 ? create.detailImages : undefined,
       }),
     });
     if (!res.ok) {
@@ -108,6 +156,7 @@ export function AdminArtworks() {
       descriptionEn: a.descriptionEn,
       descriptionTr: a.descriptionTr,
       image: a.image,
+      detailImages: [...(a.detailImages ?? [])],
       year: a.year ?? "",
       mediumEn: a.mediumEn ?? "",
       mediumTr: a.mediumTr ?? "",
@@ -129,6 +178,7 @@ export function AdminArtworks() {
       body: JSON.stringify({
         ...edit,
         order,
+        detailImages: edit.detailImages,
       }),
     });
     if (!res.ok) {
@@ -173,7 +223,7 @@ export function AdminArtworks() {
         <form onSubmit={addArtwork} className="mt-6 grid gap-4 md:grid-cols-2">
           <label className="md:col-span-2">
             <span className="text-xs uppercase tracking-wider text-parchment/45">
-              {t("uploadImage")}
+              {t("mainImage")}
             </span>
             <input
               type="file"
@@ -181,7 +231,8 @@ export function AdminArtworks() {
               className="mt-2 block w-full text-sm text-parchment/80 file:mr-4 file:rounded-md file:border-0 file:bg-white/10 file:px-4 file:py-2 file:text-sm file:text-parchment"
               onChange={(e) => {
                 const f = e.target.files?.[0];
-                if (f) uploadFile(f, "create");
+                if (f) void uploadMain(f, "create");
+                e.target.value = "";
               }}
             />
             {uploading ? (
@@ -190,6 +241,50 @@ export function AdminArtworks() {
               </span>
             ) : null}
           </label>
+          <div className="md:col-span-2 space-y-3 rounded-md border border-white/10 bg-black/15 p-4">
+            <span className="text-xs uppercase tracking-wider text-parchment/45">
+              {t("detailImages")}
+            </span>
+            <p className="text-xs text-parchment/50">{t("detailImagesHint")}</p>
+            <input
+              type="file"
+              accept="image/*"
+              multiple
+              className="block w-full text-sm text-parchment/80 file:mr-4 file:rounded-md file:border-0 file:bg-white/10 file:px-4 file:py-2 file:text-sm file:text-parchment"
+              onChange={(e) => {
+                void uploadDetails(e.target.files, "create");
+                e.target.value = "";
+              }}
+            />
+            {create.detailImages.length > 0 ? (
+              <ul className="flex flex-wrap gap-2">
+                {create.detailImages.map((src, idx) => (
+                  <li
+                    key={`${src}-${idx}`}
+                    className="relative h-16 w-16 shrink-0 overflow-hidden rounded border border-white/15"
+                  >
+                    <Image
+                      src={src}
+                      alt=""
+                      fill
+                      className="object-cover"
+                      sizes="64px"
+                    />
+                    <button
+                      type="button"
+                      className="absolute right-0 top-0 bg-black/70 px-1.5 py-0.5 text-xs leading-none text-parchment hover:bg-oxide"
+                      onClick={() => removeDetail(idx, "create")}
+                    >
+                      ×
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+            <p className="text-xs text-parchment/40">
+              {create.detailImages.length} / {MAX_DETAIL_IMAGES}
+            </p>
+          </div>
           <label className="space-y-1">
             <span className="text-xs text-parchment/55">{t("titleEn")}</span>
             <input
@@ -360,7 +455,7 @@ export function AdminArtworks() {
                 >
                   <label className="md:col-span-2">
                     <span className="text-xs uppercase tracking-wider text-parchment/45">
-                      {t("uploadImage")}
+                      {t("mainImage")}
                     </span>
                     <input
                       type="file"
@@ -368,10 +463,57 @@ export function AdminArtworks() {
                       className="mt-2 block w-full text-sm text-parchment/80 file:mr-4 file:rounded-md file:border-0 file:bg-white/10 file:px-4 file:py-2 file:text-sm file:text-parchment"
                       onChange={(e) => {
                         const f = e.target.files?.[0];
-                        if (f) uploadFile(f, "edit");
+                        if (f) void uploadMain(f, "edit");
+                        e.target.value = "";
                       }}
                     />
                   </label>
+                  <div className="md:col-span-2 space-y-3 rounded-md border border-white/10 bg-black/15 p-4">
+                    <span className="text-xs uppercase tracking-wider text-parchment/45">
+                      {t("detailImages")}
+                    </span>
+                    <p className="text-xs text-parchment/50">
+                      {t("detailImagesHint")}
+                    </p>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      className="block w-full text-sm text-parchment/80 file:mr-4 file:rounded-md file:border-0 file:bg-white/10 file:px-4 file:py-2 file:text-sm file:text-parchment"
+                      onChange={(e) => {
+                        void uploadDetails(e.target.files, "edit");
+                        e.target.value = "";
+                      }}
+                    />
+                    {edit.detailImages.length > 0 ? (
+                      <ul className="flex flex-wrap gap-2">
+                        {edit.detailImages.map((src, idx) => (
+                          <li
+                            key={`${src}-${idx}`}
+                            className="relative h-16 w-16 shrink-0 overflow-hidden rounded border border-white/15"
+                          >
+                            <Image
+                              src={src}
+                              alt=""
+                              fill
+                              className="object-cover"
+                              sizes="64px"
+                            />
+                            <button
+                              type="button"
+                              className="absolute right-0 top-0 bg-black/70 px-1.5 py-0.5 text-xs leading-none text-parchment hover:bg-oxide"
+                              onClick={() => removeDetail(idx, "edit")}
+                            >
+                              ×
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
+                    <p className="text-xs text-parchment/40">
+                      {edit.detailImages.length} / {MAX_DETAIL_IMAGES}
+                    </p>
+                  </div>
                   <label className="space-y-1">
                     <span className="text-xs text-parchment/55">
                       {t("titleEn")}

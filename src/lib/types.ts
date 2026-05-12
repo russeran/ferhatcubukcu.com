@@ -5,7 +5,10 @@ export type Artwork = {
   titleTr: string;
   descriptionEn: string;
   descriptionTr: string;
+  /** Main image (hero for cards & detail page). */
   image: string;
+  /** Extra photos (texture, frame, close-ups). Shown on the public detail page only. */
+  detailImages?: string[];
   year?: string;
   mediumEn?: string;
   mediumTr?: string;

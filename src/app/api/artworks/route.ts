@@ -17,12 +17,18 @@ function revalidateGallery(slug?: string) {
   }
 }
 
+const detailImagesField = z
+  .array(z.string().min(1).max(2048))
+  .max(24)
+  .optional();
+
 const artworkInput = z.object({
   titleEn: z.string().min(1),
   titleTr: z.string().min(1),
   descriptionEn: z.string(),
   descriptionTr: z.string(),
   image: z.string().min(1),
+  detailImages: detailImagesField,
   year: z.string().optional(),
   mediumEn: z.string().optional(),
   mediumTr: z.string().optional(),
@@ -68,6 +74,10 @@ export async function POST(req: Request) {
     descriptionEn: parsed.data.descriptionEn,
     descriptionTr: parsed.data.descriptionTr,
     image: parsed.data.image,
+    detailImages:
+      parsed.data.detailImages && parsed.data.detailImages.length > 0
+        ? parsed.data.detailImages
+        : undefined,
     year: parsed.data.year,
     mediumEn: parsed.data.mediumEn,
     mediumTr: parsed.data.mediumTr,

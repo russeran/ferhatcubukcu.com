@@ -26,7 +26,8 @@
     "detail": "Detay",
     "year": "Yıl",
     "medium": "Malzeme",
-    "dimensions": "Ölçü"
+    "dimensions": "Ölçü",
+    "detailViews": "Detaylar ve doku"
   },
   "about": {
     "title": "Hakkında",
@@ -59,6 +60,9 @@
     "save": "Kaydet",
     "delete": "Sil",
     "uploadImage": "Görsel yükle",
+    "mainImage": "Ana görsel (liste ve sayfa)",
+    "detailImages": "Detay fotoğrafları",
+    "detailImagesHint": "İsteğe bağlı yakın çekim, çerçeve veya doku. Birden fazla dosya seçilebilir; tablo başına en fazla 24.",
     "published": "Yayında",
     "slug": "URL adresi (slug)",
     "titleEn": "Başlık (İngilizce)",

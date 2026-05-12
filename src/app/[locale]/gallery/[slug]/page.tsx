@@ -133,6 +133,30 @@ export default async function GalleryDetailPage({ params }: Props) {
           </div>
         </div>
       </div>
+
+      {artwork.detailImages && artwork.detailImages.length > 0 ? (
+        <section className="mt-16 border-t border-umber/10 pt-12">
+          <h2 className="mb-8 font-serif text-2xl font-semibold text-umber-deep md:text-3xl">
+            {t("detailViews")}
+          </h2>
+          <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+            {artwork.detailImages.map((src, i) => (
+              <li
+                key={`${src}-${i}`}
+                className="relative aspect-square overflow-hidden rounded-lg bg-parchment-dark shadow-sm ring-1 ring-umber/10"
+              >
+                <Image
+                  src={src}
+                  alt={`${title} — ${t("detail")} ${i + 1}`}
+                  fill
+                  className="object-cover transition hover:opacity-95"
+                  sizes="(max-width: 640px) 50vw, 25vw"
+                />
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
     </article>
   );
 }
