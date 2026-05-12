@@ -22,6 +22,8 @@
     "featuredTitle": "Selected paintings",
     "featuredSubtitle": "Browse the full gallery for every published piece.",
     "heroAlt": "Ferhat Çubukçu — oil painting, İstanbul studio",
+    "heroSlideshowAria": "Featured paintings from the gallery",
+    "heroSlideshowDotAria": "Show painting {current} of {total}",
     "newsTeaser": "Studio & news",
     "newsTeaserSubtitle": "Exhibitions, social posts, and updates from the studio.",
     "newsViewAll": "All updates"

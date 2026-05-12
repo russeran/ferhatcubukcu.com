@@ -44,11 +44,18 @@ const config: Config = {
       },
       animation: {
         "fade-up": "fadeUp 0.75s ease-out forwards",
+        "hero-ken": "heroKen 8.5s ease-out forwards",
       },
       keyframes: {
         fadeUp: {
           from: { opacity: "0", transform: "translateY(14px)" },
           to: { opacity: "1", transform: "translateY(0)" },
+        },
+        heroKen: {
+          "0%": { transform: "scale(1) translate(0%, 0%)" },
+          "100%": {
+            transform: "scale(1.07) translate(-1.5%, -1.2%)",
+          },
         },
       },
     },

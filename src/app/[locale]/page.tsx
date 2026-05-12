@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { HomeJsonLd } from "@/components/HomeJsonLd";
+import { HomeHeroGalleryShowcase } from "@/components/HomeHeroGalleryShowcase";
 import { SoldStamp } from "@/components/SoldStamp";
 import { localeAlternates } from "@/lib/seo-helpers";
 import { absoluteUrl } from "@/lib/site-url";
@@ -54,10 +54,15 @@ export default async function HomePage({ params }: Props) {
   const t = await getTranslations({ locale, namespace: "home" });
   const tg = await getTranslations({ locale, namespace: "gallery" });
   const settings = await readSettings();
-  const artworks = (await readArtworks())
+  const allPublished = (await readArtworks())
     .filter((a) => a.published)
-    .sort((a, b) => a.order - b.order)
-    .slice(0, 6);
+    .sort((a, b) => a.order - b.order);
+  const heroSlides = allPublished.slice(0, 10).map((a) => ({
+    image: a.image,
+    slug: a.slug,
+    title: locale === "tr" ? a.titleTr : a.titleEn,
+  }));
+  const artworks = allPublished.slice(0, 6);
 
   const newsTeaser = (await readNewsPosts())
     .filter((p) => p.published)
@@ -101,17 +106,11 @@ export default async function HomePage({ params }: Props) {
               </Link>
             </div>
           </div>
-          <div className="relative aspect-[4/3] w-full animate-fade-up overflow-hidden rounded-lg bg-parchment-dark shadow-[0_28px_90px_-28px_rgba(60,20,25,0.45)] ring-1 ring-umber/15 md:aspect-[5/4]">
-            <Image
-              src={settings.heroImage || "/hero-placeholder.svg"}
-              alt={t("heroAlt")}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 50vw"
-              priority
-            />
-            <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.35),transparent_45%,transparent)]" />
-          </div>
+          <HomeHeroGalleryShowcase
+            slides={heroSlides}
+            fallbackSrc={settings.heroImage || "/hero-placeholder.svg"}
+            fallbackAlt={t("heroAlt")}
+          />
         </div>
       </section>
 

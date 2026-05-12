@@ -22,6 +22,8 @@
     "featuredTitle": "Seçili resimler",
     "featuredSubtitle": "Yayınlanan tüm eserler için galeriye göz atın.",
     "heroAlt": "Ferhat Çubukçu — yağlıboya, İstanbul atölyesi",
+    "heroSlideshowAria": "Galeriden öne çıkan tablolar",
+    "heroSlideshowDotAria": "{total} tablodan {current}. görünümü",
     "newsTeaser": "Atölye ve haberler",
     "newsTeaserSubtitle": "Sergiler, sosyal medya ve atölyeden notlar.",
     "newsViewAll": "Tüm güncellemeler"
