@@ -2,9 +2,13 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { Link } from "@/i18n/navigation";
 import { SoldStamp } from "@/components/SoldStamp";
 import { ZoomablePaintingFrame } from "@/components/ZoomablePaintingFrame";
 import { IMAGE_BLUR_PLACEHOLDER } from "@/lib/image-blur";
+
+const navPillClass =
+  "focus-ring flex h-12 w-12 items-center justify-center rounded-full border-2 border-white/45 bg-black/80 text-xl leading-none text-parchment shadow-xl backdrop-blur-sm transition hover:border-goldleaf/55 hover:bg-black/95 sm:h-14 sm:w-14 sm:text-2xl";
 
 type Props = {
   src: string;
@@ -18,6 +22,10 @@ type Props = {
   zoomResetLabel: string;
   zoomHint?: string;
   sizes: string;
+  prevSlug?: string | null;
+  nextSlug?: string | null;
+  prevLabel?: string;
+  nextLabel?: string;
 };
 
 export function PaintingHeroWithZoom({
@@ -32,8 +40,13 @@ export function PaintingHeroWithZoom({
   zoomResetLabel,
   zoomHint,
   sizes,
+  prevSlug = null,
+  nextSlug = null,
+  prevLabel = "Previous",
+  nextLabel = "Next",
 }: Props) {
   const [open, setOpen] = useState(false);
+  const hasNav = Boolean(prevSlug || nextSlug);
 
   useEffect(() => {
     if (!open) return;
@@ -107,6 +120,33 @@ export function PaintingHeroWithZoom({
             zoomHint={zoomHint}
             variant="dark"
             className="min-h-0 flex-1"
+            showFloatingNav={hasNav}
+            floatingLeft={
+              prevSlug ? (
+                <Link
+                  href={`/gallery/${prevSlug}`}
+                  scroll={false}
+                  className={navPillClass}
+                  aria-label={prevLabel}
+                  onClick={() => setOpen(false)}
+                >
+                  <span aria-hidden>←</span>
+                </Link>
+              ) : null
+            }
+            floatingRight={
+              nextSlug ? (
+                <Link
+                  href={`/gallery/${nextSlug}`}
+                  scroll={false}
+                  className={navPillClass}
+                  aria-label={nextLabel}
+                  onClick={() => setOpen(false)}
+                >
+                  <span aria-hidden>→</span>
+                </Link>
+              ) : null
+            }
           />
         </div>
       ) : null}

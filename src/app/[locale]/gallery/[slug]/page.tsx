@@ -197,6 +197,10 @@ export default async function GalleryDetailPage({
             zoomResetLabel={t("paintingZoomReset")}
             zoomHint={t("paintingZoomHint")}
             sizes="(max-width: 1024px) 100vw, 55vw"
+            prevSlug={prev?.slug ?? null}
+            nextSlug={next?.slug ?? null}
+            prevLabel={t("viewingRoomPrev")}
+            nextLabel={t("viewingRoomNext")}
           />
           <div className="space-y-8">
             <header className="space-y-3 border-b border-umber/10 pb-8">

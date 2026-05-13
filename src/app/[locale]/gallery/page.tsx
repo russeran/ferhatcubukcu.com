@@ -247,7 +247,7 @@ export default async function GalleryPage({ params, searchParams }: Props) {
           ))}
         </div>
       ) : (
-        <ul className="grid gap-x-6 gap-y-10 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-12 md:gap-x-10 md:gap-y-14">
+        <ul className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-12 md:grid-cols-3 md:gap-x-8 md:gap-y-14 lg:gap-x-10">
           {list.map((a) => {
             const price = resolvedArtworkPrice(a, locale);
             const title = locale === "tr" ? a.titleTr : a.titleEn;
@@ -262,7 +262,7 @@ export default async function GalleryPage({ params, searchParams }: Props) {
                       placeholder="blur"
                       blurDataURL={IMAGE_BLUR_PLACEHOLDER}
                       className="object-cover transition duration-[1100ms] ease-out-expo motion-safe:group-hover:scale-[1.03]"
-                      sizes="(max-width: 640px) 100vw, 50vw"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
                     {a.sold ? <SoldStamp label={t("sold")} /> : null}
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-umber-deep/30 via-transparent to-transparent opacity-0 transition duration-500 ease-out-expo group-hover:opacity-100" />
