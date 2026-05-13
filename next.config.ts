@@ -33,14 +33,9 @@ const nextConfig: NextConfig = {
       bodySizeLimit: "8mb",
     },
   },
-  async redirects() {
-    return [
-      {
-        source: "/favicon.ico",
-        destination: "/favicon.svg",
-        permanent: false,
-      },
-    ];
+  /** Many crawlers (including Google) request `/favicon.ico`; serve the PNG icon route. */
+  async rewrites() {
+    return [{ source: "/favicon.ico", destination: "/icon" }];
   },
 };
 
