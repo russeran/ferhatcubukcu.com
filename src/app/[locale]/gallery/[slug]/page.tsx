@@ -5,7 +5,10 @@ import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { ArtworkInquiryLink } from "@/components/ArtworkInquiryLink";
 import { artworkInquiryHref } from "@/lib/artwork-inquiry";
-import { ArtworkViewingRoom } from "@/components/ArtworkViewingRoom";
+import {
+  ArtworkViewingRoom,
+  type ViewingRoomDetailRow,
+} from "@/components/ArtworkViewingRoom";
 import { DetailImagesLightbox } from "@/components/DetailImagesLightbox";
 import { SoldStamp } from "@/components/SoldStamp";
 import { GalleryArtworkJsonLd } from "@/components/GalleryArtworkJsonLd";
@@ -122,6 +125,47 @@ export default async function GalleryDetailPage({
       alt: `${title} — ${t("detail")} ${i + 1}`,
     })) ?? [];
 
+  const viewingRoomDetailRows: ViewingRoomDetailRow[] = [
+    {
+      label: t("availability"),
+      value: artwork.sold ? t("sold") : t("available"),
+      emphasize: artwork.sold,
+    },
+  ];
+  if (artwork.year) {
+    viewingRoomDetailRows.push({ label: t("year"), value: artwork.year });
+  }
+  if (medium) {
+    viewingRoomDetailRows.push({ label: t("medium"), value: medium });
+  }
+  if (artwork.dimensions) {
+    viewingRoomDetailRows.push({
+      label: t("dimensions"),
+      value: artwork.dimensions,
+    });
+  }
+  if (exhibition) {
+    viewingRoomDetailRows.push({
+      label: t("exhibition"),
+      value: exhibition,
+    });
+  }
+  if (price) {
+    viewingRoomDetailRows.push({
+      label: t("price"),
+      value: price,
+      emphasize: true,
+    });
+  }
+  const seriesTitle =
+    locale === "tr" ? artwork.seriesTitleTr : artwork.seriesTitleEn;
+  if (artwork.seriesSlug && seriesTitle) {
+    viewingRoomDetailRows.push({
+      label: t("seriesFilter"),
+      value: seriesTitle,
+    });
+  }
+
   return (
     <>
       <GalleryArtworkJsonLd locale={locale} artwork={artwork} />
@@ -153,6 +197,10 @@ export default async function GalleryDetailPage({
           nextLabel={t("viewingRoomNext")}
           closeLabel={t("viewingRoomClose")}
           initialOpen={viewingRoomOpen}
+          detailRows={viewingRoomDetailRows}
+          description={description}
+          inquiryHref={inquiryHrefStr}
+          inquiryCta={!artwork.sold ? t("inquiryCta") : undefined}
         />
 
         <div className="mt-4 grid gap-8 sm:mt-6 sm:gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-start lg:gap-12">
