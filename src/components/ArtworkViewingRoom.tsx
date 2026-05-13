@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
-import { Link } from "@/i18n/navigation";
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
 
 type Props = {
   title: string;
@@ -13,6 +13,8 @@ type Props = {
   prevLabel: string;
   nextLabel: string;
   closeLabel: string;
+  /** When true, open the overlay on load (e.g. prev/next from inside the room). */
+  initialOpen?: boolean;
 };
 
 export function ArtworkViewingRoom({
@@ -24,15 +26,25 @@ export function ArtworkViewingRoom({
   prevLabel,
   nextLabel,
   closeLabel,
+  initialOpen = false,
 }: Props) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(initialOpen);
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const close = useCallback(() => {
+    setOpen(false);
+    if (typeof window !== "undefined" && window.location.search.includes("room")) {
+      router.replace(pathname);
+    }
+  }, [pathname, router]);
 
   const onKey = useCallback(
     (e: KeyboardEvent) => {
       if (!open) return;
-      if (e.key === "Escape") setOpen(false);
+      if (e.key === "Escape") close();
     },
-    [open]
+    [open, close]
   );
 
   useEffect(() => {
@@ -75,7 +87,7 @@ export function ArtworkViewingRoom({
             </p>
             <button
               type="button"
-              onClick={() => setOpen(false)}
+              onClick={close}
               className="focus-ring shrink-0 rounded-md px-3 py-2 text-xs font-semibold uppercase tracking-wider text-parchment/80 hover:text-parchment"
             >
               {closeLabel}
@@ -94,7 +106,8 @@ export function ArtworkViewingRoom({
             </div>
             {prevSlug ? (
               <Link
-                href={`/gallery/${prevSlug}`}
+                href={`/gallery/${prevSlug}?room=1`}
+                scroll={false}
                 className="focus-ring absolute left-2 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/30 text-parchment backdrop-blur-sm transition hover:bg-black/50 sm:left-6"
                 aria-label={prevLabel}
               >
@@ -105,7 +118,8 @@ export function ArtworkViewingRoom({
             ) : null}
             {nextSlug ? (
               <Link
-                href={`/gallery/${nextSlug}`}
+                href={`/gallery/${nextSlug}?room=1`}
+                scroll={false}
                 className="focus-ring absolute right-2 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/30 text-parchment backdrop-blur-sm transition hover:bg-black/50 sm:right-6"
                 aria-label={nextLabel}
               >

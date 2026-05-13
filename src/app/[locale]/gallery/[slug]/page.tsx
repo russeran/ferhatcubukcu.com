@@ -22,6 +22,7 @@ import { IMAGE_BLUR_PLACEHOLDER } from "@/lib/image-blur";
 
 type Props = {
   params: Promise<{ locale: string; slug: string }>;
+  searchParams: Promise<{ room?: string }>;
 };
 
 export const dynamic = "force-dynamic";
@@ -77,8 +78,13 @@ export async function generateStaticParams() {
   );
 }
 
-export default async function GalleryDetailPage({ params }: Props) {
+export default async function GalleryDetailPage({
+  params,
+  searchParams,
+}: Props) {
   const { locale, slug } = await params;
+  const sp = await searchParams;
+  const viewingRoomOpen = sp.room === "1";
   const t = await getTranslations({ locale, namespace: "gallery" });
   const settings = await readSettings();
   const list = await readArtworks();
@@ -137,6 +143,7 @@ export default async function GalleryDetailPage({ params }: Props) {
         ) : null}
 
         <ArtworkViewingRoom
+          key={slug}
           title={title}
           mainSrc={artwork.image}
           prevSlug={prev?.slug ?? null}
@@ -145,6 +152,7 @@ export default async function GalleryDetailPage({ params }: Props) {
           prevLabel={t("viewingRoomPrev")}
           nextLabel={t("viewingRoomNext")}
           closeLabel={t("viewingRoomClose")}
+          initialOpen={viewingRoomOpen}
         />
 
         <div className="mt-4 grid gap-8 sm:mt-6 sm:gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-start lg:gap-12">
