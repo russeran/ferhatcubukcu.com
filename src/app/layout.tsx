@@ -22,14 +22,7 @@ const googleVerification =
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
-  /**
-   * `icon.tsx` and `apple-icon.tsx` add PNG favicons automatically.
-   * SVG remains for UI; `/favicon.ico` is rewritten to `/icon` (PNG) in next.config.
-   */
-  icons: {
-    icon: [{ url: "/favicon.svg", type: "image/svg+xml", sizes: "any" }],
-    shortcut: "/favicon.svg",
-  },
+  /** `icon.png` / `apple-icon.png` (headshot) — Next injects links; `/favicon.ico` → `/icon` in next.config. */
   manifest: "/site.webmanifest",
   ...(googleVerification
     ? { verification: { google: googleVerification } }

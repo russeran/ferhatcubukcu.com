@@ -5,13 +5,13 @@
   "icons": [
     {
       "src": "/icon",
-      "sizes": "48x48",
+      "sizes": "276x276",
       "type": "image/png",
       "purpose": "any"
     },
     {
       "src": "/apple-icon",
-      "sizes": "180x180",
+      "sizes": "276x276",
       "type": "image/png",
       "purpose": "any maskable"
     },
