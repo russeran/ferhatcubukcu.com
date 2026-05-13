@@ -83,9 +83,9 @@ export default async function HomePage({ params }: Props) {
       <HomeJsonLd locale={locale} settings={settings} />
       <section className="relative overflow-hidden border-b border-umber/15">
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/70 via-parchment-warm/45 to-parchment-dark/35" />
-        <div className="pointer-events-none absolute -right-24 top-1/2 h-[min(88vw,540px)] w-[min(88vw,540px)] -translate-y-1/2 rounded-full bg-gradient-to-br from-oxide/[0.07] to-goldleaf/[0.04] blur-3xl md:-right-28" />
-        <div className="pointer-events-none absolute -left-36 bottom-0 h-80 w-80 rounded-full bg-gradient-to-tr from-sienna-muted/15 to-goldleaf/10 blur-3xl" />
-        <div className="pointer-events-none absolute left-1/3 top-0 h-48 w-48 rounded-full bg-goldleaf/[0.06] blur-2xl" />
+        <div className="pointer-events-none absolute -right-24 top-1/2 h-[min(88vw,540px)] w-[min(88vw,540px)] -translate-y-1/2 rounded-full bg-gradient-to-br from-oxide/[0.07] to-goldleaf/[0.04] blur-3xl motion-safe:animate-hero-atmosphere md:-right-28" />
+        <div className="pointer-events-none absolute -left-36 bottom-0 h-80 w-80 rounded-full bg-gradient-to-tr from-sienna-muted/15 to-goldleaf/10 blur-3xl motion-safe:animate-hero-atmosphere [animation-delay:-8s]" />
+        <div className="pointer-events-none absolute left-1/3 top-0 h-48 w-48 rounded-full bg-goldleaf/[0.06] blur-2xl motion-safe:animate-hero-atmosphere [animation-delay:-16s]" />
         <div className="relative mx-auto grid max-w-6xl gap-12 px-4 py-16 sm:gap-14 sm:px-5 sm:py-20 md:grid-cols-2 md:items-center md:gap-16 md:py-28">
           <div className="animate-fade-up space-y-6 border-l-[3px] border-goldleaf/55 pl-6 sm:space-y-7 sm:pl-8">
             <div className="gold-rule" aria-hidden />
@@ -93,10 +93,10 @@ export default async function HomePage({ params }: Props) {
             <h1 className="text-balance font-serif text-3xl font-semibold leading-[1.06] tracking-tight text-umber-deep drop-shadow-[0_1px_1px_rgba(255,252,245,0.45)] sm:text-4xl md:text-5xl lg:text-[3.15rem]">
               {settings.artistName}
             </h1>
-            <p className="max-w-md text-balance text-base leading-snug text-umber/90 sm:text-lg md:text-xl">
+            <p className="max-w-xl text-balance font-serif text-2xl font-medium leading-snug tracking-tight text-umber-deep sm:text-3xl md:text-[2.15rem]">
               {tagline}
             </p>
-            <p className="max-w-xl text-pretty text-sm leading-relaxed text-umber/68 md:text-base">
+            <p className="prose-atelier max-w-xl text-sm text-umber/72 md:text-base">
               {t("statementLead")}
             </p>
             <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:flex-wrap">
@@ -123,7 +123,7 @@ export default async function HomePage({ params }: Props) {
       </section>
 
       {newsTeaser.length > 0 ? (
-        <section className="border-b border-umber/15 bg-gradient-to-b from-parchment-dark/65 via-parchment-warm/35 to-parchment py-16 sm:py-20">
+        <section className="border-b border-umber/15 bg-[#ebe4d8]/92 py-16 sm:py-20">
           <div className="mx-auto max-w-6xl px-4 sm:px-5">
             <div className="mb-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
               <div>
@@ -175,7 +175,7 @@ export default async function HomePage({ params }: Props) {
       ) : null}
 
       {pressTeaser.length > 0 ? (
-        <section className="border-b border-umber/15 bg-gradient-to-b from-transparent via-parchment-warm/40 to-parchment-dark/25 py-16 sm:py-20">
+        <section className="border-b border-umber/15 bg-parchment/98 py-16 sm:py-20">
           <div className="mx-auto max-w-6xl px-4 sm:px-5">
             <div className="mb-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
               <div>
@@ -192,16 +192,17 @@ export default async function HomePage({ params }: Props) {
                 {t("pressViewAll")}
               </Link>
             </div>
-            <ul className="grid gap-8 md:grid-cols-3 md:gap-6">
+            <ul className="grid gap-10 md:grid-cols-3 md:gap-8">
               {pressTeaser.map((q) => {
                 const quote = locale === "tr" ? q.quoteTr : q.quoteEn;
                 const attr = locale === "tr" ? q.attributionTr : q.attributionEn;
                 return (
                   <li key={q.id}>
-                    <blockquote className="border-l-2 border-goldleaf/50 pl-5 font-serif text-lg leading-snug text-umber-deep">
+                    <div className="gold-rule mb-4" aria-hidden />
+                    <blockquote className="font-serif text-xl font-medium leading-snug text-umber-deep sm:text-2xl md:text-[1.65rem]">
                       “{quote}”
                     </blockquote>
-                    <p className="mt-3 text-sm font-medium text-umber/55">{attr}</p>
+                    <p className="mt-4 text-sm font-medium text-umber/55">{attr}</p>
                     {q.url?.trim() ? (
                       <a
                         href={q.url.trim()}
@@ -220,7 +221,8 @@ export default async function HomePage({ params }: Props) {
         </section>
       ) : null}
 
-      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-5 sm:py-20 md:py-28">
+      <section className="border-b border-umber/10 bg-gradient-to-b from-parchment-dark/30 via-transparent to-transparent py-16 sm:py-20 md:py-28">
+        <div className="mx-auto max-w-6xl px-4 sm:px-5">
         <div className="mb-10 flex flex-col gap-6 border-b border-umber/10 pb-10 sm:mb-14 sm:flex-row sm:items-end sm:justify-between sm:gap-8 sm:pb-12">
           <div className="max-w-2xl">
             <div className="gold-rule mb-5" aria-hidden />
@@ -255,7 +257,7 @@ export default async function HomePage({ params }: Props) {
                 style={{ animationDelay: `${i * 70}ms` }}
               >
                 <Link href={`/gallery/${a.slug}`} className="group block">
-                  <div className="gallery-image-frame gallery-image-frame-hover relative aspect-[3/4]">
+                  <div className="gallery-image-frame gallery-image-frame-hover relative aspect-[4/5]">
                     <Image
                       src={a.image}
                       alt={locale === "tr" ? a.titleTr : a.titleEn}
@@ -289,6 +291,7 @@ export default async function HomePage({ params }: Props) {
             })}
           </ul>
         )}
+        </div>
       </section>
     </>
   );

@@ -63,7 +63,9 @@ export default async function NewsPage({ params }: Props) {
       <h1 className="mt-2 font-serif text-3xl font-semibold tracking-tight text-umber-deep sm:text-4xl md:text-5xl">
         {t("title")}
       </h1>
-      <p className="mt-4 max-w-xl text-sm text-umber/65 sm:text-base">{t("intro")}</p>
+      <p className="prose-atelier mt-4 text-sm text-umber/65 sm:mt-5 sm:text-base">
+        {t("intro")}
+      </p>
 
       {isAdmin ? <PublicListAdminToolbar locale={locale} variant="news" /> : null}
 

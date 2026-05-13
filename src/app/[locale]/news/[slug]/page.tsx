@@ -121,7 +121,7 @@ export default async function NewsDetailPage({ params }: Props) {
         </div>
       ) : null}
 
-      <div className="prose prose-neutral mt-10 max-w-none prose-p:text-umber/80 prose-p:leading-relaxed">
+      <div className="prose prose-neutral mx-auto mt-10 max-w-prose prose-p:text-umber/80 prose-p:leading-relaxed">
         <p className="whitespace-pre-wrap">{body}</p>
       </div>
 

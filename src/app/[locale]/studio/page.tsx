@@ -42,7 +42,7 @@ export default async function StudioPage({ params }: Props) {
       <h1 className="mt-4 text-balance font-serif text-3xl font-semibold tracking-tight text-umber-deep sm:text-4xl md:text-5xl">
         {t("title")}
       </h1>
-      <p className="mt-6 text-pretty text-lg leading-relaxed text-umber/80">
+      <p className="prose-atelier mt-6 text-lg text-umber/80">
         {t("intro")}
       </p>
       <div className="mt-14 space-y-12 border-t border-umber/10 pt-14">
@@ -51,7 +51,7 @@ export default async function StudioPage({ params }: Props) {
             <h2 className="font-serif text-xl font-semibold text-umber-deep sm:text-2xl">
               {t(`${key}Title` as "b1Title")}
             </h2>
-            <p className="mt-3 whitespace-pre-wrap text-pretty leading-relaxed text-umber/75">
+            <p className="prose-atelier mt-3 whitespace-pre-wrap text-umber/75">
               {t(`${key}Body` as "b1Body")}
             </p>
           </section>

@@ -34,6 +34,40 @@ export function filterBySeriesSlug(
   return list.filter((a) => a.seriesSlug?.trim() === s);
 }
 
+/** Series with the most works — for a home-page / gallery spotlight strip. */
+export function pickSeriesSpotlight(
+  series: { slug: string; labelEn: string; labelTr: string }[],
+  artworks: Artwork[],
+  opts?: { minWorks?: number; maxStrip?: number }
+): {
+  slug: string;
+  labelEn: string;
+  labelTr: string;
+  works: Artwork[];
+} | null {
+  const minWorks = opts?.minWorks ?? 2;
+  const maxStrip = opts?.maxStrip ?? 5;
+  let best: {
+    slug: string;
+    labelEn: string;
+    labelTr: string;
+    works: Artwork[];
+  } | null = null;
+  for (const s of series) {
+    const works = artworks.filter((a) => a.seriesSlug?.trim() === s.slug);
+    if (works.length < minWorks) continue;
+    if (!best || works.length > best.works.length) {
+      best = {
+        slug: s.slug,
+        labelEn: s.labelEn,
+        labelTr: s.labelTr,
+        works: works.slice(0, maxStrip),
+      };
+    }
+  }
+  return best;
+}
+
 /** Group by year (desc). Works without year go last under "—". */
 export function groupArtworksByYear(list: Artwork[]): {
   yearLabel: string;

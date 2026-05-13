@@ -65,8 +65,8 @@ export function HomeHeroGalleryShowcase({
         <Link
           key={item.slug}
           href={`/gallery/${item.slug}`}
-          className={cn(
-            "absolute inset-0 block outline-none transition-opacity duration-[900ms] ease-in-out focus-visible:ring-2 focus-visible:ring-oxide/50 focus-visible:ring-offset-2 focus-visible:ring-offset-parchment",
+            className={cn(
+            "absolute inset-0 block outline-none transition-opacity duration-[900ms] ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-goldleaf/90",
             i === active
               ? "z-[2] opacity-100"
               : "z-[1] opacity-0 pointer-events-none"

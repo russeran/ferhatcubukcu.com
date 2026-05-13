@@ -55,7 +55,7 @@ const config: Config = {
         gallery:
           "0 26px 52px -14px rgba(26, 23, 20, 0.18), 0 10px 24px -10px rgba(125, 76, 58, 0.12), inset 0 1px 0 rgba(255,252,245,0.45)",
         "gallery-hover":
-          "0 34px 68px -18px rgba(26, 23, 20, 0.22), 0 14px 32px -12px rgba(146, 47, 61, 0.12), inset 0 1px 0 rgba(255,252,245,0.5)",
+          "0 34px 68px -18px rgba(26, 23, 20, 0.22), 0 14px 32px -12px rgba(146, 47, 61, 0.12), inset 0 0 0 1px rgba(255,252,245,0.48), inset 0 1px 0 rgba(255,252,245,0.55)",
         header:
           "0 12px 40px -12px rgba(26, 23, 20, 0.08), inset 0 -1px 0 rgba(201, 168, 90, 0.12)",
       },
@@ -73,6 +73,8 @@ const config: Config = {
       animation: {
         "fade-up": "fadeUp 0.75s ease-out forwards",
         "hero-ken": "heroKen 8.5s ease-out forwards",
+        /** Very slow ambient drift for hero wash (respect motion-reduce in markup). */
+        "hero-atmosphere": "heroAtmosphere 32s ease-in-out infinite",
       },
       keyframes: {
         fadeUp: {
@@ -84,6 +86,10 @@ const config: Config = {
           "100%": {
             transform: "scale(1.07) translate(-1.5%, -1.2%)",
           },
+        },
+        heroAtmosphere: {
+          "0%, 100%": { opacity: "0.88", transform: "translate(0, 0) scale(1)" },
+          "50%": { opacity: "1", transform: "translate(-12px, 8px) scale(1.03)" },
         },
       },
     },

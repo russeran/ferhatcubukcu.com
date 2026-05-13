@@ -52,7 +52,7 @@ export default async function PressPage({ params }: Props) {
       <h1 className="mt-4 text-balance font-serif text-3xl font-semibold tracking-tight text-umber-deep sm:text-4xl md:text-5xl">
         {t("title")}
       </h1>
-      <p className="mt-6 max-w-2xl text-pretty leading-relaxed text-umber/75">
+      <p className="prose-atelier mt-6 max-w-2xl text-umber/75">
         {t("intro")}
       </p>
 
@@ -68,10 +68,11 @@ export default async function PressPage({ params }: Props) {
                 key={q.id}
                 className="rounded-md border border-umber/10 bg-parchment/90 p-6 shadow-sm sm:p-8"
               >
-                <blockquote className="font-serif text-lg leading-snug text-umber-deep sm:text-xl">
+                <div className="gold-rule mb-5" aria-hidden />
+                <blockquote className="font-serif text-2xl font-medium leading-snug text-umber-deep sm:text-3xl md:text-[1.85rem]">
                   “{quote}”
                 </blockquote>
-                <p className="mt-4 text-sm font-medium text-umber/60">{attr}</p>
+                <p className="mt-5 text-sm font-medium text-umber/60">{attr}</p>
                 {q.image ? (
                   <div className="relative mt-6 h-16 w-auto max-w-[200px]">
                     <Image

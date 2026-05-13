@@ -18,6 +18,7 @@ import { resolvedArtworkPrice } from "@/lib/artwork-price";
 import {
   filterBySeriesSlug,
   groupArtworksByYear,
+  pickSeriesSpotlight,
   uniqueSeriesFromArtworks,
 } from "@/lib/gallery-series";
 import { IMAGE_BLUR_PLACEHOLDER } from "@/lib/image-blur";
@@ -101,6 +102,13 @@ export default async function GalleryPage({ params, searchParams }: Props) {
 
   const sortQuery = sort === "order" ? "" : sort;
 
+  const deckLine =
+    locale === "tr" ? settings.taglineTr : settings.taglineEn;
+  const seriesSpotlight =
+    view === "grid" && !seriesParam && seriesOptions.length > 0
+      ? pickSeriesSpotlight(seriesOptions, publishedSorted)
+      : null;
+
   return (
     <div className="relative z-10 mx-auto max-w-6xl px-4 py-12 sm:px-5 sm:py-14 md:py-20">
       {isAdmin ? <PublicListAdminToolbar locale={locale} variant="gallery" /> : null}
@@ -111,6 +119,14 @@ export default async function GalleryPage({ params, searchParams }: Props) {
           <h1 className="mt-4 text-balance font-serif text-3xl font-semibold tracking-tight text-umber-deep sm:text-4xl md:text-5xl">
             {t("title")}
           </h1>
+          {deckLine?.trim() ? (
+            <div className="mt-6 max-w-2xl">
+              <div className="gold-rule mb-4" aria-hidden />
+              <p className="font-serif text-lg font-medium leading-snug text-umber-deep/90 sm:text-xl md:text-2xl">
+                {deckLine.trim()}
+              </p>
+            </div>
+          ) : null}
         </div>
         <div className="flex flex-col gap-4 sm:items-end">
           <GalleryViewTabs
@@ -125,7 +141,7 @@ export default async function GalleryPage({ params, searchParams }: Props) {
             <Suspense
               fallback={
                 <div
-                  className="h-10 w-full max-w-[14rem] shrink-0 animate-pulse rounded-md bg-umber/10 sm:ml-auto"
+                  className="skeleton-parchment h-10 w-full max-w-[14rem] shrink-0 sm:ml-auto"
                   aria-hidden
                 />
               }
@@ -184,6 +200,61 @@ export default async function GalleryPage({ params, searchParams }: Props) {
             );
           })}
         </div>
+      ) : null}
+
+      {seriesSpotlight ? (
+        <section
+          className="mb-10 border-b border-umber/10 pb-10"
+          aria-label={t("seriesSpotlightTitle")}
+        >
+          <div className="mb-5 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <div className="gold-rule mb-3" aria-hidden />
+              <p className="editorial-eyebrow">{t("seriesSpotlightTitle")}</p>
+              <h2 className="mt-2 font-serif text-2xl font-semibold text-umber-deep sm:text-3xl">
+                {locale === "tr"
+                  ? seriesSpotlight.labelTr
+                  : seriesSpotlight.labelEn}
+              </h2>
+            </div>
+            <Link
+              href={`/gallery?series=${encodeURIComponent(seriesSpotlight.slug)}${sortQuery ? `&sort=${sortQuery}` : ""}`}
+              scroll={false}
+              className="shrink-0 text-sm font-semibold tracking-wide text-oxide underline-offset-[6px] transition hover:text-umber-deep hover:underline"
+            >
+              {t("viewSeries")}
+            </Link>
+          </div>
+          <ul className="-mx-4 flex gap-4 overflow-x-auto px-4 pb-1 pt-1 sm:gap-5">
+            {seriesSpotlight.works.map((a) => {
+              const title = locale === "tr" ? a.titleTr : a.titleEn;
+              return (
+                <li
+                  key={a.id}
+                  className="w-[46vw] max-w-[200px] shrink-0 sm:w-52 sm:max-w-none"
+                >
+                  <Link href={`/gallery/${a.slug}`} className="group block">
+                    <div className="gallery-image-frame gallery-image-frame-hover relative aspect-[4/5]">
+                      <Image
+                        src={a.image}
+                        alt={title}
+                        fill
+                        placeholder="blur"
+                        blurDataURL={IMAGE_BLUR_PLACEHOLDER}
+                        className="object-cover transition duration-[1100ms] ease-out-expo motion-safe:group-hover:scale-[1.03]"
+                        sizes="200px"
+                      />
+                      {a.sold ? <SoldStamp label={t("sold")} /> : null}
+                    </div>
+                    <p className="mt-3 line-clamp-2 font-serif text-sm font-medium text-umber-deep group-hover:text-oxide">
+                      {title}
+                    </p>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
       ) : null}
 
       {list.length === 0 ? (

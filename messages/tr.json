@@ -62,6 +62,8 @@
     "chronologySortNote": "Eserler yıla göre gruplandı. Sıralamayı değiştirmek için ızgara görünümünü kullanın.",
     "seriesFilter": "Seri",
     "seriesAll": "Tüm seriler",
+    "seriesSpotlightTitle": "Öne çıkan seri",
+    "viewSeries": "Serinin tamamı",
     "inquiryCta": "Bu eser hakkında yaz",
     "inquirySubject": "Müsaitlik: {title}",
     "inquiryBody": "Bu eser hakkında yazıyorum:\n\n{title}\n{url}\n\n",

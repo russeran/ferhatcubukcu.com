@@ -62,6 +62,8 @@
     "chronologySortNote": "Works are grouped by year. Use grid view to change sort order.",
     "seriesFilter": "Series",
     "seriesAll": "All series",
+    "seriesSpotlightTitle": "Featured series",
+    "viewSeries": "View full series",
     "inquiryCta": "Inquire about this work",
     "inquirySubject": "Availability: {title}",
     "inquiryBody": "I am writing about this work:\n\n{title}\n{url}\n\n",

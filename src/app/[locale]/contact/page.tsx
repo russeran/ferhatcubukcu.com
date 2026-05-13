@@ -50,11 +50,13 @@ export default async function ContactPage({ params }: Props) {
       <h1 className="mt-3 font-serif text-3xl font-semibold tracking-tight text-umber-deep sm:mt-4 sm:text-4xl md:text-5xl">
         {t("title")}
       </h1>
-      <p className="mt-6 max-w-xl text-base text-umber/75 sm:mt-8 sm:text-lg">
+      <p className="prose-atelier mt-6 max-w-xl text-base text-umber/75 sm:mt-8 sm:text-lg">
         {t("reachOut")}
       </p>
       {note ? (
-        <p className="mt-4 max-w-xl text-sm text-umber/60">{note}</p>
+        <p className="prose-atelier mt-4 max-w-xl text-sm text-umber/60">
+          {note}
+        </p>
       ) : null}
       <dl className="mt-12 space-y-8 border-t border-umber/10 pt-12">
         <div>
