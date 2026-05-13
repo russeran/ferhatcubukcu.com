@@ -6,7 +6,7 @@ export function FibonacciWatermark() {
       aria-hidden
     >
       <svg
-        className="absolute -right-[18%] top-[8%] h-[min(92vh,820px)] w-[min(92vw,820px)] -translate-y-1/4 translate-x-1/4 text-goldleaf/[0.075] motion-reduce:opacity-0 sm:-right-[12%] sm:top-[12%]"
+        className="absolute -right-[18%] top-[8%] h-[min(92vh,820px)] w-[min(92vw,820px)] -translate-y-1/4 translate-x-1/4 text-goldleaf/[0.13] motion-reduce:opacity-0 sm:-right-[12%] sm:top-[12%]"
         viewBox="0 0 100 100"
         fill="none"
       >

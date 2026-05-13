@@ -14,12 +14,33 @@ html {
 
 body {
   @apply text-umber-deep antialiased;
-  background-color: var(--atelier-base);
+  /* Base wash — explicit diagonal so the page reads “warm studio wall”, not generic gray-white */
+  background-color: #e8dfd2;
   background-image:
-    theme(backgroundImage.hero-lamp),
-    theme(backgroundImage.canvas-vignette),
-    theme(backgroundImage.fibonacci-hint),
-    theme(backgroundImage.grain-fine);
+    linear-gradient(
+      168deg,
+      #dccfb8 0%,
+      #f4efe6 38%,
+      #ebe3d4 72%,
+      #ddd2c2 100%
+    ),
+    radial-gradient(
+      ellipse 75% 55% at 28% 18%,
+      rgba(255, 252, 245, 0.72),
+      transparent 58%
+    ),
+    radial-gradient(
+      ellipse 55% 45% at 88% 22%,
+      rgba(201, 168, 90, 0.14),
+      transparent 52%
+    ),
+    radial-gradient(
+      ellipse 85% 55% at 50% 48%,
+      transparent 32%,
+      rgba(26, 23, 20, 0.055) 100%
+    ),
+    theme("backgroundImage.fibonacci-hint"),
+    theme("backgroundImage.grain-fine");
   background-attachment: fixed;
   /* Respect display cutouts (notched phones) without fighting page max-width containers */
   padding-left: env(safe-area-inset-left, 0px);
@@ -51,6 +72,10 @@ body {
 
 .focus-ring {
   @apply outline-none ring-2 ring-oxide/35 ring-offset-2 ring-offset-parchment;
+}
+
+header .focus-ring {
+  @apply ring-goldleaf/45 ring-offset-umber-deep;
 }
 
 @media (prefers-reduced-motion: reduce) {
