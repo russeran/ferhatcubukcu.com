@@ -17,7 +17,13 @@ export async function SiteChrome({
       <FibonacciWatermark />
       <div className="relative z-10 flex min-h-screen flex-col">
         <SiteHeader showAdminNav={showAdminNav} />
-        <main className="min-h-0 flex-1 overflow-x-hidden">{children}</main>
+        <main className="relative min-h-0 flex-1 overflow-x-hidden">
+          <div
+            className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-goldleaf/[0.06] via-transparent to-transparent"
+            aria-hidden
+          />
+          {children}
+        </main>
         <SiteFooter locale={locale} />
       </div>
     </>

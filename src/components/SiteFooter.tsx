@@ -13,9 +13,9 @@ export async function SiteFooter({ locale }: { locale: string }) {
   const prefix = `/${locale}`;
 
   return (
-    <footer className="relative mt-auto border-t border-umber/10 bg-parchment-dark/90 supports-[padding:max(0px)]:pb-[env(safe-area-inset-bottom,0px)]">
+    <footer className="relative mt-auto border-t border-umber/20 bg-gradient-to-b from-parchment-dark via-parchment-dark/95 to-umber-deep/10 supports-[padding:max(0px)]:pb-[env(safe-area-inset-bottom,0px)]">
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-goldleaf/35 to-transparent"
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-goldleaf/55 to-transparent"
         aria-hidden
       />
       <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-12 text-sm text-umber/60 sm:px-5 md:flex-row md:items-start md:justify-between md:gap-10 md:py-14">

@@ -9,28 +9,37 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        /** Warm shell — paper & stone */
+        /** Warm shell — stretched linen / raw canvas */
         parchment: {
-          DEFAULT: "#f3efe8",
-          dark: "#e6dfd4",
+          DEFAULT: "#f4efe6",
+          warm: "#efe6d8",
+          dark: "#e2d9cb",
+          ink: "#c9bdb0",
         },
         /** Earth ink */
         umber: {
-          DEFAULT: "#5c5348",
-          deep: "#1f1b16",
+          DEFAULT: "#5a5248",
+          deep: "#1a1714",
+          mist: "#8a8177",
         },
         /** Venetian red — Hagia Sophia / dome accents */
         oxide: {
-          DEFAULT: "#9b2335",
-          muted: "#b83a4a",
+          DEFAULT: "#922f3d",
+          muted: "#b54856",
+          deep: "#6e1f2a",
         },
         /** Cool stone / dusk */
         patina: {
-          DEFAULT: "#4a5568",
-          light: "#718096",
+          DEFAULT: "#4f5866",
+          light: "#7a8598",
         },
-        /** Dome gold */
-        goldleaf: "#c6a04f",
+        /** Dome gold — oil highlights */
+        goldleaf: "#c9a85a",
+        /** Burnt umber wash — shadows in paint film */
+        sienna: {
+          DEFAULT: "#7d4c3a",
+          muted: "#a07262",
+        },
       },
       fontFamily: {
         serif: ["var(--font-display)", "Georgia", "serif"],
@@ -44,15 +53,22 @@ const config: Config = {
       },
       boxShadow: {
         gallery:
-          "0 28px 56px -16px rgba(31, 27, 22, 0.14), 0 8px 20px -8px rgba(31, 27, 22, 0.08)",
+          "0 26px 52px -14px rgba(26, 23, 20, 0.18), 0 10px 24px -10px rgba(125, 76, 58, 0.12), inset 0 1px 0 rgba(255,252,245,0.45)",
         "gallery-hover":
-          "0 36px 72px -20px rgba(31, 27, 22, 0.18), 0 12px 28px -10px rgba(155, 35, 53, 0.08)",
+          "0 34px 68px -18px rgba(26, 23, 20, 0.22), 0 14px 32px -12px rgba(146, 47, 61, 0.12), inset 0 1px 0 rgba(255,252,245,0.5)",
+        header:
+          "0 12px 40px -12px rgba(26, 23, 20, 0.08), inset 0 -1px 0 rgba(201, 168, 90, 0.12)",
       },
       backgroundImage: {
+        /** Atmospheric washes — fibonacci-weighted focal points */
         "fibonacci-hint":
-          "radial-gradient(ellipse 100% 70% at 12% 18%, rgba(155,35,53,0.07), transparent 52%), radial-gradient(circle at 88% 12%, rgba(198,160,79,0.12), transparent 38%), radial-gradient(circle at 70% 85%, rgba(74,85,104,0.06), transparent 45%)",
+          "radial-gradient(ellipse 95% 65% at 14% 16%, rgba(201,168,90,0.11), transparent 48%), radial-gradient(ellipse 70% 55% at 92% 8%, rgba(146,47,61,0.06), transparent 42%), radial-gradient(ellipse 55% 45% at 78% 88%, rgba(125,76,58,0.07), transparent 50%), radial-gradient(circle at 48% 52%, rgba(90,82,72,0.04), transparent 62%)",
         "grain-fine":
-          "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E\")",
+          "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.042'/%3E%3C/svg%3E\")",
+        "canvas-vignette":
+          "radial-gradient(ellipse 85% 55% at 50% 45%, transparent 30%, rgba(26,23,20,0.04) 100%)",
+        "hero-lamp":
+          "radial-gradient(ellipse 70% 50% at 30% 20%, rgba(255,252,245,0.55), transparent 55%), radial-gradient(ellipse 50% 40% at 85% 25%, rgba(201,168,90,0.08), transparent 50%)",
       },
       animation: {
         "fade-up": "fadeUp 0.75s ease-out forwards",

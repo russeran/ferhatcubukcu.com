@@ -81,15 +81,16 @@ export default async function HomePage({ params }: Props) {
   return (
     <>
       <HomeJsonLd locale={locale} settings={settings} />
-      <section className="relative overflow-hidden border-b border-umber/10">
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/55 via-parchment/30 to-parchment-dark/25" />
-        <div className="pointer-events-none absolute -right-24 top-1/2 h-[min(85vw,520px)] w-[min(85vw,520px)] -translate-y-1/2 rounded-full bg-oxide/[0.055] blur-3xl md:-right-32" />
-        <div className="pointer-events-none absolute -left-32 bottom-0 h-72 w-72 rounded-full bg-goldleaf/[0.07] blur-3xl" />
+      <section className="relative overflow-hidden border-b border-umber/15">
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/70 via-parchment-warm/45 to-parchment-dark/35" />
+        <div className="pointer-events-none absolute -right-24 top-1/2 h-[min(88vw,540px)] w-[min(88vw,540px)] -translate-y-1/2 rounded-full bg-gradient-to-br from-oxide/[0.07] to-goldleaf/[0.04] blur-3xl md:-right-28" />
+        <div className="pointer-events-none absolute -left-36 bottom-0 h-80 w-80 rounded-full bg-gradient-to-tr from-sienna-muted/15 to-goldleaf/10 blur-3xl" />
+        <div className="pointer-events-none absolute left-1/3 top-0 h-48 w-48 rounded-full bg-goldleaf/[0.06] blur-2xl" />
         <div className="relative mx-auto grid max-w-6xl gap-12 px-4 py-16 sm:gap-14 sm:px-5 sm:py-20 md:grid-cols-2 md:items-center md:gap-16 md:py-28">
-          <div className="animate-fade-up space-y-6 border-l-2 border-goldleaf/45 pl-6 sm:space-y-7 sm:pl-8">
+          <div className="animate-fade-up space-y-6 border-l-[3px] border-goldleaf/55 pl-6 sm:space-y-7 sm:pl-8">
             <div className="gold-rule" aria-hidden />
             <p className="editorial-eyebrow">{t("studio")}</p>
-            <h1 className="text-balance font-serif text-3xl font-semibold leading-[1.06] tracking-tight text-umber-deep sm:text-4xl md:text-5xl lg:text-[3.15rem]">
+            <h1 className="text-balance font-serif text-3xl font-semibold leading-[1.06] tracking-tight text-umber-deep drop-shadow-[0_1px_1px_rgba(255,252,245,0.45)] sm:text-4xl md:text-5xl lg:text-[3.15rem]">
               {settings.artistName}
             </h1>
             <p className="max-w-md text-balance text-base leading-snug text-umber/90 sm:text-lg md:text-xl">
@@ -122,7 +123,7 @@ export default async function HomePage({ params }: Props) {
       </section>
 
       {newsTeaser.length > 0 ? (
-        <section className="border-b border-umber/10 bg-gradient-to-b from-parchment-dark/50 to-parchment-dark/30 py-16 sm:py-20">
+        <section className="border-b border-umber/15 bg-gradient-to-b from-parchment-dark/65 via-parchment-warm/35 to-parchment py-16 sm:py-20">
           <div className="mx-auto max-w-6xl px-4 sm:px-5">
             <div className="mb-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
               <div>
@@ -144,7 +145,7 @@ export default async function HomePage({ params }: Props) {
                 <li key={p.id}>
                   <Link
                     href={`/news/${p.slug}`}
-                    className="group block h-full rounded-md border border-umber/10 bg-parchment/95 p-6 shadow-sm ring-1 ring-transparent backdrop-blur-sm transition duration-500 ease-out-expo hover:-translate-y-0.5 hover:border-goldleaf/30 hover:shadow-gallery hover:ring-goldleaf/15"
+                    className="group block h-full rounded-sm border border-umber/12 bg-gradient-to-br from-parchment/98 via-parchment-warm/90 to-parchment-dark/25 p-6 shadow-[inset_0_1px_0_rgba(255,252,245,0.55)] ring-1 ring-umber/8 backdrop-blur-sm transition duration-500 ease-out-expo hover:-translate-y-0.5 hover:border-goldleaf/35 hover:shadow-gallery hover:ring-goldleaf/25"
                   >
                     <h3 className="font-serif text-lg font-medium text-umber-deep transition-colors duration-300 group-hover:text-oxide">
                       {resolvedNewsTitle(p, locale)}
@@ -161,7 +162,7 @@ export default async function HomePage({ params }: Props) {
       ) : null}
 
       {pressTeaser.length > 0 ? (
-        <section className="border-b border-umber/10 py-16 sm:py-20">
+        <section className="border-b border-umber/15 bg-gradient-to-b from-transparent via-parchment-warm/40 to-parchment-dark/25 py-16 sm:py-20">
           <div className="mx-auto max-w-6xl px-4 sm:px-5">
             <div className="mb-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
               <div>

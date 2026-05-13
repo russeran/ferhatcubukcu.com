@@ -38,7 +38,7 @@ export function HomeHeroGalleryShowcase({
 
   if (slides.length === 0) {
     return (
-      <div className="relative aspect-[4/3] w-full animate-fade-up overflow-hidden rounded-md bg-parchment-dark shadow-gallery ring-1 ring-umber/12 md:aspect-[5/4]">
+      <div className="relative aspect-[4/3] w-full animate-fade-up overflow-hidden rounded-md bg-gradient-to-br from-parchment-warm to-parchment-dark shadow-gallery ring-1 ring-umber/15 md:aspect-[5/4]">
         <Image
           src={fallbackSrc}
           alt={fallbackAlt}
@@ -47,14 +47,14 @@ export function HomeHeroGalleryShowcase({
           sizes="(max-width: 768px) 100vw, 50vw"
           priority
         />
-        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.35),transparent_45%,transparent)]" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-umber-deep/20 via-transparent to-white/25" />
       </div>
     );
   }
 
   return (
     <div
-      className="relative aspect-[4/3] w-full animate-fade-up overflow-hidden rounded-md bg-parchment-dark shadow-gallery ring-1 ring-umber/12 md:aspect-[5/4]"
+      className="relative aspect-[4/3] w-full animate-fade-up overflow-hidden rounded-md bg-gradient-to-br from-parchment-warm to-parchment-dark shadow-gallery ring-1 ring-umber/15 md:aspect-[5/4]"
       aria-roledescription="carousel"
       aria-label={t("heroSlideshowAria")}
     >
@@ -90,7 +90,7 @@ export function HomeHeroGalleryShowcase({
           />
         </Link>
       ))}
-      <div className="pointer-events-none absolute inset-0 z-[3] bg-[linear-gradient(135deg,rgba(255,255,255,0.28),transparent_42%,transparent)]" />
+      <div className="pointer-events-none absolute inset-0 z-[3] bg-gradient-to-br from-white/20 via-transparent to-umber-deep/15" />
       {slides.length > 1 ? (
         <div className="absolute bottom-3 left-0 right-0 z-[4] flex justify-center gap-2 px-4">
           {slides.map((_, i) => (

@@ -121,9 +121,9 @@ export function SiteHeader({ showAdminNav }: { showAdminNav: boolean }) {
   }, [menuOpen]);
 
   return (
-    <header className="relative sticky top-0 z-[100] border-b border-umber/10 bg-parchment/92 backdrop-blur-md supports-[padding:max(0px)]:pt-[env(safe-area-inset-top,0px)]">
+    <header className="relative sticky top-0 z-[100] border-b border-umber/15 bg-gradient-to-b from-parchment via-parchment-warm/98 to-parchment-dark/35 shadow-header backdrop-blur-xl supports-[padding:max(0px)]:pt-[env(safe-area-inset-top,0px)]">
       <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-goldleaf/50 to-transparent"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[2px] bg-gradient-to-r from-transparent via-goldleaf/70 to-transparent"
         aria-hidden
       />
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-5 md:py-5">
@@ -188,7 +188,7 @@ export function SiteHeader({ showAdminNav }: { showAdminNav: boolean }) {
               />
               <div
                 id="mobile-drawer"
-                className="fixed inset-y-0 right-0 z-[210] flex max-h-[100dvh] w-[min(100%,20rem)] flex-col border-l border-umber/15 bg-parchment shadow-2xl md:hidden supports-[padding:max(0px)]:pb-[env(safe-area-inset-bottom,0px)] supports-[padding:max(0px)]:pt-[env(safe-area-inset-top,0px)]"
+                className="fixed inset-y-0 right-0 z-[210] flex max-h-[100dvh] w-[min(100%,20rem)] flex-col border-l border-umber/20 bg-gradient-to-b from-parchment via-parchment-warm to-parchment-dark/60 shadow-2xl md:hidden supports-[padding:max(0px)]:pb-[env(safe-area-inset-bottom,0px)] supports-[padding:max(0px)]:pt-[env(safe-area-inset-top,0px)]"
                 role="dialog"
                 aria-modal="true"
                 aria-label={t("mobileNav")}

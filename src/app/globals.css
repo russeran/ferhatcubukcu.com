@@ -4,6 +4,8 @@
 
 :root {
   color-scheme: light;
+  --atelier-base: #f4efe6;
+  --atelier-ink: #1a1714;
 }
 
 html {
@@ -11,9 +13,14 @@ html {
 }
 
 body {
-  @apply bg-parchment text-umber-deep antialiased;
-  background-image: theme(backgroundImage.fibonacci-hint),
+  @apply text-umber-deep antialiased;
+  background-color: var(--atelier-base);
+  background-image:
+    theme(backgroundImage.hero-lamp),
+    theme(backgroundImage.canvas-vignette),
+    theme(backgroundImage.fibonacci-hint),
     theme(backgroundImage.grain-fine);
+  background-attachment: fixed;
   /* Respect display cutouts (notched phones) without fighting page max-width containers */
   padding-left: env(safe-area-inset-left, 0px);
   padding-right: env(safe-area-inset-right, 0px);
@@ -21,25 +28,29 @@ body {
 
 @layer components {
   .editorial-eyebrow {
-    @apply font-serif text-[10px] uppercase tracking-[0.42em] text-patina sm:text-[11px];
+    @apply font-serif text-[10px] uppercase tracking-[0.42em] text-sienna-muted sm:text-[11px];
   }
   .gold-rule {
-    @apply h-px w-14 bg-gradient-to-r from-goldleaf/80 via-goldleaf/35 to-transparent sm:w-20;
+    @apply h-px w-14 bg-gradient-to-r from-goldleaf via-goldleaf/60 to-transparent sm:w-20;
   }
   .gallery-image-frame {
-    @apply overflow-hidden rounded-md bg-parchment-dark shadow-gallery ring-1 ring-umber/10 transition-[box-shadow,transform] duration-700 ease-out-expo;
+    @apply overflow-hidden rounded-md bg-gradient-to-br from-parchment-warm to-parchment-dark shadow-gallery ring-1 ring-umber/15 transition-[box-shadow,transform] duration-700 ease-out-expo;
   }
   .gallery-image-frame-hover {
-    @apply group-hover:shadow-gallery-hover group-hover:ring-goldleaf/25;
+    @apply group-hover:shadow-gallery-hover group-hover:ring-goldleaf/35;
+  }
+  /** Editorial inset panels — like museum captions */
+  .surface-caption {
+    @apply rounded-sm border border-umber/10 bg-gradient-to-br from-parchment/95 via-parchment-warm/90 to-parchment-dark/40 px-5 py-4 shadow-[inset_0_1px_0_rgba(255,252,245,0.65)];
   }
 }
 
 ::selection {
-  @apply bg-goldleaf/25 text-umber-deep;
+  @apply bg-goldleaf/30 text-umber-deep;
 }
 
 .focus-ring {
-  @apply outline-none ring-2 ring-oxide/30 ring-offset-2 ring-offset-parchment;
+  @apply outline-none ring-2 ring-oxide/35 ring-offset-2 ring-offset-parchment;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -50,5 +61,9 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  body {
+    background-attachment: scroll;
   }
 }

@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { getSiteUrl } from "@/lib/site-url";
-import { Cormorant_Garamond, Source_Sans_3 } from "next/font/google";
+import { Cormorant_Garamond, Literata } from "next/font/google";
 import "./globals.css";
 
 const display = Cormorant_Garamond({
@@ -11,7 +11,7 @@ const display = Cormorant_Garamond({
   variable: "--font-display",
 });
 
-const body = Source_Sans_3({
+const body = Literata({
   subsets: ["latin", "latin-ext"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-body",
@@ -35,7 +35,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#f3efe8",
+  themeColor: "#f4efe6",
 };
 
 export default function RootLayout({
