@@ -7,6 +7,7 @@ const DEFAULT_BEHANCE = "https://www.behance.net/ferhat_cubukcu";
 export async function SiteFooter({ locale }: { locale: string }) {
   const t = await getTranslations({ locale, namespace: "footer" });
   const tn = await getTranslations({ locale, namespace: "nav" });
+  const tc = await getTranslations({ locale, namespace: "curator" });
   const settings = await readSettings();
   const behance = settings.behance?.trim() || DEFAULT_BEHANCE;
   const prefix = `/${locale}`;
@@ -29,6 +30,24 @@ export async function SiteFooter({ locale }: { locale: string }) {
               className="transition-colors hover:text-umber-deep"
             >
               {tn("gallery")}
+            </Link>
+            <span className="text-umber/25" aria-hidden>
+              ·
+            </span>
+            <Link
+              href={`${prefix}/studio`}
+              className="transition-colors hover:text-umber-deep"
+            >
+              {tn("studio")}
+            </Link>
+            <span className="text-umber/25" aria-hidden>
+              ·
+            </span>
+            <Link
+              href={`${prefix}/press`}
+              className="transition-colors hover:text-umber-deep"
+            >
+              {tn("press")}
             </Link>
             <span className="text-umber/25" aria-hidden>
               ·
@@ -58,14 +77,22 @@ export async function SiteFooter({ locale }: { locale: string }) {
               {tn("contact")}
             </Link>
           </nav>
-          <a
-            href={behance}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex text-sm font-medium text-oxide underline-offset-[5px] transition hover:text-umber-deep hover:underline"
-          >
-            {t("behanceCta")}
-          </a>
+          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+            <a
+              href={behance}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex text-sm font-medium text-oxide underline-offset-[5px] transition hover:text-umber-deep hover:underline"
+            >
+              {t("behanceCta")}
+            </a>
+            <a
+              href="/api/curator-pack"
+              className="inline-flex text-sm font-medium text-umber-deep/80 underline-offset-[5px] transition hover:text-oxide hover:underline"
+            >
+              {t("curatorPack")} — {tc("footerLabel")}
+            </a>
+          </div>
         </div>
         <p className="max-w-xs font-serif text-sm italic leading-relaxed tracking-wide text-umber/45 md:text-right">
           {t("tagline")}

@@ -4,7 +4,8 @@ import type { NewsKind, NewsPost } from "@/lib/types";
 import { readApiError } from "@/lib/read-api-error";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 const fetchOpts: RequestInit = { credentials: "same-origin" };
 
@@ -26,6 +27,8 @@ const emptyForm = {
 
 export function AdminNews() {
   const t = useTranslations("admin");
+  const searchParams = useSearchParams();
+  const deepLinkApplied = useRef<string | null>(null);
   const [items, setItems] = useState<NewsPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [create, setCreate] = useState(emptyForm);
@@ -126,6 +129,27 @@ export function AdminNews() {
     });
   }
 
+  const editQuery = searchParams.get("edit");
+  useEffect(() => {
+    if (!editQuery) {
+      deepLinkApplied.current = null;
+      return;
+    }
+    if (loading || items.length === 0) return;
+    if (deepLinkApplied.current === editQuery) return;
+    const found = items.find((x) => x.id === editQuery);
+    if (!found) return;
+    deepLinkApplied.current = editQuery;
+    startEdit(found);
+    const tid = window.setTimeout(() => {
+      document
+        .getElementById(`admin-news-${editQuery}`)
+        ?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }, 80);
+    return () => window.clearTimeout(tid);
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- open editor once per ?edit= id; startEdit omitted to avoid loops
+  }, [editQuery, loading, items]);
+
   async function saveEdit(e: React.FormEvent) {
     e.preventDefault();
     if (!editingId) return;
@@ -187,7 +211,7 @@ export function AdminNews() {
         </p>
       ) : null}
 
-      <section className="rounded-xl border border-white/10 bg-black/20 p-6">
+      <section id="admin-add-news" className="rounded-xl border border-white/10 bg-black/20 p-6">
         <h2 className="font-serif text-xl text-goldleaf">{t("addNews")}</h2>
         <form onSubmit={addPost} className="mt-6 grid gap-4 md:grid-cols-2">
           <label className="space-y-1 md:col-span-2">
@@ -358,6 +382,7 @@ export function AdminNews() {
           {items.map((p) => (
             <li
               key={p.id}
+              id={`admin-news-${p.id}`}
               className="rounded-xl border border-white/10 bg-black/15 p-5"
             >
               <div className="flex flex-col gap-4 md:flex-row md:items-start">

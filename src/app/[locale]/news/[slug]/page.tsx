@@ -5,6 +5,8 @@ import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { localeAlternates, seoTruncate } from "@/lib/seo-helpers";
 import { absoluteUrl } from "@/lib/site-url";
+import { getSessionFromCookies } from "@/lib/auth";
+import { PublicResourceAdminActions } from "@/components/admin/PublicResourceAdminActions";
 import { readNewsPosts } from "@/lib/data";
 import {
   resolvedNewsBody,
@@ -68,6 +70,7 @@ export default async function NewsDetailPage({ params }: Props) {
   const list = await readNewsPosts();
   const post = list.find((p) => p.slug === slug && p.published);
   if (!post) notFound();
+  const isAdmin = Boolean(await getSessionFromCookies());
 
   const title = resolvedNewsTitle(post, locale);
   const body = resolvedNewsBody(post, locale);
@@ -80,6 +83,16 @@ export default async function NewsDetailPage({ params }: Props) {
       >
         ← {t("title")}
       </Link>
+
+      {isAdmin ? (
+        <PublicResourceAdminActions
+          locale={locale}
+          kind="news"
+          id={post.id}
+          className="mt-4"
+        />
+      ) : null}
+
       <header className="mt-8 border-b border-umber/10 pb-8">
         <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-umber/50">
           {kindLabels[post.kind]}

@@ -6,6 +6,8 @@ import { absoluteUrl } from "@/lib/site-url";
 const staticPaths = [
   "",
   "/gallery",
+  "/studio",
+  "/press",
   "/news",
   "/instagram",
   "/about",

@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { AdminArtworks } from "@/components/admin/AdminArtworks";
 import { AdminNav } from "@/components/admin/AdminNav";
 import { AdminSignOut } from "@/components/admin/AdminSignOut";
@@ -26,7 +27,9 @@ export default async function AdminArtworksPage({ params }: Props) {
       </div>
       <div className="mt-8 space-y-10">
         <AdminNav />
-        <AdminArtworks />
+        <Suspense fallback={<p className="text-parchment/60">…</p>}>
+          <AdminArtworks />
+        </Suspense>
       </div>
     </div>
   );

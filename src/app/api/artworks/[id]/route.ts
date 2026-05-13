@@ -45,6 +45,9 @@ const patchSchema = z.object({
   priceTr: z.string().max(160).optional(),
   exhibitionEn: z.string().max(240).optional(),
   exhibitionTr: z.string().max(240).optional(),
+  seriesSlug: z.string().max(80).optional(),
+  seriesTitleEn: z.string().max(120).optional(),
+  seriesTitleTr: z.string().max(120).optional(),
   sold: z.boolean().optional(),
   published: z.boolean().optional(),
   slug: z.string().optional(),
@@ -118,6 +121,15 @@ export async function PATCH(
   }
   if (parsed.data.exhibitionTr !== undefined) {
     updated.exhibitionTr = normOptionalText(parsed.data.exhibitionTr);
+  }
+  if (parsed.data.seriesSlug !== undefined) {
+    updated.seriesSlug = normOptionalText(parsed.data.seriesSlug);
+  }
+  if (parsed.data.seriesTitleEn !== undefined) {
+    updated.seriesTitleEn = normOptionalText(parsed.data.seriesTitleEn);
+  }
+  if (parsed.data.seriesTitleTr !== undefined) {
+    updated.seriesTitleTr = normOptionalText(parsed.data.seriesTitleTr);
   }
   const prevSlug = current.slug;
   list[idx] = updated;

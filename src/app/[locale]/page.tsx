@@ -70,6 +70,11 @@ export default async function HomePage({ params }: Props) {
     .sort((a, b) => a.order - b.order)
     .slice(0, 3);
 
+  const pressTeaser = (settings.pressQuotes ?? []).filter((q) => {
+    const txt = locale === "tr" ? q.quoteTr : q.quoteEn;
+    return Boolean(txt?.trim());
+  }).slice(0, 3);
+
   const tagline =
     locale === "tr" ? settings.taglineTr : settings.taglineEn;
 
@@ -150,6 +155,52 @@ export default async function HomePage({ params }: Props) {
                   </Link>
                 </li>
               ))}
+            </ul>
+          </div>
+        </section>
+      ) : null}
+
+      {pressTeaser.length > 0 ? (
+        <section className="border-b border-umber/10 py-16 sm:py-20">
+          <div className="mx-auto max-w-6xl px-4 sm:px-5">
+            <div className="mb-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <div className="gold-rule mb-4" aria-hidden />
+                <p className="editorial-eyebrow">{t("pressTeaser")}</p>
+                <h2 className="mt-3 text-balance font-serif text-2xl font-semibold text-umber-deep sm:text-3xl">
+                  {t("pressTeaserSubtitle")}
+                </h2>
+              </div>
+              <Link
+                href="/press"
+                className="text-sm font-semibold tracking-wide text-oxide underline-offset-[6px] transition hover:text-umber-deep hover:underline sm:shrink-0"
+              >
+                {t("pressViewAll")}
+              </Link>
+            </div>
+            <ul className="grid gap-8 md:grid-cols-3 md:gap-6">
+              {pressTeaser.map((q) => {
+                const quote = locale === "tr" ? q.quoteTr : q.quoteEn;
+                const attr = locale === "tr" ? q.attributionTr : q.attributionEn;
+                return (
+                  <li key={q.id}>
+                    <blockquote className="border-l-2 border-goldleaf/50 pl-5 font-serif text-lg leading-snug text-umber-deep">
+                      “{quote}”
+                    </blockquote>
+                    <p className="mt-3 text-sm font-medium text-umber/55">{attr}</p>
+                    {q.url?.trim() ? (
+                      <a
+                        href={q.url.trim()}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-2 inline-block text-xs font-semibold uppercase tracking-editorial text-oxide hover:underline"
+                      >
+                        {locale === "tr" ? "Kaynak" : "Source"}
+                      </a>
+                    ) : null}
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </section>

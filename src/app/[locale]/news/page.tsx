@@ -4,6 +4,9 @@ import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { localeAlternates } from "@/lib/seo-helpers";
 import { absoluteUrl } from "@/lib/site-url";
+import { getSessionFromCookies } from "@/lib/auth";
+import { PublicListAdminToolbar } from "@/components/admin/PublicListAdminToolbar";
+import { PublicResourceAdminActions } from "@/components/admin/PublicResourceAdminActions";
 import { readNewsPosts } from "@/lib/data";
 import {
   resolvedNewsExcerpt,
@@ -41,6 +44,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function NewsPage({ params }: Props) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "news" });
+  const isAdmin = Boolean(await getSessionFromCookies());
   const kindLabels = {
     news: t("kind_news"),
     social: t("kind_social"),
@@ -60,6 +64,8 @@ export default async function NewsPage({ params }: Props) {
         {t("title")}
       </h1>
       <p className="mt-4 max-w-xl text-sm text-umber/65 sm:text-base">{t("intro")}</p>
+
+      {isAdmin ? <PublicListAdminToolbar locale={locale} variant="news" /> : null}
 
       {list.length === 0 ? (
         <p className="mt-12 text-umber/60">{t("empty")}</p>
@@ -107,6 +113,14 @@ export default async function NewsPage({ params }: Props) {
                         </>
                       ) : null}
                     </p>
+                    {isAdmin ? (
+                      <PublicResourceAdminActions
+                        locale={locale}
+                        kind="news"
+                        id={p.id}
+                        className="mt-3"
+                      />
+                    ) : null}
                   </div>
                   {p.image ? (
                     <Link

@@ -30,6 +30,7 @@ const defaultSettings: SiteSettings = {
     "For availability, commissions, or exhibition proposals, please write. Full portfolio and project views: Behance.",
   studioNoteTr:
     "Müsaitlik, sipariş veya sergi önerileri için yazabilirsiniz. Tam portföy ve proje görünümleri: Behance.",
+  pressQuotes: [],
 };
 
 function slugify(input: string): string {

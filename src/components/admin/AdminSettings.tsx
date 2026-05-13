@@ -1,9 +1,16 @@
 "use client";
 
-import type { SiteSettings } from "@/lib/types";
+import type { PressQuote, SiteSettings } from "@/lib/types";
 import { readApiError } from "@/lib/read-api-error";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
+
+function newPressQuoteId() {
+  if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
+    return crypto.randomUUID();
+  }
+  return `q-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+}
 
 export function AdminSettings() {
   const t = useTranslations("admin");
@@ -184,6 +191,130 @@ export function AdminSettings() {
           }
         />
       </label>
+      <div className="space-y-4 rounded-lg border border-white/10 bg-black/15 p-4">
+        <p className="text-xs uppercase tracking-wider text-parchment/45">
+          {t("pressQuotesSection")}
+        </p>
+        <p className="text-xs text-parchment/50">{t("pressQuotesHint")}</p>
+        {(form.pressQuotes ?? []).map((q, i) => (
+          <div
+            key={q.id}
+            className="space-y-3 rounded-md border border-white/10 bg-black/20 p-4"
+          >
+            <div className="flex justify-end">
+              <button
+                type="button"
+                className="text-xs text-oxide hover:underline"
+                onClick={() =>
+                  setForm({
+                    ...form,
+                    pressQuotes: (form.pressQuotes ?? []).filter(
+                      (_, j) => j !== i
+                    ),
+                  })
+                }
+              >
+                {t("removePressQuote")}
+              </button>
+            </div>
+            <label className="block space-y-1">
+              <span className="text-xs text-parchment/55">{t("pressQuoteEn")}</span>
+              <textarea
+                className="focus-ring min-h-[56px] w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+                value={q.quoteEn}
+                onChange={(e) => {
+                  const next = [...(form.pressQuotes ?? [])];
+                  next[i] = { ...q, quoteEn: e.target.value };
+                  setForm({ ...form, pressQuotes: next });
+                }}
+              />
+            </label>
+            <label className="block space-y-1">
+              <span className="text-xs text-parchment/55">{t("pressQuoteTr")}</span>
+              <textarea
+                className="focus-ring min-h-[56px] w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+                value={q.quoteTr}
+                onChange={(e) => {
+                  const next = [...(form.pressQuotes ?? [])];
+                  next[i] = { ...q, quoteTr: e.target.value };
+                  setForm({ ...form, pressQuotes: next });
+                }}
+              />
+            </label>
+            <label className="block space-y-1">
+              <span className="text-xs text-parchment/55">{t("pressAttrEn")}</span>
+              <input
+                className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+                value={q.attributionEn}
+                onChange={(e) => {
+                  const next = [...(form.pressQuotes ?? [])];
+                  next[i] = { ...q, attributionEn: e.target.value };
+                  setForm({ ...form, pressQuotes: next });
+                }}
+              />
+            </label>
+            <label className="block space-y-1">
+              <span className="text-xs text-parchment/55">{t("pressAttrTr")}</span>
+              <input
+                className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+                value={q.attributionTr}
+                onChange={(e) => {
+                  const next = [...(form.pressQuotes ?? [])];
+                  next[i] = { ...q, attributionTr: e.target.value };
+                  setForm({ ...form, pressQuotes: next });
+                }}
+              />
+            </label>
+            <label className="block space-y-1">
+              <span className="text-xs text-parchment/55">{t("pressUrl")}</span>
+              <input
+                className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+                value={q.url ?? ""}
+                onChange={(e) => {
+                  const next = [...(form.pressQuotes ?? [])];
+                  next[i] = { ...q, url: e.target.value };
+                  setForm({ ...form, pressQuotes: next });
+                }}
+              />
+            </label>
+            <label className="block space-y-1">
+              <span className="text-xs text-parchment/55">{t("pressImage")}</span>
+              <input
+                className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+                value={q.image ?? ""}
+                onChange={(e) => {
+                  const next = [...(form.pressQuotes ?? [])];
+                  next[i] = { ...q, image: e.target.value || undefined };
+                  setForm({ ...form, pressQuotes: next });
+                }}
+              />
+            </label>
+          </div>
+        ))}
+        <button
+          type="button"
+          className="rounded-md border border-white/20 px-4 py-2 text-xs font-medium text-parchment/90 hover:bg-white/5"
+          onClick={() =>
+            setForm({
+              ...form,
+              pressQuotes: [
+                ...(form.pressQuotes ?? []),
+                {
+                  id: newPressQuoteId(),
+                  quoteEn: "",
+                  quoteTr: "",
+                  attributionEn: "",
+                  attributionTr: "",
+                  url: "",
+                  image: "",
+                } satisfies PressQuote,
+              ],
+            })
+          }
+        >
+          {t("addPressQuote")}
+        </button>
+      </div>
       <button
         type="submit"
         className="rounded-full bg-goldleaf px-8 py-3 text-sm font-semibold text-umber-deep hover:bg-parchment"

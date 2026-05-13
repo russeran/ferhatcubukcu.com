@@ -9,6 +9,8 @@
     "news": "Haberler",
     "instagram": "Instagram",
     "about": "Hakkında",
+    "studio": "Atölye",
+    "press": "Basın",
     "contact": "İletişim",
     "admin": "Yönetim",
     "openMenu": "Menüyü aç",
@@ -26,7 +28,10 @@
     "heroSlideshowDotAria": "{total} tablodan {current}. görünümü",
     "newsTeaser": "Atölye ve haberler",
     "newsTeaserSubtitle": "Sergiler, sosyal medya ve atölyeden notlar.",
-    "newsViewAll": "Tüm güncellemeler"
+    "newsViewAll": "Tüm güncellemeler",
+    "pressTeaser": "Seçili basın",
+    "pressTeaserSubtitle": "Alıntılar ve yansımalar — Site ayarlarından ekleyin.",
+    "pressViewAll": "Tüm basın"
   },
   "gallery": {
     "title": "Galeri",
@@ -50,7 +55,25 @@
     "sortTitleDesc": "Başlık (Z–A)",
     "sortAvailableFirst": "Önce müsait olanlar",
     "sortSoldFirst": "Önce satılanlar",
-    "price": "Fiyat"
+    "price": "Fiyat",
+    "viewGrid": "Izgara",
+    "viewChronology": "Kronoloji",
+    "viewTabsAria": "Galeri görünümü",
+    "chronologySortNote": "Eserler yıla göre gruplandı. Sıralamayı değiştirmek için ızgara görünümünü kullanın.",
+    "seriesFilter": "Seri",
+    "seriesAll": "Tüm seriler",
+    "inquiryCta": "Bu eser hakkında yaz",
+    "inquirySubject": "Müsaitlik: {title}",
+    "inquiryBody": "Bu eser hakkında yazıyorum:\n\n{title}\n{url}\n\n",
+    "viewingRoomEnter": "İnceleme modu",
+    "viewingRoomClose": "Kapat",
+    "viewingRoomPrev": "Önceki eser",
+    "viewingRoomNext": "Sonraki eser",
+    "lightboxClose": "Kapat",
+    "lightboxPrev": "Önceki görsel",
+    "lightboxNext": "Sonraki görsel",
+    "lightboxZoom": "Yakınlaştır",
+    "lightboxUnzoom": "Sıfırla"
   },
   "news": {
     "title": "Haberler ve güncellemeler",
@@ -64,6 +87,21 @@
     "kind_social": "Sosyal medya",
     "kind_press": "Basın",
     "kind_studio": "Atölye notu"
+  },
+  "publicAdmin": {
+    "toolbarAria": "Hızlı yönetim araçları",
+    "signedIn": "Yönetici olarak oturum açıldı",
+    "manageArtworks": "Tablolar yönetimi",
+    "manageNews": "Haberler yönetimi",
+    "addArtwork": "Tablo ekle",
+    "addNews": "Güncelleme ekle",
+    "editArtwork": "Düzenle",
+    "editNews": "Düzenle",
+    "deleteArtwork": "Sil",
+    "deleteNews": "Sil",
+    "confirmDeleteArtwork": "Bu tabloyu siteden kaldırmak istiyor musunuz? Bu işlem geri alınamaz.",
+    "confirmDeleteNews": "Bu güncellemeyi kaldırmak istiyor musunuz? Bu işlem geri alınamaz.",
+    "deleteFailed": "Silinemedi"
   },
   "about": {
     "title": "Hakkında",
@@ -80,6 +118,36 @@
     "reachOut": "Sipariş, sergi veya atölye ziyareti için yazabilirsiniz. Daha çok iş ve özgeçmiş bağlamı Behance’te.",
     "trustShipping": "Kargo, KDV ve gümrük, varış ülkesi ve güncel mevzuata göre değişir — satış öncesi yazılı olarak netleştirilir.",
     "trustOrdering": "Sitedeki müsaitlik ve fiyatlar referans içindir; çerçeve, teslimat ve ödeme genelde kısa bir e-posta trafiğiyle netleşir."
+  },
+  "studioPage": {
+    "title": "Atölye ve pratik",
+    "eyebrow": "Pratik",
+    "seoDescription": "Malzeme, süreç ve tuval üzerindeki yaklaşım — Ferhat Çubukçu, İstanbul.",
+    "intro": "Fikirden bitmiş tuvale kısa bir bakış.",
+    "b1Title": "Tuval üzerine yağlıboya",
+    "b1Body": "Pratik ağırlıklı olarak yağlıboyadır — sıkça 80×100 cm ve daha büyük ölçüler — ışığın ve dokunun tuvalde canlı kalması için katmanlı çalışılır.",
+    "b2Title": "Kompozisyon ve oran",
+    "b2Body": "Fibonacci’nin altın orana yaklaşımı aralık ve ritmi besler: sarmallar genel kompozisyon ve formlar arasında görünür, kısıtlayıcı bir ızgara olarak değil.",
+    "b3Title": "Figürasyon",
+    "b3Body": "Figürler mekân ve mimariyle aynı kompozisyon alanında ele alınır — ağırlık, jest ve negatif alan birlikte tartılır.",
+    "b4Title": "Renk ve ışık",
+    "b4Body": "Paletimiz sahneye ve örtük zamana göre şekillenir; sıcak topraklar ve soğutulmuş nötrler geniş yüzeylerde uzaktan okunabilirliği korur.",
+    "b5Title": "Detay ve bitiriş",
+    "b5Body": "Yakın görünüm ve kenar işçiliği önemlidir: sitedeki detay fotoğrafları doku, çerçeve ve boyanın dokuma üzerindeki duruşunu gösterir.",
+    "b6Title": "Sipariş ve diyalog",
+    "b6Body": "Müsaitlik, sipariş veya sergi önerileri için İletişim’i kullanın — kısa bir yazışma genelde niyet, süre ve teslimatı netleştirir."
+  },
+  "pressPage": {
+    "title": "Basın",
+    "eyebrow": "Yansımalar",
+    "seoDescription": "Ferhat Çubukçu hakkında seçili alıntılar ve yansımalar — İstanbul ressamı.",
+    "intro": "Yayınlardan ve açıklamalardan öne çıkanlar. Girişleri Yönetim → Site ayarlarından ekleyin veya düzenleyin.",
+    "empty": "Henüz basın girişi yok. Yönetim → Site ayarlarından alıntı ekleyin.",
+    "readSource": "Kaynağı oku"
+  },
+  "curator": {
+    "footerLabel": "Küratör PDF indir",
+    "seoDescription": "Galeriler için yayınlanmış eserlerin yazdırılabilir listesi."
   },
   "instagram": {
     "title": "Instagram",
@@ -100,7 +168,8 @@
     "rights": "© Ferhat Çubukçu. Tüm eserler saklıdır; aksi belirtilmedikçe.",
     "tagline": "Fibonacci · altın oran · yağlıboya",
     "behanceCta": "Tam portföy Behance’te",
-    "footerNavAria": "Site bölümleri"
+    "footerNavAria": "Site bölümleri",
+    "curatorPack": "Küratör PDF"
   },
   "admin": {
     "loginTitle": "Yönetici girişi",
@@ -151,6 +220,21 @@
     "priceSection": "Fiyat",
     "priceEn": "İngilizce",
     "priceTr": "Türkçe",
-    "priceHint": "İsteğe bağlı. Serbest metin — örn. €4.500, TL karşılığı veya “Bilgi için iletişim”. Galeri ve eser sayfasında gösterilir; gizlemek için boş bırakın."
+    "priceHint": "İsteğe bağlı. Serbest metin — örn. €4.500, TL karşılığı veya “Bilgi için iletişim”. Galeri ve eser sayfasında gösterilir; gizlemek için boş bırakın.",
+    "seriesSection": "Seri / çalışma gövdesi",
+    "seriesHint": "İsteğe bağlı. Aynı slug birden fazla tabloda galeri filtresinde gruplar (ör. portreler-2024).",
+    "seriesSlug": "Seri slug",
+    "seriesTitleEn": "Seri başlığı (İngilizce)",
+    "seriesTitleTr": "Seri başlığı (Türkçe)",
+    "pressQuotesSection": "Basın alıntıları (ana sayfa ve /press)",
+    "pressQuotesHint": "Kısa alıntı ve kaynak. İsteğe bağlı logo/görsel URL ve kaynak bağlantısı.",
+    "addPressQuote": "Alıntı ekle",
+    "removePressQuote": "Kaldır",
+    "pressQuoteEn": "Alıntı (İngilizce)",
+    "pressQuoteTr": "Alıntı (Türkçe)",
+    "pressAttrEn": "Kaynak satırı (İngilizce)",
+    "pressAttrTr": "Kaynak satırı (Türkçe)",
+    "pressUrl": "Kaynak URL (isteğe bağlı)",
+    "pressImage": "Görsel URL (isteğe bağlı)"
   }
 }

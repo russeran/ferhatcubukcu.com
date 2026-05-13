@@ -4,7 +4,8 @@ import type { Artwork } from "@/lib/types";
 import { readApiError } from "@/lib/read-api-error";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 const fetchOpts: RequestInit = { credentials: "same-origin" };
 
@@ -25,6 +26,9 @@ const emptyForm = {
   priceTr: "",
   exhibitionEn: "",
   exhibitionTr: "",
+  seriesSlug: "",
+  seriesTitleEn: "",
+  seriesTitleTr: "",
   published: true,
   sold: false,
   slug: "",
@@ -32,6 +36,8 @@ const emptyForm = {
 
 export function AdminArtworks() {
   const t = useTranslations("admin");
+  const searchParams = useSearchParams();
+  const deepLinkApplied = useRef<string | null>(null);
   const [items, setItems] = useState<Artwork[]>([]);
   const [loading, setLoading] = useState(true);
   const [create, setCreate] = useState(emptyForm);
@@ -170,11 +176,35 @@ export function AdminArtworks() {
       priceTr: a.priceTr ?? "",
       exhibitionEn: a.exhibitionEn ?? "",
       exhibitionTr: a.exhibitionTr ?? "",
+      seriesSlug: a.seriesSlug ?? "",
+      seriesTitleEn: a.seriesTitleEn ?? "",
+      seriesTitleTr: a.seriesTitleTr ?? "",
       published: a.published,
       sold: Boolean(a.sold),
       slug: a.slug,
     });
   }
+
+  const editQuery = searchParams.get("edit");
+  useEffect(() => {
+    if (!editQuery) {
+      deepLinkApplied.current = null;
+      return;
+    }
+    if (loading || items.length === 0) return;
+    if (deepLinkApplied.current === editQuery) return;
+    const found = items.find((x) => x.id === editQuery);
+    if (!found) return;
+    deepLinkApplied.current = editQuery;
+    startEdit(found);
+    const tid = window.setTimeout(() => {
+      document
+        .getElementById(`admin-artwork-${editQuery}`)
+        ?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }, 80);
+    return () => window.clearTimeout(tid);
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- open editor once per ?edit= id; startEdit omitted to avoid loops
+  }, [editQuery, loading, items]);
 
   async function saveEdit(e: React.FormEvent) {
     e.preventDefault();
@@ -228,7 +258,7 @@ export function AdminArtworks() {
         </p>
       ) : null}
 
-      <section className="rounded-xl border border-white/10 bg-black/20 p-6">
+      <section id="admin-add-artwork" className="rounded-xl border border-white/10 bg-black/20 p-6">
         <h2 className="font-serif text-xl text-goldleaf">{t("addArtwork")}</h2>
         <form onSubmit={addArtwork} className="mt-6 grid gap-4 md:grid-cols-2">
           <label className="md:col-span-2">
@@ -394,6 +424,53 @@ export function AdminArtworks() {
           </label>
           <div className="md:col-span-2 space-y-3 rounded-md border border-white/10 bg-black/15 p-4">
             <span className="text-xs uppercase tracking-wider text-parchment/45">
+              {t("seriesSection")}
+            </span>
+            <p className="text-xs text-parchment/50">{t("seriesHint")}</p>
+            <div className="grid gap-4 md:grid-cols-2">
+              <label className="space-y-1 md:col-span-2">
+                <span className="text-xs text-parchment/55">
+                  {t("seriesSlug")}
+                </span>
+                <input
+                  className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+                  value={create.seriesSlug}
+                  onChange={(e) =>
+                    setCreate({ ...create, seriesSlug: e.target.value })
+                  }
+                  maxLength={80}
+                />
+              </label>
+              <label className="space-y-1">
+                <span className="text-xs text-parchment/55">
+                  {t("seriesTitleEn")}
+                </span>
+                <input
+                  className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+                  value={create.seriesTitleEn}
+                  onChange={(e) =>
+                    setCreate({ ...create, seriesTitleEn: e.target.value })
+                  }
+                  maxLength={120}
+                />
+              </label>
+              <label className="space-y-1">
+                <span className="text-xs text-parchment/55">
+                  {t("seriesTitleTr")}
+                </span>
+                <input
+                  className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+                  value={create.seriesTitleTr}
+                  onChange={(e) =>
+                    setCreate({ ...create, seriesTitleTr: e.target.value })
+                  }
+                  maxLength={120}
+                />
+              </label>
+            </div>
+          </div>
+          <div className="md:col-span-2 space-y-3 rounded-md border border-white/10 bg-black/15 p-4">
+            <span className="text-xs uppercase tracking-wider text-parchment/45">
               {t("priceSection")}
             </span>
             <p className="text-xs text-parchment/50">{t("priceHint")}</p>
@@ -498,6 +575,7 @@ export function AdminArtworks() {
           {items.map((a) => (
             <li
               key={a.id}
+              id={`admin-artwork-${a.id}`}
               className="rounded-xl border border-white/10 bg-black/15 p-5"
             >
               <div className="flex flex-col gap-5 md:flex-row md:items-start">
@@ -724,6 +802,53 @@ export function AdminArtworks() {
                       }
                     />
                   </label>
+                  <div className="md:col-span-2 space-y-3 rounded-md border border-white/10 bg-black/15 p-4">
+                    <span className="text-xs uppercase tracking-wider text-parchment/45">
+                      {t("seriesSection")}
+                    </span>
+                    <p className="text-xs text-parchment/50">{t("seriesHint")}</p>
+                    <div className="grid gap-4 md:grid-cols-2">
+                      <label className="space-y-1 md:col-span-2">
+                        <span className="text-xs text-parchment/55">
+                          {t("seriesSlug")}
+                        </span>
+                        <input
+                          className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+                          value={edit.seriesSlug}
+                          onChange={(e) =>
+                            setEdit({ ...edit, seriesSlug: e.target.value })
+                          }
+                          maxLength={80}
+                        />
+                      </label>
+                      <label className="space-y-1">
+                        <span className="text-xs text-parchment/55">
+                          {t("seriesTitleEn")}
+                        </span>
+                        <input
+                          className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+                          value={edit.seriesTitleEn}
+                          onChange={(e) =>
+                            setEdit({ ...edit, seriesTitleEn: e.target.value })
+                          }
+                          maxLength={120}
+                        />
+                      </label>
+                      <label className="space-y-1">
+                        <span className="text-xs text-parchment/55">
+                          {t("seriesTitleTr")}
+                        </span>
+                        <input
+                          className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+                          value={edit.seriesTitleTr}
+                          onChange={(e) =>
+                            setEdit({ ...edit, seriesTitleTr: e.target.value })
+                          }
+                          maxLength={120}
+                        />
+                      </label>
+                    </div>
+                  </div>
                   <div className="md:col-span-2 space-y-3 rounded-md border border-white/10 bg-black/15 p-4">
                     <span className="text-xs uppercase tracking-wider text-parchment/45">
                       {t("priceSection")}

@@ -11,8 +11,20 @@ function revalidateSite() {
     revalidatePath(`/${locale}`);
     revalidatePath(`/${locale}/about`);
     revalidatePath(`/${locale}/contact`);
+    revalidatePath(`/${locale}/studio`);
+    revalidatePath(`/${locale}/press`);
   }
 }
+
+const pressQuoteSchema = z.object({
+  id: z.string().min(1),
+  quoteEn: z.string(),
+  quoteTr: z.string(),
+  attributionEn: z.string(),
+  attributionTr: z.string(),
+  url: z.union([z.string().url(), z.literal("")]).optional(),
+  image: z.string().optional(),
+});
 
 const settingsSchema = z.object({
   artistName: z.string().min(1).optional(),
@@ -26,6 +38,7 @@ const settingsSchema = z.object({
   behance: z.string().optional(),
   studioNoteEn: z.string().optional(),
   studioNoteTr: z.string().optional(),
+  pressQuotes: z.array(pressQuoteSchema).max(12).optional(),
 });
 
 export async function GET() {
@@ -49,6 +62,13 @@ export async function PATCH(req: Request) {
       ? { contactEmail: parsed.data.contactEmail || "" }
       : {}),
   };
+  if (cleaned.pressQuotes) {
+    cleaned.pressQuotes = cleaned.pressQuotes.map((q) => ({
+      ...q,
+      url: q.url?.trim() || undefined,
+      image: q.image?.trim() || undefined,
+    }));
+  }
   let next;
   try {
     next = await writeSettings(cleaned);
