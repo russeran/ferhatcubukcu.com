@@ -22,8 +22,10 @@ type Props = {
   resetKey?: string | number;
   className?: string;
   variant?: "dark" | "light";
-  /** Rendered above the image (e.g. prev/next), not scaled with zoom. */
-  floatingControls?: ReactNode;
+  /** When true, render a fixed left/right lane for prev/next above the painting. */
+  showFloatingNav?: boolean;
+  floatingLeft?: ReactNode;
+  floatingRight?: ReactNode;
 };
 
 export function ZoomablePaintingFrame({
@@ -38,7 +40,9 @@ export function ZoomablePaintingFrame({
   resetKey,
   className,
   variant = "dark",
-  floatingControls,
+  showFloatingNav = false,
+  floatingLeft,
+  floatingRight,
 }: Props) {
   const vpRef = useRef<HTMLDivElement>(null);
   const panRef = useRef({ x: 0, y: 0 });
@@ -179,13 +183,13 @@ export function ZoomablePaintingFrame({
         onPointerCancel={endDrag}
         onDoubleClick={onDoubleClick}
         className={cn(
-          "relative min-h-[min(36vh,480px)] flex-1 touch-none overflow-hidden sm:min-h-[min(50vh,560px)] lg:min-h-[min(28vh,400px)]",
+          "relative isolate min-h-[min(36vh,480px)] flex-1 touch-none overflow-hidden sm:min-h-[min(50vh,560px)] lg:min-h-[min(28vh,400px)]",
           scale > MIN_SCALE && "cursor-grab",
           dragging && "cursor-grabbing"
         )}
       >
         <div
-          className="absolute inset-0 flex items-center justify-center will-change-transform"
+          className="absolute inset-0 z-0 flex items-center justify-center will-change-transform"
           style={{
             transform: `translate(${pan.x}px, ${pan.y}px) scale(${scale})`,
             transition: dragging ? "none" : "transform 0.2s ease-out",
@@ -203,9 +207,15 @@ export function ZoomablePaintingFrame({
             />
           </div>
         </div>
-        {floatingControls ? (
-          <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-between px-1 sm:px-3">
-            {floatingControls}
+        {showFloatingNav ? (
+          <div className="pointer-events-none absolute inset-0 z-30 grid grid-cols-[minmax(3.25rem,4.5rem)_1fr_minmax(3.25rem,4.5rem)] items-center sm:grid-cols-[minmax(4rem,5.5rem)_1fr_minmax(4rem,5.5rem)]">
+            <div className="pointer-events-auto flex items-center justify-center pl-1 sm:pl-2">
+              {floatingLeft}
+            </div>
+            <div className="min-w-0" />
+            <div className="pointer-events-auto flex items-center justify-center pr-1 sm:pr-2">
+              {floatingRight}
+            </div>
           </div>
         ) : null}
       </div>

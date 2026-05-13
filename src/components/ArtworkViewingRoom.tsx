@@ -146,43 +146,30 @@ export function ArtworkViewingRoom({
                   zoomHint={zoomHint}
                   variant="dark"
                   className="min-h-0 flex-1"
-                  floatingControls={
-                    <>
-                      {prevSlug ? (
-                        <Link
-                          href={`/gallery/${prevSlug}?room=1`}
-                          scroll={false}
-                          className="focus-ring pointer-events-auto flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/20 bg-black/40 text-parchment backdrop-blur-sm transition hover:bg-black/55 sm:left-4"
-                          aria-label={prevLabel}
-                        >
-                          <span aria-hidden className="text-lg">
-                            ←
-                          </span>
-                        </Link>
-                      ) : (
-                        <span
-                          className="inline-flex h-12 w-12 shrink-0"
-                          aria-hidden
-                        />
-                      )}
-                      {nextSlug ? (
-                        <Link
-                          href={`/gallery/${nextSlug}?room=1`}
-                          scroll={false}
-                          className="focus-ring pointer-events-auto flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/20 bg-black/40 text-parchment backdrop-blur-sm transition hover:bg-black/55 sm:right-4"
-                          aria-label={nextLabel}
-                        >
-                          <span aria-hidden className="text-lg">
-                            →
-                          </span>
-                        </Link>
-                      ) : (
-                        <span
-                          className="inline-flex h-12 w-12 shrink-0"
-                          aria-hidden
-                        />
-                      )}
-                    </>
+                  showFloatingNav={Boolean(prevSlug || nextSlug)}
+                  floatingLeft={
+                    prevSlug ? (
+                      <Link
+                        href={`/gallery/${prevSlug}?room=1`}
+                        scroll={false}
+                        className="focus-ring flex h-12 w-12 items-center justify-center rounded-full border-2 border-white/45 bg-black/80 text-xl leading-none text-parchment shadow-xl backdrop-blur-sm transition hover:border-goldleaf/55 hover:bg-black/95 sm:h-14 sm:w-14 sm:text-2xl"
+                        aria-label={prevLabel}
+                      >
+                        <span aria-hidden>←</span>
+                      </Link>
+                    ) : null
+                  }
+                  floatingRight={
+                    nextSlug ? (
+                      <Link
+                        href={`/gallery/${nextSlug}?room=1`}
+                        scroll={false}
+                        className="focus-ring flex h-12 w-12 items-center justify-center rounded-full border-2 border-white/45 bg-black/80 text-xl leading-none text-parchment shadow-xl backdrop-blur-sm transition hover:border-goldleaf/55 hover:bg-black/95 sm:h-14 sm:w-14 sm:text-2xl"
+                        aria-label={nextLabel}
+                      >
+                        <span aria-hidden>→</span>
+                      </Link>
+                    ) : null
                   }
                 />
               </div>

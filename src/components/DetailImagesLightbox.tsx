@@ -125,36 +125,39 @@ export function DetailImagesLightbox({
               zoomHint={zoomHint}
               variant="dark"
               className="min-h-0 flex-1"
-              floatingControls={
+              showFloatingNav={slides.length > 1}
+              floatingLeft={
                 slides.length > 1 ? (
-                  <>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setOpenIndex((i) =>
-                          i === null
-                            ? null
-                            : (i - 1 + slides.length) % slides.length
-                        )
-                      }
-                      className="focus-ring pointer-events-auto flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/20 bg-black/35 text-parchment sm:h-12 sm:w-12"
-                      aria-label={prevLabel}
-                    >
-                      ←
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setOpenIndex((i) =>
-                          i === null ? null : (i + 1) % slides.length
-                        )
-                      }
-                      className="focus-ring pointer-events-auto flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/20 bg-black/35 text-parchment sm:h-12 sm:w-12"
-                      aria-label={nextLabel}
-                    >
-                      →
-                    </button>
-                  </>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setOpenIndex((i) =>
+                        i === null
+                          ? null
+                          : (i - 1 + slides.length) % slides.length
+                      )
+                    }
+                    className="focus-ring flex h-12 w-12 items-center justify-center rounded-full border-2 border-white/45 bg-black/80 text-xl leading-none text-parchment shadow-xl backdrop-blur-sm transition hover:border-goldleaf/55 hover:bg-black/95 sm:h-14 sm:w-14 sm:text-2xl"
+                    aria-label={prevLabel}
+                  >
+                    ←
+                  </button>
+                ) : null
+              }
+              floatingRight={
+                slides.length > 1 ? (
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setOpenIndex((i) =>
+                        i === null ? null : (i + 1) % slides.length
+                      )
+                    }
+                    className="focus-ring flex h-12 w-12 items-center justify-center rounded-full border-2 border-white/45 bg-black/80 text-xl leading-none text-parchment shadow-xl backdrop-blur-sm transition hover:border-goldleaf/55 hover:bg-black/95 sm:h-14 sm:w-14 sm:text-2xl"
+                    aria-label={nextLabel}
+                  >
+                    →
+                  </button>
                 ) : null
               }
             />
