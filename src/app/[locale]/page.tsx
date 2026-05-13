@@ -145,14 +145,27 @@ export default async function HomePage({ params }: Props) {
                 <li key={p.id}>
                   <Link
                     href={`/news/${p.slug}`}
-                    className="group block h-full rounded-sm border border-umber/12 bg-gradient-to-br from-parchment/98 via-parchment-warm/90 to-parchment-dark/25 p-6 shadow-[inset_0_1px_0_rgba(255,252,245,0.55)] ring-1 ring-umber/8 backdrop-blur-sm transition duration-500 ease-out-expo hover:-translate-y-0.5 hover:border-goldleaf/35 hover:shadow-gallery hover:ring-goldleaf/25"
+                    className="group flex h-full flex-col overflow-hidden rounded-sm border border-umber/12 bg-gradient-to-br from-parchment/98 via-parchment-warm/90 to-parchment-dark/25 shadow-[inset_0_1px_0_rgba(255,252,245,0.55)] ring-1 ring-umber/8 backdrop-blur-sm transition duration-500 ease-out-expo hover:-translate-y-0.5 hover:border-goldleaf/35 hover:shadow-gallery hover:ring-goldleaf/25"
                   >
-                    <h3 className="font-serif text-lg font-medium text-umber-deep transition-colors duration-300 group-hover:text-oxide">
-                      {resolvedNewsTitle(p, locale)}
-                    </h3>
-                    <p className="mt-2 line-clamp-3 text-sm text-umber/70">
-                      {resolvedNewsExcerpt(p, locale)}
-                    </p>
+                    {p.image ? (
+                      <div className="relative aspect-[16/10] w-full shrink-0 overflow-hidden bg-parchment-dark">
+                        <Image
+                          src={p.image}
+                          alt=""
+                          fill
+                          className="object-cover transition duration-700 ease-out-expo group-hover:scale-[1.03]"
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        />
+                      </div>
+                    ) : null}
+                    <div className="flex flex-1 flex-col p-6">
+                      <h3 className="font-serif text-lg font-medium text-umber-deep transition-colors duration-300 group-hover:text-oxide">
+                        {resolvedNewsTitle(p, locale)}
+                      </h3>
+                      <p className="mt-2 line-clamp-3 text-sm text-umber/70">
+                        {resolvedNewsExcerpt(p, locale)}
+                      </p>
+                    </div>
                   </Link>
                 </li>
               ))}

@@ -186,23 +186,6 @@ export default async function GalleryDetailPage({
           />
         ) : null}
 
-        <ArtworkViewingRoom
-          key={slug}
-          title={title}
-          mainSrc={artwork.image}
-          prevSlug={prev?.slug ?? null}
-          nextSlug={next?.slug ?? null}
-          enterLabel={t("viewingRoomEnter")}
-          prevLabel={t("viewingRoomPrev")}
-          nextLabel={t("viewingRoomNext")}
-          closeLabel={t("viewingRoomClose")}
-          initialOpen={viewingRoomOpen}
-          detailRows={viewingRoomDetailRows}
-          description={description}
-          inquiryHref={inquiryHrefStr}
-          inquiryCta={!artwork.sold ? t("inquiryCta") : undefined}
-        />
-
         <div className="mt-4 grid gap-8 sm:mt-6 sm:gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-start lg:gap-12">
           <div className="relative aspect-[3/4] w-full overflow-hidden rounded-md bg-white shadow-gallery ring-1 ring-umber/10 lg:aspect-[4/5]">
             <Image
@@ -219,9 +202,28 @@ export default async function GalleryDetailPage({
           </div>
           <div className="space-y-8">
             <header className="space-y-3 border-b border-umber/10 pb-8">
-              <h1 className="font-serif text-3xl font-semibold leading-tight tracking-tight text-umber-deep sm:text-4xl md:text-[2.75rem]">
-                {title}
-              </h1>
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
+                <h1 className="min-w-0 flex-1 font-serif text-3xl font-semibold leading-tight tracking-tight text-umber-deep sm:text-4xl md:text-[2.75rem]">
+                  {title}
+                </h1>
+                <ArtworkViewingRoom
+                  key={slug}
+                  title={title}
+                  mainSrc={artwork.image}
+                  prevSlug={prev?.slug ?? null}
+                  nextSlug={next?.slug ?? null}
+                  enterLabel={t("viewingRoomEnter")}
+                  prevLabel={t("viewingRoomPrev")}
+                  nextLabel={t("viewingRoomNext")}
+                  closeLabel={t("viewingRoomClose")}
+                  initialOpen={viewingRoomOpen}
+                  detailRows={viewingRoomDetailRows}
+                  description={description}
+                  inquiryHref={inquiryHrefStr}
+                  inquiryCta={!artwork.sold ? t("inquiryCta") : undefined}
+                  triggerClassName="w-full justify-center sm:w-auto sm:justify-start sm:pt-1"
+                />
+              </div>
               <dl className="grid gap-4 text-sm text-umber/70 sm:gap-3">
                 <div className="flex flex-col gap-0.5 sm:flex-row sm:gap-4">
                   <dt className="shrink-0 text-xs uppercase tracking-wider text-umber/45 sm:w-28 sm:text-sm">

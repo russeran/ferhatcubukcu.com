@@ -76,8 +76,8 @@ export default async function NewsPage({ params }: Props) {
             const excerpt = resolvedNewsExcerpt(p, locale);
             return (
               <li key={p.id}>
-                <article className="grid gap-6 sm:grid-cols-[minmax(0,1fr)_8.5rem] sm:items-start sm:gap-8">
-                  <div>
+                <article className="grid gap-6 sm:grid-cols-[minmax(0,1fr)_minmax(9rem,12rem)] sm:items-start sm:gap-8">
+                  <div className="order-2 min-w-0 sm:order-1">
                     <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-umber/50">
                       {kindLabels[p.kind]}
                     </p>
@@ -125,14 +125,14 @@ export default async function NewsPage({ params }: Props) {
                   {p.image ? (
                     <Link
                       href={`/news/${p.slug}`}
-                      className="relative aspect-square w-full max-w-[10rem] overflow-hidden rounded-lg bg-parchment-dark shadow-sm ring-1 ring-umber/10 sm:max-w-none"
+                      className="relative order-1 aspect-[5/4] w-full overflow-hidden rounded-lg bg-parchment-dark shadow-sm ring-1 ring-umber/10 sm:order-2 sm:aspect-square sm:max-w-none"
                     >
                       <Image
                         src={p.image}
                         alt=""
                         fill
                         className="object-cover"
-                        sizes="(max-width: 640px) 40vw, 136px"
+                        sizes="(max-width: 640px) 100vw, 168px"
                       />
                     </Link>
                   ) : null}

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { ArtworkInquiryLink } from "@/components/ArtworkInquiryLink";
+import { cn } from "@/lib/utils";
 
 export type ViewingRoomDetailRow = {
   label: string;
@@ -26,6 +27,8 @@ type Props = {
   description?: string;
   inquiryHref?: string;
   inquiryCta?: string;
+  /** Extra classes for the enter button (layout next to title, avoid overlapping admin actions). */
+  triggerClassName?: string;
 };
 
 export function ArtworkViewingRoom({
@@ -42,6 +45,7 @@ export function ArtworkViewingRoom({
   description,
   inquiryHref,
   inquiryCta,
+  triggerClassName,
 }: Props) {
   const [open, setOpen] = useState(initialOpen);
   const hasDetailsPanel = useMemo(
@@ -88,7 +92,10 @@ export function ArtworkViewingRoom({
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="focus-ring mb-4 inline-flex items-center gap-2 rounded-full border border-umber/20 bg-parchment/90 px-4 py-2 text-xs font-semibold uppercase tracking-editorial text-umber-deep transition hover:border-goldleaf/50 hover:text-oxide"
+        className={cn(
+          "focus-ring inline-flex shrink-0 items-center gap-2 rounded-full border border-umber/20 bg-parchment/90 px-4 py-2 text-xs font-semibold uppercase tracking-editorial text-umber-deep transition hover:border-goldleaf/50 hover:text-oxide",
+          triggerClassName
+        )}
       >
         <span aria-hidden className="text-base leading-none">
           ⛶
