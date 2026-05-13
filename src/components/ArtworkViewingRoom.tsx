@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { ArtworkInquiryLink } from "@/components/ArtworkInquiryLink";
+import { ZoomablePaintingFrame } from "@/components/ZoomablePaintingFrame";
 import { cn } from "@/lib/utils";
 
 export type ViewingRoomDetailRow = {
@@ -29,6 +29,10 @@ type Props = {
   inquiryCta?: string;
   /** Extra classes for the enter button (layout next to title, avoid overlapping admin actions). */
   triggerClassName?: string;
+  zoomInLabel: string;
+  zoomOutLabel: string;
+  zoomResetLabel: string;
+  zoomHint?: string;
 };
 
 export function ArtworkViewingRoom({
@@ -46,6 +50,10 @@ export function ArtworkViewingRoom({
   inquiryHref,
   inquiryCta,
   triggerClassName,
+  zoomInLabel,
+  zoomOutLabel,
+  zoomResetLabel,
+  zoomHint,
 }: Props) {
   const [open, setOpen] = useState(initialOpen);
   const hasDetailsPanel = useMemo(
@@ -126,41 +134,57 @@ export function ArtworkViewingRoom({
             className={`flex min-h-0 flex-1 flex-col ${hasDetailsPanel ? "lg:flex-row" : ""}`}
           >
             <div className="relative flex min-h-[36vh] min-w-0 flex-1 flex-col lg:min-h-0">
-              <div className="relative flex min-h-0 flex-1 items-center justify-center px-4 pb-3 pt-2 sm:px-6 sm:pb-4 sm:pt-3 lg:px-8 lg:pb-8 lg:pt-6">
-                <div className="relative h-full min-h-[200px] w-full max-h-[min(72vh,920px)] max-w-[min(100%,1200px)]">
-                  <Image
-                    src={mainSrc}
-                    alt=""
-                    fill
-                    className="object-contain"
-                    sizes="(max-width: 1024px) 100vw, 75vw"
-                    priority
-                  />
-                </div>
-                {prevSlug ? (
-                  <Link
-                    href={`/gallery/${prevSlug}?room=1`}
-                    scroll={false}
-                    className="focus-ring absolute left-2 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/40 text-parchment backdrop-blur-sm transition hover:bg-black/55 sm:left-4"
-                    aria-label={prevLabel}
-                  >
-                    <span aria-hidden className="text-lg">
-                      ←
-                    </span>
-                  </Link>
-                ) : null}
-                {nextSlug ? (
-                  <Link
-                    href={`/gallery/${nextSlug}?room=1`}
-                    scroll={false}
-                    className="focus-ring absolute right-2 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/40 text-parchment backdrop-blur-sm transition hover:bg-black/55 sm:right-4"
-                    aria-label={nextLabel}
-                  >
-                    <span aria-hidden className="text-lg">
-                      →
-                    </span>
-                  </Link>
-                ) : null}
+              <div className="relative flex min-h-0 flex-1 flex-col px-4 pb-3 pt-2 sm:px-6 sm:pb-4 sm:pt-3 lg:px-8 lg:pb-8 lg:pt-6">
+                <ZoomablePaintingFrame
+                  src={mainSrc}
+                  alt=""
+                  sizes="(max-width: 1024px) 100vw, 75vw"
+                  priority
+                  zoomInLabel={zoomInLabel}
+                  zoomOutLabel={zoomOutLabel}
+                  zoomResetLabel={zoomResetLabel}
+                  zoomHint={zoomHint}
+                  variant="dark"
+                  className="min-h-0 flex-1"
+                  floatingControls={
+                    <>
+                      {prevSlug ? (
+                        <Link
+                          href={`/gallery/${prevSlug}?room=1`}
+                          scroll={false}
+                          className="focus-ring pointer-events-auto flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/20 bg-black/40 text-parchment backdrop-blur-sm transition hover:bg-black/55 sm:left-4"
+                          aria-label={prevLabel}
+                        >
+                          <span aria-hidden className="text-lg">
+                            ←
+                          </span>
+                        </Link>
+                      ) : (
+                        <span
+                          className="inline-flex h-12 w-12 shrink-0"
+                          aria-hidden
+                        />
+                      )}
+                      {nextSlug ? (
+                        <Link
+                          href={`/gallery/${nextSlug}?room=1`}
+                          scroll={false}
+                          className="focus-ring pointer-events-auto flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/20 bg-black/40 text-parchment backdrop-blur-sm transition hover:bg-black/55 sm:right-4"
+                          aria-label={nextLabel}
+                        >
+                          <span aria-hidden className="text-lg">
+                            →
+                          </span>
+                        </Link>
+                      ) : (
+                        <span
+                          className="inline-flex h-12 w-12 shrink-0"
+                          aria-hidden
+                        />
+                      )}
+                    </>
+                  }
+                />
               </div>
             </div>
             {hasDetailsPanel ? (

@@ -73,7 +73,12 @@
     "lightboxPrev": "Önceki görsel",
     "lightboxNext": "Sonraki görsel",
     "lightboxZoom": "Yakınlaştır",
-    "lightboxUnzoom": "Sıfırla"
+    "lightboxUnzoom": "Sıfırla",
+    "paintingZoomIn": "Yakınlaştır",
+    "paintingZoomOut": "Uzaklaştır",
+    "paintingZoomReset": "Sığdır",
+    "paintingZoomHint": "Ctrl veya ⌘ ile kaydırarak yakınlaştırın. Yakınlaştırınca sürükleyin. Çift tıklama yakınlaştırmayı aç/kapatır.",
+    "paintingZoomOpen": "Büyüt"
   },
   "news": {
     "title": "Haberler ve güncellemeler",

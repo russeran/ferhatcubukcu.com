@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
@@ -10,7 +9,7 @@ import {
   type ViewingRoomDetailRow,
 } from "@/components/ArtworkViewingRoom";
 import { DetailImagesLightbox } from "@/components/DetailImagesLightbox";
-import { SoldStamp } from "@/components/SoldStamp";
+import { PaintingHeroWithZoom } from "@/components/PaintingHeroWithZoom";
 import { GalleryArtworkJsonLd } from "@/components/GalleryArtworkJsonLd";
 import { localeAlternates, seoTruncate } from "@/lib/seo-helpers";
 import { absoluteUrl } from "@/lib/site-url";
@@ -21,7 +20,6 @@ import {
   resolvedArtworkPrice,
   resolvedArtworkExhibition,
 } from "@/lib/artwork-price";
-import { IMAGE_BLUR_PLACEHOLDER } from "@/lib/image-blur";
 
 type Props = {
   params: Promise<{ locale: string; slug: string }>;
@@ -187,19 +185,19 @@ export default async function GalleryDetailPage({
         ) : null}
 
         <div className="mt-4 grid gap-8 sm:mt-6 sm:gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-start lg:gap-12">
-          <div className="relative aspect-[3/4] w-full overflow-hidden rounded-md bg-white shadow-gallery ring-1 ring-umber/10 lg:aspect-[4/5]">
-            <Image
-              src={artwork.image}
-              alt={title}
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 55vw"
-              priority
-              placeholder="blur"
-              blurDataURL={IMAGE_BLUR_PLACEHOLDER}
-            />
-            {artwork.sold ? <SoldStamp label={t("sold")} /> : null}
-          </div>
+          <PaintingHeroWithZoom
+            src={artwork.image}
+            alt={title}
+            sold={Boolean(artwork.sold)}
+            soldLabel={t("sold")}
+            openZoomLabel={t("paintingZoomOpen")}
+            closeLabel={t("lightboxClose")}
+            zoomInLabel={t("paintingZoomIn")}
+            zoomOutLabel={t("paintingZoomOut")}
+            zoomResetLabel={t("paintingZoomReset")}
+            zoomHint={t("paintingZoomHint")}
+            sizes="(max-width: 1024px) 100vw, 55vw"
+          />
           <div className="space-y-8">
             <header className="space-y-3 border-b border-umber/10 pb-8">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
@@ -222,6 +220,10 @@ export default async function GalleryDetailPage({
                   inquiryHref={inquiryHrefStr}
                   inquiryCta={!artwork.sold ? t("inquiryCta") : undefined}
                   triggerClassName="w-full justify-center sm:w-auto sm:justify-start sm:pt-1"
+                  zoomInLabel={t("paintingZoomIn")}
+                  zoomOutLabel={t("paintingZoomOut")}
+                  zoomResetLabel={t("paintingZoomReset")}
+                  zoomHint={t("paintingZoomHint")}
                 />
               </div>
               <dl className="grid gap-4 text-sm text-umber/70 sm:gap-3">
@@ -304,8 +306,10 @@ export default async function GalleryDetailPage({
               closeLabel={t("lightboxClose")}
               prevLabel={t("lightboxPrev")}
               nextLabel={t("lightboxNext")}
-              zoomLabel={t("lightboxZoom")}
-              unzoomLabel={t("lightboxUnzoom")}
+              zoomInLabel={t("paintingZoomIn")}
+              zoomOutLabel={t("paintingZoomOut")}
+              zoomResetLabel={t("paintingZoomReset")}
+              zoomHint={t("paintingZoomHint")}
             />
           </section>
         ) : null}

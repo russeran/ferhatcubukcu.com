@@ -73,7 +73,12 @@
     "lightboxPrev": "Previous image",
     "lightboxNext": "Next image",
     "lightboxZoom": "Zoom",
-    "lightboxUnzoom": "Reset zoom"
+    "lightboxUnzoom": "Reset zoom",
+    "paintingZoomIn": "Zoom in",
+    "paintingZoomOut": "Zoom out",
+    "paintingZoomReset": "Fit to view",
+    "paintingZoomHint": "Ctrl or ⌘ + scroll to zoom. Drag to pan when zoomed. Double-click toggles zoom.",
+    "paintingZoomOpen": "View larger"
   },
   "news": {
     "title": "News & updates",
