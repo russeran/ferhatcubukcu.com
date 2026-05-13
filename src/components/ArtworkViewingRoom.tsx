@@ -5,8 +5,6 @@ import { useCallback, useEffect, useState } from "react";
 import { Link } from "@/i18n/navigation";
 
 type Props = {
-  locale: string;
-  slug: string;
   title: string;
   mainSrc: string;
   prevSlug: string | null;
@@ -18,8 +16,6 @@ type Props = {
 };
 
 export function ArtworkViewingRoom({
-  locale: _locale,
-  slug: _slug,
   title,
   mainSrc,
   prevSlug,

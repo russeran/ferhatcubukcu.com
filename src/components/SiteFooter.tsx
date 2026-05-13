@@ -86,12 +86,13 @@ export async function SiteFooter({ locale }: { locale: string }) {
             >
               {t("behanceCta")}
             </a>
-            <a
+            <Link
               href="/api/curator-pack"
+              prefetch={false}
               className="inline-flex text-sm font-medium text-umber-deep/80 underline-offset-[5px] transition hover:text-oxide hover:underline"
             >
               {t("curatorPack")} — {tc("footerLabel")}
-            </a>
+            </Link>
           </div>
         </div>
         <p className="max-w-xs font-serif text-sm italic leading-relaxed tracking-wide text-umber/45 md:text-right">

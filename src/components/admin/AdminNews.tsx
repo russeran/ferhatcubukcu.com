@@ -147,7 +147,6 @@ export function AdminNews() {
         ?.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }, 80);
     return () => window.clearTimeout(tid);
-  // eslint-disable-next-line react-hooks/exhaustive-deps -- open editor once per ?edit= id; startEdit omitted to avoid loops
   }, [editQuery, loading, items]);
 
   async function saveEdit(e: React.FormEvent) {
@@ -342,6 +341,11 @@ export function AdminNews() {
                 e.target.value = "";
               }}
             />
+            {uploading ? (
+              <span className="mt-1 block text-xs text-parchment/50">
+                Uploading…
+              </span>
+            ) : null}
             {create.image ? (
               <div className="relative mt-3 h-28 w-full max-w-xs overflow-hidden rounded border border-white/15">
                 <Image
@@ -563,6 +567,11 @@ export function AdminNews() {
                         e.target.value = "";
                       }}
                     />
+                    {uploading ? (
+                      <span className="mt-1 block text-xs text-parchment/50">
+                        Uploading…
+                      </span>
+                    ) : null}
                   </label>
                   <label className="space-y-1">
                     <span className="text-xs text-parchment/55">Order</span>

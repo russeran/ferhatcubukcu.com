@@ -203,7 +203,6 @@ export function AdminArtworks() {
         ?.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }, 80);
     return () => window.clearTimeout(tid);
-  // eslint-disable-next-line react-hooks/exhaustive-deps -- open editor once per ?edit= id; startEdit omitted to avoid loops
   }, [editQuery, loading, items]);
 
   async function saveEdit(e: React.FormEvent) {

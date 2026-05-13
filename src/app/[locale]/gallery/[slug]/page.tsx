@@ -137,8 +137,6 @@ export default async function GalleryDetailPage({ params }: Props) {
         ) : null}
 
         <ArtworkViewingRoom
-          locale={locale}
-          slug={slug}
           title={title}
           mainSrc={artwork.image}
           prevSlug={prev?.slug ?? null}
