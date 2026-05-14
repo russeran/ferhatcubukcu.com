@@ -38,7 +38,7 @@ export function HomeHeroGalleryShowcase({
 
   if (slides.length === 0) {
     return (
-      <div className="relative aspect-[4/3] w-full animate-fade-up overflow-hidden rounded-md bg-gradient-to-br from-parchment-warm to-parchment-dark shadow-gallery ring-1 ring-umber/15 md:aspect-[5/4]">
+      <div className="relative aspect-[4/3] w-full animate-fade-up overflow-hidden rounded-sm bg-gradient-to-br from-parchment-warm to-parchment-dark shadow-gallery ring-1 ring-umber/15 md:aspect-[5/4]">
         <Image
           src={fallbackSrc}
           alt={fallbackAlt}
@@ -54,7 +54,7 @@ export function HomeHeroGalleryShowcase({
 
   return (
     <div
-      className="relative aspect-[4/3] w-full animate-fade-up overflow-hidden rounded-md bg-gradient-to-br from-parchment-warm to-parchment-dark shadow-gallery ring-1 ring-umber/15 md:aspect-[5/4]"
+      className="relative aspect-[4/3] w-full animate-fade-up overflow-hidden rounded-sm bg-gradient-to-br from-parchment-warm to-parchment-dark shadow-gallery ring-1 ring-umber/15 md:aspect-[5/4]"
       aria-roledescription="carousel"
       aria-label={t("heroSlideshowAria")}
     >

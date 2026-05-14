@@ -105,6 +105,18 @@ body {
   .skeleton-parchment {
     @apply animate-pulse rounded-md bg-gradient-to-br from-parchment-dark/80 via-parchment-warm/60 to-parchment-ink/40;
   }
+  /** Home hero — squared drafting grid over warm base */
+  .hero-blueprint-grid {
+    background-size: 22px 22px;
+    background-image:
+      linear-gradient(to right, rgba(26, 23, 20, 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(26, 23, 20, 0.045) 1px, transparent 1px);
+  }
+  @media (min-width: 640px) {
+    .hero-blueprint-grid {
+      background-size: 26px 26px;
+    }
+  }
 }
 
 ::selection {

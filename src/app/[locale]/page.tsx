@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { HomeHeroGalleryShowcase } from "@/components/HomeHeroGalleryShowcase";
+import { HomeHeroSection } from "@/components/HomeHeroSection";
 import { HomeJsonLd } from "@/components/HomeJsonLd";
 import { SoldStamp } from "@/components/SoldStamp";
 import { localeAlternates } from "@/lib/seo-helpers";
@@ -81,46 +81,12 @@ export default async function HomePage({ params }: Props) {
   return (
     <>
       <HomeJsonLd locale={locale} settings={settings} />
-      <section className="relative overflow-hidden border-b border-umber/15">
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/70 via-parchment-warm/45 to-parchment-dark/35" />
-        <div className="pointer-events-none absolute -right-24 top-1/2 h-[min(88vw,540px)] w-[min(88vw,540px)] -translate-y-1/2 rounded-full bg-gradient-to-br from-oxide/[0.07] to-goldleaf/[0.04] blur-3xl motion-safe:animate-hero-atmosphere md:-right-28" />
-        <div className="pointer-events-none absolute -left-36 bottom-0 h-80 w-80 rounded-full bg-gradient-to-tr from-sienna-muted/15 to-goldleaf/10 blur-3xl motion-safe:animate-hero-atmosphere [animation-delay:-8s]" />
-        <div className="pointer-events-none absolute left-1/3 top-0 h-48 w-48 rounded-full bg-goldleaf/[0.06] blur-2xl motion-safe:animate-hero-atmosphere [animation-delay:-16s]" />
-        <div className="relative mx-auto grid max-w-6xl gap-12 px-4 py-16 sm:gap-14 sm:px-5 sm:py-20 md:grid-cols-2 md:items-center md:gap-16 md:py-28">
-          <div className="animate-fade-up space-y-6 border-l-[3px] border-goldleaf/55 pl-6 sm:space-y-7 sm:pl-8">
-            <div className="gold-rule" aria-hidden />
-            <p className="editorial-eyebrow">{t("studio")}</p>
-            <h1 className="text-balance font-serif text-3xl font-semibold leading-[1.06] tracking-tight text-umber-deep drop-shadow-[0_1px_1px_rgba(255,252,245,0.45)] sm:text-4xl md:text-5xl lg:text-[3.15rem]">
-              {settings.artistName}
-            </h1>
-            <p className="max-w-xl text-balance font-serif text-2xl font-medium leading-snug tracking-tight text-umber-deep sm:text-3xl md:text-[2.15rem]">
-              {tagline}
-            </p>
-            <p className="prose-atelier max-w-xl text-sm text-umber/72 md:text-base">
-              {t("statementLead")}
-            </p>
-            <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:flex-wrap">
-              <Link
-                href="/gallery"
-                className="inline-flex items-center justify-center rounded-full bg-umber-deep px-8 py-3.5 text-sm font-semibold tracking-wide text-parchment shadow-gallery transition duration-300 ease-out-expo hover:bg-oxide hover:shadow-gallery-hover"
-              >
-                {t("viewWork")}
-              </Link>
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center rounded-full border border-umber/20 bg-parchment/80 px-8 py-3.5 text-sm font-medium tracking-wide text-umber-deep shadow-sm backdrop-blur-sm transition duration-300 ease-out-expo hover:border-goldleaf/50 hover:text-oxide"
-              >
-                {locale === "tr" ? "İletişim" : "Contact"}
-              </Link>
-            </div>
-          </div>
-          <HomeHeroGalleryShowcase
-            slides={heroSlides}
-            fallbackSrc={settings.heroImage || "/hero-placeholder.svg"}
-            fallbackAlt={t("heroAlt")}
-          />
-        </div>
-      </section>
+      <HomeHeroSection
+        locale={locale}
+        settings={settings}
+        heroSlides={heroSlides}
+        tagline={tagline}
+      />
 
       {newsTeaser.length > 0 ? (
         <section className="border-b border-umber/15 bg-[#ebe4d8]/92 py-16 sm:py-20">
