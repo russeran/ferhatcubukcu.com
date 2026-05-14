@@ -4,7 +4,6 @@ import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { HomeHeroSection } from "@/components/HomeHeroSection";
 import { HomeJsonLd } from "@/components/HomeJsonLd";
-import { HomePageSkin } from "@/components/HomePageSkin";
 import { SoldStamp } from "@/components/SoldStamp";
 import { localeAlternates } from "@/lib/seo-helpers";
 import { absoluteUrl } from "@/lib/site-url";
@@ -82,13 +81,12 @@ export default async function HomePage({ params }: Props) {
   return (
     <>
       <HomeJsonLd locale={locale} settings={settings} />
-      <HomePageSkin>
-        <HomeHeroSection
-          locale={locale}
-          settings={settings}
-          heroSlides={heroSlides}
-          tagline={tagline}
-        />
+      <HomeHeroSection
+        locale={locale}
+        settings={settings}
+        heroSlides={heroSlides}
+        tagline={tagline}
+      />
 
       {newsTeaser.length > 0 ? (
         <section className="py-10 sm:py-12">
@@ -257,7 +255,6 @@ export default async function HomePage({ params }: Props) {
         )}
         </div>
       </section>
-      </HomePageSkin>
     </>
   );
 }

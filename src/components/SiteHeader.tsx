@@ -154,7 +154,7 @@ export function SiteHeader({
       <div className="relative z-10 mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-5 md:py-4">
         <Link
           href="/"
-          className="group inline-flex min-h-11 min-w-0 shrink flex-wrap items-baseline gap-x-1.5 font-serif leading-[1.05] transition-opacity hover:opacity-[0.92]"
+          className="group inline-flex min-h-11 min-w-0 shrink flex-wrap items-center gap-x-1.5 self-center rounded-sm py-2 font-serif leading-snug transition-opacity hover:opacity-[0.92] md:flex-nowrap"
         >
           <span className="bg-gradient-to-r from-patina via-patina-light to-oxide/85 bg-clip-text text-[1.06rem] font-semibold italic tracking-[0.12em] text-transparent sm:text-lg md:text-[1.35rem]">
             {first}
