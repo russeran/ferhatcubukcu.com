@@ -13,7 +13,7 @@ const links = [
   { href: "/gallery", key: "gallery" as const },
   { href: "/studio", key: "studio" as const },
   { href: "/press", key: "press" as const },
-  { href: "/instagram", key: "instagram" as const },
+  { href: "/social", key: "social" as const },
   { href: "/about", key: "about" as const },
   { href: "/contact", key: "contact" as const },
 ];
@@ -136,22 +136,26 @@ export function SiteHeader() {
   }, [menuOpen]);
 
   return (
-    <header className="relative sticky top-0 z-[100] border-b border-goldleaf/35 bg-gradient-to-b from-[#241e19] via-umber-deep to-[#151210] shadow-[0_18px_48px_-16px_rgba(0,0,0,0.55)] backdrop-blur-xl supports-[padding:max(0px)]:pt-[env(safe-area-inset-top,0px)]">
+    <header className="relative sticky top-0 z-[100] border-b border-umber/15 bg-gradient-to-b from-parchment/95 via-parchment-warm/88 to-parchment-dark/45 shadow-[0_12px_40px_-20px_rgba(26,23,20,0.12)] backdrop-blur-md supports-[padding:max(0px)]:pt-[env(safe-area-inset-top,0px)]">
       <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-[3px] bg-gradient-to-r from-transparent via-goldleaf/90 to-transparent"
+        className="pointer-events-none absolute inset-0 opacity-[0.5] hero-blueprint-grid"
         aria-hidden
       />
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-5 md:py-5">
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-goldleaf/55 to-transparent"
+        aria-hidden
+      />
+      <div className="relative z-10 mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-5 md:py-4">
         <Link
           href="/"
-          className="inline-block min-h-11 min-w-0 shrink bg-gradient-to-r from-parchment via-parchment-warm to-goldleaf bg-clip-text font-serif text-base font-semibold leading-tight tracking-[0.04em] text-transparent transition-opacity hover:opacity-90 sm:text-lg md:text-xl"
+          className="inline-block min-h-11 min-w-0 shrink font-serif text-base font-semibold leading-tight tracking-[0.04em] text-umber-deep transition-opacity hover:opacity-85 sm:text-lg md:text-xl"
         >
           Ferhat Çubukçu
         </Link>
 
         <button
           type="button"
-          className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-md text-parchment outline-none ring-offset-2 ring-offset-umber-deep transition hover:text-goldleaf focus-visible:ring-2 focus-visible:ring-goldleaf/50 md:hidden"
+          className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-sm border border-umber/15 bg-parchment/40 text-umber-deep outline-none transition hover:border-goldleaf/45 hover:bg-parchment/70 focus-visible:ring-2 focus-visible:ring-goldleaf/55 md:hidden"
           aria-expanded={menuOpen}
           aria-controls="mobile-drawer"
           onClick={() => setMenuOpen((o) => !o)}
@@ -163,7 +167,7 @@ export function SiteHeader() {
         </button>
 
         <nav
-          className="hidden items-center gap-2 text-sm md:flex md:gap-1 md:text-[15px]"
+          className="hidden items-center gap-1 text-sm md:flex md:text-[14px]"
           aria-label="Main"
         >
           {links.map((l) => (
@@ -171,20 +175,22 @@ export function SiteHeader() {
               key={l.key}
               href={l.href}
               className={cn(
-                "relative rounded-md px-3 py-2 text-[13px] font-medium tracking-wide text-parchment/65 transition-colors duration-300 ease-out-expo hover:text-parchment md:text-sm",
+                "relative rounded-sm px-3 py-2 text-[13px] font-medium tracking-wide text-umber/62 transition-colors duration-300 ease-out-expo hover:bg-umber/[0.06] hover:text-umber-deep md:text-sm",
                 pathMatchesNav(pathname, l.href) &&
-                  "text-parchment after:pointer-events-none after:absolute after:bottom-1 after:left-3 after:right-3 after:h-px after:rounded-full after:bg-gradient-to-r after:from-goldleaf after:to-goldleaf/40"
+                  "bg-umber/[0.08] text-umber-deep shadow-[inset_0_-2px_0_0_rgba(201,168,90,0.75)]"
               )}
             >
               {t(l.key)}
             </Link>
           ))}
-          <LanguageSwitcher variant="dark" />
+          <div className="ml-1 border-l border-umber/12 pl-3">
+            <LanguageSwitcher variant="light" />
+          </div>
           {isAdmin ? (
             <NextLink
               href={`/${locale}/admin`}
               prefetch={false}
-              className="text-xs font-medium uppercase tracking-editorial text-parchment/45 transition-colors hover:text-goldleaf md:text-[13px]"
+              className="ml-1 rounded-sm px-2.5 py-1.5 text-[11px] font-medium uppercase tracking-editorial text-umber/45 transition-colors hover:bg-oxide/10 hover:text-oxide md:text-[12px]"
             >
               {t("admin")}
             </NextLink>
@@ -197,39 +203,43 @@ export function SiteHeader() {
             <>
               <button
                 type="button"
-                className="fixed inset-0 z-[200] bg-black/55 md:hidden"
+                className="fixed inset-0 z-[200] bg-umber-deep/40 backdrop-blur-[2px] md:hidden"
                 aria-label={t("closeMenu")}
                 onClick={() => setMenuOpen(false)}
               />
               <div
                 id="mobile-drawer"
-                className="fixed inset-y-0 right-0 z-[210] flex max-h-[100dvh] w-[min(100%,20rem)] flex-col border-l border-goldleaf/25 bg-gradient-to-b from-[#1e1915] via-umber-deep to-[#120f0d] shadow-2xl md:hidden supports-[padding:max(0px)]:pb-[env(safe-area-inset-bottom,0px)] supports-[padding:max(0px)]:pt-[env(safe-area-inset-top,0px)]"
+                className="fixed inset-y-0 right-0 z-[210] flex max-h-[100dvh] w-[min(100%,20rem)] flex-col overflow-hidden border-l border-umber/15 bg-gradient-to-b from-parchment/98 via-parchment-warm/92 to-parchment-dark/55 shadow-[-12px_0_40px_-12px_rgba(26,23,20,0.2)] md:hidden supports-[padding:max(0px)]:pb-[env(safe-area-inset-bottom,0px)] supports-[padding:max(0px)]:pt-[env(safe-area-inset-top,0px)]"
                 role="dialog"
                 aria-modal="true"
                 aria-label={t("mobileNav")}
               >
-                <nav className="flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto overscroll-contain px-5 py-6">
+                <div
+                  className="pointer-events-none absolute inset-0 opacity-[0.45] hero-blueprint-grid"
+                  aria-hidden
+                />
+                <nav className="relative z-10 flex min-h-0 flex-1 flex-col gap-0.5 overflow-y-auto overscroll-contain px-4 py-6">
                   {links.map((l) => (
                     <Link
                       key={l.key}
                       href={l.href}
                       className={cn(
-                        "rounded-md border-l-2 border-transparent py-3.5 pl-3 text-base font-medium text-parchment/80 transition-colors hover:border-goldleaf/45 hover:bg-parchment/[0.05] hover:text-parchment",
+                        "rounded-sm border border-transparent py-3.5 pl-3 text-base font-medium text-umber/80 transition-colors hover:border-umber/12 hover:bg-umber/[0.05] hover:text-umber-deep",
                         pathMatchesNav(pathname, l.href) &&
-                          "border-goldleaf/70 bg-parchment/[0.06] text-parchment"
+                          "border-goldleaf/40 bg-goldleaf/10 text-umber-deep"
                       )}
                       onClick={() => setMenuOpen(false)}
                     >
                       {t(l.key)}
                     </Link>
                   ))}
-                  <div className="mt-6 flex flex-col gap-4 border-t border-parchment/15 pt-6">
-                    <LanguageSwitcher variant="dark" />
+                  <div className="mt-6 flex flex-col gap-4 border-t border-umber/12 pt-6">
+                    <LanguageSwitcher variant="light" />
                     {isAdmin ? (
                       <NextLink
                         href={`/${locale}/admin`}
                         prefetch={false}
-                        className="rounded-md py-3 text-sm font-medium uppercase tracking-[0.18em] text-parchment/45 hover:text-goldleaf"
+                        className="rounded-sm py-3 text-sm font-medium uppercase tracking-[0.18em] text-umber/50 hover:text-oxide"
                         onClick={() => setMenuOpen(false)}
                       >
                         {t("admin")}

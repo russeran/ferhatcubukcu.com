@@ -16,15 +16,15 @@ export function SiteChrome({
         <SiteHeader />
         <main className="relative min-h-0 flex-1 overflow-x-hidden">
           <div
-            className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-goldleaf/[0.2] via-goldleaf/[0.06] to-transparent"
+            className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-goldleaf/[0.12] via-goldleaf/[0.04] to-transparent"
             aria-hidden
           />
           <div
-            className="pointer-events-none absolute inset-y-24 left-0 hidden w-px bg-gradient-to-b from-goldleaf/45 via-goldleaf/12 to-transparent md:block"
+            className="pointer-events-none absolute inset-y-24 left-0 hidden w-px bg-gradient-to-b from-goldleaf/30 via-goldleaf/10 to-transparent md:block"
             aria-hidden
           />
           <div
-            className="pointer-events-none absolute inset-y-24 right-0 hidden w-px bg-gradient-to-b from-goldleaf/45 via-goldleaf/12 to-transparent md:block"
+            className="pointer-events-none absolute inset-y-24 right-0 hidden w-px bg-gradient-to-b from-goldleaf/30 via-goldleaf/10 to-transparent md:block"
             aria-hidden
           />
           {children}

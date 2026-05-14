@@ -6,10 +6,10 @@
   "nav": {
     "home": "Home",
     "gallery": "Gallery",
-    "instagram": "Instagram",
     "about": "About",
     "studio": "Studio",
     "press": "Press",
+    "social": "Social Media",
     "contact": "Contact",
     "admin": "Admin",
     "openMenu": "Open menu",
@@ -149,11 +149,11 @@
     "footerLabel": "Download curator PDF",
     "seoDescription": "Printable list of published works for curators and galleries."
   },
-  "instagram": {
-    "title": "Instagram",
+  "socialPage": {
+    "title": "Social Media",
     "eyebrow": "Studio feed",
-    "intro": "Recent posts from the studio Instagram. Tap any image to open it on Instagram.",
-    "seoDescription": "Instagram feed — studio posts, process, and exhibitions from painter Ferhat Çubukçu in İstanbul.",
+    "intro": "Recent posts from the studio on Instagram — tap an image to open it there.",
+    "seoDescription": "Social feed — studio posts, process, and exhibitions from painter Ferhat Çubukçu in İstanbul.",
     "profileCta": "Open Instagram profile",
     "videoBadge": "Video",
     "emptyPosts": "No posts were returned for this account yet.",
@@ -167,7 +167,6 @@
   "footer": {
     "rights": "© Ferhat Çubukçu. All works reserved unless noted.",
     "tagline": "Fibonacci · golden ratio · oil",
-    "behanceCta": "Full portfolio on Behance",
     "footerNavAria": "Site sections",
     "curatorPack": "Curator PDF"
   },

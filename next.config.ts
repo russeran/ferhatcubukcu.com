@@ -49,6 +49,11 @@ const nextConfig: NextConfig = {
         destination: "/:locale/press/:slug",
         permanent: true,
       },
+      {
+        source: "/:locale/instagram",
+        destination: "/:locale/social",
+        permanent: true,
+      },
     ];
   },
 };

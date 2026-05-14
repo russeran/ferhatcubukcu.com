@@ -8,7 +8,7 @@ const staticPaths = [
   "/gallery",
   "/studio",
   "/press",
-  "/instagram",
+  "/social",
   "/about",
   "/contact",
 ] as const;
@@ -29,7 +29,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             ? 1
             : p === "/press"
               ? 0.8
-              : p === "/instagram"
+              : p === "/social"
                 ? 0.78
                 : 0.85,
       });

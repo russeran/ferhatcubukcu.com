@@ -128,7 +128,7 @@ body {
 }
 
 header .focus-ring {
-  @apply ring-goldleaf/45 ring-offset-umber-deep;
+  @apply ring-goldleaf/50 ring-offset-2 ring-offset-parchment;
 }
 
 @media (prefers-reduced-motion: reduce) {

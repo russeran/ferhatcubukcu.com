@@ -24,16 +24,16 @@ export async function generateMetadata({
 }: Props): Promise<Metadata> {
   const { locale } = await params;
   const messages = (await import(`../../../../messages/${locale}.json`)).default;
-  const title = messages.instagram.title as string;
-  const description = messages.instagram.seoDescription as string;
+  const title = messages.socialPage.title as string;
+  const description = messages.socialPage.seoDescription as string;
   return {
     title,
     description,
-    alternates: localeAlternates("/instagram", locale),
+    alternates: localeAlternates("/social", locale),
     openGraph: {
       title: `${title} · Ferhat Çubukçu`,
       description,
-      url: absoluteUrl(`/${locale}/instagram`),
+      url: absoluteUrl(`/${locale}/social`),
       siteName: "Ferhat Çubukçu",
       type: "website",
     },
@@ -45,9 +45,9 @@ export async function generateMetadata({
   };
 }
 
-export default async function InstagramPage({ params }: Props) {
+export default async function SocialMediaPage({ params }: Props) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "instagram" });
+  const t = await getTranslations({ locale, namespace: "socialPage" });
   const settings = await readSettings();
   const profileUrl = instagramProfileHref(settings);
   const feed = await fetchInstagramFeed();
@@ -71,7 +71,7 @@ export default async function InstagramPage({ params }: Props) {
           href={profileUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="shrink-0 self-start rounded-full border border-umber/20 bg-parchment px-5 py-2.5 text-sm font-medium text-umber-deep underline-offset-4 transition hover:border-oxide/40 hover:text-oxide md:self-auto"
+          className="shrink-0 self-start rounded-sm border border-umber/20 bg-parchment/90 px-5 py-2.5 text-sm font-medium text-umber-deep underline-offset-4 transition hover:border-goldleaf/50 hover:text-oxide md:self-auto"
         >
           {t("profileCta")}
         </TrackedOutboundLink>
@@ -87,7 +87,7 @@ export default async function InstagramPage({ params }: Props) {
         ) : null}
 
         {feed.status === "missing_env" ? (
-          <div className="max-w-2xl space-y-4 rounded-xl border border-umber/12 bg-umber/5 p-6 text-sm leading-relaxed text-umber/80 sm:p-8 sm:text-base">
+          <div className="max-w-2xl space-y-4 rounded-sm border border-umber/12 bg-parchment/80 p-6 text-sm leading-relaxed text-umber/80 sm:p-8 sm:text-base">
             <p className="font-medium text-umber-deep">{t("configureTitle")}</p>
             <p>{t("configureP1")}</p>
             <p>{t("configureP2")}</p>
@@ -96,7 +96,7 @@ export default async function InstagramPage({ params }: Props) {
         ) : null}
 
         {feed.status === "error" ? (
-          <div className="max-w-2xl space-y-4 rounded-xl border border-oxide/25 bg-oxide/5 p-6 text-sm leading-relaxed text-umber/85 sm:p-8 sm:text-base">
+          <div className="max-w-2xl space-y-4 rounded-sm border border-oxide/25 bg-oxide/5 p-6 text-sm leading-relaxed text-umber/85 sm:p-8 sm:text-base">
             <p className="font-medium text-umber-deep">{t("loadErrorTitle")}</p>
             <p>{t("loadErrorHint")}</p>
             <p className="font-mono text-xs text-umber/60">{feed.message}</p>

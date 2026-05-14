@@ -6,10 +6,10 @@
   "nav": {
     "home": "Ana sayfa",
     "gallery": "Galeri",
-    "instagram": "Instagram",
     "about": "Hakkında",
     "studio": "Atölye",
     "press": "Basın",
+    "social": "Sosyal Medya",
     "contact": "İletişim",
     "admin": "Yönetim",
     "openMenu": "Menüyü aç",
@@ -149,11 +149,11 @@
     "footerLabel": "Küratör PDF indir",
     "seoDescription": "Galeriler için yayınlanmış eserlerin yazdırılabilir listesi."
   },
-  "instagram": {
-    "title": "Instagram",
+  "socialPage": {
+    "title": "Sosyal Medya",
     "eyebrow": "Atölye akışı",
-    "intro": "Atölye Instagram hesabından son paylaşımlar. Bir görsele dokunarak Instagram’da açabilirsiniz.",
-    "seoDescription": "Instagram akışı — İstanbul’daki ressam Ferhat Çubukçu’nun atölye paylaşımları, süreç ve sergiler.",
+    "intro": "Atölyenin Instagram hesabından son paylaşımlar — bir görsele dokunarak orada açabilirsiniz.",
+    "seoDescription": "Sosyal akış — İstanbul’daki ressam Ferhat Çubukçu’nun atölye paylaşımları, süreç ve sergiler.",
     "profileCta": "Instagram profilini aç",
     "videoBadge": "Video",
     "emptyPosts": "Bu hesap için henüz paylaşım dönmedi.",
@@ -167,7 +167,6 @@
   "footer": {
     "rights": "© Ferhat Çubukçu. Tüm eserler saklıdır; aksi belirtilmedikçe.",
     "tagline": "Fibonacci · altın oran · yağlıboya",
-    "behanceCta": "Tam portföy Behance’te",
     "footerNavAria": "Site bölümleri",
     "curatorPack": "Küratör PDF"
   },
