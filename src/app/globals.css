@@ -4,7 +4,7 @@
 
 :root {
   color-scheme: light;
-  --atelier-base: #d8cfc3;
+  --atelier-base: #b2aaa0;
   --atelier-ink: #1a1714;
 }
 
@@ -31,15 +31,15 @@ html {
 
 body {
   @apply text-umber-deep antialiased;
-  /* Darker warm “studio mat” — linear / rectilinear bands (less bubble-shaped than radials) */
-  background-color: #a89a8c;
+  /* Darker warm “studio mat” (~20% deeper than prior) */
+  background-color: #8c8074;
   background-image:
     linear-gradient(
       180deg,
-      #b8ab9e 0%,
-      #aea193 42%,
-      #a89a8c 58%,
-      #b0a396 100%
+      #988d82 0%,
+      #8e8277 42%,
+      #8c8074 58%,
+      #90857a 100%
     ),
     linear-gradient(
       90deg,

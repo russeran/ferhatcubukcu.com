@@ -14,7 +14,7 @@ export function SitePageBackdrop({ children }: { children: React.ReactNode }) {
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute inset-0 min-h-full bg-gradient-to-b from-white/25 via-transparent to-umber-deep/[0.04]"
+        className="pointer-events-none absolute inset-0 min-h-full bg-gradient-to-b from-white/18 via-transparent to-umber-deep/[0.07]"
         aria-hidden
       />
       <div

@@ -43,7 +43,7 @@ export function HomeHeroGalleryShowcase({
           src={fallbackSrc}
           alt={fallbackAlt}
           fill
-          className="object-cover"
+          className="object-contain object-center"
           sizes="(max-width: 768px) 100vw, 50vw"
           priority
         />
@@ -65,7 +65,7 @@ export function HomeHeroGalleryShowcase({
         <Link
           key={item.slug}
           href={`/gallery/${item.slug}`}
-            className={cn(
+          className={cn(
             "absolute inset-0 block outline-none transition-opacity duration-[900ms] ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-goldleaf/90",
             i === active
               ? "z-[2] opacity-100"
@@ -79,12 +79,7 @@ export function HomeHeroGalleryShowcase({
             src={item.image}
             alt=""
             fill
-            className={cn(
-              "object-cover",
-              i === active && slides.length > 1
-                ? "motion-safe:animate-hero-ken"
-                : ""
-            )}
+            className="object-contain object-center"
             sizes="(max-width: 768px) 100vw, 50vw"
             priority={i === 0}
           />

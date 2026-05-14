@@ -11,10 +11,11 @@ const config: Config = {
       colors: {
         /** Warm shell — stretched linen / raw canvas */
         parchment: {
-          DEFAULT: "#f4efe6",
-          warm: "#efe6d8",
-          dark: "#e2d9cb",
-          ink: "#c9bdb0",
+          /** ~20% darker than prior shell — blended toward umber-deep */
+          DEFAULT: "#c8c4bc",
+          warm: "#c4bdb1",
+          dark: "#bab2a6",
+          ink: "#a69c91",
         },
         /** Earth ink */
         umber: {
