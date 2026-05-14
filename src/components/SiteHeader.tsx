@@ -61,15 +61,31 @@ function MenuIcon({ open }: { open: boolean }) {
   );
 }
 
-export function SiteHeader({ showAdminNav }: { showAdminNav: boolean }) {
+export function SiteHeader() {
   const t = useTranslations("nav");
   const locale = useLocale();
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [portalReady, setPortalReady] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     setPortalReady(true);
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/auth/session", { credentials: "same-origin" })
+      .then((r) => (r.ok ? r.json() : Promise.resolve({ authenticated: false })))
+      .then((data: { authenticated?: boolean }) => {
+        if (!cancelled) setIsAdmin(Boolean(data.authenticated));
+      })
+      .catch(() => {
+        if (!cancelled) setIsAdmin(false);
+      });
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   useEffect(() => {
@@ -165,7 +181,7 @@ export function SiteHeader({ showAdminNav }: { showAdminNav: boolean }) {
             </Link>
           ))}
           <LanguageSwitcher variant="dark" />
-          {showAdminNav ? (
+          {isAdmin ? (
             <NextLink
               href={`/${locale}/admin`}
               prefetch={false}
@@ -210,7 +226,7 @@ export function SiteHeader({ showAdminNav }: { showAdminNav: boolean }) {
                   ))}
                   <div className="mt-6 flex flex-col gap-4 border-t border-parchment/15 pt-6">
                     <LanguageSwitcher variant="dark" />
-                    {showAdminNav ? (
+                    {isAdmin ? (
                       <NextLink
                         href={`/${locale}/admin`}
                         prefetch={false}
