@@ -61,8 +61,9 @@ const config: Config = {
       },
       backgroundImage: {
         /** Atmospheric washes — fibonacci-weighted focal points */
+        /** Rectilinear wash — reads squarer than soft ellipses on the darker base */
         "fibonacci-hint":
-          "radial-gradient(ellipse 95% 65% at 14% 16%, rgba(201,168,90,0.11), transparent 48%), radial-gradient(ellipse 70% 55% at 92% 8%, rgba(146,47,61,0.06), transparent 42%), radial-gradient(ellipse 55% 45% at 78% 88%, rgba(125,76,58,0.07), transparent 50%), radial-gradient(circle at 48% 52%, rgba(90,82,72,0.04), transparent 62%)",
+          "linear-gradient(180deg, rgba(201,168,90,0.09) 0%, transparent 22%), linear-gradient(0deg, rgba(125,76,58,0.07) 0%, transparent 18%), linear-gradient(90deg, rgba(26,23,20,0.05) 0%, transparent 10%, transparent 90%, rgba(26,23,20,0.05) 100%), linear-gradient(180deg, transparent 62%, rgba(146,47,61,0.04) 100%)",
         "grain-fine":
           "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.042'/%3E%3C/svg%3E\")",
         "canvas-vignette":

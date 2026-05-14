@@ -19,7 +19,7 @@ export async function SiteChrome({
         <SiteHeader showAdminNav={showAdminNav} />
         <main className="relative min-h-0 flex-1 overflow-x-hidden">
           <div
-            className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-goldleaf/[0.14] via-goldleaf/[0.04] to-transparent"
+            className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-goldleaf/[0.2] via-goldleaf/[0.06] to-transparent"
             aria-hidden
           />
           <div

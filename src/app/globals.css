@@ -4,7 +4,7 @@
 
 :root {
   color-scheme: light;
-  --atelier-base: #f4efe6;
+  --atelier-base: #d8cfc3;
   --atelier-ink: #1a1714;
 }
 
@@ -31,30 +31,41 @@ html {
 
 body {
   @apply text-umber-deep antialiased;
-  /* Base wash — explicit diagonal so the page reads “warm studio wall”, not generic gray-white */
-  background-color: #e8dfd2;
+  /* Darker warm “studio mat” — linear / rectilinear bands (less bubble-shaped than radials) */
+  background-color: #a89a8c;
   background-image:
     linear-gradient(
-      168deg,
-      #dccfb8 0%,
-      #f4efe6 38%,
-      #ebe3d4 72%,
-      #ddd2c2 100%
+      180deg,
+      #b8ab9e 0%,
+      #aea193 42%,
+      #a89a8c 58%,
+      #b0a396 100%
     ),
-    radial-gradient(
-      ellipse 75% 55% at 28% 18%,
-      rgba(255, 252, 245, 0.72),
-      transparent 58%
+    linear-gradient(
+      90deg,
+      rgba(26, 23, 20, 0.16) 0%,
+      rgba(26, 23, 20, 0.04) 14%,
+      transparent 24%,
+      transparent 76%,
+      rgba(26, 23, 20, 0.04) 86%,
+      rgba(26, 23, 20, 0.16) 100%
     ),
-    radial-gradient(
-      ellipse 55% 45% at 88% 22%,
-      rgba(201, 168, 90, 0.14),
-      transparent 52%
+    linear-gradient(
+      180deg,
+      rgba(26, 23, 20, 0.1) 0%,
+      transparent 11%,
+      transparent 89%,
+      rgba(26, 23, 20, 0.12) 100%
     ),
-    radial-gradient(
-      ellipse 85% 55% at 50% 48%,
-      transparent 32%,
-      rgba(26, 23, 20, 0.055) 100%
+    linear-gradient(
+      118deg,
+      rgba(201, 168, 90, 0.11) 0%,
+      transparent 38%
+    ),
+    linear-gradient(
+      -72deg,
+      transparent 52%,
+      rgba(146, 47, 61, 0.055) 100%
     ),
     theme("backgroundImage.fibonacci-hint"),
     theme("backgroundImage.grain-fine");
