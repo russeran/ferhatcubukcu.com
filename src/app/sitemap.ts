@@ -8,7 +8,6 @@ const staticPaths = [
   "/gallery",
   "/studio",
   "/press",
-  "/news",
   "/instagram",
   "/about",
   "/contact",
@@ -28,7 +27,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority:
           p === ""
             ? 1
-            : p === "/news"
+            : p === "/press"
               ? 0.8
               : p === "/instagram"
                 ? 0.78
@@ -58,7 +57,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     for (const post of posts.filter((x) => x.published)) {
       for (const locale of routing.locales) {
         entries.push({
-          url: absoluteUrl(`/${locale}/news/${post.slug}`),
+          url: absoluteUrl(`/${locale}/press/${post.slug}`),
           lastModified: now,
           changeFrequency: "weekly",
           priority: 0.55,

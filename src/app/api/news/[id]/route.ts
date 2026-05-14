@@ -19,9 +19,9 @@ function normOptionalText(s: string | undefined): string | undefined {
 function revalidateNews(slug?: string) {
   for (const locale of routing.locales) {
     revalidatePath(`/${locale}`, "layout");
-    revalidatePath(`/${locale}/news`, "page");
+    revalidatePath(`/${locale}/press`, "page");
     if (slug) {
-      revalidatePath(`/${locale}/news/${slug}`, "page");
+      revalidatePath(`/${locale}/press/${slug}`, "page");
     }
   }
 }

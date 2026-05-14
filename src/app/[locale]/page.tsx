@@ -4,6 +4,7 @@ import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { HomeHeroSection } from "@/components/HomeHeroSection";
 import { HomeJsonLd } from "@/components/HomeJsonLd";
+import { HomePageSkin } from "@/components/HomePageSkin";
 import { SoldStamp } from "@/components/SoldStamp";
 import { localeAlternates } from "@/lib/seo-helpers";
 import { absoluteUrl } from "@/lib/site-url";
@@ -81,15 +82,16 @@ export default async function HomePage({ params }: Props) {
   return (
     <>
       <HomeJsonLd locale={locale} settings={settings} />
-      <HomeHeroSection
-        locale={locale}
-        settings={settings}
-        heroSlides={heroSlides}
-        tagline={tagline}
-      />
+      <HomePageSkin>
+        <HomeHeroSection
+          locale={locale}
+          settings={settings}
+          heroSlides={heroSlides}
+          tagline={tagline}
+        />
 
       {newsTeaser.length > 0 ? (
-        <section className="border-b border-umber/15 bg-[#ebe4d8]/92 py-16 sm:py-20">
+        <section className="border-b border-umber/15 py-16 sm:py-20">
           <div className="mx-auto max-w-6xl px-4 sm:px-5">
             <div className="mb-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
               <div>
@@ -100,7 +102,7 @@ export default async function HomePage({ params }: Props) {
                 </h2>
               </div>
               <Link
-                href="/news"
+                href="/press"
                 className="text-sm font-semibold tracking-wide text-oxide underline-offset-[6px] transition hover:text-umber-deep hover:underline sm:shrink-0"
               >
                 {t("newsViewAll")}
@@ -110,7 +112,7 @@ export default async function HomePage({ params }: Props) {
               {newsTeaser.map((p) => (
                 <li key={p.id}>
                   <Link
-                    href={`/news/${p.slug}`}
+                    href={`/press/${p.slug}`}
                     className="group flex h-full flex-col overflow-hidden rounded-sm border border-umber/12 bg-gradient-to-br from-parchment/98 via-parchment-warm/90 to-parchment-dark/25 shadow-[inset_0_1px_0_rgba(255,252,245,0.55)] ring-1 ring-umber/8 backdrop-blur-sm transition duration-500 ease-out-expo hover:-translate-y-0.5 hover:border-goldleaf/35 hover:shadow-gallery hover:ring-goldleaf/25"
                   >
                     {p.image ? (
@@ -141,7 +143,7 @@ export default async function HomePage({ params }: Props) {
       ) : null}
 
       {pressTeaser.length > 0 ? (
-        <section className="border-b border-umber/15 bg-parchment/98 py-16 sm:py-20">
+        <section className="border-b border-umber/15 py-16 sm:py-20">
           <div className="mx-auto max-w-6xl px-4 sm:px-5">
             <div className="mb-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
               <div>
@@ -187,7 +189,7 @@ export default async function HomePage({ params }: Props) {
         </section>
       ) : null}
 
-      <section className="border-b border-umber/10 bg-gradient-to-b from-parchment-dark/30 via-transparent to-transparent py-16 sm:py-20 md:py-28">
+      <section className="border-b border-umber/10 py-16 sm:py-20 md:py-28">
         <div className="mx-auto max-w-6xl px-4 sm:px-5">
         <div className="mb-10 flex flex-col gap-6 border-b border-umber/10 pb-10 sm:mb-14 sm:flex-row sm:items-end sm:justify-between sm:gap-8 sm:pb-12">
           <div className="max-w-2xl">
@@ -259,6 +261,7 @@ export default async function HomePage({ params }: Props) {
         )}
         </div>
       </section>
+      </HomePageSkin>
     </>
   );
 }

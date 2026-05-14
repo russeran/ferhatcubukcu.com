@@ -32,12 +32,6 @@ export async function HomeHeroSection({
 
   return (
     <section className="relative overflow-hidden border-b border-umber/20">
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-parchment/95 via-parchment-warm/75 to-parchment-dark/55" />
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.72] hero-blueprint-grid"
-        aria-hidden
-      />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/25 via-transparent to-umber-deep/[0.04]" />
       <HomeHeroGeometryDecor />
 
       <div className="relative z-10 mx-auto grid max-w-6xl gap-12 px-4 py-16 sm:gap-14 sm:px-5 sm:py-20 md:grid-cols-2 md:items-center md:gap-16 md:py-28">

@@ -57,7 +57,7 @@ export type SiteSettings = {
   pressQuotes?: PressQuote[];
 };
 
-/** News, social, press, or studio updates — admin-managed, public under /news. */
+/** News, social, press, or studio updates — admin-managed, public under /press. */
 export type NewsKind = "news" | "social" | "press" | "studio";
 
 export type NewsPost = {

@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const list = await readNewsPosts();
   const post = list.find((p) => p.slug === slug && p.published);
   if (!post) {
-    return { title: "News" };
+    return { title: "Press" };
   }
   const title = resolvedNewsTitle(post, locale);
   const body = resolvedNewsBody(post, locale);
@@ -40,11 +40,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title,
     description,
-    alternates: localeAlternates(`/news/${slug}`, locale),
+    alternates: localeAlternates(`/press/${slug}`, locale),
     openGraph: {
       title: `${title} · Ferhat Çubukçu`,
       description,
-      url: absoluteUrl(`/${locale}/news/${slug}`),
+      url: absoluteUrl(`/${locale}/press/${slug}`),
       siteName: "Ferhat Çubukçu",
       type: "article",
       ...(imageUrl ? { images: [{ url: imageUrl, alt: title }] } : {}),
@@ -58,9 +58,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function NewsDetailPage({ params }: Props) {
+export default async function PressPostPage({ params }: Props) {
   const { locale, slug } = await params;
-  const t = await getTranslations({ locale, namespace: "news" });
+  const t = await getTranslations({ locale, namespace: "press" });
   const kindLabels = {
     news: t("kind_news"),
     social: t("kind_social"),
@@ -78,7 +78,7 @@ export default async function NewsDetailPage({ params }: Props) {
   return (
     <article className="mx-auto max-w-3xl px-4 py-12 sm:px-5 sm:py-14 md:py-20">
       <Link
-        href="/news"
+        href="/press"
         className="text-sm font-medium text-oxide underline-offset-4 hover:underline"
       >
         ← {t("title")}

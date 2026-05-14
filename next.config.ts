@@ -37,6 +37,20 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [{ source: "/favicon.ico", destination: "/icon" }];
   },
+  async redirects() {
+    return [
+      {
+        source: "/:locale/news",
+        destination: "/:locale/press",
+        permanent: true,
+      },
+      {
+        source: "/:locale/news/:slug",
+        destination: "/:locale/press/:slug",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default withNextIntl(nextConfig);

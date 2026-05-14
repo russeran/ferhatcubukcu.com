@@ -6,7 +6,6 @@
   "nav": {
     "home": "Home",
     "gallery": "Gallery",
-    "news": "News",
     "instagram": "Instagram",
     "about": "About",
     "studio": "Studio",
@@ -28,12 +27,12 @@
     "heroAlt": "Ferhat Çubukçu — oil painting, İstanbul studio",
     "heroSlideshowAria": "Featured paintings from the gallery",
     "heroSlideshowDotAria": "Show painting {current} of {total}",
-    "newsTeaser": "Studio & news",
+    "newsTeaser": "Studio & press",
     "newsTeaserSubtitle": "Exhibitions, social posts, and updates from the studio.",
     "newsViewAll": "All updates",
     "pressTeaser": "Selected press",
     "pressTeaserSubtitle": "Quotes and coverage — add entries in Site settings.",
-    "pressViewAll": "All press"
+    "pressViewAll": "All updates"
   },
   "gallery": {
     "title": "Gallery",
@@ -84,24 +83,24 @@
     "paintingZoomHint": "Ctrl or ⌘ + scroll to zoom. Drag to pan when zoomed. Double-click toggles zoom.",
     "paintingZoomOpen": "View larger"
   },
-  "news": {
-    "title": "News & updates",
+  "press": {
+    "title": "Press",
     "eyebrow": "Studio",
-    "intro": "Exhibitions, press, social posts, and notes from the studio.",
-    "empty": "No published updates yet.",
+    "intro": "Exhibitions, coverage, social posts, and studio notes — one feed.",
+    "empty": "No published entries yet.",
     "readMore": "Read more",
     "openExternal": "Open link",
-    "seoDescription": "News, exhibitions, and studio updates from painter Ferhat Çubukçu — İstanbul.",
+    "seoDescription": "Press and studio updates from painter Ferhat Çubukçu — İstanbul.",
     "kind_news": "News",
     "kind_social": "Social",
-    "kind_press": "Press",
+    "kind_press": "Coverage",
     "kind_studio": "Studio"
   },
   "publicAdmin": {
     "toolbarAria": "Quick admin tools",
     "signedIn": "Signed in as admin",
     "manageArtworks": "Paintings admin",
-    "manageNews": "News admin",
+    "manageNews": "Manage press",
     "addArtwork": "Add painting",
     "addNews": "Add update",
     "editArtwork": "Edit",
@@ -146,14 +145,6 @@
     "b6Title": "Commissions & dialogue",
     "b6Body": "For availability, commissions, or exhibition proposals, use Contact — a short exchange usually clarifies intent, timeline, and delivery."
   },
-  "pressPage": {
-    "title": "Press",
-    "eyebrow": "Recognition",
-    "seoDescription": "Selected quotes and coverage of Ferhat Çubukçu — painter, İstanbul.",
-    "intro": "Highlights from publications and statements. Add or edit entries in Site settings (admin).",
-    "empty": "No press entries yet. Add quotes in Admin → Site settings.",
-    "readSource": "Read source"
-  },
   "curator": {
     "footerLabel": "Download curator PDF",
     "seoDescription": "Printable list of published works for curators and galleries."
@@ -187,7 +178,7 @@
     "signOut": "Sign out",
     "dashboard": "Dashboard",
     "artworks": "Paintings",
-    "news": "News & updates",
+    "news": "Press & updates",
     "newsIntro": "Bilingual posts with optional image and external link (Instagram, Behance, press).",
     "addNews": "Add update",
     "newsKind": "Type",
@@ -235,7 +226,7 @@
     "seriesSlug": "Series slug",
     "seriesTitleEn": "Series title (English)",
     "seriesTitleTr": "Series title (Turkish)",
-    "pressQuotesSection": "Press quotes (home & /press)",
+    "pressQuotesSection": "Press quotes (home page strip)",
     "pressQuotesHint": "Short quotes with attribution. Optional logo/image URL and link to the source.",
     "addPressQuote": "Add quote",
     "removePressQuote": "Remove",

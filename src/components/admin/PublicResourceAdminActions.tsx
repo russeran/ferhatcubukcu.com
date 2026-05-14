@@ -52,13 +52,13 @@ export function PublicResourceAdminActions({
       return;
     }
     const onArtworkDetail = /^\/(en|tr)\/gallery\/[^/]+$/.test(pathname);
-    const onNewsDetail = /^\/(en|tr)\/news\/[^/]+$/.test(pathname);
+    const onPressDetail = /^\/(en|tr)\/press\/[^/]+$/.test(pathname);
     if (kind === "artwork" && onArtworkDetail) {
       router.push(`${base}/gallery`);
       return;
     }
-    if (kind === "news" && onNewsDetail) {
-      router.push(`${base}/news`);
+    if (kind === "news" && onPressDetail) {
+      router.push(`${base}/press`);
       return;
     }
     router.refresh();

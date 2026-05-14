@@ -105,7 +105,7 @@ body {
   .skeleton-parchment {
     @apply animate-pulse rounded-md bg-gradient-to-br from-parchment-dark/80 via-parchment-warm/60 to-parchment-ink/40;
   }
-  /** Home hero — squared drafting grid over warm base */
+  /** Home hero + lower sections — squared drafting grid over warm parchment */
   .hero-blueprint-grid {
     background-size: 22px 22px;
     background-image:

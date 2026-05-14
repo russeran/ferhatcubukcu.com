@@ -53,15 +53,6 @@ export async function SiteFooter({ locale }: { locale: string }) {
               ·
             </span>
             <Link
-              href={`${prefix}/news`}
-              className="transition-colors hover:text-goldleaf"
-            >
-              {tn("news")}
-            </Link>
-            <span className="text-parchment/25" aria-hidden>
-              ·
-            </span>
-            <Link
               href={`${prefix}/about`}
               className="transition-colors hover:text-goldleaf"
             >

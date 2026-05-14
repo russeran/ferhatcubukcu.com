@@ -6,7 +6,6 @@
   "nav": {
     "home": "Ana sayfa",
     "gallery": "Galeri",
-    "news": "Haberler",
     "instagram": "Instagram",
     "about": "Hakkında",
     "studio": "Atölye",
@@ -28,12 +27,12 @@
     "heroAlt": "Ferhat Çubukçu — yağlıboya, İstanbul atölyesi",
     "heroSlideshowAria": "Galeriden öne çıkan tablolar",
     "heroSlideshowDotAria": "{total} tablodan {current}. görünümü",
-    "newsTeaser": "Atölye ve haberler",
+    "newsTeaser": "Atölye ve basın",
     "newsTeaserSubtitle": "Sergiler, sosyal medya ve atölyeden notlar.",
     "newsViewAll": "Tüm güncellemeler",
     "pressTeaser": "Seçili basın",
     "pressTeaserSubtitle": "Alıntılar ve yansımalar — Site ayarlarından ekleyin.",
-    "pressViewAll": "Tüm basın"
+    "pressViewAll": "Tüm güncellemeler"
   },
   "gallery": {
     "title": "Galeri",
@@ -84,14 +83,14 @@
     "paintingZoomHint": "Ctrl veya ⌘ ile kaydırarak yakınlaştırın. Yakınlaştırınca sürükleyin. Çift tıklama yakınlaştırmayı aç/kapatır.",
     "paintingZoomOpen": "Büyüt"
   },
-  "news": {
-    "title": "Haberler ve güncellemeler",
+  "press": {
+    "title": "Basın",
     "eyebrow": "Atölye",
-    "intro": "Sergiler, basın, sosyal medya ve atölyeden notlar.",
-    "empty": "Henüz yayınlanmış güncelleme yok.",
+    "intro": "Sergiler, basın yansımaları, sosyal medya ve atölye notları — tek akış.",
+    "empty": "Henüz yayınlanmış giriş yok.",
     "readMore": "Devamını oku",
     "openExternal": "Bağlantıyı aç",
-    "seoDescription": "İstanbul ressamı Ferhat Çubukçu’dan haberler, sergiler ve atölye güncellemeleri.",
+    "seoDescription": "İstanbul ressamı Ferhat Çubukçu’dan basın ve atölye güncellemeleri.",
     "kind_news": "Haber",
     "kind_social": "Sosyal medya",
     "kind_press": "Basın",
@@ -101,7 +100,7 @@
     "toolbarAria": "Hızlı yönetim araçları",
     "signedIn": "Yönetici olarak oturum açıldı",
     "manageArtworks": "Tablolar yönetimi",
-    "manageNews": "Haberler yönetimi",
+    "manageNews": "Basın yönetimi",
     "addArtwork": "Tablo ekle",
     "addNews": "Güncelleme ekle",
     "editArtwork": "Düzenle",
@@ -146,14 +145,6 @@
     "b6Title": "Sipariş ve diyalog",
     "b6Body": "Müsaitlik, sipariş veya sergi önerileri için İletişim’i kullanın — kısa bir yazışma genelde niyet, süre ve teslimatı netleştirir."
   },
-  "pressPage": {
-    "title": "Basın",
-    "eyebrow": "Yansımalar",
-    "seoDescription": "Ferhat Çubukçu hakkında seçili alıntılar ve yansımalar — İstanbul ressamı.",
-    "intro": "Yayınlardan ve açıklamalardan öne çıkanlar. Girişleri Yönetim → Site ayarlarından ekleyin veya düzenleyin.",
-    "empty": "Henüz basın girişi yok. Yönetim → Site ayarlarından alıntı ekleyin.",
-    "readSource": "Kaynağı oku"
-  },
   "curator": {
     "footerLabel": "Küratör PDF indir",
     "seoDescription": "Galeriler için yayınlanmış eserlerin yazdırılabilir listesi."
@@ -187,7 +178,7 @@
     "signOut": "Çıkış",
     "dashboard": "Panel",
     "artworks": "Eserler",
-    "news": "Haberler ve güncellemeler",
+    "news": "Basın ve güncellemeler",
     "newsIntro": "İsteğe bağlı görsel ve dış bağlantı (Instagram, Behance, basın) ile çift dilli yazılar.",
     "addNews": "Güncelleme ekle",
     "newsKind": "Tür",
@@ -235,7 +226,7 @@
     "seriesSlug": "Seri slug",
     "seriesTitleEn": "Seri başlığı (İngilizce)",
     "seriesTitleTr": "Seri başlığı (Türkçe)",
-    "pressQuotesSection": "Basın alıntıları (ana sayfa ve /press)",
+    "pressQuotesSection": "Basın alıntıları (ana sayfa şeridi)",
     "pressQuotesHint": "Kısa alıntı ve kaynak. İsteğe bağlı logo/görsel URL ve kaynak bağlantısı.",
     "addPressQuote": "Alıntı ekle",
     "removePressQuote": "Kaldır",

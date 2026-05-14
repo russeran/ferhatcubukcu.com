@@ -409,7 +409,7 @@ export function AdminNews() {
                     {p.titleEn} / {p.titleTr}
                   </p>
                   <p className="text-xs text-parchment/45">
-                    /news/{p.slug} · order {p.order}
+                    /press/{p.slug} · order {p.order}
                   </p>
                   <div className="mt-3 flex flex-wrap gap-3">
                     <button

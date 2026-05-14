@@ -1,18 +1,27 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 import { localeAlternates } from "@/lib/seo-helpers";
 import { absoluteUrl } from "@/lib/site-url";
-import { readSettings } from "@/lib/data";
-import type { PressQuote } from "@/lib/types";
+import { getSessionFromCookies } from "@/lib/auth";
+import { PublicListAdminToolbar } from "@/components/admin/PublicListAdminToolbar";
+import { PublicResourceAdminActions } from "@/components/admin/PublicResourceAdminActions";
+import { readNewsPosts } from "@/lib/data";
+import {
+  resolvedNewsExcerpt,
+  resolvedNewsTitle,
+} from "@/lib/news-display";
 
 type Props = { params: Promise<{ locale: string }> };
+
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const messages = (await import(`../../../../messages/${locale}.json`)).default;
-  const title = messages.pressPage.title as string;
-  const description = messages.pressPage.seoDescription as string;
+  const title = messages.press.title as string;
+  const description = messages.press.seoDescription as string;
   return {
     title,
     description,
@@ -32,69 +41,104 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-function hasQuote(q: PressQuote, locale: string) {
-  const text = locale === "tr" ? q.quoteTr : q.quoteEn;
-  return Boolean(text?.trim());
-}
-
-export default async function PressPage({ params }: Props) {
+export default async function PressIndexPage({ params }: Props) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "pressPage" });
-  const settings = await readSettings();
-  const quotes = (settings.pressQuotes ?? []).filter((q) =>
-    hasQuote(q, locale)
-  );
+  const t = await getTranslations({ locale, namespace: "press" });
+  const isAdmin = Boolean(await getSessionFromCookies());
+  const kindLabels = {
+    news: t("kind_news"),
+    social: t("kind_social"),
+    press: t("kind_press"),
+    studio: t("kind_studio"),
+  } as const;
+  const list = (await readNewsPosts())
+    .filter((p) => p.published)
+    .sort((a, b) => a.order - b.order);
 
   return (
-    <div className="relative z-10 mx-auto max-w-4xl px-4 py-14 sm:px-5 sm:py-16 md:py-24">
-      <div className="gold-rule mb-6" aria-hidden />
-      <p className="editorial-eyebrow">{t("eyebrow")}</p>
-      <h1 className="mt-4 text-balance font-serif text-3xl font-semibold tracking-tight text-umber-deep sm:text-4xl md:text-5xl">
+    <div className="mx-auto max-w-3xl px-4 py-12 sm:px-5 sm:py-14 md:py-20">
+      <p className="font-serif text-[10px] uppercase tracking-[0.38em] text-patina sm:text-[11px]">
+        {t("eyebrow")}
+      </p>
+      <h1 className="mt-2 font-serif text-3xl font-semibold tracking-tight text-umber-deep sm:text-4xl md:text-5xl">
         {t("title")}
       </h1>
-      <p className="prose-atelier mt-6 max-w-2xl text-umber/75">
+      <p className="prose-atelier mt-4 text-sm text-umber/65 sm:mt-5 sm:text-base">
         {t("intro")}
       </p>
 
-      {quotes.length === 0 ? (
-        <p className="mt-12 text-umber/55">{t("empty")}</p>
+      {isAdmin ? <PublicListAdminToolbar locale={locale} variant="news" /> : null}
+
+      {list.length === 0 ? (
+        <p className="mt-12 text-umber/60">{t("empty")}</p>
       ) : (
-        <ul className="mt-14 space-y-10 border-t border-umber/10 pt-14">
-          {quotes.map((q) => {
-            const quote = locale === "tr" ? q.quoteTr : q.quoteEn;
-            const attr = locale === "tr" ? q.attributionTr : q.attributionEn;
+        <ul className="mt-12 space-y-12 border-t border-umber/10 pt-12">
+          {list.map((p) => {
+            const title = resolvedNewsTitle(p, locale);
+            const excerpt = resolvedNewsExcerpt(p, locale);
             return (
-              <li
-                key={q.id}
-                className="rounded-md border border-umber/10 bg-parchment/90 p-6 shadow-sm sm:p-8"
-              >
-                <div className="gold-rule mb-5" aria-hidden />
-                <blockquote className="font-serif text-2xl font-medium leading-snug text-umber-deep sm:text-3xl md:text-[1.85rem]">
-                  “{quote}”
-                </blockquote>
-                <p className="mt-5 text-sm font-medium text-umber/60">{attr}</p>
-                {q.image ? (
-                  <div className="relative mt-6 h-16 w-auto max-w-[200px]">
-                    <Image
-                      src={q.image}
-                      alt=""
-                      width={200}
-                      height={64}
-                      className="object-contain object-left"
-                      unoptimized
-                    />
+              <li key={p.id}>
+                <article className="grid gap-6 sm:grid-cols-[minmax(0,1fr)_minmax(9rem,12rem)] sm:items-start sm:gap-8">
+                  <div className="order-2 min-w-0 sm:order-1">
+                    <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-umber/50">
+                      {kindLabels[p.kind]}
+                    </p>
+                    <h2 className="mt-2 font-serif text-xl font-semibold text-umber-deep sm:text-2xl">
+                      <Link
+                        href={`/press/${p.slug}`}
+                        className="text-umber-deep underline-offset-4 hover:text-oxide hover:underline"
+                      >
+                        {title}
+                      </Link>
+                    </h2>
+                    <p className="mt-3 text-sm leading-relaxed text-umber/75 sm:text-base">
+                      {excerpt}
+                    </p>
+                    <p className="mt-4">
+                      <Link
+                        href={`/press/${p.slug}`}
+                        className="text-sm font-medium text-oxide underline-offset-4 hover:underline"
+                      >
+                        {t("readMore")}
+                      </Link>
+                      {p.externalUrl ? (
+                        <>
+                          <span className="mx-2 text-umber/35">·</span>
+                          <a
+                            href={p.externalUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sm font-medium text-patina underline-offset-4 hover:text-oxide hover:underline"
+                          >
+                            {t("openExternal")}
+                          </a>
+                        </>
+                      ) : null}
+                    </p>
+                    {isAdmin ? (
+                      <PublicResourceAdminActions
+                        locale={locale}
+                        kind="news"
+                        id={p.id}
+                        className="mt-3"
+                      />
+                    ) : null}
                   </div>
-                ) : null}
-                {q.url?.trim() ? (
-                  <a
-                    href={q.url.trim()}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-4 inline-block text-sm font-semibold text-oxide underline-offset-4 hover:underline"
-                  >
-                    {t("readSource")}
-                  </a>
-                ) : null}
+                  {p.image ? (
+                    <Link
+                      href={`/press/${p.slug}`}
+                      className="relative order-1 aspect-[5/4] w-full overflow-hidden rounded-lg bg-parchment-dark shadow-sm ring-1 ring-umber/10 sm:order-2 sm:aspect-square sm:max-w-none"
+                    >
+                      <Image
+                        src={p.image}
+                        alt=""
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 640px) 100vw, 168px"
+                      />
+                    </Link>
+                  ) : null}
+                </article>
               </li>
             );
           })}
