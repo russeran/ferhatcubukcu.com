@@ -91,11 +91,10 @@ export default async function HomePage({ params }: Props) {
         />
 
       {newsTeaser.length > 0 ? (
-        <section className="border-b border-umber/15 py-16 sm:py-20">
+        <section className="py-10 sm:py-12">
           <div className="mx-auto max-w-6xl px-4 sm:px-5">
-            <div className="mb-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+            <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <div className="gold-rule mb-4" aria-hidden />
                 <p className="editorial-eyebrow">{t("newsTeaser")}</p>
                 <h2 className="mt-3 text-balance font-serif text-2xl font-semibold text-umber-deep sm:text-3xl">
                   {t("newsTeaserSubtitle")}
@@ -143,11 +142,10 @@ export default async function HomePage({ params }: Props) {
       ) : null}
 
       {pressTeaser.length > 0 ? (
-        <section className="border-b border-umber/15 py-16 sm:py-20">
+        <section className="py-10 sm:py-12">
           <div className="mx-auto max-w-6xl px-4 sm:px-5">
-            <div className="mb-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+            <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <div className="gold-rule mb-4" aria-hidden />
                 <p className="editorial-eyebrow">{t("pressTeaser")}</p>
                 <h2 className="mt-3 text-balance font-serif text-2xl font-semibold text-umber-deep sm:text-3xl">
                   {t("pressTeaserSubtitle")}
@@ -166,7 +164,6 @@ export default async function HomePage({ params }: Props) {
                 const attr = locale === "tr" ? q.attributionTr : q.attributionEn;
                 return (
                   <li key={q.id}>
-                    <div className="gold-rule mb-4" aria-hidden />
                     <blockquote className="font-serif text-xl font-medium leading-snug text-umber-deep sm:text-2xl md:text-[1.65rem]">
                       “{quote}”
                     </blockquote>
@@ -189,11 +186,10 @@ export default async function HomePage({ params }: Props) {
         </section>
       ) : null}
 
-      <section className="border-b border-umber/10 py-16 sm:py-20 md:py-28">
+      <section className="pb-12 pt-10 sm:pb-14 sm:pt-12 md:pb-16 md:pt-14">
         <div className="mx-auto max-w-6xl px-4 sm:px-5">
-        <div className="mb-10 flex flex-col gap-6 border-b border-umber/10 pb-10 sm:mb-14 sm:flex-row sm:items-end sm:justify-between sm:gap-8 sm:pb-12">
+        <div className="mb-6 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
           <div className="max-w-2xl">
-            <div className="gold-rule mb-5" aria-hidden />
             <h2 className="text-balance font-serif text-2xl font-semibold text-umber-deep sm:text-3xl md:text-4xl">
               {t("featuredTitle")}
             </h2>

@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import type { SiteSettings } from "@/lib/types";
+import { splitArtistName } from "@/lib/split-artist-name";
 import { HomeHeroGeometryDecor } from "@/components/HomeHeroGeometryDecor";
 import {
   HomeHeroGalleryShowcase,
@@ -14,13 +15,6 @@ type Props = {
   tagline: string;
 };
 
-function splitArtistName(full: string) {
-  const t = full.trim();
-  const i = t.indexOf(" ");
-  if (i === -1) return { first: t, rest: "" as string };
-  return { first: t.slice(0, i), rest: t.slice(i + 1).trim() };
-}
-
 export async function HomeHeroSection({
   locale,
   settings,
@@ -31,24 +25,24 @@ export async function HomeHeroSection({
   const { first, rest } = splitArtistName(settings.artistName);
 
   return (
-    <section className="relative overflow-hidden border-b border-umber/20">
+    <section className="relative overflow-hidden">
       <HomeHeroGeometryDecor />
 
-      <div className="relative z-10 mx-auto grid max-w-6xl gap-12 px-4 py-16 sm:gap-14 sm:px-5 sm:py-20 md:grid-cols-2 md:items-center md:gap-16 md:py-28">
-        <div className="animate-fade-up space-y-5 border-l-[3px] border-goldleaf/60 pl-6 sm:space-y-6 sm:pl-8">
-          <div className="gold-rule" aria-hidden />
+      <div className="relative z-10 mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:gap-10 sm:px-5 sm:py-14 md:grid-cols-2 md:items-center md:gap-12 md:py-16">
+        <div className="animate-fade-up space-y-4 pl-0 sm:space-y-5">
           <p className="font-mono text-[10px] font-medium uppercase leading-relaxed tracking-[0.28em] text-umber/58 sm:text-[11px]">
             {t("phiEyebrow")}
           </p>
-          <h1 className="text-balance font-serif text-3xl font-semibold leading-[1.05] tracking-tight text-umber-deep drop-shadow-[0_1px_0_rgba(255,252,245,0.35)] sm:text-4xl md:text-5xl lg:text-[3.15rem]">
-            <span className="block">{first}</span>
+          <h1 className="text-balance font-serif leading-[1.02] tracking-tight">
+            <span className="block text-[clamp(1.85rem,5.2vw,3.35rem)] font-bold tracking-[0.04em] text-umber-deep drop-shadow-[0_2px_18px_rgba(244,239,230,0.55)]">
+              {first}
+            </span>
             {rest ? (
-              <span className="mt-0.5 block bg-gradient-to-r from-patina via-patina-light to-patina bg-clip-text font-medium italic text-transparent">
+              <span className="mt-1.5 block bg-gradient-to-br from-patina via-goldleaf/80 to-oxide bg-clip-text text-[clamp(1.65rem,4.6vw,2.95rem)] font-semibold italic tracking-[0.08em] text-transparent sm:mt-2">
                 {rest}
               </span>
             ) : null}
           </h1>
-          <div className="gold-rule max-w-[10rem]" aria-hidden />
           <p className="max-w-xl text-balance font-serif text-2xl font-medium leading-snug tracking-tight text-umber-deep sm:text-3xl md:text-[2.05rem]">
             {tagline}
           </p>

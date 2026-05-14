@@ -7,6 +7,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { cn } from "@/lib/utils";
+import { splitArtistName } from "@/lib/split-artist-name";
 
 const links = [
   { href: "/", key: "home" as const },
@@ -60,9 +61,14 @@ function MenuIcon({ open }: { open: boolean }) {
   );
 }
 
-export function SiteHeader() {
+export function SiteHeader({
+  artistName = "Ferhat Çubukçu",
+}: {
+  artistName?: string;
+}) {
   const t = useTranslations("nav");
   const locale = useLocale();
+  const { first, rest } = splitArtistName(artistName);
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [portalReady, setPortalReady] = useState(false);
@@ -148,9 +154,16 @@ export function SiteHeader() {
       <div className="relative z-10 mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-5 md:py-4">
         <Link
           href="/"
-          className="inline-block min-h-11 min-w-0 shrink font-serif text-base font-semibold leading-tight tracking-[0.04em] text-umber-deep transition-opacity hover:opacity-85 sm:text-lg md:text-xl"
+          className="group inline-flex min-h-11 min-w-0 shrink flex-wrap items-baseline gap-x-1.5 font-serif leading-[1.05] transition-opacity hover:opacity-[0.92]"
         >
-          Ferhat Çubukçu
+          <span className="text-[1.06rem] font-bold tracking-[0.07em] text-umber-deep sm:text-lg md:text-[1.35rem]">
+            {first}
+          </span>
+          {rest ? (
+            <span className="bg-gradient-to-r from-patina via-patina-light to-oxide/85 bg-clip-text text-[1.06rem] font-semibold italic tracking-[0.12em] text-transparent sm:text-lg md:text-[1.35rem]">
+              {rest}
+            </span>
+          ) : null}
         </Link>
 
         <button
