@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
+import type { PDFPage, PDFFont, PDFImage } from "pdf-lib";
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
+import type { Artwork } from "@/lib/types";
 import { readArtworks, readSettings } from "@/lib/data";
 import { absoluteUrl } from "@/lib/site-url";
 
@@ -7,9 +9,17 @@ export const dynamic = "force-dynamic";
 
 const PAGE_W = 595;
 const PAGE_H = 842;
-const MARGIN = 50;
-const IMG_MAX_W = PAGE_W - 2 * MARGIN;
-const IMG_MAX_H = 140;
+const MARGIN = 44;
+const COL_GUTTER = 20;
+const THUMB_H = 118;
+/** Space reserved under each thumbnail for title + meta + URL */
+const TEXT_ZONE = 58;
+const ROW_GAP = 14;
+const FOOTER_BLOCK = 72;
+
+const INNER_W = PAGE_W - 2 * MARGIN;
+const COL_W = (INNER_W - COL_GUTTER) / 2;
+const ROW_H = THUMB_H + 8 + TEXT_ZONE + ROW_GAP;
 
 /** Standard WinAnsi fonts in pdf-lib cannot encode all Unicode; map Turkish letters and fall back for the rest. */
 function textForPdfWinAnsi(input: string): string {
@@ -41,7 +51,6 @@ function textForPdfWinAnsi(input: string): string {
   return out;
 }
 
-/** Prefer ASCII-friendly punctuation so Helvetica WinAnsi never skips glyphs. */
 function sanitizePdfLine(input: string): string {
   return textForPdfWinAnsi(
     input
@@ -110,6 +119,132 @@ async function fetchRasterForPdf(
   }
 }
 
+const INK = rgb(0.11, 0.09, 0.08);
+const MUTED = rgb(0.38, 0.34, 0.3);
+const LINE = rgb(0.72, 0.66, 0.58);
+const PANEL = rgb(0.96, 0.94, 0.9);
+
+function drawWrapped(
+  page: PDFPage,
+  text: string,
+  x: number,
+  startY: number,
+  size: number,
+  font: PDFFont,
+  fontBold: PDFFont,
+  bold: boolean,
+  maxChars: number,
+  color = INK
+): number {
+  let y = startY;
+  const f = bold ? fontBold : font;
+  const safe = sanitizePdfLine(text);
+  if (!safe.trim()) return startY;
+  for (const line of wrapLine(safe, maxChars)) {
+    if (!line) continue;
+    page.drawText(line, {
+      x,
+      y,
+      size,
+      font: f,
+      color,
+    });
+    y -= size + 2.5;
+  }
+  return y;
+}
+
+async function embedArtworkImage(
+  pdfDoc: Awaited<ReturnType<typeof PDFDocument.create>>,
+  imageUrl: string
+): Promise<PDFImage | null> {
+  if (!imageUrl || isProbablySvg(imageUrl)) return null;
+  const raster = await fetchRasterForPdf(imageUrl);
+  if (!raster) return null;
+  try {
+    return raster.kind === "jpg"
+      ? await pdfDoc.embedJpg(raster.bytes)
+      : await pdfDoc.embedPng(raster.bytes);
+  } catch {
+    return null;
+  }
+}
+
+/** Same visual frame for every work: fixed box, image scaled to fit (contain), centered. */
+async function drawCatalogCell(
+  page: PDFPage,
+  pdfDoc: Awaited<ReturnType<typeof PDFDocument.create>>,
+  cellX: number,
+  cellTop: number,
+  colW: number,
+  artwork: Artwork,
+  font: PDFFont,
+  fontBold: PDFFont
+): Promise<void> {
+  const cellBottom = cellTop - THUMB_H;
+
+  page.drawRectangle({
+    x: cellX,
+    y: cellBottom,
+    width: colW,
+    height: THUMB_H,
+    color: PANEL,
+    borderColor: LINE,
+    borderWidth: 0.85,
+  });
+
+  const imgUrl = resolveArtworkImageUrl(artwork.image);
+  const embedded = await embedArtworkImage(pdfDoc, imgUrl);
+  if (embedded) {
+    const { width: iw, height: ih } = embedded;
+    const s = Math.min(colW / iw, THUMB_H / ih);
+    const w = iw * s;
+    const h = ih * s;
+    const offX = (colW - w) / 2;
+    const offY = (THUMB_H - h) / 2;
+    page.drawImage(embedded, {
+      x: cellX + offX,
+      y: cellBottom + offY,
+      width: w,
+      height: h,
+    });
+  }
+
+  const title =
+    sanitizePdfLine(artwork.titleEn || artwork.titleTr || "Untitled") +
+    (artwork.sold ? " (SOLD)" : "");
+  const metaBits = [
+    artwork.year,
+    artwork.mediumEn,
+    artwork.dimensions,
+    artwork.priceEn ? `Price: ${sanitizePdfLine(artwork.priceEn)}` : null,
+    artwork.exhibitionEn
+      ? sanitizePdfLine(artwork.exhibitionEn)
+      : null,
+  ].filter(Boolean) as string[];
+
+  const url = absoluteUrl(`/en/gallery/${artwork.slug}`);
+  const maxChars = Math.max(22, Math.floor(colW / 5.2));
+
+  let ty = cellBottom - 10;
+  ty = drawWrapped(page, title, cellX, ty, 9.5, font, fontBold, true, maxChars, INK);
+  if (metaBits.length) {
+    ty = drawWrapped(
+      page,
+      metaBits.join(" · "),
+      cellX,
+      ty - 2,
+      8,
+      font,
+      fontBold,
+      false,
+      maxChars,
+      MUTED
+    );
+  }
+  drawWrapped(page, url, cellX, ty - 2, 7, font, fontBold, false, maxChars + 4, rgb(0.45, 0.4, 0.38));
+}
+
 export async function GET() {
   const settings = await readSettings();
   const works = (await readArtworks())
@@ -119,105 +254,116 @@ export async function GET() {
   const pdfDoc = await PDFDocument.create();
   const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
   const fontBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+
   let page = pdfDoc.addPage([PAGE_W, PAGE_H]);
-  let y = PAGE_H - MARGIN;
+  let rowTop = PAGE_H - MARGIN;
 
-  const ensureRoom = (minYFromBottom: number) => {
-    if (y < MARGIN + minYFromBottom) {
-      page = pdfDoc.addPage([PAGE_W, PAGE_H]);
-      y = PAGE_H - MARGIN;
-    }
-  };
-
-  const drawLines = (text: string, size = 10, bold = false) => {
-    const f = bold ? fontBold : font;
-    const safe = sanitizePdfLine(text);
-    if (!safe.trim()) return;
-    for (const line of wrapLine(safe, 85)) {
-      if (!line) continue;
-      ensureRoom(size + 24);
-      page.drawText(line, {
-        x: MARGIN,
-        y,
-        size,
-        font: f,
-        color: rgb(0.15, 0.12, 0.1),
-      });
-      y -= size + 3;
-    }
-  };
-
-  const drawImageBlock = async (imageUrl: string) => {
-    if (!imageUrl || isProbablySvg(imageUrl)) return;
-    const raster = await fetchRasterForPdf(imageUrl);
-    if (!raster) return;
-
-    let embedded;
-    try {
-      embedded =
-        raster.kind === "jpg"
-          ? await pdfDoc.embedJpg(raster.bytes)
-          : await pdfDoc.embedPng(raster.bytes);
-    } catch {
-      return;
-    }
-
-    const { width: iw, height: ih } = embedded;
-    const scale = Math.min(IMG_MAX_W / iw, IMG_MAX_H / ih, 1);
-    const w = iw * scale;
-    const h = ih * scale;
-
-    if (y - h < MARGIN) {
-      page = pdfDoc.addPage([PAGE_W, PAGE_H]);
-      y = PAGE_H - MARGIN;
-    }
-    page.drawImage(embedded, {
+  const drawHeader = (p: PDFPage, top: number) => {
+    let y = top;
+    p.drawText(sanitizePdfLine(`${settings.artistName} — published works`), {
       x: MARGIN,
-      y: y - h,
-      width: w,
-      height: h,
+      y,
+      size: 15,
+      font: fontBold,
+      color: INK,
     });
-    y -= h + 10;
+    y -= 20;
+    p.drawText(`Curator pack · ${new Date().toISOString().slice(0, 10)}`, {
+      x: MARGIN,
+      y,
+      size: 8.5,
+      font,
+      color: MUTED,
+    });
+    y -= 12;
+    p.drawLine({
+      start: { x: MARGIN, y },
+      end: { x: PAGE_W - MARGIN, y },
+      thickness: 0.6,
+      color: LINE,
+    });
+    return y - 14;
   };
 
-  drawLines(`${settings.artistName} — published works`, 16, true);
-  y -= 6;
-  drawLines(`Generated ${new Date().toISOString().slice(0, 10)}`, 9);
-  y -= 8;
+  rowTop = drawHeader(page, rowTop - 4);
 
   if (works.length === 0) {
-    drawLines(
+    drawWrapped(
+      page,
       "No published paintings are listed yet. Add or publish works in the admin panel.",
-      10
+      MARGIN,
+      rowTop,
+      10,
+      font,
+      fontBold,
+      false,
+      72
     );
   }
 
-  for (const a of works) {
-    const url = absoluteUrl(`/en/gallery/${a.slug}`);
-    const bits = [
-      a.year,
-      a.mediumEn,
-      a.dimensions,
-      a.priceEn ? `Price: ${a.priceEn}` : null,
-    ].filter(Boolean);
+  const minY = MARGIN + FOOTER_BLOCK;
 
-    drawLines(a.titleEn || a.titleTr || "Untitled", 12, true);
-
-    const imgUrl = resolveArtworkImageUrl(a.image);
-    await drawImageBlock(imgUrl);
-
-    if (bits.length) {
-      drawLines(bits.map(String).join(" · "), 9);
+  for (let i = 0; i < works.length; i += 2) {
+    if (rowTop - ROW_H < minY) {
+      page = pdfDoc.addPage([PAGE_W, PAGE_H]);
+      rowTop = PAGE_H - MARGIN - 8;
     }
-    drawLines(url, 8);
-    y -= 8;
+
+    const left = works[i]!;
+    const right = works[i + 1];
+
+    await drawCatalogCell(page, pdfDoc, MARGIN, rowTop, COL_W, left, font, fontBold);
+    if (right) {
+      await drawCatalogCell(
+        page,
+        pdfDoc,
+        MARGIN + COL_W + COL_GUTTER,
+        rowTop,
+        COL_W,
+        right,
+        font,
+        fontBold
+      );
+    }
+
+    rowTop -= ROW_H;
   }
 
-  y -= 4;
-  drawLines("-", 10);
-  drawLines(`Contact: ${settings.contactEmail || ""}`, 10);
+  /** Footer fixed to bottom band of last page (body layout reserves `FOOTER_BLOCK`). */
+  const lastPage = pdfDoc.getPages().at(-1)!;
+  const footerRuleY = MARGIN + 52;
+  lastPage.drawLine({
+    start: { x: MARGIN, y: footerRuleY },
+    end: { x: PAGE_W - MARGIN, y: footerRuleY },
+    thickness: 0.5,
+    color: LINE,
+  });
+  let fy = footerRuleY - 8;
+  fy = drawWrapped(
+    lastPage,
+    `Contact: ${sanitizePdfLine(settings.contactEmail || "")}`,
+    MARGIN,
+    fy,
+    9,
+    font,
+    fontBold,
+    false,
+    80
+  );
   const beh = settings.behance?.trim();
-  if (beh) drawLines(`Portfolio: ${beh}`, 10);
+  if (beh) {
+    drawWrapped(
+      lastPage,
+      `Portfolio: ${sanitizePdfLine(beh)}`,
+      MARGIN,
+      fy - 2,
+      9,
+      font,
+      fontBold,
+      false,
+      80
+    );
+  }
 
   const pdfBytes = await pdfDoc.save();
   const filename = `ferhat-cubukcu-curator-${new Date().toISOString().slice(0, 10)}.pdf`;

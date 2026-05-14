@@ -34,7 +34,7 @@ export async function HomeHeroSection({
             {t("phiEyebrow")}
           </p>
           <h1 className="text-balance font-serif leading-[1.02] tracking-tight">
-            <span className="block text-[clamp(1.85rem,5.2vw,3.35rem)] font-bold tracking-[0.04em] text-umber-deep drop-shadow-[0_2px_18px_rgba(244,239,230,0.55)]">
+            <span className="block bg-gradient-to-br from-patina via-goldleaf/80 to-oxide bg-clip-text text-[clamp(1.85rem,5.2vw,3.35rem)] font-semibold italic tracking-[0.08em] text-transparent drop-shadow-[0_2px_18px_rgba(244,239,230,0.55)]">
               {first}
             </span>
             {rest ? (
