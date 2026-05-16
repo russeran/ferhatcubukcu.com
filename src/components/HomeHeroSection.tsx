@@ -34,11 +34,11 @@ export async function HomeHeroSection({
             {t("phiEyebrow")}
           </p>
           <h1 className="text-balance font-serif leading-[1.02] tracking-tight">
-            <span className="block bg-gradient-to-br from-patina via-goldleaf/80 to-oxide bg-clip-text text-[clamp(1.85rem,5.2vw,3.35rem)] font-semibold italic tracking-[0.08em] text-transparent drop-shadow-[0_2px_18px_rgba(244,239,230,0.55)]">
+            <span className="block bg-gradient-to-br from-patina via-goldleaf to-oxide bg-clip-text text-[clamp(2rem,5.8vw,3.65rem)] font-bold italic tracking-[0.06em] text-transparent drop-shadow-[0_2px_20px_rgba(244,239,230,0.65)]">
               {first}
             </span>
             {rest ? (
-              <span className="mt-1.5 block bg-gradient-to-br from-patina via-goldleaf/80 to-oxide bg-clip-text text-[clamp(1.65rem,4.6vw,2.95rem)] font-semibold italic tracking-[0.08em] text-transparent sm:mt-2">
+              <span className="mt-1.5 block bg-gradient-to-br from-patina via-goldleaf to-oxide bg-clip-text text-[clamp(1.85rem,5.2vw,3.2rem)] font-bold italic tracking-[0.06em] text-transparent drop-shadow-[0_2px_16px_rgba(244,239,230,0.55)] sm:mt-2">
                 {rest}
               </span>
             ) : null}
