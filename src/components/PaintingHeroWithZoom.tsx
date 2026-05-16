@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { Link } from "@/i18n/navigation";
+import { useCallback, useEffect, useState } from "react";
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { SoldStamp } from "@/components/SoldStamp";
 import {
   ZoomablePaintingFrame,
@@ -26,6 +26,8 @@ type Props = {
   nextSlug?: string | null;
   prevLabel?: string;
   nextLabel?: string;
+  /** Open lightbox on load when URL has `?zoom=1` (e.g. after prev/next in zoom). */
+  initialZoomOpen?: boolean;
 };
 
 export function PaintingHeroWithZoom({
@@ -44,9 +46,26 @@ export function PaintingHeroWithZoom({
   nextSlug = null,
   prevLabel = "Previous",
   nextLabel = "Next",
+  initialZoomOpen = false,
 }: Props) {
-  const [open, setOpen] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
+  const [open, setOpen] = useState(initialZoomOpen);
   const hasNav = Boolean(prevSlug || nextSlug);
+
+  useEffect(() => {
+    setOpen(initialZoomOpen);
+  }, [initialZoomOpen, src]);
+
+  const closeZoom = useCallback(() => {
+    setOpen(false);
+    router.replace(pathname, { scroll: false });
+  }, [pathname, router]);
+
+  const openZoom = useCallback(() => {
+    setOpen(true);
+    router.replace(`${pathname}?zoom=1`, { scroll: false });
+  }, [pathname, router]);
 
   useEffect(() => {
     if (!open) return;
@@ -60,17 +79,23 @@ export function PaintingHeroWithZoom({
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
+      if (e.key === "Escape") closeZoom();
+      if (e.key === "ArrowLeft" && prevSlug) {
+        router.replace(`/gallery/${prevSlug}?zoom=1`, { scroll: false });
+      }
+      if (e.key === "ArrowRight" && nextSlug) {
+        router.replace(`/gallery/${nextSlug}?zoom=1`, { scroll: false });
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [open]);
+  }, [open, closeZoom, prevSlug, nextSlug, router]);
 
   return (
     <>
       <button
         type="button"
-        onClick={() => setOpen(true)}
+        onClick={openZoom}
         className="group relative aspect-[3/4] w-full overflow-hidden rounded-md bg-white text-left shadow-gallery ring-1 ring-umber/10 lg:aspect-[4/5] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-goldleaf/50 focus-visible:ring-offset-2 focus-visible:ring-offset-parchment"
         aria-label={openZoomLabel}
       >
@@ -103,17 +128,19 @@ export function PaintingHeroWithZoom({
             </p>
             <button
               type="button"
-              onClick={() => setOpen(false)}
+              onClick={closeZoom}
               className="focus-ring shrink-0 rounded-md px-3 py-2 text-xs font-semibold uppercase tracking-wider text-parchment/80 hover:text-parchment"
             >
               {closeLabel}
             </button>
           </div>
           <ZoomablePaintingFrame
+            key={src}
             src={src}
             alt={alt}
             sizes="(max-width: 1024px) 100vw, 90vw"
             priority
+            resetKey={src}
             zoomInLabel={zoomInLabel}
             zoomOutLabel={zoomOutLabel}
             zoomResetLabel={zoomResetLabel}
@@ -124,11 +151,10 @@ export function PaintingHeroWithZoom({
             floatingLeft={
               prevSlug ? (
                 <Link
-                  href={`/gallery/${prevSlug}`}
+                  href={`/gallery/${prevSlug}?zoom=1`}
                   scroll={false}
                   className={zoomFrameNavBtnClass}
                   aria-label={prevLabel}
-                  onClick={() => setOpen(false)}
                 >
                   <span aria-hidden>←</span>
                 </Link>
@@ -137,11 +163,10 @@ export function PaintingHeroWithZoom({
             floatingRight={
               nextSlug ? (
                 <Link
-                  href={`/gallery/${nextSlug}`}
+                  href={`/gallery/${nextSlug}?zoom=1`}
                   scroll={false}
                   className={zoomFrameNavBtnClass}
                   aria-label={nextLabel}
-                  onClick={() => setOpen(false)}
                 >
                   <span aria-hidden>→</span>
                 </Link>

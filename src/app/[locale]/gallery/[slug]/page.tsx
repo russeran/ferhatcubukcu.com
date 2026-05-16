@@ -23,7 +23,7 @@ import {
 
 type Props = {
   params: Promise<{ locale: string; slug: string }>;
-  searchParams: Promise<{ room?: string }>;
+  searchParams: Promise<{ room?: string; zoom?: string }>;
 };
 
 export const dynamic = "force-dynamic";
@@ -86,6 +86,7 @@ export default async function GalleryDetailPage({
   const { locale, slug } = await params;
   const sp = await searchParams;
   const viewingRoomOpen = sp.room === "1";
+  const zoomOpen = sp.zoom === "1";
   const t = await getTranslations({ locale, namespace: "gallery" });
   const settings = await readSettings();
   const list = await readArtworks();
@@ -201,6 +202,7 @@ export default async function GalleryDetailPage({
             nextSlug={next?.slug ?? null}
             prevLabel={t("viewingRoomPrev")}
             nextLabel={t("viewingRoomNext")}
+            initialZoomOpen={zoomOpen}
           />
           <div className="space-y-8">
             <header className="space-y-3 border-b border-umber/10 pb-8">
