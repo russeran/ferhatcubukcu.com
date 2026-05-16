@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { SoldStamp } from "@/components/SoldStamp";
 import {
@@ -21,6 +21,9 @@ type Props = {
   zoomOutLabel: string;
   zoomResetLabel: string;
   zoomHint?: string;
+  swipeHint?: string;
+  fullscreenLabel: string;
+  exitFullscreenLabel: string;
   sizes: string;
   prevSlug?: string | null;
   nextSlug?: string | null;
@@ -29,6 +32,35 @@ type Props = {
   /** Open lightbox on load when URL has `?zoom=1` (e.g. after prev/next in zoom). */
   initialZoomOpen?: boolean;
 };
+
+function getFullscreenElement(): Element | null {
+  const doc = document as Document & {
+    webkitFullscreenElement?: Element | null;
+  };
+  return doc.fullscreenElement ?? doc.webkitFullscreenElement ?? null;
+}
+
+async function requestShellFullscreen(el: HTMLElement) {
+  const node = el as HTMLElement & {
+    webkitRequestFullscreen?: () => void;
+  };
+  if (node.requestFullscreen) {
+    await node.requestFullscreen();
+  } else if (node.webkitRequestFullscreen) {
+    node.webkitRequestFullscreen();
+  }
+}
+
+async function exitShellFullscreen() {
+  const doc = document as Document & {
+    webkitExitFullscreen?: () => void;
+  };
+  if (doc.fullscreenElement && doc.exitFullscreen) {
+    await doc.exitFullscreen();
+  } else if (doc.webkitExitFullscreen) {
+    doc.webkitExitFullscreen();
+  }
+}
 
 export function PaintingHeroWithZoom({
   src,
@@ -41,6 +73,9 @@ export function PaintingHeroWithZoom({
   zoomOutLabel,
   zoomResetLabel,
   zoomHint,
+  swipeHint,
+  fullscreenLabel,
+  exitFullscreenLabel,
   sizes,
   prevSlug = null,
   nextSlug = null,
@@ -50,15 +85,25 @@ export function PaintingHeroWithZoom({
 }: Props) {
   const router = useRouter();
   const pathname = usePathname();
+  const shellRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(initialZoomOpen);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const hasNav = Boolean(prevSlug || nextSlug);
+
+  const combinedHint = [zoomHint, hasNav && swipeHint ? swipeHint : null]
+    .filter(Boolean)
+    .join(" ");
 
   useEffect(() => {
     setOpen(initialZoomOpen);
   }, [initialZoomOpen, src]);
 
   const closeZoom = useCallback(() => {
+    if (getFullscreenElement()) {
+      exitShellFullscreen().catch(() => {});
+    }
     setOpen(false);
+    setIsFullscreen(false);
     router.replace(pathname, { scroll: false });
   }, [pathname, router]);
 
@@ -66,6 +111,32 @@ export function PaintingHeroWithZoom({
     setOpen(true);
     router.replace(`${pathname}?zoom=1`, { scroll: false });
   }, [pathname, router]);
+
+  const goPrev = useCallback(() => {
+    if (prevSlug) {
+      router.replace(`/gallery/${prevSlug}?zoom=1`, { scroll: false });
+    }
+  }, [prevSlug, router]);
+
+  const goNext = useCallback(() => {
+    if (nextSlug) {
+      router.replace(`/gallery/${nextSlug}?zoom=1`, { scroll: false });
+    }
+  }, [nextSlug, router]);
+
+  const toggleFullscreen = useCallback(async () => {
+    const el = shellRef.current;
+    if (!el) return;
+    try {
+      if (getFullscreenElement()) {
+        await exitShellFullscreen();
+      } else {
+        await requestShellFullscreen(el);
+      }
+    } catch {
+      /* unsupported or denied */
+    }
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -77,19 +148,33 @@ export function PaintingHeroWithZoom({
   }, [open]);
 
   useEffect(() => {
+    const onFsChange = () => {
+      setIsFullscreen(Boolean(getFullscreenElement()));
+    };
+    document.addEventListener("fullscreenchange", onFsChange);
+    document.addEventListener("webkitfullscreenchange", onFsChange);
+    return () => {
+      document.removeEventListener("fullscreenchange", onFsChange);
+      document.removeEventListener("webkitfullscreenchange", onFsChange);
+    };
+  }, []);
+
+  useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") closeZoom();
-      if (e.key === "ArrowLeft" && prevSlug) {
-        router.replace(`/gallery/${prevSlug}?zoom=1`, { scroll: false });
+      if (e.key === "Escape") {
+        if (getFullscreenElement()) {
+          exitShellFullscreen().catch(() => {});
+          return;
+        }
+        closeZoom();
       }
-      if (e.key === "ArrowRight" && nextSlug) {
-        router.replace(`/gallery/${nextSlug}?zoom=1`, { scroll: false });
-      }
+      if (e.key === "ArrowLeft" && prevSlug) goPrev();
+      if (e.key === "ArrowRight" && nextSlug) goNext();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [open, closeZoom, prevSlug, nextSlug, router]);
+  }, [open, closeZoom, goPrev, goNext, prevSlug, nextSlug]);
 
   return (
     <>
@@ -117,22 +202,35 @@ export function PaintingHeroWithZoom({
 
       {open ? (
         <div
-          className="fixed inset-0 z-[260] flex flex-col bg-umber-deep/97 backdrop-blur-md"
+          ref={shellRef}
+          className="fixed inset-0 z-[260] flex flex-col bg-umber-deep/97 backdrop-blur-md supports-[height:100dvh]:min-h-[100dvh] supports-[height:100dvh]:max-h-[100dvh]"
           role="dialog"
           aria-modal="true"
           aria-label={openZoomLabel}
         >
-          <div className="flex shrink-0 items-center justify-between gap-3 border-b border-white/10 px-4 py-3 sm:px-6">
-            <p className="min-w-0 truncate font-serif text-sm text-parchment sm:text-base">
+          <div className="flex shrink-0 items-center justify-between gap-2 border-b border-white/10 px-3 py-3 sm:gap-3 sm:px-6">
+            <p className="min-w-0 flex-1 truncate font-serif text-sm text-parchment sm:text-base">
               {alt}
             </p>
-            <button
-              type="button"
-              onClick={closeZoom}
-              className="focus-ring shrink-0 rounded-md px-3 py-2 text-xs font-semibold uppercase tracking-wider text-parchment/80 hover:text-parchment"
-            >
-              {closeLabel}
-            </button>
+            <div className="flex shrink-0 items-center gap-1 sm:gap-2">
+              <button
+                type="button"
+                onClick={() => void toggleFullscreen()}
+                className="focus-ring rounded-md px-2.5 py-2 text-[10px] font-semibold uppercase tracking-wider text-parchment/80 hover:text-parchment sm:px-3 sm:text-xs"
+                aria-label={
+                  isFullscreen ? exitFullscreenLabel : fullscreenLabel
+                }
+              >
+                {isFullscreen ? exitFullscreenLabel : fullscreenLabel}
+              </button>
+              <button
+                type="button"
+                onClick={closeZoom}
+                className="focus-ring rounded-md px-2.5 py-2 text-[10px] font-semibold uppercase tracking-wider text-parchment/80 hover:text-parchment sm:px-3 sm:text-xs"
+              >
+                {closeLabel}
+              </button>
+            </div>
           </div>
           <ZoomablePaintingFrame
             key={src}
@@ -144,10 +242,12 @@ export function PaintingHeroWithZoom({
             zoomInLabel={zoomInLabel}
             zoomOutLabel={zoomOutLabel}
             zoomResetLabel={zoomResetLabel}
-            zoomHint={zoomHint}
+            zoomHint={combinedHint || undefined}
             variant="dark"
             className="min-h-0 flex-1"
             showFloatingNav={hasNav}
+            onSwipePrev={prevSlug ? goPrev : undefined}
+            onSwipeNext={nextSlug ? goNext : undefined}
             floatingLeft={
               prevSlug ? (
                 <Link

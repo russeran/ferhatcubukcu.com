@@ -82,6 +82,9 @@
     "paintingZoomOut": "Zoom out",
     "paintingZoomReset": "Fit to view",
     "paintingZoomHint": "Ctrl or ⌘ + scroll to zoom. Drag to pan when zoomed. Double-click toggles zoom.",
+    "paintingZoomSwipeHint": "Swipe left or right for the next or previous painting.",
+    "paintingZoomFullscreen": "Full screen",
+    "paintingZoomExitFullscreen": "Exit full screen",
     "paintingZoomOpen": "View larger"
   },
   "press": {

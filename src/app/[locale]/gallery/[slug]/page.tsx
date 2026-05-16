@@ -197,6 +197,9 @@ export default async function GalleryDetailPage({
             zoomOutLabel={t("paintingZoomOut")}
             zoomResetLabel={t("paintingZoomReset")}
             zoomHint={t("paintingZoomHint")}
+            swipeHint={t("paintingZoomSwipeHint")}
+            fullscreenLabel={t("paintingZoomFullscreen")}
+            exitFullscreenLabel={t("paintingZoomExitFullscreen")}
             sizes="(max-width: 1024px) 100vw, 55vw"
             prevSlug={prev?.slug ?? null}
             nextSlug={next?.slug ?? null}

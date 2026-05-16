@@ -30,7 +30,13 @@ type Props = {
   showFloatingNav?: boolean;
   floatingLeft?: ReactNode;
   floatingRight?: ReactNode;
+  /** At default zoom only: swipe right = previous, swipe left = next. */
+  onSwipePrev?: () => void;
+  onSwipeNext?: () => void;
 };
+
+const SWIPE_MIN_PX = 56;
+const SWIPE_AXIS_RATIO = 1.35;
 
 export function ZoomablePaintingFrame({
   src,
@@ -47,9 +53,12 @@ export function ZoomablePaintingFrame({
   showFloatingNav = false,
   floatingLeft,
   floatingRight,
+  onSwipePrev,
+  onSwipeNext,
 }: Props) {
   const vpRef = useRef<HTMLDivElement>(null);
   const panRef = useRef({ x: 0, y: 0 });
+  const scaleRef = useRef(1);
   const [scale, setScale] = useState(1);
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [dragging, setDragging] = useState(false);
@@ -59,6 +68,12 @@ export function ZoomablePaintingFrame({
     px: number;
     py: number;
   } | null>(null);
+  const swipeRef = useRef<{ x: number; y: number } | null>(null);
+  const swipeEnabled = Boolean(onSwipePrev || onSwipeNext);
+
+  useEffect(() => {
+    scaleRef.current = scale;
+  }, [scale]);
 
   useEffect(() => {
     panRef.current = { x: 0, y: 0 };
@@ -115,17 +130,23 @@ export function ZoomablePaintingFrame({
   }, []);
 
   const onPointerDown = (e: React.PointerEvent) => {
-    if (scale <= MIN_SCALE) return;
-    e.preventDefault();
-    e.currentTarget.setPointerCapture(e.pointerId);
-    setDragging(true);
-    const p = panRef.current;
-    dragRef.current = {
-      sx: p.x,
-      sy: p.y,
-      px: e.clientX,
-      py: e.clientY,
-    };
+    if (scale > MIN_SCALE) {
+      e.preventDefault();
+      e.currentTarget.setPointerCapture(e.pointerId);
+      setDragging(true);
+      const p = panRef.current;
+      dragRef.current = {
+        sx: p.x,
+        sy: p.y,
+        px: e.clientX,
+        py: e.clientY,
+      };
+      return;
+    }
+    if (swipeEnabled) {
+      swipeRef.current = { x: e.clientX, y: e.clientY };
+      e.currentTarget.setPointerCapture(e.pointerId);
+    }
   };
 
   const onPointerMove = (e: React.PointerEvent) => {
@@ -140,7 +161,28 @@ export function ZoomablePaintingFrame({
     const was = dragRef.current;
     dragRef.current = null;
     setDragging(false);
-    if (was) {
+
+    const swipeStart = swipeRef.current;
+    swipeRef.current = null;
+
+    if (
+      !was &&
+      swipeStart &&
+      scaleRef.current <= MIN_SCALE &&
+      swipeEnabled
+    ) {
+      const dx = e.clientX - swipeStart.x;
+      const dy = e.clientY - swipeStart.y;
+      if (
+        Math.abs(dx) >= SWIPE_MIN_PX &&
+        Math.abs(dx) > Math.abs(dy) * SWIPE_AXIS_RATIO
+      ) {
+        if (dx > 0) onSwipePrev?.();
+        else onSwipeNext?.();
+      }
+    }
+
+    if (was || swipeStart) {
       try {
         e.currentTarget.releasePointerCapture(e.pointerId);
       } catch {

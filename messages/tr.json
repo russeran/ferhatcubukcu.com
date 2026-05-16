@@ -82,6 +82,9 @@
     "paintingZoomOut": "Uzaklaştır",
     "paintingZoomReset": "Sığdır",
     "paintingZoomHint": "Ctrl veya ⌘ ile kaydırarak yakınlaştırın. Yakınlaştırınca sürükleyin. Çift tıklama yakınlaştırmayı aç/kapatır.",
+    "paintingZoomSwipeHint": "Önceki veya sonraki tablo için sola veya sağa kaydırın.",
+    "paintingZoomFullscreen": "Tam ekran",
+    "paintingZoomExitFullscreen": "Tam ekrandan çık",
     "paintingZoomOpen": "Büyüt"
   },
   "press": {
