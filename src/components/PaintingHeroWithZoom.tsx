@@ -4,11 +4,11 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Link } from "@/i18n/navigation";
 import { SoldStamp } from "@/components/SoldStamp";
-import { ZoomablePaintingFrame } from "@/components/ZoomablePaintingFrame";
+import {
+  ZoomablePaintingFrame,
+  zoomFrameNavBtnClass,
+} from "@/components/ZoomablePaintingFrame";
 import { IMAGE_BLUR_PLACEHOLDER } from "@/lib/image-blur";
-
-const navPillClass =
-  "focus-ring flex h-12 w-12 items-center justify-center rounded-full border-2 border-white/45 bg-black/80 text-xl leading-none text-parchment shadow-xl backdrop-blur-sm transition hover:border-goldleaf/55 hover:bg-black/95 sm:h-14 sm:w-14 sm:text-2xl";
 
 type Props = {
   src: string;
@@ -126,7 +126,7 @@ export function PaintingHeroWithZoom({
                 <Link
                   href={`/gallery/${prevSlug}`}
                   scroll={false}
-                  className={navPillClass}
+                  className={zoomFrameNavBtnClass}
                   aria-label={prevLabel}
                   onClick={() => setOpen(false)}
                 >
@@ -139,7 +139,7 @@ export function PaintingHeroWithZoom({
                 <Link
                   href={`/gallery/${nextSlug}`}
                   scroll={false}
-                  className={navPillClass}
+                  className={zoomFrameNavBtnClass}
                   aria-label={nextLabel}
                   onClick={() => setOpen(false)}
                 >

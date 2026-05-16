@@ -2,7 +2,10 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
-import { ZoomablePaintingFrame } from "@/components/ZoomablePaintingFrame";
+import {
+  ZoomablePaintingFrame,
+  zoomFrameNavBtnClass,
+} from "@/components/ZoomablePaintingFrame";
 
 type Slide = { src: string; alt: string };
 
@@ -137,7 +140,7 @@ export function DetailImagesLightbox({
                           : (i - 1 + slides.length) % slides.length
                       )
                     }
-                    className="focus-ring flex h-12 w-12 items-center justify-center rounded-full border-2 border-white/45 bg-black/80 text-xl leading-none text-parchment shadow-xl backdrop-blur-sm transition hover:border-goldleaf/55 hover:bg-black/95 sm:h-14 sm:w-14 sm:text-2xl"
+                    className={zoomFrameNavBtnClass}
                     aria-label={prevLabel}
                   >
                     ←
@@ -153,7 +156,7 @@ export function DetailImagesLightbox({
                         i === null ? null : (i + 1) % slides.length
                       )
                     }
-                    className="focus-ring flex h-12 w-12 items-center justify-center rounded-full border-2 border-white/45 bg-black/80 text-xl leading-none text-parchment shadow-xl backdrop-blur-sm transition hover:border-goldleaf/55 hover:bg-black/95 sm:h-14 sm:w-14 sm:text-2xl"
+                    className={zoomFrameNavBtnClass}
                     aria-label={nextLabel}
                   >
                     →

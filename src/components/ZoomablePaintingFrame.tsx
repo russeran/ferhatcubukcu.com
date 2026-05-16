@@ -9,6 +9,10 @@ const MIN_SCALE = 1;
 const MAX_SCALE = 3;
 const STEP = 0.35;
 
+/** Prev/next controls — lives in the toolbar below the painting, not on the canvas. */
+export const zoomFrameNavBtnClass =
+  "focus-ring inline-flex min-h-10 min-w-[2.75rem] items-center justify-center gap-1 rounded-md border border-white/25 bg-black/50 px-3 py-2 text-sm font-semibold leading-none text-parchment transition hover:border-goldleaf/50 hover:bg-black/70 sm:min-h-11 sm:min-w-[3rem] sm:text-base";
+
 type Props = {
   src: string;
   alt?: string;
@@ -22,7 +26,7 @@ type Props = {
   resetKey?: string | number;
   className?: string;
   variant?: "dark" | "light";
-  /** When true, render a fixed left/right lane for prev/next above the painting. */
+  /** When true, render prev/next in the toolbar below the painting (not over the image). */
   showFloatingNav?: boolean;
   floatingLeft?: ReactNode;
   floatingRight?: ReactNode;
@@ -207,17 +211,6 @@ export function ZoomablePaintingFrame({
             />
           </div>
         </div>
-        {showFloatingNav ? (
-          <div className="pointer-events-none absolute inset-0 z-30 grid grid-cols-[minmax(3.25rem,4.5rem)_1fr_minmax(3.25rem,4.5rem)] items-center sm:grid-cols-[minmax(4rem,5.5rem)_1fr_minmax(4rem,5.5rem)]">
-            <div className="pointer-events-auto flex items-center justify-center pl-1 sm:pl-2">
-              {floatingLeft}
-            </div>
-            <div className="min-w-0" />
-            <div className="pointer-events-auto flex items-center justify-center pr-1 sm:pr-2">
-              {floatingRight}
-            </div>
-          </div>
-        ) : null}
       </div>
 
       <div
@@ -228,6 +221,17 @@ export function ZoomablePaintingFrame({
             : "border-umber/15 bg-parchment/80"
         )}
       >
+        {showFloatingNav && (floatingLeft || floatingRight) ? (
+          <div
+            className={cn(
+              "flex items-center justify-between gap-3 border-b pb-2",
+              variant === "dark" ? "border-white/10" : "border-umber/15"
+            )}
+          >
+            <div className="flex min-w-0 flex-1 justify-start">{floatingLeft}</div>
+            <div className="flex min-w-0 flex-1 justify-end">{floatingRight}</div>
+          </div>
+        ) : null}
         <div className="flex flex-wrap items-center justify-center gap-2">
           <button
             type="button"

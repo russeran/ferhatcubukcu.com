@@ -3,7 +3,10 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { ArtworkInquiryLink } from "@/components/ArtworkInquiryLink";
-import { ZoomablePaintingFrame } from "@/components/ZoomablePaintingFrame";
+import {
+  ZoomablePaintingFrame,
+  zoomFrameNavBtnClass,
+} from "@/components/ZoomablePaintingFrame";
 import { cn } from "@/lib/utils";
 
 export type ViewingRoomDetailRow = {
@@ -152,7 +155,7 @@ export function ArtworkViewingRoom({
                       <Link
                         href={`/gallery/${prevSlug}?room=1`}
                         scroll={false}
-                        className="focus-ring flex h-12 w-12 items-center justify-center rounded-full border-2 border-white/45 bg-black/80 text-xl leading-none text-parchment shadow-xl backdrop-blur-sm transition hover:border-goldleaf/55 hover:bg-black/95 sm:h-14 sm:w-14 sm:text-2xl"
+                        className={zoomFrameNavBtnClass}
                         aria-label={prevLabel}
                       >
                         <span aria-hidden>←</span>
@@ -164,7 +167,7 @@ export function ArtworkViewingRoom({
                       <Link
                         href={`/gallery/${nextSlug}?room=1`}
                         scroll={false}
-                        className="focus-ring flex h-12 w-12 items-center justify-center rounded-full border-2 border-white/45 bg-black/80 text-xl leading-none text-parchment shadow-xl backdrop-blur-sm transition hover:border-goldleaf/55 hover:bg-black/95 sm:h-14 sm:w-14 sm:text-2xl"
+                        className={zoomFrameNavBtnClass}
                         aria-label={nextLabel}
                       >
                         <span aria-hidden>→</span>
