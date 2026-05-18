@@ -36,6 +36,8 @@ export type Artwork = {
   order: number;
   /** When true, visitors see a SOLD mark; work stays in the gallery. */
   sold?: boolean;
+  /** When true, highlighted in the gallery as an artist’s selection. */
+  favorite?: boolean;
   published: boolean;
   createdAt: string;
 };

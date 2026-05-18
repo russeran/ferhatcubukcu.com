@@ -410,12 +410,11 @@ export async function GET() {
     thickness: 0.5,
     color: LINE,
   });
-  let fy = footerRuleY - 8;
-  fy = drawWrapped(
+  drawWrapped(
     lastPage,
     `Contact: ${sanitizePdfLine(settings.contactEmail || "")}`,
     PAGE_MARGIN,
-    fy,
+    footerRuleY - 8,
     9,
     font,
     fontBold,
