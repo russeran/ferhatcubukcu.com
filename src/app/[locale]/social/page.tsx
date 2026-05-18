@@ -96,7 +96,7 @@ export default async function SocialMediaPage({ params }: Props) {
         ) : null}
 
         {feed.status === "error" ? (
-          <div className="max-w-2xl space-y-4 rounded-sm border border-oxide/25 bg-oxide/5 p-6 text-sm leading-relaxed text-umber/85 sm:p-8 sm:text-base">
+          <div className="accent-panel max-w-2xl space-y-4 p-6 text-sm leading-relaxed text-oxide-deep sm:p-8 sm:text-base">
             <p className="font-medium text-ink">{t("loadErrorTitle")}</p>
             <p>{t("loadErrorHint")}</p>
             <p className="font-mono text-xs text-umber/60">{feed.message}</p>

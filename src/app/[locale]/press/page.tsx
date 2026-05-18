@@ -86,7 +86,7 @@ export default async function PressIndexPage({ params }: Props) {
                     <h2 className="mt-2 font-serif text-xl font-semibold text-ink sm:text-2xl">
                       <Link
                         href={`/press/${p.slug}`}
-                        className="text-ink underline-offset-4 hover:text-oxide hover:underline"
+                        className="text-ink underline-offset-4 hover:text-goldleaf hover:underline"
                       >
                         {title}
                       </Link>
@@ -97,7 +97,7 @@ export default async function PressIndexPage({ params }: Props) {
                     <p className="mt-4">
                       <Link
                         href={`/press/${p.slug}`}
-                        className="text-sm font-medium text-oxide underline-offset-4 hover:underline"
+                        className="accent-link-plain text-sm font-medium"
                       >
                         {t("readMore")}
                       </Link>
@@ -108,7 +108,7 @@ export default async function PressIndexPage({ params }: Props) {
                             href={p.externalUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-sm font-medium text-patina underline-offset-4 hover:text-oxide hover:underline"
+                            className="accent-link-plain text-sm font-medium"
                           >
                             {t("openExternal")}
                           </a>

@@ -171,7 +171,7 @@ export default async function GalleryDetailPage({
       <article className="relative z-10 mx-auto max-w-6xl px-4 py-12 sm:px-5 sm:py-14 md:py-20">
         <Link
           href="/gallery"
-          className="text-sm font-medium text-oxide underline-offset-4 hover:underline"
+          className="accent-link-plain text-sm font-medium"
         >
           ← {t("title")}
         </Link>
@@ -292,7 +292,7 @@ export default async function GalleryDetailPage({
               {!artwork.sold ? (
                 <ArtworkInquiryLink
                   href={inquiryHrefStr}
-                  className="inline-flex rounded-full border border-oxide/30 bg-oxide/5 px-5 py-2.5 text-sm font-semibold text-oxide transition hover:border-oxide hover:bg-oxide/10"
+                  className="accent-outline-btn px-5 py-2.5 text-sm"
                 >
                   {t("inquiryCta")}
                 </ArtworkInquiryLink>

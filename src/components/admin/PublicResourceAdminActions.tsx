@@ -67,7 +67,7 @@ export function PublicResourceAdminActions({
   return (
     <div className={`text-xs ${className}`}>
       {err ? (
-        <p className="mb-2 text-oxide" role="alert">
+        <p className="accent-panel mb-2 px-3 py-2 text-sm text-oxide-deep" role="alert">
           {err}
         </p>
       ) : null}
@@ -83,7 +83,7 @@ export function PublicResourceAdminActions({
           type="button"
           disabled={busy}
           onClick={() => void onDelete()}
-          className="rounded-full border border-oxide/35 bg-transparent px-2.5 py-1 font-medium text-oxide hover:bg-oxide/10 disabled:opacity-50"
+          className="rounded-full border-2 border-oxide bg-[#faf6f1] px-2.5 py-1 font-medium text-oxide-deep hover:bg-[#fffcf7] disabled:opacity-50"
         >
           {kind === "artwork" ? t("deleteArtwork") : t("deleteNews")}
         </button>

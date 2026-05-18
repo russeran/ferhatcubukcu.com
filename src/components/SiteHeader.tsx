@@ -9,6 +9,7 @@ import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { NavNewsHub } from "@/components/NavNewsHub";
 import { cn } from "@/lib/utils";
 import { primaryNavLinks, pathMatchesNav } from "@/lib/site-nav";
+import { ArtistWordmark } from "@/components/ArtistWordmark";
 import { splitArtistName } from "@/lib/split-artist-name";
 
 const navBeforeHub = primaryNavLinks.slice(0, 2);
@@ -144,16 +145,9 @@ export function SiteHeader({
       <div className="relative z-10 mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-5 md:py-4">
         <Link
           href="/"
-          className="group inline-flex min-h-11 min-w-0 shrink flex-wrap items-center gap-x-1.5 self-center rounded-sm py-2 font-serif leading-snug transition-opacity hover:opacity-[0.92] md:flex-nowrap"
+          className="group inline-flex min-h-11 min-w-0 shrink self-center rounded-sm py-2 transition-opacity hover:opacity-[0.94]"
         >
-          <span className="bg-gradient-to-r from-patina via-goldleaf/90 to-oxide bg-clip-text text-[1.12rem] font-bold italic tracking-[0.1em] text-transparent drop-shadow-[0_1px_0_rgba(0,0,0,0.35)] sm:text-xl md:text-[1.5rem]">
-            {first}
-          </span>
-          {rest ? (
-            <span className="bg-gradient-to-r from-patina via-goldleaf/90 to-oxide bg-clip-text text-[1.12rem] font-bold italic tracking-[0.1em] text-transparent drop-shadow-[0_1px_0_rgba(0,0,0,0.35)] sm:text-xl md:text-[1.5rem]">
-              {rest}
-            </span>
-          ) : null}
+          <ArtistWordmark first={first} rest={rest} size="header" />
         </Link>
 
         <button
@@ -207,7 +201,7 @@ export function SiteHeader({
             <NextLink
               href={`/${locale}/admin`}
               prefetch={false}
-              className="ml-1 rounded-sm px-2.5 py-1.5 text-[11px] font-medium uppercase tracking-editorial text-ink-faint transition-colors hover:bg-oxide/15 hover:text-oxide md:text-[12px]"
+              className="ml-1 rounded-sm border border-transparent px-2.5 py-1.5 text-[11px] font-medium uppercase tracking-editorial text-ink-faint transition-colors hover:border-oxide/50 hover:bg-[#faf6f1] hover:text-oxide-deep md:text-[12px]"
             >
               {t("admin")}
             </NextLink>
@@ -270,7 +264,7 @@ export function SiteHeader({
                       <NextLink
                         href={`/${locale}/admin`}
                         prefetch={false}
-                        className="rounded-sm py-3 pl-2.5 text-sm font-semibold uppercase tracking-[0.18em] text-ink hover:text-oxide"
+                        className="rounded-sm border border-transparent py-3 pl-2.5 text-sm font-semibold uppercase tracking-[0.18em] text-ink hover:border-oxide/50 hover:bg-[#faf6f1] hover:text-oxide-deep"
                         onClick={() => setMenuOpen(false)}
                       >
                         {t("admin")}

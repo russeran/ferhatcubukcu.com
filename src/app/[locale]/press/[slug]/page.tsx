@@ -79,7 +79,7 @@ export default async function PressPostPage({ params }: Props) {
     <article className="mx-auto max-w-3xl px-4 py-12 sm:px-5 sm:py-14 md:py-20">
       <Link
         href="/press"
-        className="text-sm font-medium text-oxide underline-offset-4 hover:underline"
+        className="accent-link-plain text-sm font-medium"
       >
         ← {t("title")}
       </Link>
@@ -131,7 +131,7 @@ export default async function PressPostPage({ params }: Props) {
             href={post.externalUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center rounded-full border border-umber/20 bg-parchment/80 px-6 py-3 text-sm font-semibold text-ink transition hover:border-oxide hover:text-oxide"
+            className="accent-outline-btn px-6 py-3 text-sm"
           >
             {t("openExternal")}
           </a>

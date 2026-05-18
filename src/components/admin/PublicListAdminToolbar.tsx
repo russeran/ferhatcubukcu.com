@@ -23,10 +23,10 @@ export function PublicListAdminToolbar({
 
   return (
     <aside
-      className="mb-8 flex flex-col gap-3 rounded-xl border border-oxide/25 bg-gradient-to-r from-oxide/[0.07] to-transparent px-4 py-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-4"
+      className="accent-panel mb-8 flex flex-col gap-3 px-4 py-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-4"
       aria-label={t("toolbarAria")}
     >
-      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-oxide">
+      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-oxide-deep">
         {t("signedIn")}
       </p>
       <div className="flex flex-wrap items-center gap-2 text-sm">

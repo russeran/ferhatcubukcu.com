@@ -48,7 +48,7 @@ export function AdminLoginForm() {
         />
       </label>
       {error ? (
-        <p className="text-sm text-oxide" role="alert">
+        <p className="accent-panel px-3 py-2 text-sm text-oxide-deep" role="alert">
           {error}
         </p>
       ) : null}

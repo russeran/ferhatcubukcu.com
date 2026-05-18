@@ -67,7 +67,7 @@ export default async function ContactPage({ params }: Props) {
             <TrackedOutboundLink
               event="contact_email_click"
               href={`mailto:${settings.contactEmail}`}
-              className="break-words text-base text-oxide hover:text-ink underline-offset-4 hover:underline sm:text-lg"
+              className="accent-link-plain break-words text-base sm:text-lg"
             >
               {settings.contactEmail}
             </TrackedOutboundLink>
@@ -88,7 +88,7 @@ export default async function ContactPage({ params }: Props) {
                 }
                 target="_blank"
                 rel="noopener noreferrer"
-                className="break-words text-base text-patina hover:text-oxide underline-offset-4 hover:underline sm:text-lg"
+                className="accent-link-plain break-words text-base sm:text-lg"
               >
                 {settings.instagram}
               </TrackedOutboundLink>
@@ -105,7 +105,7 @@ export default async function ContactPage({ params }: Props) {
               href={behanceUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="break-words text-base font-medium text-oxide underline-offset-4 hover:underline sm:text-lg"
+              className="accent-link-plain break-words text-base font-medium sm:text-lg"
             >
               {t("behanceLink")}
             </TrackedOutboundLink>

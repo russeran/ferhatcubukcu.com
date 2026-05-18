@@ -250,7 +250,7 @@ export function AdminArtworks() {
     <div className="space-y-12">
       {error ? (
         <p
-          className="rounded-lg border border-oxide/50 bg-oxide/10 px-4 py-3 text-sm text-oxide"
+          className="accent-panel px-4 py-3 text-sm text-oxide-deep"
           role="alert"
         >
           {error}

@@ -54,7 +54,7 @@ export function AdminSettings() {
     <form onSubmit={save} className="space-y-6" onInput={() => setSaved(false)}>
       {error ? (
         <p
-          className="rounded-lg border border-oxide/50 bg-oxide/10 px-4 py-3 text-sm text-oxide"
+          className="accent-panel px-4 py-3 text-sm text-oxide-deep"
           role="alert"
         >
           {error}

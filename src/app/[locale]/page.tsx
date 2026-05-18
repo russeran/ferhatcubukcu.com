@@ -100,7 +100,7 @@ export default async function HomePage({ params }: Props) {
               </div>
               <Link
                 href="/press"
-                className="text-sm font-semibold tracking-wide text-oxide underline-offset-[6px] transition hover:text-ink hover:underline sm:shrink-0"
+                className="accent-link text-sm tracking-wide hover:underline sm:shrink-0"
               >
                 {t("newsViewAll")}
               </Link>
@@ -124,7 +124,7 @@ export default async function HomePage({ params }: Props) {
                       </div>
                     ) : null}
                     <div className="flex flex-1 flex-col p-6">
-                      <h3 className="font-serif text-lg font-medium text-ink transition-colors duration-300 group-hover:text-oxide">
+                      <h3 className="font-serif text-lg font-medium text-ink transition-colors duration-300 group-hover:text-goldleaf">
                         {resolvedNewsTitle(p, locale)}
                       </h3>
                       <p className="mt-2 line-clamp-3 text-sm text-umber/70">
@@ -151,7 +151,7 @@ export default async function HomePage({ params }: Props) {
               </div>
               <Link
                 href="/press"
-                className="text-sm font-semibold tracking-wide text-oxide underline-offset-[6px] transition hover:text-ink hover:underline sm:shrink-0"
+                className="accent-link text-sm tracking-wide hover:underline sm:shrink-0"
               >
                 {t("pressViewAll")}
               </Link>
@@ -171,7 +171,7 @@ export default async function HomePage({ params }: Props) {
                         href={q.url.trim()}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-2 inline-block text-xs font-semibold uppercase tracking-editorial text-oxide hover:underline"
+                        className="accent-link mt-2 inline-block text-xs uppercase tracking-editorial hover:underline"
                       >
                         {locale === "tr" ? "Kaynak" : "Source"}
                       </a>
@@ -197,7 +197,7 @@ export default async function HomePage({ params }: Props) {
           </div>
           <Link
             href="/gallery"
-            className="shrink-0 text-sm font-semibold tracking-wide text-oxide underline-offset-[6px] transition hover:text-ink hover:underline sm:self-end md:inline md:self-auto"
+            className="accent-link shrink-0 text-sm tracking-wide hover:underline sm:self-end md:inline md:self-auto"
           >
             {locale === "tr" ? "Tümü" : "View all"}
           </Link>
@@ -232,7 +232,7 @@ export default async function HomePage({ params }: Props) {
                   </div>
                   <div className="mt-5 flex items-start justify-between gap-3">
                     <div>
-                      <p className="font-serif text-lg font-medium text-ink transition-colors duration-300 group-hover:text-oxide sm:text-xl">
+                      <p className="font-serif text-lg font-medium text-ink transition-colors duration-300 group-hover:text-goldleaf sm:text-xl">
                         {locale === "tr" ? a.titleTr : a.titleEn}
                       </p>
                       {a.year ? (

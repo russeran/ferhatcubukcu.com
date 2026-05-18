@@ -2,6 +2,7 @@ import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import type { SiteSettings } from "@/lib/types";
 import { splitArtistName } from "@/lib/split-artist-name";
+import { ArtistWordmark } from "@/components/ArtistWordmark";
 import { HomeHeroGeometryDecor } from "@/components/HomeHeroGeometryDecor";
 import {
   HomeHeroGalleryShowcase,
@@ -33,15 +34,8 @@ export async function HomeHeroSection({
           <p className="font-mono text-[10px] font-medium uppercase leading-relaxed tracking-[0.28em] text-ink-faint sm:text-[11px]">
             {t("phiEyebrow")}
           </p>
-          <h1 className="text-balance font-serif leading-[1.02] tracking-tight">
-            <span className="block bg-gradient-to-br from-patina via-goldleaf to-oxide bg-clip-text text-[clamp(2rem,5.8vw,3.65rem)] font-bold italic tracking-[0.06em] text-transparent drop-shadow-[0_2px_16px_rgba(0,0,0,0.4)]">
-              {first}
-            </span>
-            {rest ? (
-              <span className="mt-1.5 block bg-gradient-to-br from-patina via-goldleaf to-oxide bg-clip-text text-[clamp(1.85rem,5.2vw,3.2rem)] font-bold italic tracking-[0.06em] text-transparent drop-shadow-[0_2px_14px_rgba(0,0,0,0.35)] sm:mt-2">
-                {rest}
-              </span>
-            ) : null}
+          <h1 className="text-balance leading-[1.02] tracking-tight">
+            <ArtistWordmark first={first} rest={rest} size="hero" className="block" />
           </h1>
           <p className="max-w-xl text-balance font-serif text-2xl font-medium leading-snug tracking-tight text-ink sm:text-3xl md:text-[2.05rem]">
             {tagline}

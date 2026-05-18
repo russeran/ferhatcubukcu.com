@@ -209,7 +209,7 @@ export function ArtworkViewingRoom({
                   <div className="mt-5 border-t border-white/10 pt-4">
                     <ArtworkInquiryLink
                       href={inquiryHref}
-                      className="inline-flex rounded-full border border-oxide/40 bg-oxide/10 px-4 py-2 text-xs font-semibold uppercase tracking-editorial text-goldleaf transition hover:border-goldleaf/80 hover:bg-oxide/20"
+                      className="accent-outline-btn px-4 py-2 text-xs uppercase tracking-editorial"
                     >
                       {inquiryCta}
                     </ArtworkInquiryLink>

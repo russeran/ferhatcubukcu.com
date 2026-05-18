@@ -221,7 +221,7 @@ export default async function GalleryPage({ params, searchParams }: Props) {
             <Link
               href={`/gallery?series=${encodeURIComponent(seriesSpotlight.slug)}${sortQuery ? `&sort=${sortQuery}` : ""}`}
               scroll={false}
-              className="shrink-0 text-sm font-semibold tracking-wide text-oxide underline-offset-[6px] transition hover:text-ink hover:underline"
+              className="accent-link shrink-0 text-sm tracking-wide hover:underline"
             >
               {t("viewSeries")}
             </Link>
@@ -248,7 +248,7 @@ export default async function GalleryPage({ params, searchParams }: Props) {
                       />
                       {a.sold ? <SoldStamp label={t("sold")} /> : null}
                     </div>
-                    <p className="mt-3 font-serif text-sm font-medium text-ink group-hover:text-oxide">
+                    <p className="mt-3 font-serif text-sm font-medium text-ink group-hover:text-goldleaf">
                       {title}
                     </p>
                     {meta ? (
@@ -300,7 +300,7 @@ export default async function GalleryPage({ params, searchParams }: Props) {
                           {a.sold ? <SoldStamp label={t("sold")} /> : null}
                         </div>
                         <div className="mt-4 space-y-1">
-                          <h3 className="font-serif text-lg font-medium text-ink group-hover:text-oxide">
+                          <h3 className="font-serif text-lg font-medium text-ink group-hover:text-goldleaf">
                             {title}
                           </h3>
                           {meta ? (
@@ -369,7 +369,7 @@ export default async function GalleryPage({ params, searchParams }: Props) {
                     {!a.sold ? (
                       <ArtworkInquiryLink
                         href={inquiryHref(title, a.slug)}
-                        className="inline-block text-xs font-semibold uppercase tracking-editorial text-oxide underline-offset-4 hover:underline"
+                        className="accent-link inline-block text-xs uppercase tracking-editorial hover:underline"
                       >
                         {t("inquiryCta")}
                       </ArtworkInquiryLink>

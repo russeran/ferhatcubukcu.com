@@ -110,6 +110,19 @@ body {
       background-size: 26px 26px;
     }
   }
+  /** Venetian red on anthracite — cream ground for legibility */
+  .accent-link {
+    @apply inline-flex items-center rounded-sm border border-oxide/60 bg-[#faf6f1] px-2 py-0.5 font-semibold text-oxide-deep underline-offset-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.85)] transition hover:border-oxide hover:bg-[#fffcf7] hover:text-oxide;
+  }
+  .accent-link-plain {
+    @apply rounded-sm bg-[#faf6f1]/95 px-1.5 py-0.5 font-medium text-oxide-deep underline decoration-oxide/50 underline-offset-4 transition hover:bg-[#fffcf7] hover:text-oxide;
+  }
+  .accent-panel {
+    @apply rounded-sm border border-oxide/55 bg-[#faf6f1] text-oxide-deep shadow-[inset_0_1px_0_rgba(255,255,255,0.8)];
+  }
+  .accent-outline-btn {
+    @apply inline-flex items-center justify-center rounded-full border-2 border-oxide bg-[#faf6f1] font-semibold text-oxide-deep shadow-[inset_0_1px_0_rgba(255,255,255,0.85)] transition hover:border-oxide-deep hover:bg-[#fffcf7];
+  }
 }
 
 ::selection {
