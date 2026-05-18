@@ -110,7 +110,22 @@ body {
     @apply max-w-prose text-pretty leading-relaxed text-ink-muted;
   }
   .prose-content {
-    @apply prose-atelier mx-auto;
+    @apply prose-atelier mx-auto max-w-prose;
+  }
+  .prose-content :where(p, li) {
+    @apply leading-relaxed text-ink-muted;
+  }
+  .prose-content :where(h2, h3, h4) {
+    @apply font-serif font-semibold tracking-tight text-ink;
+  }
+  .prose-content :where(h2) {
+    @apply mt-10 text-2xl sm:text-3xl;
+  }
+  .prose-content :where(h3) {
+    @apply mt-8 text-xl sm:text-2xl;
+  }
+  .prose-content :where(a) {
+    @apply accent-link-plain;
   }
   .page-lead {
     @apply prose-atelier mt-6 max-w-xl text-base sm:mt-8 sm:text-lg;
