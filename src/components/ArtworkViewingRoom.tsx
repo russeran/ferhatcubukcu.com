@@ -104,7 +104,7 @@ export function ArtworkViewingRoom({
         type="button"
         onClick={() => setOpen(true)}
         className={cn(
-          "focus-ring inline-flex shrink-0 items-center gap-2 rounded-full border border-umber/20 bg-parchment/90 px-4 py-2 text-xs font-semibold uppercase tracking-editorial text-umber-deep transition hover:border-goldleaf/50 hover:text-oxide",
+          "focus-ring inline-flex shrink-0 items-center gap-2 rounded-full border border-umber/20 bg-parchment/90 px-4 py-2 text-xs font-semibold uppercase tracking-editorial text-ink transition hover:border-goldleaf/50 hover:text-oxide",
           triggerClassName
         )}
       >

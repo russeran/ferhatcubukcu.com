@@ -43,7 +43,7 @@ export default async function AboutPage({ params }: Props) {
       <p className="font-serif text-[10px] uppercase tracking-[0.38em] text-patina sm:text-[11px]">
         {locale === "tr" ? "Biyografi" : "Biography"}
       </p>
-      <h1 className="mt-3 font-serif text-3xl font-semibold tracking-tight text-umber-deep sm:mt-4 sm:text-4xl md:text-5xl">
+      <h1 className="mt-3 font-serif text-3xl font-semibold tracking-tight text-ink sm:mt-4 sm:text-4xl md:text-5xl">
         {t("title")}
       </h1>
       <div className="prose-atelier mx-auto mt-8 space-y-5 text-base text-umber/80 sm:mt-10 sm:space-y-6 sm:text-lg">

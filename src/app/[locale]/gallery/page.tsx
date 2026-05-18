@@ -116,13 +116,13 @@ export default async function GalleryPage({ params, searchParams }: Props) {
         <div className="max-w-2xl">
           <div className="gold-rule mb-4" aria-hidden />
           <p className="editorial-eyebrow">{t("eyebrow")}</p>
-          <h1 className="mt-4 text-balance font-serif text-3xl font-semibold tracking-tight text-umber-deep sm:text-4xl md:text-5xl">
+          <h1 className="mt-4 text-balance font-serif text-3xl font-semibold tracking-tight text-ink sm:text-4xl md:text-5xl">
             {t("title")}
           </h1>
           {deckLine?.trim() ? (
             <div className="mt-6 max-w-2xl">
               <div className="gold-rule mb-4" aria-hidden />
-              <p className="font-serif text-lg font-medium leading-snug text-umber-deep/90 sm:text-xl md:text-2xl">
+              <p className="font-serif text-lg font-medium leading-snug text-ink/90 sm:text-xl md:text-2xl">
                 {deckLine.trim()}
               </p>
             </div>
@@ -211,7 +211,7 @@ export default async function GalleryPage({ params, searchParams }: Props) {
             <div>
               <div className="gold-rule mb-3" aria-hidden />
               <p className="editorial-eyebrow">{t("seriesSpotlightTitle")}</p>
-              <h2 className="mt-2 font-serif text-2xl font-semibold text-umber-deep sm:text-3xl">
+              <h2 className="mt-2 font-serif text-2xl font-semibold text-ink sm:text-3xl">
                 {locale === "tr"
                   ? seriesSpotlight.labelTr
                   : seriesSpotlight.labelEn}
@@ -220,7 +220,7 @@ export default async function GalleryPage({ params, searchParams }: Props) {
             <Link
               href={`/gallery?series=${encodeURIComponent(seriesSpotlight.slug)}${sortQuery ? `&sort=${sortQuery}` : ""}`}
               scroll={false}
-              className="shrink-0 text-sm font-semibold tracking-wide text-oxide underline-offset-[6px] transition hover:text-umber-deep hover:underline"
+              className="shrink-0 text-sm font-semibold tracking-wide text-oxide underline-offset-[6px] transition hover:text-ink hover:underline"
             >
               {t("viewSeries")}
             </Link>
@@ -246,7 +246,7 @@ export default async function GalleryPage({ params, searchParams }: Props) {
                       />
                       {a.sold ? <SoldStamp label={t("sold")} /> : null}
                     </div>
-                    <p className="mt-3 line-clamp-2 font-serif text-sm font-medium text-umber-deep group-hover:text-oxide">
+                    <p className="mt-3 line-clamp-2 font-serif text-sm font-medium text-ink group-hover:text-oxide">
                       {title}
                     </p>
                   </Link>
@@ -264,7 +264,7 @@ export default async function GalleryPage({ params, searchParams }: Props) {
           {groupArtworksByYear(list).map(({ yearLabel, items }) => (
             <section key={yearLabel}>
               <div className="mb-4 flex items-baseline gap-4">
-                <h2 className="font-serif text-2xl font-semibold text-umber-deep md:text-3xl">
+                <h2 className="font-serif text-2xl font-semibold text-ink md:text-3xl">
                   {yearLabel}
                 </h2>
                 <div className="h-px flex-1 bg-gradient-to-r from-goldleaf/50 to-transparent" />
@@ -292,11 +292,11 @@ export default async function GalleryPage({ params, searchParams }: Props) {
                           {a.sold ? <SoldStamp label={t("sold")} /> : null}
                         </div>
                         <div className="mt-4 space-y-1">
-                          <h3 className="font-serif text-lg font-medium text-umber-deep group-hover:text-oxide">
+                          <h3 className="font-serif text-lg font-medium text-ink group-hover:text-oxide">
                             {title}
                           </h3>
                           {price ? (
-                            <p className="text-sm font-medium text-umber-deep/95">
+                            <p className="text-sm font-medium text-ink/95">
                               {price}
                             </p>
                           ) : null}
@@ -339,7 +339,7 @@ export default async function GalleryPage({ params, searchParams }: Props) {
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-umber-deep/30 via-transparent to-transparent opacity-0 transition duration-500 ease-out-expo group-hover:opacity-100" />
                   </div>
                   <div className="mt-5 space-y-2">
-                    <h2 className="font-serif text-xl font-medium text-umber-deep sm:text-2xl">
+                    <h2 className="font-serif text-xl font-medium text-ink sm:text-2xl">
                       {title}
                     </h2>
                     <p className="text-sm text-umber/55">
@@ -348,7 +348,7 @@ export default async function GalleryPage({ params, searchParams }: Props) {
                         .join(" · ")}
                     </p>
                     {price ? (
-                      <p className="text-sm font-medium text-umber-deep/95">
+                      <p className="text-sm font-medium text-ink/95">
                         {price}
                       </p>
                     ) : null}

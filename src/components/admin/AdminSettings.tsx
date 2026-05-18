@@ -317,7 +317,7 @@ export function AdminSettings() {
       </div>
       <button
         type="submit"
-        className="rounded-full bg-goldleaf px-8 py-3 text-sm font-semibold text-umber-deep hover:bg-parchment"
+        className="rounded-full bg-goldleaf px-8 py-3 text-sm font-semibold text-ink hover:bg-parchment"
       >
         {t("save")}
       </button>

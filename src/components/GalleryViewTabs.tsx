@@ -45,8 +45,8 @@ export function GalleryViewTabs({
         className={cn(
           "rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-editorial transition duration-300 ease-out-expo",
           view === "grid"
-            ? "bg-umber-deep text-parchment shadow-sm"
-            : "text-umber/65 hover:text-umber-deep"
+            ? "bg-goldleaf text-anthracite-deep shadow-sm"
+            : "text-umber/65 hover:text-ink"
         )}
         aria-selected={view === "grid"}
         role="tab"
@@ -59,8 +59,8 @@ export function GalleryViewTabs({
         className={cn(
           "rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-editorial transition duration-300 ease-out-expo",
           view === "chronology"
-            ? "bg-umber-deep text-parchment shadow-sm"
-            : "text-umber/65 hover:text-umber-deep"
+            ? "bg-goldleaf text-anthracite-deep shadow-sm"
+            : "text-umber/65 hover:text-ink"
         )}
         aria-selected={view === "chronology"}
         role="tab"

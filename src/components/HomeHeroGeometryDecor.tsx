@@ -8,7 +8,7 @@ export function HomeHeroGeometryDecor() {
         <div className="absolute bottom-[8%] left-[40%] h-[26%] w-[min(34%,280px)] bg-goldleaf/90 md:left-[42%]" />
         <div className="absolute left-0 top-[18%] h-[22%] w-[min(28%,200px)] bg-patina-light/80" />
       </div>
-      <div className="absolute -right-[8%] top-[6%] h-[min(88vw,560px)] w-[min(88vw,560px)] text-umber-deep/[0.11] motion-reduce:opacity-0 sm:-right-[4%] sm:top-[10%] md:h-[min(72vh,600px)] md:w-[min(72vh,600px)]">
+      <div className="absolute -right-[8%] top-[6%] h-[min(88vw,560px)] w-[min(88vw,560px)] text-ink/[0.11] motion-reduce:opacity-0 sm:-right-[4%] sm:top-[10%] md:h-[min(72vh,600px)] md:w-[min(72vh,600px)]">
         <svg
           className="h-full w-full motion-safe:animate-hero-atmosphere"
           viewBox="0 0 100 100"

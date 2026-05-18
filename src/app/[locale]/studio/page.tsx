@@ -39,7 +39,7 @@ export default async function StudioPage({ params }: Props) {
     <div className="relative z-10 mx-auto max-w-3xl px-4 py-14 sm:px-5 sm:py-16 md:py-24">
       <div className="gold-rule mb-6" aria-hidden />
       <p className="editorial-eyebrow">{t("eyebrow")}</p>
-      <h1 className="mt-4 text-balance font-serif text-3xl font-semibold tracking-tight text-umber-deep sm:text-4xl md:text-5xl">
+      <h1 className="mt-4 text-balance font-serif text-3xl font-semibold tracking-tight text-ink sm:text-4xl md:text-5xl">
         {t("title")}
       </h1>
       <p className="prose-atelier mt-6 text-lg text-umber/80">
@@ -48,7 +48,7 @@ export default async function StudioPage({ params }: Props) {
       <div className="mt-14 space-y-12 border-t border-umber/10 pt-14">
         {BLOCK_KEYS.map((key) => (
           <section key={key}>
-            <h2 className="font-serif text-xl font-semibold text-umber-deep sm:text-2xl">
+            <h2 className="font-serif text-xl font-semibold text-ink sm:text-2xl">
               {t(`${key}Title` as "b1Title")}
             </h2>
             <p className="prose-atelier mt-3 whitespace-pre-wrap text-umber/75">

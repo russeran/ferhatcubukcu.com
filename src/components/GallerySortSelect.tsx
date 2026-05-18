@@ -24,7 +24,7 @@ export function GallerySortSelect({ label, options }: Props) {
         {label}
       </span>
       <select
-        className="focus-ring min-h-11 max-w-full rounded-md border border-umber/15 bg-parchment/80 px-3 py-2.5 text-sm text-umber-deep shadow-sm backdrop-blur-sm sm:min-w-[14rem]"
+        className="focus-ring min-h-11 max-w-full rounded-md border border-umber/15 bg-parchment/80 px-3 py-2.5 text-sm text-ink shadow-sm backdrop-blur-sm sm:min-w-[14rem]"
         value={current}
         onChange={(e) => {
           const v = e.target.value as GallerySortId;

@@ -215,7 +215,7 @@ export function ZoomablePaintingFrame({
 
   const btnBase =
     variant === "light"
-      ? "rounded-md border border-umber/25 bg-parchment/90 px-3 py-1.5 text-xs font-semibold text-umber-deep transition hover:border-oxide/40 disabled:pointer-events-none disabled:opacity-35"
+      ? "rounded-md border border-umber/25 bg-parchment/90 px-3 py-1.5 text-xs font-semibold text-ink transition hover:border-oxide/40 disabled:pointer-events-none disabled:opacity-35"
       : "rounded-md border border-white/20 bg-black/40 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-parchment/90 transition hover:bg-black/55 disabled:pointer-events-none disabled:opacity-35";
 
   return (

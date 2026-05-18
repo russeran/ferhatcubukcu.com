@@ -55,7 +55,7 @@ export function AdminLoginForm() {
       <button
         type="submit"
         disabled={pending}
-        className="w-full rounded-full bg-goldleaf px-6 py-3 text-sm font-semibold text-umber-deep transition hover:bg-parchment disabled:opacity-50"
+        className="w-full rounded-full bg-goldleaf px-6 py-3 text-sm font-semibold text-ink transition hover:bg-parchment disabled:opacity-50"
       >
         {pending ? "…" : t("signIn")}
       </button>

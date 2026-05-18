@@ -59,7 +59,7 @@ export default async function SocialMediaPage({ params }: Props) {
           <p className="font-serif text-[10px] uppercase tracking-[0.38em] text-patina sm:text-[11px]">
             {t("eyebrow")}
           </p>
-          <h1 className="mt-3 font-serif text-3xl font-semibold tracking-tight text-umber-deep sm:mt-4 sm:text-4xl md:text-5xl">
+          <h1 className="mt-3 font-serif text-3xl font-semibold tracking-tight text-ink sm:mt-4 sm:text-4xl md:text-5xl">
             {t("title")}
           </h1>
           <p className="mt-4 max-w-2xl text-base text-umber/75 sm:text-lg">
@@ -71,7 +71,7 @@ export default async function SocialMediaPage({ params }: Props) {
           href={profileUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="shrink-0 self-start rounded-sm border border-umber/20 bg-parchment/90 px-5 py-2.5 text-sm font-medium text-umber-deep underline-offset-4 transition hover:border-goldleaf/50 hover:text-oxide md:self-auto"
+          className="shrink-0 self-start rounded-sm border border-umber/20 bg-parchment/90 px-5 py-2.5 text-sm font-medium text-ink underline-offset-4 transition hover:border-goldleaf/50 hover:text-oxide md:self-auto"
         >
           {t("profileCta")}
         </TrackedOutboundLink>
@@ -88,7 +88,7 @@ export default async function SocialMediaPage({ params }: Props) {
 
         {feed.status === "missing_env" ? (
           <div className="max-w-2xl space-y-4 rounded-sm border border-umber/12 bg-parchment/80 p-6 text-sm leading-relaxed text-umber/80 sm:p-8 sm:text-base">
-            <p className="font-medium text-umber-deep">{t("configureTitle")}</p>
+            <p className="font-medium text-ink">{t("configureTitle")}</p>
             <p>{t("configureP1")}</p>
             <p>{t("configureP2")}</p>
             <p className="text-umber/65">{t("configureP3")}</p>
@@ -97,7 +97,7 @@ export default async function SocialMediaPage({ params }: Props) {
 
         {feed.status === "error" ? (
           <div className="max-w-2xl space-y-4 rounded-sm border border-oxide/25 bg-oxide/5 p-6 text-sm leading-relaxed text-umber/85 sm:p-8 sm:text-base">
-            <p className="font-medium text-umber-deep">{t("loadErrorTitle")}</p>
+            <p className="font-medium text-ink">{t("loadErrorTitle")}</p>
             <p>{t("loadErrorHint")}</p>
             <p className="font-mono text-xs text-umber/60">{feed.message}</p>
           </div>

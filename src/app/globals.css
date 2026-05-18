@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: light;
-  --atelier-base: #b2aaa0;
-  --atelier-ink: #1a1714;
+  color-scheme: dark;
+  --atelier-base: #383e42;
+  --atelier-ink: #f0ede8;
 }
 
 html {
@@ -13,7 +13,6 @@ html {
 }
 
 @layer base {
-  /* Keyboard focus: gold ring so links/buttons match site chrome */
   a:focus-visible,
   button:focus-visible,
   summary:focus-visible,
@@ -30,87 +29,81 @@ html {
 }
 
 body {
-  @apply text-umber-deep antialiased;
-  /* Darker warm “studio mat” (~20% deeper than prior) */
-  background-color: #8c8074;
+  @apply text-ink antialiased;
+  background-color: #383e42;
   background-image:
     linear-gradient(
       180deg,
-      #988d82 0%,
-      #8e8277 42%,
-      #8c8074 58%,
-      #90857a 100%
+      #40464c 0%,
+      #3a4046 42%,
+      #383e42 58%,
+      #3c4248 100%
     ),
     linear-gradient(
       90deg,
-      rgba(26, 23, 20, 0.16) 0%,
-      rgba(26, 23, 20, 0.04) 14%,
+      rgba(0, 0, 0, 0.22) 0%,
+      rgba(0, 0, 0, 0.06) 14%,
       transparent 24%,
       transparent 76%,
-      rgba(26, 23, 20, 0.04) 86%,
-      rgba(26, 23, 20, 0.16) 100%
+      rgba(0, 0, 0, 0.06) 86%,
+      rgba(0, 0, 0, 0.22) 100%
     ),
     linear-gradient(
       180deg,
-      rgba(26, 23, 20, 0.1) 0%,
+      rgba(0, 0, 0, 0.14) 0%,
       transparent 11%,
       transparent 89%,
-      rgba(26, 23, 20, 0.12) 100%
+      rgba(0, 0, 0, 0.2) 100%
     ),
     linear-gradient(
       118deg,
-      rgba(201, 168, 90, 0.11) 0%,
+      rgba(201, 168, 90, 0.07) 0%,
       transparent 38%
     ),
     linear-gradient(
       -72deg,
       transparent 52%,
-      rgba(146, 47, 61, 0.055) 100%
+      rgba(146, 47, 61, 0.05) 100%
     ),
     theme("backgroundImage.fibonacci-hint"),
     theme("backgroundImage.grain-fine");
   background-attachment: fixed;
-  /* Respect display cutouts (notched phones) without fighting page max-width containers */
   padding-left: env(safe-area-inset-left, 0px);
   padding-right: env(safe-area-inset-right, 0px);
 }
 
 @layer components {
   .editorial-eyebrow {
-    @apply font-serif text-[10px] uppercase tracking-[0.42em] text-sienna-muted sm:text-[11px];
+    @apply font-serif text-[10px] uppercase tracking-[0.42em] text-goldleaf/85 sm:text-[11px];
   }
   .gold-rule {
     @apply h-px w-14 bg-gradient-to-r from-goldleaf via-goldleaf/60 to-transparent sm:w-20;
   }
   .gallery-image-frame {
-    @apply overflow-hidden rounded-md bg-gradient-to-br from-parchment-warm to-parchment-dark ring-1 ring-umber/15 transition-[box-shadow,transform] duration-700 ease-out-expo;
+    @apply overflow-hidden rounded-md bg-gradient-to-br from-parchment-warm to-parchment-dark ring-1 ring-white/10 transition-[box-shadow,transform] duration-700 ease-out-expo;
     box-shadow:
-      0 26px 52px -14px rgba(26, 23, 20, 0.18),
-      0 10px 24px -10px rgba(125, 76, 58, 0.12),
-      inset 0 0 0 1px rgba(255, 252, 245, 0.38),
-      inset 0 1px 0 rgba(255, 252, 245, 0.55);
+      0 26px 52px -14px rgba(0, 0, 0, 0.45),
+      0 10px 24px -10px rgba(0, 0, 0, 0.28),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
   }
   .gallery-image-frame-hover {
     @apply group-hover:shadow-gallery-hover group-hover:ring-goldleaf/35;
   }
-  /** Editorial inset panels — like museum captions */
   .surface-caption {
-    @apply rounded-sm border border-umber/10 bg-gradient-to-br from-parchment/95 via-parchment-warm/90 to-parchment-dark/40 px-5 py-4 shadow-[inset_0_1px_0_rgba(255,252,245,0.65)];
+    @apply rounded-sm border border-white/10 bg-gradient-to-br from-parchment/95 via-parchment-warm/90 to-parchment-dark/80 px-5 py-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)];
   }
-  /** Comfortable measure for long reading (bio, news body, studio). */
   .prose-atelier {
-    @apply max-w-prose text-pretty leading-relaxed;
+    @apply max-w-prose text-pretty leading-relaxed text-ink-muted;
   }
-  /** Image / card loading placeholder — warm tones, not neutral gray. */
   .skeleton-parchment {
-    @apply animate-pulse rounded-md bg-gradient-to-br from-parchment-dark/80 via-parchment-warm/60 to-parchment-ink/40;
+    @apply animate-pulse rounded-md bg-gradient-to-br from-parchment-dark/90 via-parchment/70 to-anthracite-light/50;
   }
-  /** Sitewide main backdrop — squared drafting grid over warm parchment */
   .hero-blueprint-grid {
     background-size: 22px 22px;
     background-image:
-      linear-gradient(to right, rgba(26, 23, 20, 0.045) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(26, 23, 20, 0.045) 1px, transparent 1px);
+      linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
   }
   @media (min-width: 640px) {
     .hero-blueprint-grid {
@@ -120,15 +113,15 @@ body {
 }
 
 ::selection {
-  @apply bg-goldleaf/30 text-umber-deep;
+  @apply bg-goldleaf/35 text-ink;
 }
 
 .focus-ring {
-  @apply outline-none ring-2 ring-oxide/35 ring-offset-2 ring-offset-parchment;
+  @apply outline-none ring-2 ring-oxide/45 ring-offset-2 ring-offset-anthracite;
 }
 
 header .focus-ring {
-  @apply ring-goldleaf/50 ring-offset-2 ring-offset-parchment;
+  @apply ring-goldleaf/50 ring-offset-2 ring-offset-anthracite-dark;
 }
 
 @media (prefers-reduced-motion: reduce) {

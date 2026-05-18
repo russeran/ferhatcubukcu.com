@@ -75,7 +75,7 @@ export function PublicResourceAdminActions({
         <NextLink
           href={editHref}
           prefetch={false}
-          className="rounded-full border border-umber-deep/20 bg-white/90 px-2.5 py-1 font-medium text-umber-deep hover:border-oxide hover:text-oxide"
+          className="rounded-full border border-umber-deep/20 bg-white/90 px-2.5 py-1 font-medium text-ink hover:border-oxide hover:text-oxide"
         >
           {kind === "artwork" ? t("editArtwork") : t("editNews")}
         </NextLink>

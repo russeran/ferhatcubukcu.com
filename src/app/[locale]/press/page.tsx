@@ -60,7 +60,7 @@ export default async function PressIndexPage({ params }: Props) {
       <p className="font-serif text-[10px] uppercase tracking-[0.38em] text-patina sm:text-[11px]">
         {t("eyebrow")}
       </p>
-      <h1 className="mt-2 font-serif text-3xl font-semibold tracking-tight text-umber-deep sm:text-4xl md:text-5xl">
+      <h1 className="mt-2 font-serif text-3xl font-semibold tracking-tight text-ink sm:text-4xl md:text-5xl">
         {t("title")}
       </h1>
       <p className="prose-atelier mt-4 text-sm text-umber/65 sm:mt-5 sm:text-base">
@@ -83,10 +83,10 @@ export default async function PressIndexPage({ params }: Props) {
                     <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-umber/50">
                       {kindLabels[p.kind]}
                     </p>
-                    <h2 className="mt-2 font-serif text-xl font-semibold text-umber-deep sm:text-2xl">
+                    <h2 className="mt-2 font-serif text-xl font-semibold text-ink sm:text-2xl">
                       <Link
                         href={`/press/${p.slug}`}
-                        className="text-umber-deep underline-offset-4 hover:text-oxide hover:underline"
+                        className="text-ink underline-offset-4 hover:text-oxide hover:underline"
                       >
                         {title}
                       </Link>

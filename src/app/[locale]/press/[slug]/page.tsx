@@ -97,7 +97,7 @@ export default async function PressPostPage({ params }: Props) {
         <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-umber/50">
           {kindLabels[post.kind]}
         </p>
-        <h1 className="mt-3 font-serif text-3xl font-semibold tracking-tight text-umber-deep sm:text-4xl">
+        <h1 className="mt-3 font-serif text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
           {title}
         </h1>
         <p className="mt-2 text-xs text-umber/50">
@@ -131,7 +131,7 @@ export default async function PressPostPage({ params }: Props) {
             href={post.externalUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center rounded-full border border-umber/20 bg-parchment/80 px-6 py-3 text-sm font-semibold text-umber-deep transition hover:border-oxide hover:text-oxide"
+            className="inline-flex items-center justify-center rounded-full border border-umber/20 bg-parchment/80 px-6 py-3 text-sm font-semibold text-ink transition hover:border-oxide hover:text-oxide"
           >
             {t("openExternal")}
           </a>

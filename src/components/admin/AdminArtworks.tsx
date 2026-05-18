@@ -560,7 +560,7 @@ export function AdminArtworks() {
           <div className="md:col-span-2">
             <button
               type="submit"
-              className="rounded-full bg-goldleaf px-6 py-2 text-sm font-semibold text-umber-deep hover:bg-parchment"
+              className="rounded-full bg-goldleaf px-6 py-2 text-sm font-semibold text-ink hover:bg-parchment"
             >
               {t("save")}
             </button>
@@ -948,7 +948,7 @@ export function AdminArtworks() {
                   <div className="flex flex-wrap gap-3 md:col-span-2">
                     <button
                       type="submit"
-                      className="rounded-full bg-goldleaf px-6 py-2 text-sm font-semibold text-umber-deep hover:bg-parchment"
+                      className="rounded-full bg-goldleaf px-6 py-2 text-sm font-semibold text-ink hover:bg-parchment"
                     >
                       {t("save")}
                     </button>

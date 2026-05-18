@@ -30,20 +30,20 @@ export async function HomeHeroSection({
 
       <div className="relative z-10 mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:gap-10 sm:px-5 sm:py-14 md:grid-cols-2 md:items-center md:gap-12 md:py-16">
         <div className="animate-fade-up space-y-4 pl-0 sm:space-y-5">
-          <p className="font-mono text-[10px] font-medium uppercase leading-relaxed tracking-[0.28em] text-umber/58 sm:text-[11px]">
+          <p className="font-mono text-[10px] font-medium uppercase leading-relaxed tracking-[0.28em] text-ink-faint sm:text-[11px]">
             {t("phiEyebrow")}
           </p>
           <h1 className="text-balance font-serif leading-[1.02] tracking-tight">
-            <span className="block bg-gradient-to-br from-patina via-goldleaf to-oxide bg-clip-text text-[clamp(2rem,5.8vw,3.65rem)] font-bold italic tracking-[0.06em] text-transparent drop-shadow-[0_2px_20px_rgba(244,239,230,0.65)]">
+            <span className="block bg-gradient-to-br from-patina via-goldleaf to-oxide bg-clip-text text-[clamp(2rem,5.8vw,3.65rem)] font-bold italic tracking-[0.06em] text-transparent drop-shadow-[0_2px_16px_rgba(0,0,0,0.4)]">
               {first}
             </span>
             {rest ? (
-              <span className="mt-1.5 block bg-gradient-to-br from-patina via-goldleaf to-oxide bg-clip-text text-[clamp(1.85rem,5.2vw,3.2rem)] font-bold italic tracking-[0.06em] text-transparent drop-shadow-[0_2px_16px_rgba(244,239,230,0.55)] sm:mt-2">
+              <span className="mt-1.5 block bg-gradient-to-br from-patina via-goldleaf to-oxide bg-clip-text text-[clamp(1.85rem,5.2vw,3.2rem)] font-bold italic tracking-[0.06em] text-transparent drop-shadow-[0_2px_14px_rgba(0,0,0,0.35)] sm:mt-2">
                 {rest}
               </span>
             ) : null}
           </h1>
-          <p className="max-w-xl text-balance font-serif text-2xl font-medium leading-snug tracking-tight text-umber-deep sm:text-3xl md:text-[2.05rem]">
+          <p className="max-w-xl text-balance font-serif text-2xl font-medium leading-snug tracking-tight text-ink sm:text-3xl md:text-[2.05rem]">
             {tagline}
           </p>
           <p className="prose-atelier max-w-xl text-sm text-umber/75 md:text-base">
@@ -57,13 +57,13 @@ export async function HomeHeroSection({
           <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap">
             <Link
               href="/gallery"
-              className="inline-flex items-center justify-center rounded-sm bg-umber-deep px-8 py-3.5 text-sm font-semibold tracking-wide text-parchment shadow-[6px_6px_0_0_rgba(201,168,90,0.22)] transition duration-300 ease-out-expo hover:bg-oxide hover:shadow-[8px_8px_0_0_rgba(201,168,90,0.28)]"
+              className="inline-flex items-center justify-center rounded-sm bg-goldleaf px-8 py-3.5 text-sm font-semibold tracking-wide text-anthracite-deep shadow-[6px_6px_0_0_rgba(0,0,0,0.25)] transition duration-300 ease-out-expo hover:bg-goldleaf/90 hover:shadow-[8px_8px_0_0_rgba(201,168,90,0.28)]"
             >
               {t("viewWork")}
             </Link>
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center rounded-sm border border-umber/25 bg-parchment/75 px-8 py-3.5 text-sm font-medium tracking-wide text-umber-deep shadow-sm backdrop-blur-sm transition duration-300 ease-out-expo hover:border-goldleaf/55 hover:text-oxide"
+              className="inline-flex items-center justify-center rounded-sm border border-white/20 bg-parchment/70 px-8 py-3.5 text-sm font-medium tracking-wide text-ink shadow-sm backdrop-blur-sm transition duration-300 ease-out-expo hover:border-goldleaf/55 hover:bg-parchment/90"
             >
               {locale === "tr" ? "İletişim" : "Contact"}
             </Link>

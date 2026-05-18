@@ -94,13 +94,13 @@ export default async function HomePage({ params }: Props) {
             <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div>
                 <p className="editorial-eyebrow">{t("newsTeaser")}</p>
-                <h2 className="mt-3 text-balance font-serif text-2xl font-semibold text-umber-deep sm:text-3xl">
+                <h2 className="mt-3 text-balance font-serif text-2xl font-semibold text-ink sm:text-3xl">
                   {t("newsTeaserSubtitle")}
                 </h2>
               </div>
               <Link
                 href="/press"
-                className="text-sm font-semibold tracking-wide text-oxide underline-offset-[6px] transition hover:text-umber-deep hover:underline sm:shrink-0"
+                className="text-sm font-semibold tracking-wide text-oxide underline-offset-[6px] transition hover:text-ink hover:underline sm:shrink-0"
               >
                 {t("newsViewAll")}
               </Link>
@@ -124,7 +124,7 @@ export default async function HomePage({ params }: Props) {
                       </div>
                     ) : null}
                     <div className="flex flex-1 flex-col p-6">
-                      <h3 className="font-serif text-lg font-medium text-umber-deep transition-colors duration-300 group-hover:text-oxide">
+                      <h3 className="font-serif text-lg font-medium text-ink transition-colors duration-300 group-hover:text-oxide">
                         {resolvedNewsTitle(p, locale)}
                       </h3>
                       <p className="mt-2 line-clamp-3 text-sm text-umber/70">
@@ -145,13 +145,13 @@ export default async function HomePage({ params }: Props) {
             <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div>
                 <p className="editorial-eyebrow">{t("pressTeaser")}</p>
-                <h2 className="mt-3 text-balance font-serif text-2xl font-semibold text-umber-deep sm:text-3xl">
+                <h2 className="mt-3 text-balance font-serif text-2xl font-semibold text-ink sm:text-3xl">
                   {t("pressTeaserSubtitle")}
                 </h2>
               </div>
               <Link
                 href="/press"
-                className="text-sm font-semibold tracking-wide text-oxide underline-offset-[6px] transition hover:text-umber-deep hover:underline sm:shrink-0"
+                className="text-sm font-semibold tracking-wide text-oxide underline-offset-[6px] transition hover:text-ink hover:underline sm:shrink-0"
               >
                 {t("pressViewAll")}
               </Link>
@@ -162,7 +162,7 @@ export default async function HomePage({ params }: Props) {
                 const attr = locale === "tr" ? q.attributionTr : q.attributionEn;
                 return (
                   <li key={q.id}>
-                    <blockquote className="font-serif text-xl font-medium leading-snug text-umber-deep sm:text-2xl md:text-[1.65rem]">
+                    <blockquote className="font-serif text-xl font-medium leading-snug text-ink sm:text-2xl md:text-[1.65rem]">
                       “{quote}”
                     </blockquote>
                     <p className="mt-4 text-sm font-medium text-umber/55">{attr}</p>
@@ -188,7 +188,7 @@ export default async function HomePage({ params }: Props) {
         <div className="mx-auto max-w-6xl px-4 sm:px-5">
         <div className="mb-6 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
           <div className="max-w-2xl">
-            <h2 className="text-balance font-serif text-2xl font-semibold text-umber-deep sm:text-3xl md:text-4xl">
+            <h2 className="text-balance font-serif text-2xl font-semibold text-ink sm:text-3xl md:text-4xl">
               {t("featuredTitle")}
             </h2>
             <p className="mt-3 max-w-xl text-pretty text-sm leading-relaxed text-umber/58 md:text-base">
@@ -197,7 +197,7 @@ export default async function HomePage({ params }: Props) {
           </div>
           <Link
             href="/gallery"
-            className="shrink-0 text-sm font-semibold tracking-wide text-oxide underline-offset-[6px] transition hover:text-umber-deep hover:underline sm:self-end md:inline md:self-auto"
+            className="shrink-0 text-sm font-semibold tracking-wide text-oxide underline-offset-[6px] transition hover:text-ink hover:underline sm:self-end md:inline md:self-auto"
           >
             {locale === "tr" ? "Tümü" : "View all"}
           </Link>
@@ -232,7 +232,7 @@ export default async function HomePage({ params }: Props) {
                   </div>
                   <div className="mt-5 flex items-start justify-between gap-3">
                     <div>
-                      <p className="font-serif text-lg font-medium text-umber-deep transition-colors duration-300 group-hover:text-oxide sm:text-xl">
+                      <p className="font-serif text-lg font-medium text-ink transition-colors duration-300 group-hover:text-oxide sm:text-xl">
                         {locale === "tr" ? a.titleTr : a.titleEn}
                       </p>
                       {a.year ? (
@@ -241,7 +241,7 @@ export default async function HomePage({ params }: Props) {
                         </p>
                       ) : null}
                       {price ? (
-                        <p className="mt-1 text-sm font-medium text-umber-deep/90">
+                        <p className="mt-1 text-sm font-medium text-ink/90">
                           {price}
                         </p>
                       ) : null}

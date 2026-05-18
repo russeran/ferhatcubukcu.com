@@ -102,20 +102,20 @@ export function NavNewsHub({
   if (variant === "mobile") {
     return (
       <div
-        className="border-t border-umber/20 pt-4"
+        className="border-t border-white/15 pt-4"
         aria-labelledby={`${menuId}-label`}
       >
         <p
           id={`${menuId}-label`}
-          className="mb-2 px-2.5 font-serif text-[10px] font-semibold uppercase tracking-[0.28em] text-umber/70"
+          className="mb-2 px-2.5 font-serif text-[10px] font-semibold uppercase tracking-[0.28em] text-ink-faint"
         >
           {t("newsHub")}
         </p>
         <div className="flex flex-col gap-0.5">
           <HubLinks
             pathname={pathname}
-            className="rounded-sm border border-transparent py-3 pl-4 text-[15px] font-semibold text-umber-deep transition-colors hover:border-umber/15 hover:bg-umber/[0.08]"
-            activeClassName="border-goldleaf/50 bg-goldleaf/15 text-umber-deep"
+            className="rounded-sm border border-transparent py-3 pl-4 text-[15px] font-semibold text-ink transition-colors hover:border-white/15 hover:bg-white/[0.08]"
+            activeClassName="border-goldleaf/50 bg-goldleaf/15 text-ink"
             onNavigate={onNavigate}
           />
         </div>
@@ -132,9 +132,9 @@ export function NavNewsHub({
         aria-haspopup="menu"
         aria-controls={menuId}
         className={cn(
-          "inline-flex items-center gap-1 rounded-sm px-3 py-2 text-[13px] font-medium tracking-wide text-umber/62 transition-colors duration-300 ease-out-expo hover:bg-umber/[0.06] hover:text-umber-deep md:text-sm",
+          "inline-flex items-center gap-1 rounded-sm px-3 py-2 text-[13px] font-medium tracking-wide text-ink-muted transition-colors duration-300 ease-out-expo hover:bg-white/[0.06] hover:text-ink md:text-sm",
           (hubActive || open) &&
-            "bg-umber/[0.08] text-umber-deep shadow-[inset_0_-2px_0_0_rgba(201,168,90,0.75)]"
+            "bg-white/[0.08] text-ink shadow-[inset_0_-2px_0_0_rgba(201,168,90,0.75)]"
         )}
         onClick={() => setOpen((o) => !o)}
       >
@@ -146,12 +146,12 @@ export function NavNewsHub({
           id={menuId}
           role="menu"
           aria-labelledby={`${menuId}-trigger`}
-          className="absolute left-0 top-full z-[120] mt-1 min-w-[11.5rem] rounded-sm border border-umber/12 bg-gradient-to-b from-parchment/98 via-parchment-warm/95 to-parchment-dark/80 py-1.5 shadow-[0_16px_40px_-12px_rgba(26,23,20,0.22)] backdrop-blur-md"
+          className="absolute left-0 top-full z-[120] mt-1 min-w-[11.5rem] rounded-sm border border-white/12 bg-gradient-to-b from-anthracite-light via-parchment to-anthracite-dark py-1.5 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.4)] backdrop-blur-md"
         >
           <HubLinks
             pathname={pathname}
-            className="block px-4 py-2.5 text-[13px] font-medium tracking-wide text-umber/70 transition-colors hover:bg-umber/[0.06] hover:text-umber-deep"
-            activeClassName="bg-goldleaf/10 text-umber-deep"
+            className="block px-4 py-2.5 text-[13px] font-medium tracking-wide text-ink-muted transition-colors hover:bg-white/[0.08] hover:text-ink"
+            activeClassName="bg-goldleaf/10 text-ink"
             onNavigate={() => setOpen(false)}
           />
         </div>

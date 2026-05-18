@@ -210,7 +210,7 @@ export default async function GalleryDetailPage({
           <div className="space-y-8">
             <header className="space-y-3 border-b border-umber/10 pb-8">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
-                <h1 className="min-w-0 flex-1 font-serif text-3xl font-semibold leading-tight tracking-tight text-umber-deep sm:text-4xl md:text-[2.75rem]">
+                <h1 className="min-w-0 flex-1 font-serif text-3xl font-semibold leading-tight tracking-tight text-ink sm:text-4xl md:text-[2.75rem]">
                   {title}
                 </h1>
                 <ArtworkViewingRoom
@@ -241,7 +241,7 @@ export default async function GalleryDetailPage({
                     {t("availability")}
                   </dt>
                   <dd
-                    className={`min-w-0 sm:flex-1 ${artwork.sold ? "font-medium text-umber-deep" : ""}`}
+                    className={`min-w-0 sm:flex-1 ${artwork.sold ? "font-medium text-ink" : ""}`}
                   >
                     {artwork.sold ? t("sold") : t("available")}
                   </dd>
@@ -283,7 +283,7 @@ export default async function GalleryDetailPage({
                     <dt className="shrink-0 text-xs uppercase tracking-wider text-umber/45 sm:w-28 sm:text-sm">
                       {t("price")}
                     </dt>
-                    <dd className="min-w-0 font-medium text-umber-deep sm:flex-1">
+                    <dd className="min-w-0 font-medium text-ink sm:flex-1">
                       {price}
                     </dd>
                   </div>
@@ -306,7 +306,7 @@ export default async function GalleryDetailPage({
 
         {detailSlides.length > 0 ? (
           <section className="mt-12 border-t border-umber/10 pt-10 sm:mt-16 sm:pt-12">
-            <h2 className="mb-6 font-serif text-xl font-semibold text-umber-deep sm:mb-8 sm:text-2xl md:text-3xl">
+            <h2 className="mb-6 font-serif text-xl font-semibold text-ink sm:mb-8 sm:text-2xl md:text-3xl">
               {t("detailViews")}
             </h2>
             <DetailImagesLightbox

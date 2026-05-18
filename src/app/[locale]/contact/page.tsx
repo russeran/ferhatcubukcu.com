@@ -47,7 +47,7 @@ export default async function ContactPage({ params }: Props) {
       <p className="font-serif text-[10px] uppercase tracking-[0.38em] text-patina sm:text-[11px]">
         {t("studio")}
       </p>
-      <h1 className="mt-3 font-serif text-3xl font-semibold tracking-tight text-umber-deep sm:mt-4 sm:text-4xl md:text-5xl">
+      <h1 className="mt-3 font-serif text-3xl font-semibold tracking-tight text-ink sm:mt-4 sm:text-4xl md:text-5xl">
         {t("title")}
       </h1>
       <p className="prose-atelier mt-6 max-w-xl text-base text-umber/75 sm:mt-8 sm:text-lg">
@@ -67,7 +67,7 @@ export default async function ContactPage({ params }: Props) {
             <TrackedOutboundLink
               event="contact_email_click"
               href={`mailto:${settings.contactEmail}`}
-              className="break-words text-base text-oxide hover:text-umber-deep underline-offset-4 hover:underline sm:text-lg"
+              className="break-words text-base text-oxide hover:text-ink underline-offset-4 hover:underline sm:text-lg"
             >
               {settings.contactEmail}
             </TrackedOutboundLink>
