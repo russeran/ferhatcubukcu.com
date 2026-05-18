@@ -23,6 +23,7 @@ import {
 } from "@/lib/gallery-series";
 import { IMAGE_BLUR_PLACEHOLDER } from "@/lib/image-blur";
 import { artworkInquiryHref } from "@/lib/artwork-inquiry";
+import { artworkCatalogMeta } from "@/lib/artwork-catalog-meta";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -228,6 +229,7 @@ export default async function GalleryPage({ params, searchParams }: Props) {
           <ul className="-mx-4 flex gap-4 overflow-x-auto px-4 pb-1 pt-1 sm:gap-5">
             {seriesSpotlight.works.map((a) => {
               const title = locale === "tr" ? a.titleTr : a.titleEn;
+              const meta = artworkCatalogMeta(a, locale);
               return (
                 <li
                   key={a.id}
@@ -246,9 +248,14 @@ export default async function GalleryPage({ params, searchParams }: Props) {
                       />
                       {a.sold ? <SoldStamp label={t("sold")} /> : null}
                     </div>
-                    <p className="mt-3 line-clamp-2 font-serif text-sm font-medium text-ink group-hover:text-oxide">
+                    <p className="mt-3 font-serif text-sm font-medium text-ink group-hover:text-oxide">
                       {title}
                     </p>
+                    {meta ? (
+                      <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-ink-muted">
+                        {meta}
+                      </p>
+                    ) : null}
                   </Link>
                 </li>
               );
@@ -273,6 +280,7 @@ export default async function GalleryPage({ params, searchParams }: Props) {
                 {items.map((a) => {
                   const price = resolvedArtworkPrice(a, locale);
                   const title = locale === "tr" ? a.titleTr : a.titleEn;
+                  const meta = artworkCatalogMeta(a, locale);
                   return (
                     <li
                       key={a.id}
@@ -295,6 +303,11 @@ export default async function GalleryPage({ params, searchParams }: Props) {
                           <h3 className="font-serif text-lg font-medium text-ink group-hover:text-oxide">
                             {title}
                           </h3>
+                          {meta ? (
+                            <p className="text-sm leading-relaxed text-ink-muted">
+                              {meta}
+                            </p>
+                          ) : null}
                           {price ? (
                             <p className="text-sm font-medium text-ink/95">
                               {price}
@@ -322,6 +335,7 @@ export default async function GalleryPage({ params, searchParams }: Props) {
           {list.map((a) => {
             const price = resolvedArtworkPrice(a, locale);
             const title = locale === "tr" ? a.titleTr : a.titleEn;
+            const meta = artworkCatalogMeta(a, locale);
             return (
               <li key={a.id}>
                 <Link href={`/gallery/${a.slug}`} className="group block">
@@ -342,11 +356,11 @@ export default async function GalleryPage({ params, searchParams }: Props) {
                     <h2 className="font-serif text-xl font-medium text-ink sm:text-2xl">
                       {title}
                     </h2>
-                    <p className="text-sm text-umber/55">
-                      {[a.year, locale === "tr" ? a.mediumTr : a.mediumEn]
-                        .filter(Boolean)
-                        .join(" · ")}
-                    </p>
+                    {meta ? (
+                      <p className="text-sm leading-relaxed text-ink-muted">
+                        {meta}
+                      </p>
+                    ) : null}
                     {price ? (
                       <p className="text-sm font-medium text-ink/95">
                         {price}
