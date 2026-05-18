@@ -33,14 +33,14 @@ export function PublicListAdminToolbar({
         <NextLink
           href={panelHref}
           prefetch={false}
-          className="rounded-full border border-umber-deep/20 bg-white/90 px-3 py-1.5 font-medium text-ink shadow-sm hover:border-oxide hover:text-oxide"
+          className="btn-admin-secondary-sm"
         >
           {variant === "gallery" ? t("manageArtworks") : t("manageNews")}
         </NextLink>
         <NextLink
           href={addHref}
           prefetch={false}
-          className="rounded-full bg-oxide px-3 py-1.5 font-medium text-parchment hover:bg-oxide/90"
+          className="btn-admin-add"
         >
           {variant === "gallery" ? t("addArtwork") : t("addNews")}
         </NextLink>

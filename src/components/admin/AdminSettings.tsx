@@ -204,7 +204,7 @@ export function AdminSettings() {
             <div className="flex justify-end">
               <button
                 type="button"
-                className="text-xs text-oxide hover:underline"
+                className="btn-admin-delete px-2.5 py-1 text-[10px] normal-case tracking-normal"
                 onClick={() =>
                   setForm({
                     ...form,
@@ -293,7 +293,7 @@ export function AdminSettings() {
         ))}
         <button
           type="button"
-          className="rounded-md border border-white/20 px-4 py-2 text-xs font-medium text-parchment/90 hover:bg-white/5"
+          className="btn-admin-add text-xs normal-case tracking-normal"
           onClick={() =>
             setForm({
               ...form,
@@ -317,7 +317,7 @@ export function AdminSettings() {
       </div>
       <button
         type="submit"
-        className="rounded-full bg-goldleaf px-8 py-3 text-sm font-semibold text-ink hover:bg-parchment"
+        className="btn-admin-primary px-8 py-3"
       >
         {t("save")}
       </button>

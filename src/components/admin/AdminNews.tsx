@@ -372,7 +372,7 @@ export function AdminNews() {
           <div className="md:col-span-2">
             <button
               type="submit"
-              className="rounded-full bg-goldleaf px-6 py-2 text-sm font-semibold text-ink hover:bg-parchment"
+              className="btn-admin-primary"
             >
               {t("save")}
             </button>
@@ -606,13 +606,13 @@ export function AdminNews() {
                   <div className="flex flex-wrap gap-3 md:col-span-2">
                     <button
                       type="submit"
-                      className="rounded-full bg-goldleaf px-6 py-2 text-sm font-semibold text-ink hover:bg-parchment"
+                      className="btn-admin-primary"
                     >
                       {t("save")}
                     </button>
                     <button
                       type="button"
-                      className="rounded-full border border-white/20 px-6 py-2 text-sm text-parchment hover:border-goldleaf"
+                      className="btn-admin-secondary"
                       onClick={() => setEditingId(null)}
                     >
                       Cancel

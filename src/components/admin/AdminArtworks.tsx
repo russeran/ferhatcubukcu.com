@@ -311,7 +311,7 @@ export function AdminArtworks() {
                     />
                     <button
                       type="button"
-                      className="absolute right-0 top-0 bg-black/70 px-1.5 py-0.5 text-xs leading-none text-parchment hover:bg-oxide"
+                      className="btn-admin-delete absolute right-0 top-0 px-1.5 py-0.5 text-[10px] leading-none normal-case tracking-normal"
                       onClick={() => removeDetail(idx, "create")}
                     >
                       ×
@@ -560,7 +560,7 @@ export function AdminArtworks() {
           <div className="md:col-span-2">
             <button
               type="submit"
-              className="rounded-full bg-goldleaf px-6 py-2 text-sm font-semibold text-ink hover:bg-parchment"
+              className="btn-admin-primary"
             >
               {t("save")}
             </button>
@@ -671,7 +671,7 @@ export function AdminArtworks() {
                             />
                             <button
                               type="button"
-                              className="absolute right-0 top-0 bg-black/70 px-1.5 py-0.5 text-xs leading-none text-parchment hover:bg-oxide"
+                              className="btn-admin-delete absolute right-0 top-0 px-1.5 py-0.5 text-[10px] leading-none normal-case tracking-normal"
                               onClick={() => removeDetail(idx, "edit")}
                             >
                               ×
@@ -948,13 +948,13 @@ export function AdminArtworks() {
                   <div className="flex flex-wrap gap-3 md:col-span-2">
                     <button
                       type="submit"
-                      className="rounded-full bg-goldleaf px-6 py-2 text-sm font-semibold text-ink hover:bg-parchment"
+                      className="btn-admin-primary"
                     >
                       {t("save")}
                     </button>
                     <button
                       type="button"
-                      className="rounded-full border border-white/20 px-6 py-2 text-sm text-parchment hover:border-goldleaf"
+                      className="btn-admin-secondary"
                       onClick={() => setEditingId(null)}
                     >
                       Cancel

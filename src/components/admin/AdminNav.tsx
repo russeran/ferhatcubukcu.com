@@ -21,7 +21,7 @@ export function AdminNav() {
           key={item.href}
           href={`/${locale}${item.href}`}
           prefetch={false}
-          className="rounded-full border border-white/15 px-4 py-2 text-parchment/90 transition hover:border-goldleaf/50 hover:text-goldleaf"
+          className="btn-admin-nav"
         >
           {t(item.key)}
         </NextLink>

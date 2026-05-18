@@ -123,11 +123,29 @@ body {
   .accent-outline-btn {
     @apply inline-flex items-center justify-center rounded-full border-2 border-oxide bg-[#faf6f1] font-semibold text-oxide-deep shadow-[inset_0_1px_0_rgba(255,255,255,0.85)] transition hover:border-oxide-deep hover:bg-[#fffcf7];
   }
+  .btn-admin {
+    @apply inline-flex items-center justify-center rounded-full font-semibold text-white shadow-md transition disabled:opacity-50;
+  }
   .btn-admin-edit {
-    @apply rounded-full bg-goldleaf px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-white shadow-md transition hover:bg-goldleaf/90 hover:text-white disabled:opacity-50;
+    @apply btn-admin bg-goldleaf px-4 py-1.5 text-xs uppercase tracking-wider hover:bg-goldleaf/90;
   }
   .btn-admin-delete {
-    @apply rounded-full bg-oxide px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-white shadow-md transition hover:bg-oxide-deep hover:text-white disabled:opacity-50;
+    @apply btn-admin bg-oxide px-4 py-1.5 text-xs uppercase tracking-wider hover:bg-oxide-deep;
+  }
+  .btn-admin-primary {
+    @apply btn-admin bg-goldleaf px-6 py-2 text-sm hover:bg-goldleaf/90;
+  }
+  .btn-admin-add {
+    @apply btn-admin bg-goldleaf px-3 py-1.5 text-sm hover:bg-goldleaf/90;
+  }
+  .btn-admin-secondary {
+    @apply inline-flex items-center justify-center rounded-full border-2 border-white/30 bg-anthracite-light px-6 py-2 text-sm font-semibold text-white shadow-md transition hover:border-white/50 hover:bg-anthracite-dark disabled:opacity-50;
+  }
+  .btn-admin-secondary-sm {
+    @apply btn-admin-secondary px-3 py-1.5 text-sm font-medium normal-case tracking-normal;
+  }
+  .btn-admin-nav {
+    @apply btn-admin-secondary px-4 py-2 text-sm normal-case tracking-normal;
   }
   .artist-wordmark {
     @apply inline-flex max-w-full flex-wrap items-baseline gap-x-1.5 gap-y-0.5 font-serif font-bold italic;
