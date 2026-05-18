@@ -26,9 +26,16 @@ export function PublicListAdminToolbar({
       className="accent-panel mb-8 flex flex-col gap-3 px-4 py-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-4"
       aria-label={t("toolbarAria")}
     >
-      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-oxide-deep">
-        {t("signedIn")}
-      </p>
+      <div className="min-w-0 space-y-1">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-oxide-deep">
+          {t("signedIn")}
+        </p>
+        {variant === "gallery" ? (
+          <p className="max-w-md text-xs leading-relaxed text-oxide-deep/90">
+            {t("galleryFavoriteHint")}
+          </p>
+        ) : null}
+      </div>
       <div className="flex flex-wrap items-center gap-2 text-sm">
         <NextLink
           href={panelHref}

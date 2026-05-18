@@ -113,6 +113,7 @@
   "publicAdmin": {
     "toolbarAria": "Hızlı yönetim araçları",
     "signedIn": "Yönetici olarak oturum açıldı",
+    "galleryFavoriteHint": "Ferhat'ın seçkisi için her tablonun altındaki altın kutudaki kutuyu işaretleyin.",
     "manageArtworks": "Tablolar yönetimi",
     "manageNews": "Basın yönetimi",
     "addArtwork": "Tablo ekle",
@@ -123,7 +124,9 @@
     "deleteNews": "Sil",
     "confirmDeleteArtwork": "Bu tabloyu siteden kaldırmak istiyor musunuz? Bu işlem geri alınamaz.",
     "confirmDeleteNews": "Bu güncellemeyi kaldırmak istiyor musunuz? Bu işlem geri alınamaz.",
-    "deleteFailed": "Silinemedi"
+    "deleteFailed": "Silinemedi",
+    "favoriteHint": "Sitede altın çerçeve ve rozet; galeride önce listelenir.",
+    "favoriteFailed": "Seçki kaydedilemedi"
   },
   "about": {
     "title": "Hakkında",

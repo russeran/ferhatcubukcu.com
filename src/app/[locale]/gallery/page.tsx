@@ -11,7 +11,7 @@ import { sortPublishedArtworks, normalizeGallerySort } from "@/lib/gallery-sort"
 import { absoluteUrl } from "@/lib/site-url";
 import { getSessionFromCookies } from "@/lib/auth";
 import { PublicListAdminToolbar } from "@/components/admin/PublicListAdminToolbar";
-import { PublicResourceAdminActions } from "@/components/admin/PublicResourceAdminActions";
+import { GalleryArtworkAdminBar } from "@/components/admin/GalleryArtworkAdminBar";
 import { readArtworks, readSettings } from "@/lib/data";
 import { resolvedArtworkPrice } from "@/lib/artwork-price";
 import {
@@ -255,6 +255,15 @@ export default async function GalleryPage({ params, searchParams }: Props) {
                     sizes="200px"
                     captionSpacing="compact"
                   />
+                  {isAdmin ? (
+                    <GalleryArtworkAdminBar
+                      locale={locale}
+                      id={a.id}
+                      initialFavorite={Boolean(a.favorite)}
+                      favoriteLabel={favoriteLabel}
+                      className="mt-3"
+                    />
+                  ) : null}
                 </li>
               );
             })}
@@ -301,10 +310,11 @@ export default async function GalleryPage({ params, searchParams }: Props) {
                         titleAs="h3"
                       />
                       {isAdmin ? (
-                        <PublicResourceAdminActions
+                        <GalleryArtworkAdminBar
                           locale={locale}
-                          kind="artwork"
                           id={a.id}
+                          initialFavorite={Boolean(a.favorite)}
+                          favoriteLabel={favoriteLabel}
                           className="mt-3"
                         />
                       ) : null}
@@ -339,6 +349,15 @@ export default async function GalleryPage({ params, searchParams }: Props) {
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   titleAs="h2"
                 />
+                {isAdmin ? (
+                  <GalleryArtworkAdminBar
+                    locale={locale}
+                    id={a.id}
+                    initialFavorite={Boolean(a.favorite)}
+                    favoriteLabel={favoriteLabel}
+                    className="mt-3"
+                  />
+                ) : null}
                 {!a.sold ? (
                   <ArtworkInquiryLink
                     href={inquiryHref(title, a.slug)}
@@ -346,14 +365,6 @@ export default async function GalleryPage({ params, searchParams }: Props) {
                   >
                     {t("inquiryCta")}
                   </ArtworkInquiryLink>
-                ) : null}
-                {isAdmin ? (
-                  <PublicResourceAdminActions
-                    locale={locale}
-                    kind="artwork"
-                    id={a.id}
-                    className="mt-3"
-                  />
                 ) : null}
               </li>
             );

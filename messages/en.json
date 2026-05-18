@@ -113,6 +113,7 @@
   "publicAdmin": {
     "toolbarAria": "Quick admin tools",
     "signedIn": "Signed in as admin",
+    "galleryFavoriteHint": "Use the gold box under each painting to mark Ferhat's selection.",
     "manageArtworks": "Paintings admin",
     "manageNews": "Manage press",
     "addArtwork": "Add painting",
@@ -123,7 +124,9 @@
     "deleteNews": "Delete",
     "confirmDeleteArtwork": "Remove this painting from the site? This cannot be undone.",
     "confirmDeleteNews": "Remove this update from the site? This cannot be undone.",
-    "deleteFailed": "Could not delete"
+    "deleteFailed": "Could not delete",
+    "favoriteHint": "Gold frame and badge on the site; listed first in the gallery.",
+    "favoriteFailed": "Could not save selection"
   },
   "about": {
     "title": "About",
