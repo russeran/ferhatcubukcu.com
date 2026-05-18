@@ -35,19 +35,14 @@ export function GalleryViewTabs({
 }: Props) {
   return (
     <div
-      className="inline-flex rounded-full border border-umber/15 bg-parchment/80 p-1 shadow-sm backdrop-blur-sm"
+      className="view-tabs"
       role="tablist"
       aria-label={tabsAria}
     >
       <Link
         href={buildHref("grid", sort, series)}
         scroll={false}
-        className={cn(
-          "rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-editorial transition duration-300 ease-out-expo",
-          view === "grid"
-            ? "bg-goldleaf text-anthracite-deep shadow-sm"
-            : "text-umber/65 hover:text-ink"
-        )}
+        className={cn("view-tab", view === "grid" && "view-tab-active")}
         aria-selected={view === "grid"}
         role="tab"
       >
@@ -57,10 +52,8 @@ export function GalleryViewTabs({
         href={buildHref("chronology", sort, series)}
         scroll={false}
         className={cn(
-          "rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-editorial transition duration-300 ease-out-expo",
-          view === "chronology"
-            ? "bg-goldleaf text-anthracite-deep shadow-sm"
-            : "text-umber/65 hover:text-ink"
+          "view-tab",
+          view === "chronology" && "view-tab-active"
         )}
         aria-selected={view === "chronology"}
         role="tab"

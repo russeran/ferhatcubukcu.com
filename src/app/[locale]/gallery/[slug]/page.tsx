@@ -171,7 +171,7 @@ export default async function GalleryDetailPage({
       <article className="relative z-10 mx-auto max-w-6xl px-4 py-12 sm:px-5 sm:py-14 md:py-20">
         <Link
           href="/gallery"
-          className="accent-link-plain text-sm font-medium"
+          className="link-inline"
         >
           ← {t("title")}
         </Link>
@@ -235,9 +235,9 @@ export default async function GalleryDetailPage({
                   zoomHint={t("paintingZoomHint")}
                 />
               </div>
-              <dl className="grid gap-4 text-sm text-umber/70 sm:gap-3">
+              <dl className="text-caption grid gap-4 sm:gap-3">
                 <div className="flex flex-col gap-0.5 sm:flex-row sm:gap-4">
-                  <dt className="shrink-0 text-xs uppercase tracking-wider text-umber/45 sm:w-28 sm:text-sm">
+                  <dt className="text-label shrink-0 sm:w-28 sm:text-sm">
                     {t("availability")}
                   </dt>
                   <dd
@@ -248,7 +248,7 @@ export default async function GalleryDetailPage({
                 </div>
                 {artwork.year ? (
                   <div className="flex flex-col gap-0.5 sm:flex-row sm:gap-4">
-                    <dt className="shrink-0 text-xs uppercase tracking-wider text-umber/45 sm:w-28 sm:text-sm">
+                    <dt className="text-label shrink-0 sm:w-28 sm:text-sm">
                       {t("year")}
                     </dt>
                     <dd className="min-w-0 sm:flex-1">{artwork.year}</dd>
@@ -256,7 +256,7 @@ export default async function GalleryDetailPage({
                 ) : null}
                 {medium ? (
                   <div className="flex flex-col gap-0.5 sm:flex-row sm:gap-4">
-                    <dt className="shrink-0 text-xs uppercase tracking-wider text-umber/45 sm:w-28 sm:text-sm">
+                    <dt className="text-label shrink-0 sm:w-28 sm:text-sm">
                       {t("medium")}
                     </dt>
                     <dd className="min-w-0 sm:flex-1">{medium}</dd>
@@ -264,7 +264,7 @@ export default async function GalleryDetailPage({
                 ) : null}
                 {artwork.dimensions ? (
                   <div className="flex flex-col gap-0.5 sm:flex-row sm:gap-4">
-                    <dt className="shrink-0 text-xs uppercase tracking-wider text-umber/45 sm:w-28 sm:text-sm">
+                    <dt className="text-label shrink-0 sm:w-28 sm:text-sm">
                       {t("dimensions")}
                     </dt>
                     <dd className="min-w-0 sm:flex-1">{artwork.dimensions}</dd>
@@ -272,7 +272,7 @@ export default async function GalleryDetailPage({
                 ) : null}
                 {exhibition ? (
                   <div className="flex flex-col gap-0.5 sm:flex-row sm:gap-4">
-                    <dt className="shrink-0 text-xs uppercase tracking-wider text-umber/45 sm:w-28 sm:text-sm">
+                    <dt className="text-label shrink-0 sm:w-28 sm:text-sm">
                       {t("exhibition")}
                     </dt>
                     <dd className="min-w-0 sm:flex-1">{exhibition}</dd>
@@ -280,7 +280,7 @@ export default async function GalleryDetailPage({
                 ) : null}
                 {price ? (
                   <div className="flex flex-col gap-0.5 sm:flex-row sm:gap-4">
-                    <dt className="shrink-0 text-xs uppercase tracking-wider text-umber/45 sm:w-28 sm:text-sm">
+                    <dt className="text-label shrink-0 sm:w-28 sm:text-sm">
                       {t("price")}
                     </dt>
                     <dd className="min-w-0 font-medium text-ink sm:flex-1">
@@ -298,7 +298,7 @@ export default async function GalleryDetailPage({
                 </ArtworkInquiryLink>
               ) : null}
             </header>
-            <div className="prose prose-neutral max-w-none prose-p:text-umber/80 prose-p:leading-relaxed">
+            <div className="prose-content max-w-none">
               <p className="whitespace-pre-wrap">{description}</p>
             </div>
           </div>

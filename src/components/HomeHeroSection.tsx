@@ -31,34 +31,26 @@ export async function HomeHeroSection({
 
       <div className="relative z-10 mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:gap-10 sm:px-5 sm:py-14 md:grid-cols-2 md:items-center md:gap-12 md:py-16">
         <div className="animate-fade-up space-y-4 pl-0 sm:space-y-5">
-          <p className="font-mono text-[10px] font-medium uppercase leading-relaxed tracking-[0.28em] text-ink-faint sm:text-[11px]">
-            {t("phiEyebrow")}
-          </p>
+          <p className="text-mono-caption">{t("phiEyebrow")}</p>
           <h1 className="text-balance leading-[1.02] tracking-tight">
             <ArtistWordmark first={first} rest={rest} size="hero" className="block" />
           </h1>
           <p className="max-w-xl text-balance font-serif text-2xl font-medium leading-snug tracking-tight text-ink sm:text-3xl md:text-[2.05rem]">
             {tagline}
           </p>
-          <p className="prose-atelier max-w-xl text-sm text-umber/75 md:text-base">
+          <p className="prose-atelier max-w-xl text-sm md:text-base">
             {t("statementLead")}
           </p>
-          <p className="max-w-xl font-mono text-[10px] leading-relaxed tracking-[0.12em] text-umber/48 sm:text-[11px]">
+          <p className="text-mono-note max-w-xl">
             <span className="text-goldleaf/95">φ</span>
-            <span className="mx-1.5 text-umber/35">·</span>
+            <span className="mx-1.5 text-ink-faint/50">·</span>
             {t("phiMeasure")}
           </p>
           <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap">
-            <Link
-              href="/gallery"
-              className="inline-flex items-center justify-center rounded-sm bg-goldleaf px-8 py-3.5 text-sm font-semibold tracking-wide text-anthracite-deep shadow-[6px_6px_0_0_rgba(0,0,0,0.25)] transition duration-300 ease-out-expo hover:bg-goldleaf/90 hover:shadow-[8px_8px_0_0_rgba(201,168,90,0.28)]"
-            >
+            <Link href="/gallery" className="btn-primary">
               {t("viewWork")}
             </Link>
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center rounded-sm border border-white/20 bg-parchment/70 px-8 py-3.5 text-sm font-medium tracking-wide text-ink shadow-sm backdrop-blur-sm transition duration-300 ease-out-expo hover:border-goldleaf/55 hover:bg-parchment/90"
-            >
+            <Link href="/contact" className="btn-secondary">
               {locale === "tr" ? "İletişim" : "Contact"}
             </Link>
           </div>

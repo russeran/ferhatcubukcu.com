@@ -7,9 +7,7 @@ type Props = {
 };
 
 export function HomeJsonLd({ locale, settings }: Props) {
-  const behance =
-    settings.behance?.trim() || "https://www.behance.net/ferhat_cubukcu";
-  const sameAs: string[] = [behance];
+  const sameAs: string[] = [];
   if (settings.instagram?.trim()) {
     const raw = settings.instagram.trim();
     sameAs.push(
@@ -46,11 +44,7 @@ export function HomeJsonLd({ locale, settings }: Props) {
         url: pageUrl,
         image: imageUrl,
         jobTitle: locale === "tr" ? "Ressam" : "Painter",
-        sameAs,
-        homeLocation: {
-          "@type": "Place",
-          name: "İstanbul, Türkiye",
-        },
+        ...(sameAs.length > 0 ? { sameAs } : {}),
       },
     ],
   };

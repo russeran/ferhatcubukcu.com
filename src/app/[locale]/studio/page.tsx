@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { PageHeader } from "@/components/PageHeader";
+import { PageShell } from "@/components/PageShell";
 import { localeAlternates } from "@/lib/seo-helpers";
 import { absoluteUrl } from "@/lib/site-url";
 
@@ -36,27 +38,21 @@ export default async function StudioPage({ params }: Props) {
   const t = await getTranslations({ locale, namespace: "studioPage" });
 
   return (
-    <div className="relative z-10 mx-auto max-w-3xl px-4 py-14 sm:px-5 sm:py-16 md:py-24">
+    <PageShell>
       <div className="gold-rule mb-6" aria-hidden />
-      <p className="editorial-eyebrow">{t("eyebrow")}</p>
-      <h1 className="mt-4 text-balance font-serif text-3xl font-semibold tracking-tight text-ink sm:text-4xl md:text-5xl">
-        {t("title")}
-      </h1>
-      <p className="prose-atelier mt-6 text-lg text-umber/80">
-        {t("intro")}
-      </p>
-      <div className="mt-14 space-y-12 border-t border-umber/10 pt-14">
+      <PageHeader eyebrow={t("eyebrow")} title={t("title")} lead={t("intro")} />
+      <div className="divider-section mt-14 space-y-12">
         {BLOCK_KEYS.map((key) => (
           <section key={key}>
-            <h2 className="font-serif text-xl font-semibold text-ink sm:text-2xl">
+            <h2 className="page-subsection-title">
               {t(`${key}Title` as "b1Title")}
             </h2>
-            <p className="prose-atelier mt-3 whitespace-pre-wrap text-umber/75">
+            <p className="prose-atelier mt-3 whitespace-pre-wrap">
               {t(`${key}Body` as "b1Body")}
             </p>
           </section>
         ))}
       </div>
-    </div>
+    </PageShell>
   );
 }

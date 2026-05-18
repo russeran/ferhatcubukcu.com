@@ -49,8 +49,6 @@ export type SiteSettings = {
   heroImage?: string;
   contactEmail: string;
   instagram?: string;
-  /** Full URL to Behance profile */
-  behance?: string;
   studioNoteEn?: string;
   studioNoteTr?: string;
   /** Short press quotes for home strip and /press (admin-managed). */
@@ -71,7 +69,7 @@ export type NewsPost = {
   bodyEn: string;
   bodyTr: string;
   image?: string;
-  /** Instagram post, article, Behance update, etc. */
+  /** Instagram post, article, press link, etc. */
   externalUrl?: string;
   order: number;
   published: boolean;

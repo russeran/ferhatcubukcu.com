@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { PageHeader } from "@/components/PageHeader";
+import { PageShell } from "@/components/PageShell";
 import { localeAlternates } from "@/lib/seo-helpers";
 import { absoluteUrl } from "@/lib/site-url";
 import { readSettings } from "@/lib/data";
@@ -39,18 +41,16 @@ export default async function AboutPage({ params }: Props) {
   const bio = locale === "tr" ? settings.bioTr : settings.bioEn;
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12 sm:px-5 sm:py-14 md:py-24">
-      <p className="font-serif text-[10px] uppercase tracking-[0.38em] text-patina sm:text-[11px]">
-        {locale === "tr" ? "Biyografi" : "Biography"}
-      </p>
-      <h1 className="mt-3 font-serif text-3xl font-semibold tracking-tight text-ink sm:mt-4 sm:text-4xl md:text-5xl">
-        {t("title")}
-      </h1>
-      <div className="prose-atelier mx-auto mt-8 space-y-5 text-base text-umber/80 sm:mt-10 sm:space-y-6 sm:text-lg">
+    <PageShell>
+      <PageHeader
+        eyebrow={locale === "tr" ? "Biyografi" : "Biography"}
+        title={t("title")}
+      />
+      <div className="prose-atelier mx-auto space-y-5 text-base sm:space-y-6 sm:text-lg">
         {bio.split("\n\n").map((para, i) => (
           <p key={i}>{para}</p>
         ))}
       </div>
-    </div>
+    </PageShell>
   );
 }

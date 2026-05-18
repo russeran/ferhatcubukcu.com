@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Ferhat Çubukçu — Ressam",
-    "description": "İstanbul’dan çağdaş yağlıboya — Fibonacci, altın oran ve sergi çalışmaları. Tam portföy için Behance."
+    "description": "Çağdaş resim — Fibonacci, altın oran ve sergi çalışmaları."
   },
   "nav": {
     "home": "Ana sayfa",
@@ -19,13 +19,13 @@
   },
   "home": {
     "viewWork": "Tabloları gör",
-    "phiEyebrow": "İstanbul · tuval üzerine yağlıboya · φ = 1,61803",
+    "phiEyebrow": "Fibonacci · altın oran · φ = 1,61803",
     "phiMeasure": "Altın oran — 1,61803… · her kompozisyonda sessiz bir ölçü",
-    "studio": "Ressam · İstanbul",
-    "statementLead": "Fibonacci dizisinin altın orana yaklaşımından doğan sarmallar, figür ve kompozisyonlara işlenir — çoğunlukla 80×100 cm ve üzeri tuval üzerine yağlıboya.",
+    "studio": "Ressam",
+    "statementLead": "Fibonacci dizisinin altın orana yaklaşımından doğan sarmallar, figür ve kompozisyonlara işlenir — çoğunlukla 80×100 cm ve üzeri formatlarda.",
     "featuredTitle": "Seçili resimler",
     "featuredSubtitle": "Yayınlanan tüm eserler için galeriye göz atın.",
-    "heroAlt": "Ferhat Çubukçu — yağlıboya, İstanbul atölyesi",
+    "heroAlt": "Ferhat Çubukçu — seçili tablolar",
     "heroSlideshowAria": "Galeriden öne çıkan tablolar",
     "heroSlideshowDotAria": "{total} tablodan {current}. görünümü",
     "newsTeaser": "Atölye ve basın",
@@ -37,8 +37,8 @@
   },
   "gallery": {
     "title": "Galeri",
-    "eyebrow": "Tuval üzerine yağlıboya",
-    "seoDescription": "Ferhat Çubukçu’nun yağlıboya galerisi — Fibonacci, altın oran ve figüratif kompozisyon üzerine İstanbul merkezli ressam.",
+    "eyebrow": "Tablolar",
+    "seoDescription": "Ferhat Çubukçu’nun tablo galerisi — Fibonacci, altın oran ve figüratif kompozisyon.",
     "empty": "Yönetim panelinden eser eklendiğinde burada görünecektir.",
     "detail": "Detay",
     "year": "Yıl",
@@ -94,7 +94,7 @@
     "empty": "Henüz yayınlanmış giriş yok.",
     "readMore": "Devamını oku",
     "openExternal": "Bağlantıyı aç",
-    "seoDescription": "İstanbul ressamı Ferhat Çubukçu’dan basın ve atölye güncellemeleri.",
+    "seoDescription": "Ferhat Çubukçu’dan basın ve atölye güncellemeleri.",
     "kind_news": "Haber",
     "kind_social": "Sosyal medya",
     "kind_press": "Basın",
@@ -117,27 +117,25 @@
   },
   "about": {
     "title": "Hakkında",
-    "seoDescription": "Biyografi ve atölye pratiği — tuval üzerine yağlıboya, kompozisyonda Fibonacci ve altın oran, Türkiye’deki sergiler."
+    "seoDescription": "Biyografi ve atölye pratiği — kompozisyonda Fibonacci ve altın oran, Türkiye’deki sergiler."
   },
   "contact": {
     "title": "İletişim",
-    "seoDescription": "Ferhat Çubukçu ile sipariş, sergi ve atölye ziyaretleri için iletişim — İstanbul ressamı. Portföy Behance’te.",
+    "seoDescription": "Ferhat Çubukçu ile sipariş, sergi ve atölye ziyaretleri için iletişim.",
     "email": "E-posta",
     "instagram": "Instagram",
-    "behance": "Behance",
-    "behanceLink": "Behance’te resimler ve sergiler",
-    "studio": "Atölye · İstanbul",
-    "reachOut": "Sipariş, sergi veya atölye ziyareti için yazabilirsiniz. Daha çok iş ve özgeçmiş bağlamı Behance’te.",
+    "studio": "Atölye",
+    "reachOut": "Sipariş, sergi veya atölye ziyareti için yazabilirsiniz.",
     "trustShipping": "Kargo, KDV ve gümrük, varış ülkesi ve güncel mevzuata göre değişir — satış öncesi yazılı olarak netleştirilir.",
     "trustOrdering": "Sitedeki müsaitlik ve fiyatlar referans içindir; çerçeve, teslimat ve ödeme genelde kısa bir e-posta trafiğiyle netleşir."
   },
   "studioPage": {
     "title": "Atölye ve pratik",
     "eyebrow": "Pratik",
-    "seoDescription": "Malzeme, süreç ve tuval üzerindeki yaklaşım — Ferhat Çubukçu, İstanbul.",
+    "seoDescription": "Malzeme, süreç ve üretim yaklaşımı — Ferhat Çubukçu.",
     "intro": "Fikirden bitmiş tuvale kısa bir bakış.",
-    "b1Title": "Tuval üzerine yağlıboya",
-    "b1Body": "Pratik ağırlıklı olarak yağlıboyadır — sıkça 80×100 cm ve daha büyük ölçüler — ışığın ve dokunun tuvalde canlı kalması için katmanlı çalışılır.",
+    "b1Title": "Malzeme ve yüzey",
+    "b1Body": "Eserler tuval ve panel üzerinde çeşitli malzemelerle — sıkça 80×100 cm ve daha büyük ölçülerde — ışığın ve dokunun yüzeyde canlı kalması için katmanlı üretilir.",
     "b2Title": "Kompozisyon ve oran",
     "b2Body": "Fibonacci’nin altın orana yaklaşımı aralık ve ritmi besler: sarmallar genel kompozisyon ve formlar arasında görünür, kısıtlayıcı bir ızgara olarak değil.",
     "b3Title": "Figürasyon",
@@ -157,7 +155,7 @@
     "title": "Sosyal Medya",
     "eyebrow": "Atölye akışı",
     "intro": "Atölyenin Instagram hesabından son paylaşımlar — bir görsele dokunarak orada açabilirsiniz.",
-    "seoDescription": "Sosyal akış — İstanbul’daki ressam Ferhat Çubukçu’nun atölye paylaşımları, süreç ve sergiler.",
+    "seoDescription": "Sosyal akış — Ferhat Çubukçu’nun atölye paylaşımları, süreç ve sergiler.",
     "profileCta": "Instagram profilini aç",
     "videoBadge": "Video",
     "emptyPosts": "Bu hesap için henüz paylaşım dönmedi.",
@@ -170,7 +168,7 @@
   },
   "footer": {
     "rights": "© Ferhat Çubukçu. Tüm eserler saklıdır; aksi belirtilmedikçe.",
-    "tagline": "Fibonacci · altın oran · yağlıboya",
+    "tagline": "Fibonacci · altın oran · resim",
     "footerNavAria": "Site bölümleri",
     "curatorPack": "Küratör PDF"
   },
@@ -182,7 +180,7 @@
     "dashboard": "Panel",
     "artworks": "Eserler",
     "news": "Basın ve güncellemeler",
-    "newsIntro": "İsteğe bağlı görsel ve dış bağlantı (Instagram, Behance, basın) ile çift dilli yazılar.",
+    "newsIntro": "İsteğe bağlı görsel ve dış bağlantı (Instagram, basın) ile çift dilli yazılar.",
     "addNews": "Güncelleme ekle",
     "newsKind": "Tür",
     "newsKind_news": "Haber",

@@ -7,6 +7,8 @@ import { absoluteUrl } from "@/lib/site-url";
 import { getSessionFromCookies } from "@/lib/auth";
 import { PublicListAdminToolbar } from "@/components/admin/PublicListAdminToolbar";
 import { PublicResourceAdminActions } from "@/components/admin/PublicResourceAdminActions";
+import { PageHeader } from "@/components/PageHeader";
+import { PageShell } from "@/components/PageShell";
 import { readNewsPosts } from "@/lib/data";
 import {
   resolvedNewsExcerpt,
@@ -56,23 +58,20 @@ export default async function PressIndexPage({ params }: Props) {
     .sort((a, b) => a.order - b.order);
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12 sm:px-5 sm:py-14 md:py-20">
-      <p className="font-serif text-[10px] uppercase tracking-[0.38em] text-patina sm:text-[11px]">
-        {t("eyebrow")}
-      </p>
-      <h1 className="mt-2 font-serif text-3xl font-semibold tracking-tight text-ink sm:text-4xl md:text-5xl">
-        {t("title")}
-      </h1>
-      <p className="prose-atelier mt-4 text-sm text-umber/65 sm:mt-5 sm:text-base">
-        {t("intro")}
-      </p>
+    <PageShell className="md:py-20">
+      <PageHeader
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        lead={t("intro")}
+        className="mb-6"
+      />
 
       {isAdmin ? <PublicListAdminToolbar locale={locale} variant="news" /> : null}
 
       {list.length === 0 ? (
-        <p className="mt-12 text-umber/60">{t("empty")}</p>
+        <p className="text-empty mt-12">{t("empty")}</p>
       ) : (
-        <ul className="mt-12 space-y-12 border-t border-umber/10 pt-12">
+        <ul className="divider-section mt-12 space-y-12">
           {list.map((p) => {
             const title = resolvedNewsTitle(p, locale);
             const excerpt = resolvedNewsExcerpt(p, locale);
@@ -80,10 +79,8 @@ export default async function PressIndexPage({ params }: Props) {
               <li key={p.id}>
                 <article className="grid gap-6 sm:grid-cols-[minmax(0,1fr)_minmax(9rem,12rem)] sm:items-start sm:gap-8">
                   <div className="order-2 min-w-0 sm:order-1">
-                    <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-umber/50">
-                      {kindLabels[p.kind]}
-                    </p>
-                    <h2 className="mt-2 font-serif text-xl font-semibold text-ink sm:text-2xl">
+                    <p className="text-meta">{kindLabels[p.kind]}</p>
+                    <h2 className="page-subsection-title mt-2">
                       <Link
                         href={`/press/${p.slug}`}
                         className="text-ink underline-offset-4 hover:text-goldleaf hover:underline"
@@ -91,24 +88,19 @@ export default async function PressIndexPage({ params }: Props) {
                         {title}
                       </Link>
                     </h2>
-                    <p className="mt-3 text-sm leading-relaxed text-umber/75 sm:text-base">
-                      {excerpt}
-                    </p>
+                    <p className="text-caption mt-3 sm:text-base">{excerpt}</p>
                     <p className="mt-4">
-                      <Link
-                        href={`/press/${p.slug}`}
-                        className="accent-link-plain text-sm font-medium"
-                      >
+                      <Link href={`/press/${p.slug}`} className="link-inline">
                         {t("readMore")}
                       </Link>
                       {p.externalUrl ? (
                         <>
-                          <span className="mx-2 text-umber/35">·</span>
+                          <span className="mx-2 text-ink-faint/50">·</span>
                           <a
                             href={p.externalUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="accent-link-plain text-sm font-medium"
+                            className="link-inline"
                           >
                             {t("openExternal")}
                           </a>
@@ -144,6 +136,6 @@ export default async function PressIndexPage({ params }: Props) {
           })}
         </ul>
       )}
-    </div>
+    </PageShell>
   );
 }

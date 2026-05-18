@@ -60,7 +60,7 @@ export default async function AdminDashboardPage({ params }: Props) {
           >
             <p className="font-serif text-xl text-goldleaf">{t("settings")}</p>
             <p className="mt-2 text-sm text-parchment/60">
-              Taglines, bio, hero path, email, Instagram, Behance, studio notes.
+              Taglines, bio, hero path, email, Instagram, studio notes.
             </p>
           </Link>
         </div>

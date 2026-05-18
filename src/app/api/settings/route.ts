@@ -35,7 +35,6 @@ const settingsSchema = z.object({
   heroImage: z.string().optional(),
   contactEmail: z.union([z.string().email(), z.literal("")]).optional(),
   instagram: z.string().optional(),
-  behance: z.string().optional(),
   studioNoteEn: z.string().optional(),
   studioNoteTr: z.string().optional(),
   pressQuotes: z.array(pressQuoteSchema).max(12).optional(),

@@ -24,6 +24,8 @@ import {
 import { IMAGE_BLUR_PLACEHOLDER } from "@/lib/image-blur";
 import { artworkInquiryHref } from "@/lib/artwork-inquiry";
 import { artworkCatalogMeta } from "@/lib/artwork-catalog-meta";
+import { PageShell } from "@/components/PageShell";
+import { cn } from "@/lib/utils";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -111,21 +113,17 @@ export default async function GalleryPage({ params, searchParams }: Props) {
       : null;
 
   return (
-    <div className="relative z-10 mx-auto max-w-6xl px-4 py-12 sm:px-5 sm:py-14 md:py-20">
+    <PageShell wide>
       {isAdmin ? <PublicListAdminToolbar locale={locale} variant="gallery" /> : null}
-      <header className="mb-8 flex flex-col gap-6 border-b border-umber/10 pb-8 sm:mb-10 sm:gap-8 sm:pb-10 md:flex-row md:items-end md:justify-between">
+      <header className="mb-8 flex flex-col gap-6 border-b border-white/10 pb-8 sm:mb-10 sm:gap-8 sm:pb-10 md:flex-row md:items-end md:justify-between">
         <div className="max-w-2xl">
           <div className="gold-rule mb-4" aria-hidden />
           <p className="editorial-eyebrow">{t("eyebrow")}</p>
-          <h1 className="mt-4 text-balance font-serif text-3xl font-semibold tracking-tight text-ink sm:text-4xl md:text-5xl">
-            {t("title")}
-          </h1>
+          <h1 className="page-title mt-4">{t("title")}</h1>
           {deckLine?.trim() ? (
             <div className="mt-6 max-w-2xl">
               <div className="gold-rule mb-4" aria-hidden />
-              <p className="font-serif text-lg font-medium leading-snug text-ink/90 sm:text-xl md:text-2xl">
-                {deckLine.trim()}
-              </p>
+              <p className="page-deck">{deckLine.trim()}</p>
             </div>
           ) : null}
         </div>
@@ -150,7 +148,7 @@ export default async function GalleryPage({ params, searchParams }: Props) {
               <GallerySortSelect label={t("sortLabel")} options={sortOptions} />
             </Suspense>
           ) : (
-            <p className="max-w-xs text-right text-xs text-umber/50">
+            <p className="text-caption max-w-xs text-right">
               {t("chronologySortNote")}
             </p>
           )}
@@ -158,10 +156,8 @@ export default async function GalleryPage({ params, searchParams }: Props) {
       </header>
 
       {seriesOptions.length > 0 ? (
-        <div className="mb-8 flex flex-wrap items-center gap-2 border-b border-umber/10 pb-8">
-          <span className="text-xs font-medium uppercase tracking-editorial text-umber/45">
-            {t("seriesFilter")}
-          </span>
+        <div className="mb-8 flex flex-wrap items-center gap-2 border-b border-white/10 pb-8">
+          <span className="text-meta">{t("seriesFilter")}</span>
           <Link
             href={
               view === "chronology"
@@ -171,11 +167,7 @@ export default async function GalleryPage({ params, searchParams }: Props) {
                   : "/gallery"
             }
             scroll={false}
-            className={`rounded-full border px-3 py-1.5 text-xs font-medium transition ${
-              !seriesParam
-                ? "border-umber-deep bg-umber-deep text-parchment"
-                : "border-umber/15 text-umber/70 hover:border-goldleaf/40"
-            }`}
+            className={cn("chip", !seriesParam && "chip-active")}
           >
             {t("seriesAll")}
           </Link>
@@ -190,11 +182,10 @@ export default async function GalleryPage({ params, searchParams }: Props) {
                 key={s.slug}
                 href={`/gallery?${sp.toString()}`}
                 scroll={false}
-                className={`rounded-full border px-3 py-1.5 text-xs font-medium transition ${
-                  seriesParam === s.slug
-                    ? "border-umber-deep bg-umber-deep text-parchment"
-                    : "border-umber/15 text-umber/70 hover:border-goldleaf/40"
-                }`}
+                className={cn(
+                  "chip",
+                  seriesParam === s.slug && "chip-active"
+                )}
               >
                 {label}
               </Link>
@@ -205,14 +196,14 @@ export default async function GalleryPage({ params, searchParams }: Props) {
 
       {seriesSpotlight ? (
         <section
-          className="mb-10 border-b border-umber/10 pb-10"
+          className="mb-10 border-b border-white/10 pb-10"
           aria-label={t("seriesSpotlightTitle")}
         >
           <div className="mb-5 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <div className="gold-rule mb-3" aria-hidden />
               <p className="editorial-eyebrow">{t("seriesSpotlightTitle")}</p>
-              <h2 className="mt-2 font-serif text-2xl font-semibold text-ink sm:text-3xl">
+              <h2 className="page-section-title mt-2">
                 {locale === "tr"
                   ? seriesSpotlight.labelTr
                   : seriesSpotlight.labelEn}
@@ -221,7 +212,7 @@ export default async function GalleryPage({ params, searchParams }: Props) {
             <Link
               href={`/gallery?series=${encodeURIComponent(seriesSpotlight.slug)}${sortQuery ? `&sort=${sortQuery}` : ""}`}
               scroll={false}
-              className="accent-link shrink-0 text-sm tracking-wide hover:underline"
+              className="link-cta shrink-0"
             >
               {t("viewSeries")}
             </Link>
@@ -248,7 +239,7 @@ export default async function GalleryPage({ params, searchParams }: Props) {
                       />
                       {a.sold ? <SoldStamp label={t("sold")} /> : null}
                     </div>
-                    <p className="mt-3 font-serif text-sm font-medium text-ink group-hover:text-goldleaf">
+                    <p className="page-card-title mt-3 text-sm">
                       {title}
                     </p>
                     {meta ? (
@@ -265,13 +256,13 @@ export default async function GalleryPage({ params, searchParams }: Props) {
       ) : null}
 
       {list.length === 0 ? (
-        <p className="text-umber/60">{t("empty")}</p>
+        <p className="text-empty">{t("empty")}</p>
       ) : view === "chronology" ? (
         <div className="space-y-14">
           {groupArtworksByYear(list).map(({ yearLabel, items }) => (
             <section key={yearLabel}>
               <div className="mb-4 flex items-baseline gap-4">
-                <h2 className="font-serif text-2xl font-semibold text-ink md:text-3xl">
+                <h2 className="page-section-title">
                   {yearLabel}
                 </h2>
                 <div className="h-px flex-1 bg-gradient-to-r from-goldleaf/50 to-transparent" />
@@ -300,7 +291,7 @@ export default async function GalleryPage({ params, searchParams }: Props) {
                           {a.sold ? <SoldStamp label={t("sold")} /> : null}
                         </div>
                         <div className="mt-4 space-y-1">
-                          <h3 className="font-serif text-lg font-medium text-ink group-hover:text-goldleaf">
+                          <h3 className="page-card-title text-lg">
                             {title}
                           </h3>
                           {meta ? (
@@ -353,7 +344,7 @@ export default async function GalleryPage({ params, searchParams }: Props) {
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-umber-deep/30 via-transparent to-transparent opacity-0 transition duration-500 ease-out-expo group-hover:opacity-100" />
                   </div>
                   <div className="mt-5 space-y-2">
-                    <h2 className="font-serif text-xl font-medium text-ink sm:text-2xl">
+                    <h2 className="page-subsection-title">
                       {title}
                     </h2>
                     {meta ? (
@@ -369,7 +360,7 @@ export default async function GalleryPage({ params, searchParams }: Props) {
                     {!a.sold ? (
                       <ArtworkInquiryLink
                         href={inquiryHref(title, a.slug)}
-                        className="accent-link inline-block text-xs uppercase tracking-editorial hover:underline"
+                        className="link-cta inline-block text-xs uppercase tracking-editorial"
                       >
                         {t("inquiryCta")}
                       </ArtworkInquiryLink>
@@ -389,6 +380,6 @@ export default async function GalleryPage({ params, searchParams }: Props) {
           })}
         </ul>
       )}
-    </div>
+    </PageShell>
   );
 }

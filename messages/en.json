@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Ferhat Çubukçu — Painter",
-    "description": "Contemporary oil painting from İstanbul — Fibonacci, golden ratio, and exhibition work. See Behance for the full portfolio."
+    "description": "Contemporary painting — Fibonacci, golden ratio, and exhibition work."
   },
   "nav": {
     "home": "Home",
@@ -19,13 +19,13 @@
   },
   "home": {
     "viewWork": "View paintings",
-    "phiEyebrow": "İstanbul · oil on canvas · φ = 1.61803",
+    "phiEyebrow": "Fibonacci · golden ratio · φ = 1.61803",
     "phiMeasure": "Golden ratio — 1.61803… · a quiet measure in every composition",
-    "studio": "Painter · İstanbul",
-    "statementLead": "Spirals drawn from Fibonacci’s approach to the golden ratio, woven through figures and compositions — oil on canvas, often at 80×100 cm and beyond.",
+    "studio": "Painter",
+    "statementLead": "Spirals drawn from Fibonacci’s approach to the golden ratio, woven through figures and compositions — often at 80×100 cm and beyond.",
     "featuredTitle": "Selected paintings",
     "featuredSubtitle": "Browse the full gallery for every published piece.",
-    "heroAlt": "Ferhat Çubukçu — oil painting, İstanbul studio",
+    "heroAlt": "Ferhat Çubukçu — selected paintings",
     "heroSlideshowAria": "Featured paintings from the gallery",
     "heroSlideshowDotAria": "Show painting {current} of {total}",
     "newsTeaser": "Studio & press",
@@ -37,8 +37,8 @@
   },
   "gallery": {
     "title": "Gallery",
-    "eyebrow": "Oil on canvas",
-    "seoDescription": "Gallery of oil paintings by Ferhat Çubukçu — İstanbul artist working with Fibonacci, golden ratio, and figurative composition.",
+    "eyebrow": "Paintings",
+    "seoDescription": "Gallery of paintings by Ferhat Çubukçu — Fibonacci, golden ratio, and figurative composition.",
     "empty": "Works will appear here once you add them in the admin panel.",
     "detail": "Details",
     "year": "Year",
@@ -94,7 +94,7 @@
     "empty": "No published entries yet.",
     "readMore": "Read more",
     "openExternal": "Open link",
-    "seoDescription": "Press and studio updates from painter Ferhat Çubukçu — İstanbul.",
+    "seoDescription": "Press and studio updates from painter Ferhat Çubukçu.",
     "kind_news": "News",
     "kind_social": "Social",
     "kind_press": "Coverage",
@@ -117,27 +117,25 @@
   },
   "about": {
     "title": "About",
-    "seoDescription": "Biography and studio practice — oil on canvas, Fibonacci and golden ratio in composition, exhibitions in Türkiye."
+    "seoDescription": "Biography and studio practice — Fibonacci and golden ratio in composition, exhibitions in Türkiye."
   },
   "contact": {
     "title": "Contact",
-    "seoDescription": "Contact Ferhat Çubukçu for commissions, exhibitions, and studio visits — İstanbul painter. Portfolio on Behance.",
+    "seoDescription": "Contact Ferhat Çubukçu for commissions, exhibitions, and studio visits.",
     "email": "Email",
     "instagram": "Instagram",
-    "behance": "Behance",
-    "behanceLink": "Paintings & exhibitions on Behance",
-    "studio": "Studio · İstanbul",
-    "reachOut": "For commissions, exhibitions, or studio visits, please write. More work and CV context live on Behance.",
+    "studio": "Studio",
+    "reachOut": "For commissions, exhibitions, or studio visits, please write.",
     "trustShipping": "Shipping, VAT, and customs depend on destination and current regulations — details are confirmed in writing before any sale.",
     "trustOrdering": "Availability and pricing on this site are for reference; a short email thread usually clarifies framing, delivery, and payment."
   },
   "studioPage": {
     "title": "Studio & practice",
     "eyebrow": "Practice",
-    "seoDescription": "Materials, process, and how the work is made — Ferhat Çubukçu, İstanbul.",
+    "seoDescription": "Materials, process, and how the work is made — Ferhat Çubukçu.",
     "intro": "A concise look at how paintings move from idea to finished canvas.",
-    "b1Title": "Oil on canvas",
-    "b1Body": "The practice is rooted in oil on canvas — often at 80×100 cm and larger — built up in layers so light and texture stay alive in the surface.",
+    "b1Title": "Materials & surface",
+    "b1Body": "Works are built on canvas and panel in a range of media — often at 80×100 cm and larger — layered so light and texture stay alive in the surface.",
     "b2Title": "Composition & proportion",
     "b2Body": "Fibonacci’s approach to the golden ratio informs spacing and rhythm: spirals and intervals appear in overall compositions and between forms, never as a rigid grid.",
     "b3Title": "Figuration",
@@ -157,7 +155,7 @@
     "title": "Social Media",
     "eyebrow": "Studio feed",
     "intro": "Recent posts from the studio on Instagram — tap an image to open it there.",
-    "seoDescription": "Social feed — studio posts, process, and exhibitions from painter Ferhat Çubukçu in İstanbul.",
+    "seoDescription": "Social feed — studio posts, process, and exhibitions from painter Ferhat Çubukçu.",
     "profileCta": "Open Instagram profile",
     "videoBadge": "Video",
     "emptyPosts": "No posts were returned for this account yet.",
@@ -170,7 +168,7 @@
   },
   "footer": {
     "rights": "© Ferhat Çubukçu. All works reserved unless noted.",
-    "tagline": "Fibonacci · golden ratio · oil",
+    "tagline": "Fibonacci · golden ratio · painting",
     "footerNavAria": "Site sections",
     "curatorPack": "Curator PDF"
   },
@@ -182,7 +180,7 @@
     "dashboard": "Dashboard",
     "artworks": "Paintings",
     "news": "Press & updates",
-    "newsIntro": "Bilingual posts with optional image and external link (Instagram, Behance, press).",
+    "newsIntro": "Bilingual posts with optional image and external link (Instagram, press).",
     "addNews": "Add update",
     "newsKind": "Type",
     "newsKind_news": "News",

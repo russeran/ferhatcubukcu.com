@@ -15,23 +15,30 @@ const NEWS_FILE = "news.json";
 
 const defaultSettings: SiteSettings = {
   artistName: "Ferhat Çubukçu",
-  taglineEn: "Oil on canvas — İstanbul · Fibonacci and the golden ratio in composition",
-  taglineTr:
-    "Tuval üzerine yağlıboya — İstanbul · kompozisyonda Fibonacci ve altın oran",
+  taglineEn:
+    "Fibonacci and the golden ratio in figurative composition",
+  taglineTr: "Figüratif kompozisyonda Fibonacci ve altın oran",
   bioEn:
-    "Ferhat Çubukçu (b. 4 March 1990, Bursa) is a painter based in İstanbul, Türkiye. He studied automotive technologies at Yüzüncü Yıl University and has painted for more than two decades, continuing training after high school at the Ertuğrul Topsakal Art Workshop. His practice centres on oil on canvas, often at 80×100 cm and larger formats.\n\nOn his Behance profile he describes his approach as growing from the spiral implied by the Fibonacci sequence’s approach to the golden ratio: spirals are woven into overall compositions and figures, with Fibonacci intervals considered on and between forms. He has shown in group exhibitions in Bursa, Van, and İstanbul, among others. More paintings, process, and exhibition notes appear on Behance and Instagram — replace this text anytime from the admin panel.",
+    "Ferhat Çubukçu (b. 4 March 1990, Bursa) is a painter based in Türkiye. He studied automotive technologies at Yüzüncü Yıl University and has painted for more than two decades, continuing training after high school at the Ertuğrul Topsakal Art Workshop. His work spans multiple media and formats, often at 80×100 cm and larger.\n\nHis approach grows from the spiral implied by the Fibonacci sequence’s approach to the golden ratio: spirals are woven into overall compositions and figures, with Fibonacci intervals considered on and between forms. He has shown in group exhibitions in Bursa, Van, and elsewhere in Türkiye. Replace this text anytime from the admin panel.",
   bioTr:
-    "Ferhat Çubukçu (4 Mart 1990, Bursa doğumlu) İstanbul merkezli bir ressamdır. Yüzüncü Yıl Üniversitesi’nde otomotiv teknolojileri okumuş, yirmi yılı aşkın süredir resim yapmaktadır; liseden sonra Ertuğrul Topsakal Sanat Atölyesi’nde çalışmalarını sürdürmüştür. Pratiği ağırlıklı olarak tuval üzerine yağlıboya ve sıkça 80×100 cm ile daha büyük ölçülerdedir.\n\nBehance profilinde yaklaşımını, Fibonacci dizisinin altın orana yaklaşımından doğan sarmal biçimden beslendiğini; bu sarmalların genel kompozisyon ve figürlere entegre edildiğini ve figürler üzerinde ve aralarında Fibonacci ölçülerinin dikkate alındığını anlatır. Bursa, Van ve İstanbul başta olmak üzere karma sergilerde yer almıştır. Daha çok eser ve sergi notları Behance ve Instagram’da — metni yönetim panelinden dilediğiniz zaman güncelleyebilirsiniz.",
+    "Ferhat Çubukçu (4 Mart 1990, Bursa doğumlu) Türkiye merkezli bir ressamdır. Yüzüncü Yıl Üniversitesi’nde otomotiv teknolojileri okumuş, yirmi yılı aşkın süredir resim yapmaktadır; liseden sonra Ertuğrul Topsakal Sanat Atölyesi’nde çalışmalarını sürdürmüştür. Eserleri farklı malzeme ve ölçülerde, sıkça 80×100 cm ve daha büyük formatlarda üretilir.\n\nYaklaşımı, Fibonacci dizisinin altın orana yaklaşımından doğan sarmal biçimden beslenir; bu sarmallar genel kompozisyon ve figürlere entegre edilir, figürler üzerinde ve aralarında Fibonacci ölçüleri dikkate alınır. Bursa, Van ve Türkiye’nin farklı şehirlerinde karma sergilerde yer almıştır. Metni yönetim panelinden dilediğiniz zaman güncelleyebilirsiniz.",
   heroImage: "/hero-placeholder.svg",
   contactEmail: "studio@ferhatcubukcu.com",
   instagram: "https://www.instagram.com/ferhatcubukcu/",
-  behance: "https://www.behance.net/ferhat_cubukcu",
   studioNoteEn:
-    "For availability, commissions, or exhibition proposals, please write. Full portfolio and project views: Behance.",
+    "For availability, commissions, or exhibition proposals, please write.",
   studioNoteTr:
-    "Müsaitlik, sipariş veya sergi önerileri için yazabilirsiniz. Tam portföy ve proje görünümleri: Behance.",
+    "Müsaitlik, sipariş veya sergi önerileri için yazabilirsiniz.",
   pressQuotes: [],
 };
+
+function mergeSettings(parsed: Partial<SiteSettings>): SiteSettings {
+  const merged = { ...defaultSettings, ...parsed } as SiteSettings & {
+    behance?: string;
+  };
+  delete merged.behance;
+  return merged;
+}
 
 function slugify(input: string): string {
   return input
@@ -59,7 +66,7 @@ export async function readSettings(): Promise<SiteSettings> {
   if (getSupabaseAdmin()) {
     const v = await supabaseGetJson("settings");
     if (v && typeof v === "object" && !Array.isArray(v)) {
-      return { ...defaultSettings, ...(v as Partial<SiteSettings>) };
+      return mergeSettings(v as Partial<SiteSettings>);
     }
     return { ...defaultSettings };
   }
@@ -69,7 +76,7 @@ export async function readSettings(): Promise<SiteSettings> {
     const raw = await redis.get(redisKeys().settings);
     const parsed = parseRedisJson<Partial<SiteSettings>>(raw);
     if (parsed) {
-      return { ...defaultSettings, ...parsed };
+      return mergeSettings(parsed);
     }
     return { ...defaultSettings };
   }
@@ -78,7 +85,7 @@ export async function readSettings(): Promise<SiteSettings> {
   try {
     const raw = await fs.readFile(file, "utf-8");
     try {
-      return { ...defaultSettings, ...JSON.parse(raw) };
+      return mergeSettings(JSON.parse(raw) as Partial<SiteSettings>);
     } catch {
       return { ...defaultSettings };
     }
@@ -126,17 +133,17 @@ function defaultSeedArtworks(): Artwork[] {
   return [
       {
         id: "seed-1",
-        slug: "istanbul-in-depth",
-        titleEn: "İstanbul in depth",
-        titleTr: "İstanbul in depth",
+        slug: "urban-layers",
+        titleEn: "Urban layers",
+        titleTr: "Kentsel katmanlar",
         descriptionEn:
-          "A series exploring the city’s layers — architecture, light, and crowd rhythms rendered in oil with Fibonacci-guided structure in the composition.",
+          "A series exploring architecture, light, and crowd rhythms with Fibonacci-guided structure in the composition.",
         descriptionTr:
-          "Şehrin katmanlarını araştıran bir seri — mimari, ışık ve kalabalık ritimleri; kompozisyonda Fibonacci rehberli yapıyla yağlıboya.",
+          "Mimari, ışık ve kalabalık ritimlerini; kompozisyonda Fibonacci rehberli yapıyla araştıran bir seri.",
         image: "/gallery-placeholder.svg",
         year: "2024",
-        mediumEn: "Oil on canvas",
-        mediumTr: "Tuval üzerine yağlıboya",
+        mediumEn: "Mixed media on canvas",
+        mediumTr: "Tuval üzerine karışık teknik",
         dimensions: "Various",
         order: 0,
         sold: false,
@@ -154,8 +161,8 @@ function defaultSeedArtworks(): Artwork[] {
           "80×100 cm — Ayasofya kütle ve kubbe siluetinin doygun kırmızı bir yorumu; kütle ve boşlukların yerleşiminde sarmal geometri.",
         image: "/gallery-placeholder.svg",
         year: "2023",
-        mediumEn: "Oil on canvas",
-        mediumTr: "Tuval üzerine yağlıboya",
+        mediumEn: "Acrylic on canvas",
+        mediumTr: "Tuval üzerine akrilik",
         dimensions: "80 × 100 cm",
         order: 1,
         sold: false,
@@ -173,8 +180,8 @@ function defaultSeedArtworks(): Artwork[] {
           "80×100 cm — tanınmanın eşiğinde figürler; yüz işaretleri ile tablonun dış sarmal gerilimi arasında Fibonacci aralıkları.",
         image: "/gallery-placeholder.svg",
         year: "2025",
-        mediumEn: "Oil on canvas",
-        mediumTr: "Tuval üzerine yağlıboya",
+        mediumEn: "Mixed media on canvas",
+        mediumTr: "Tuval üzerine karışık teknik",
         dimensions: "80 × 100 cm",
         order: 2,
         sold: false,

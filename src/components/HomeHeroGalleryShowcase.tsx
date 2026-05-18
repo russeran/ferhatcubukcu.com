@@ -14,6 +14,9 @@ export type HomeHeroSlide = {
 
 const ROTATE_MS = 5200;
 
+const frameClass =
+  "hero-slideshow-frame relative aspect-[4/3] w-full animate-fade-up md:aspect-[5/4]";
+
 type Props = {
   slides: HomeHeroSlide[];
   fallbackSrc: string;
@@ -38,7 +41,7 @@ export function HomeHeroGalleryShowcase({
 
   if (slides.length === 0) {
     return (
-      <div className="relative aspect-[4/3] w-full animate-fade-up overflow-hidden rounded-sm bg-gradient-to-br from-parchment-warm to-parchment-dark shadow-gallery ring-1 ring-umber/15 md:aspect-[5/4]">
+      <div className={frameClass}>
         <Image
           src={fallbackSrc}
           alt={fallbackAlt}
@@ -47,14 +50,14 @@ export function HomeHeroGalleryShowcase({
           sizes="(max-width: 768px) 100vw, 50vw"
           priority
         />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-umber-deep/20 via-transparent to-white/25" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-anthracite/10 via-transparent to-white/50" />
       </div>
     );
   }
 
   return (
     <div
-      className="relative aspect-[4/3] w-full animate-fade-up overflow-hidden rounded-sm bg-gradient-to-br from-parchment-warm to-parchment-dark shadow-gallery ring-1 ring-umber/15 md:aspect-[5/4]"
+      className={frameClass}
       aria-roledescription="carousel"
       aria-label={t("heroSlideshowAria")}
     >
@@ -85,7 +88,7 @@ export function HomeHeroGalleryShowcase({
           />
         </Link>
       ))}
-      <div className="pointer-events-none absolute inset-0 z-[3] bg-gradient-to-br from-white/20 via-transparent to-umber-deep/15" />
+      <div className="pointer-events-none absolute inset-0 z-[3] bg-gradient-to-br from-white/35 via-transparent to-anthracite/8" />
       {slides.length > 1 ? (
         <div className="absolute bottom-3 left-0 right-0 z-[4] flex justify-center gap-2 px-4">
           {slides.map((_, i) => (
@@ -94,10 +97,10 @@ export function HomeHeroGalleryShowcase({
               type="button"
               onClick={() => setActive(i)}
               className={cn(
-                "pointer-events-auto h-2 rounded-full transition-all duration-300 focus-ring",
+                "pointer-events-auto h-2.5 rounded-full border-2 border-anthracite/50 shadow-[0_1px_3px_rgba(0,0,0,0.2)] transition-all duration-300 focus-ring",
                 i === active
-                  ? "w-8 bg-parchment shadow-sm"
-                  : "w-2 bg-parchment/45 hover:bg-parchment/70"
+                  ? "w-8 bg-anthracite"
+                  : "w-2.5 bg-anthracite/30 hover:bg-anthracite/50"
               )}
               aria-label={t("heroSlideshowDotAria", {
                 current: i + 1,

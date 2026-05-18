@@ -28,7 +28,7 @@ export async function SiteFooter({ locale }: { locale: string }) {
       />
       <div className="relative z-10 mx-auto flex max-w-6xl flex-col gap-8 px-4 py-12 text-sm sm:px-5 md:flex-row md:items-start md:justify-between md:gap-10 md:py-14">
         <div className="space-y-5 md:max-w-lg">
-          <p className="text-[13px] leading-relaxed text-ink-muted">{t("rights")}</p>
+          <p className="text-caption">{t("rights")}</p>
           <nav
             className="flex flex-wrap gap-x-2 gap-y-2"
             aria-label={t("footerNavAria")}
@@ -53,7 +53,7 @@ export async function SiteFooter({ locale }: { locale: string }) {
             <Link
               href="/api/curator-pack"
               prefetch={false}
-              className="inline-flex rounded-sm border border-white/15 bg-parchment/60 px-4 py-2.5 text-[13px] font-medium text-ink transition hover:border-goldleaf/45 hover:text-oxide"
+              className="btn-ghost"
             >
               {t("curatorPack")} — {tc("footerLabel")}
             </Link>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { InstagramFeedGrid } from "@/components/InstagramFeedGrid";
+import { PageShell } from "@/components/PageShell";
 import { TrackedOutboundLink } from "@/components/TrackedOutboundLink";
 import { fetchInstagramFeed } from "@/lib/instagram-feed";
 import { readSettings } from "@/lib/data";
@@ -53,25 +54,21 @@ export default async function SocialMediaPage({ params }: Props) {
   const feed = await fetchInstagramFeed();
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12 sm:px-5 sm:py-14 md:py-24">
-      <div className="flex flex-col gap-4 border-b border-umber/10 pb-10 md:flex-row md:items-end md:justify-between">
+    <PageShell wide className="md:py-24">
+      <div className="flex flex-col gap-4 border-b border-white/10 pb-10 md:flex-row md:items-end md:justify-between">
         <div>
-          <p className="font-serif text-[10px] uppercase tracking-[0.38em] text-patina sm:text-[11px]">
+          <p className="editorial-eyebrow">
             {t("eyebrow")}
           </p>
-          <h1 className="mt-3 font-serif text-3xl font-semibold tracking-tight text-ink sm:mt-4 sm:text-4xl md:text-5xl">
-            {t("title")}
-          </h1>
-          <p className="mt-4 max-w-2xl text-base text-umber/75 sm:text-lg">
-            {t("intro")}
-          </p>
+          <h1 className="page-title">{t("title")}</h1>
+          <p className="page-lead max-w-2xl">{t("intro")}</p>
         </div>
         <TrackedOutboundLink
           event="instagram_profile_click"
           href={profileUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="shrink-0 self-start rounded-sm border border-umber/20 bg-parchment/90 px-5 py-2.5 text-sm font-medium text-ink underline-offset-4 transition hover:border-goldleaf/50 hover:text-oxide md:self-auto"
+          className="btn-secondary shrink-0 self-start px-5 py-2.5 md:self-auto"
         >
           {t("profileCta")}
         </TrackedOutboundLink>
@@ -83,15 +80,15 @@ export default async function SocialMediaPage({ params }: Props) {
         ) : null}
 
         {feed.status === "ok" && feed.items.length === 0 ? (
-          <p className="max-w-xl text-umber/70">{t("emptyPosts")}</p>
+          <p className="text-caption max-w-xl">{t("emptyPosts")}</p>
         ) : null}
 
         {feed.status === "missing_env" ? (
-          <div className="max-w-2xl space-y-4 rounded-sm border border-umber/12 bg-parchment/80 p-6 text-sm leading-relaxed text-umber/80 sm:p-8 sm:text-base">
+          <div className="surface-caption prose-atelier max-w-2xl space-y-4 p-6 sm:p-8 sm:text-base">
             <p className="font-medium text-ink">{t("configureTitle")}</p>
             <p>{t("configureP1")}</p>
             <p>{t("configureP2")}</p>
-            <p className="text-umber/65">{t("configureP3")}</p>
+            <p>{t("configureP3")}</p>
           </div>
         ) : null}
 
@@ -103,6 +100,6 @@ export default async function SocialMediaPage({ params }: Props) {
           </div>
         ) : null}
       </div>
-    </div>
+    </PageShell>
   );
 }

@@ -350,21 +350,6 @@ export async function GET() {
     false,
     80
   );
-  const beh = settings.behance?.trim();
-  if (beh) {
-    drawWrapped(
-      lastPage,
-      `Portfolio: ${sanitizePdfLine(beh)}`,
-      MARGIN,
-      fy - 2,
-      9,
-      font,
-      fontBold,
-      false,
-      80
-    );
-  }
-
   const pdfBytes = await pdfDoc.save();
   const filename = `ferhat-cubukcu-curator-${new Date().toISOString().slice(0, 10)}.pdf`;
 

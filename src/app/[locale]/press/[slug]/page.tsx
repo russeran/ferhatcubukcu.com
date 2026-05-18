@@ -7,6 +7,7 @@ import { localeAlternates, seoTruncate } from "@/lib/seo-helpers";
 import { absoluteUrl } from "@/lib/site-url";
 import { getSessionFromCookies } from "@/lib/auth";
 import { PublicResourceAdminActions } from "@/components/admin/PublicResourceAdminActions";
+import { PageShell } from "@/components/PageShell";
 import { readNewsPosts } from "@/lib/data";
 import {
   resolvedNewsBody,
@@ -76,11 +77,8 @@ export default async function PressPostPage({ params }: Props) {
   const body = resolvedNewsBody(post, locale);
 
   return (
-    <article className="mx-auto max-w-3xl px-4 py-12 sm:px-5 sm:py-14 md:py-20">
-      <Link
-        href="/press"
-        className="accent-link-plain text-sm font-medium"
-      >
+    <PageShell className="md:py-20">
+      <Link href="/press" className="link-inline">
         ← {t("title")}
       </Link>
 
@@ -93,14 +91,10 @@ export default async function PressPostPage({ params }: Props) {
         />
       ) : null}
 
-      <header className="mt-8 border-b border-umber/10 pb-8">
-        <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-umber/50">
-          {kindLabels[post.kind]}
-        </p>
-        <h1 className="mt-3 font-serif text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-          {title}
-        </h1>
-        <p className="mt-2 text-xs text-umber/50">
+      <header className="divider-section mt-8 pb-8">
+        <p className="text-meta">{kindLabels[post.kind]}</p>
+        <h1 className="page-title">{title}</h1>
+        <p className="text-caption mt-2">
           {new Date(post.createdAt).toLocaleDateString(
             locale === "tr" ? "tr-TR" : "en-GB",
             { year: "numeric", month: "long", day: "numeric" }
@@ -121,7 +115,7 @@ export default async function PressPostPage({ params }: Props) {
         </div>
       ) : null}
 
-      <div className="prose prose-neutral mx-auto mt-10 max-w-prose prose-p:text-umber/80 prose-p:leading-relaxed">
+      <div className="prose-content mt-10">
         <p className="whitespace-pre-wrap">{body}</p>
       </div>
 
@@ -137,6 +131,6 @@ export default async function PressPostPage({ params }: Props) {
           </a>
         </p>
       ) : null}
-    </article>
+    </PageShell>
   );
 }
