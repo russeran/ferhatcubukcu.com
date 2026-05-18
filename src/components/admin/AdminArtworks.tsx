@@ -35,6 +35,72 @@ const emptyForm = {
   slug: "",
 };
 
+type ArtworkFormState = typeof emptyForm;
+
+function ArtworkStatusFields({
+  values,
+  onChange,
+  sectionId,
+}: {
+  values: ArtworkFormState;
+  onChange: (patch: Partial<ArtworkFormState>) => void;
+  sectionId?: string;
+}) {
+  const t = useTranslations("admin");
+
+  return (
+    <div
+      id={sectionId}
+      className="md:col-span-2 space-y-3 rounded-md border border-goldleaf/40 bg-gradient-to-br from-parchment/15 via-parchment/8 to-transparent p-4 ring-1 ring-goldleaf/20"
+    >
+      <span className="admin-label block text-goldleaf/95">
+        {t("artworkStatusSection")}
+      </span>
+      <label className="flex cursor-pointer items-start gap-3 rounded-sm border border-white/10 bg-anthracite-light/30 p-3 transition hover:border-goldleaf/30">
+        <input
+          type="checkbox"
+          checked={values.favorite}
+          onChange={(e) => onChange({ favorite: e.target.checked })}
+          className="admin-checkbox mt-0.5 h-5 w-5 shrink-0"
+        />
+        <span className="min-w-0">
+          <span className="block text-sm font-medium text-parchment">
+            {t("markFavorite")}
+          </span>
+          <span className="mt-0.5 block text-xs leading-relaxed text-ink-muted">
+            {t("favoriteHint")}
+          </span>
+        </span>
+      </label>
+      <label className="flex cursor-pointer items-start gap-3 rounded-sm border border-white/10 bg-anthracite-light/20 p-3 transition hover:border-white/20">
+        <input
+          type="checkbox"
+          checked={values.sold}
+          onChange={(e) => onChange({ sold: e.target.checked })}
+          className="admin-checkbox mt-0.5 h-5 w-5 shrink-0"
+        />
+        <span className="min-w-0">
+          <span className="block text-sm font-medium text-parchment">
+            {t("markSold")}
+          </span>
+          <span className="mt-0.5 block text-xs leading-relaxed text-ink-muted">
+            {t("soldHint")}
+          </span>
+        </span>
+      </label>
+      <label className="flex cursor-pointer items-center gap-3 rounded-sm border border-white/10 bg-anthracite-light/20 px-3 py-2.5 transition hover:border-white/20">
+        <input
+          type="checkbox"
+          checked={values.published}
+          onChange={(e) => onChange({ published: e.target.checked })}
+          className="admin-checkbox h-5 w-5 shrink-0"
+        />
+        <span className="text-sm font-medium text-parchment">{t("published")}</span>
+      </label>
+    </div>
+  );
+}
+
 export function AdminArtworks() {
   const t = useTranslations("admin");
   const searchParams = useSearchParams();
@@ -176,6 +242,7 @@ export function AdminArtworks() {
   function startEdit(a: Artwork) {
     setEditingId(a.id);
     setError(null);
+    const statusId = `admin-artwork-status-${a.id}`;
     setEdit({
       titleEn: a.titleEn,
       titleTr: a.titleTr,
@@ -199,6 +266,11 @@ export function AdminArtworks() {
       favorite: Boolean(a.favorite),
       slug: a.slug,
     });
+    window.setTimeout(() => {
+      document
+        .getElementById(statusId)
+        ?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }, 80);
   }
 
   const editQuery = searchParams.get("edit");
@@ -276,6 +348,10 @@ export function AdminArtworks() {
       <section id="admin-add-artwork" className="admin-panel">
         <h2 className="admin-section-title">{t("addArtwork")}</h2>
         <form onSubmit={addArtwork} className="mt-6 grid gap-4 md:grid-cols-2">
+          <ArtworkStatusFields
+            values={create}
+            onChange={(patch) => setCreate((c) => ({ ...c, ...patch }))}
+          />
           <label className="md:col-span-2">
             <span className="admin-label block">
               {t("mainImage")}
@@ -557,45 +633,6 @@ export function AdminArtworks() {
               </label>
             </div>
           </div>
-          <label className="flex items-center gap-3 md:col-span-2">
-            <input
-              type="checkbox"
-              checked={create.sold}
-              onChange={(e) =>
-                setCreate({ ...create, sold: e.target.checked })
-              }
-              className="admin-checkbox"
-            />
-            <span className="text-sm text-ink-muted">{t("markSold")}</span>
-          </label>
-          <p className="-mt-1 text-xs text-ink-faint md:col-span-2">
-            {t("soldHint")}
-          </p>
-          <label className="flex items-center gap-3 md:col-span-2">
-            <input
-              type="checkbox"
-              checked={create.favorite}
-              onChange={(e) =>
-                setCreate({ ...create, favorite: e.target.checked })
-              }
-              className="admin-checkbox"
-            />
-            <span className="text-sm text-ink-muted">{t("markFavorite")}</span>
-          </label>
-          <p className="-mt-1 text-xs text-ink-faint md:col-span-2">
-            {t("favoriteHint")}
-          </p>
-          <label className="flex items-center gap-3 md:col-span-2">
-            <input
-              type="checkbox"
-              checked={create.published}
-              onChange={(e) =>
-                setCreate({ ...create, published: e.target.checked })
-              }
-              className="admin-checkbox"
-            />
-            <span className="text-sm text-ink-muted">{t("published")}</span>
-          </label>
           <div className="md:col-span-2">
             <button
               type="submit"
@@ -667,6 +704,11 @@ export function AdminArtworks() {
                   onSubmit={saveEdit}
                   className="mt-6 grid gap-4 border-t border-white/10 pt-6 md:grid-cols-2"
                 >
+                  <ArtworkStatusFields
+                    sectionId={`admin-artwork-status-${a.id}`}
+                    values={edit}
+                    onChange={(patch) => setEdit((c) => ({ ...c, ...patch }))}
+                  />
                   <label className="md:col-span-2">
                     <span className="admin-label block">
                       {t("mainImage")}
@@ -969,51 +1011,6 @@ export function AdminArtworks() {
                       </label>
                     </div>
                   </div>
-                  <label className="flex items-center gap-3 md:col-span-2">
-                    <input
-                      type="checkbox"
-                      checked={edit.sold}
-                      onChange={(e) =>
-                        setEdit({ ...edit, sold: e.target.checked })
-                      }
-                      className="admin-checkbox"
-                    />
-                    <span className="text-sm text-ink-muted">
-                      {t("markSold")}
-                    </span>
-                  </label>
-                  <p className="-mt-1 text-xs text-ink-faint md:col-span-2">
-                    {t("soldHint")}
-                  </p>
-                  <label className="flex items-center gap-3 md:col-span-2">
-                    <input
-                      type="checkbox"
-                      checked={edit.favorite}
-                      onChange={(e) =>
-                        setEdit({ ...edit, favorite: e.target.checked })
-                      }
-                      className="admin-checkbox"
-                    />
-                    <span className="text-sm text-ink-muted">
-                      {t("markFavorite")}
-                    </span>
-                  </label>
-                  <p className="-mt-1 text-xs text-ink-faint md:col-span-2">
-                    {t("favoriteHint")}
-                  </p>
-                  <label className="flex items-center gap-3 md:col-span-2">
-                    <input
-                      type="checkbox"
-                      checked={edit.published}
-                      onChange={(e) =>
-                        setEdit({ ...edit, published: e.target.checked })
-                      }
-                      className="admin-checkbox"
-                    />
-                    <span className="text-sm text-ink-muted">
-                      {t("published")}
-                    </span>
-                  </label>
                   <div className="flex flex-wrap gap-3 md:col-span-2">
                     <button
                       type="submit"
