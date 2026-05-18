@@ -31,6 +31,7 @@ const defaultSettings: SiteSettings = {
   studioNoteTr:
     "Müsaitlik, sipariş veya sergi önerileri için yazabilirsiniz.",
   pressQuotes: [],
+  galleryImageFit: false,
 };
 
 function hasLegacyHeroTagline(text: string): boolean {

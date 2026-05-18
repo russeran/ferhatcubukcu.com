@@ -53,6 +53,8 @@ export type SiteSettings = {
   studioNoteTr?: string;
   /** Short press quotes for home strip and /press (admin-managed). */
   pressQuotes?: PressQuote[];
+  /** When true, gallery cards use object-contain so the full painting is visible. */
+  galleryImageFit?: boolean;
 };
 
 /** News, social, press, or studio updates — admin-managed, public under /press. */

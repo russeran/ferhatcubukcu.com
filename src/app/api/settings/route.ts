@@ -13,6 +13,7 @@ function revalidateSite() {
     revalidatePath(`/${locale}/contact`);
     revalidatePath(`/${locale}/studio`);
     revalidatePath(`/${locale}/press`);
+    revalidatePath(`/${locale}/gallery`);
   }
 }
 
@@ -38,6 +39,7 @@ const settingsSchema = z.object({
   studioNoteEn: z.string().optional(),
   studioNoteTr: z.string().optional(),
   pressQuotes: z.array(pressQuoteSchema).max(12).optional(),
+  galleryImageFit: z.boolean().optional(),
 });
 
 export async function GET() {

@@ -97,10 +97,10 @@ export function HomeHeroGalleryShowcase({
               type="button"
               onClick={() => setActive(i)}
               className={cn(
-                "pointer-events-auto h-2.5 rounded-full border-2 border-anthracite/50 shadow-[0_1px_3px_rgba(0,0,0,0.2)] transition-all duration-300 focus-ring",
+                "pointer-events-auto h-2.5 rounded-full border-2 border-white/90 shadow-[0_1px_4px_rgba(0,0,0,0.25)] transition-all duration-300 focus-ring",
                 i === active
-                  ? "w-8 bg-anthracite"
-                  : "w-2.5 bg-anthracite/30 hover:bg-anthracite/50"
+                  ? "w-8 bg-white"
+                  : "w-2.5 bg-white/45 hover:bg-white/70"
               )}
               aria-label={t("heroSlideshowDotAria", {
                 current: i + 1,

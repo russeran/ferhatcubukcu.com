@@ -236,6 +236,9 @@
     "pressAttrEn": "Attribution (English)",
     "pressAttrTr": "Attribution (Turkish)",
     "pressUrl": "Source URL (optional)",
-    "pressImage": "Image URL (optional)"
+    "pressImage": "Image URL (optional)",
+    "galleryDisplaySection": "Gallery page",
+    "galleryImageFitLabel": "Fit full painting in frame (show entire image without cropping)",
+    "galleryImageFitHint": "Off: images fill the card and may crop edges (current look). On: the whole painting is visible inside the frame."
   }
 }

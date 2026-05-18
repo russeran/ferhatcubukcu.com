@@ -24,6 +24,7 @@ import {
 import { IMAGE_BLUR_PLACEHOLDER } from "@/lib/image-blur";
 import { artworkInquiryHref } from "@/lib/artwork-inquiry";
 import { artworkCatalogMeta } from "@/lib/artwork-catalog-meta";
+import { galleryListingImageClass } from "@/lib/gallery-listing-image";
 import { PageShell } from "@/components/PageShell";
 import { cn } from "@/lib/utils";
 
@@ -107,6 +108,8 @@ export default async function GalleryPage({ params, searchParams }: Props) {
 
   const deckLine =
     locale === "tr" ? settings.taglineTr : settings.taglineEn;
+  const galleryImageFit = settings.galleryImageFit === true;
+  const listingImageClass = galleryListingImageClass(galleryImageFit);
   const seriesSpotlight =
     view === "grid" && !seriesParam && seriesOptions.length > 0
       ? pickSeriesSpotlight(seriesOptions, publishedSorted)
@@ -234,7 +237,7 @@ export default async function GalleryPage({ params, searchParams }: Props) {
                         fill
                         placeholder="blur"
                         blurDataURL={IMAGE_BLUR_PLACEHOLDER}
-                        className="object-cover transition duration-[1100ms] ease-out-expo motion-safe:group-hover:scale-[1.03]"
+                        className={listingImageClass}
                         sizes="200px"
                       />
                       {a.sold ? <SoldStamp label={t("sold")} /> : null}
@@ -285,7 +288,7 @@ export default async function GalleryPage({ params, searchParams }: Props) {
                             fill
                             placeholder="blur"
                             blurDataURL={IMAGE_BLUR_PLACEHOLDER}
-                            className="object-cover transition duration-[1100ms] ease-out-expo motion-safe:group-hover:scale-[1.03]"
+                            className={listingImageClass}
                             sizes="280px"
                           />
                           {a.sold ? <SoldStamp label={t("sold")} /> : null}
@@ -337,11 +340,13 @@ export default async function GalleryPage({ params, searchParams }: Props) {
                       fill
                       placeholder="blur"
                       blurDataURL={IMAGE_BLUR_PLACEHOLDER}
-                      className="object-cover transition duration-[1100ms] ease-out-expo motion-safe:group-hover:scale-[1.03]"
+                      className={listingImageClass}
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
                     {a.sold ? <SoldStamp label={t("sold")} /> : null}
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-umber-deep/30 via-transparent to-transparent opacity-0 transition duration-500 ease-out-expo group-hover:opacity-100" />
+                    {!galleryImageFit ? (
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-umber-deep/30 via-transparent to-transparent opacity-0 transition duration-500 ease-out-expo group-hover:opacity-100" />
+                    ) : null}
                   </div>
                   <div className="mt-5 space-y-2">
                     <h2 className="page-subsection-title">

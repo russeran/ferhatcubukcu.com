@@ -96,6 +96,25 @@ export function AdminSettings() {
           onChange={(e) => setForm({ ...form, taglineTr: e.target.value })}
         />
       </label>
+      <div className="space-y-3 rounded-lg border border-white/10 bg-black/15 p-4">
+        <p className="text-xs uppercase tracking-wider text-parchment/45">
+          {t("galleryDisplaySection")}
+        </p>
+        <p className="text-xs text-parchment/50">{t("galleryImageFitHint")}</p>
+        <label className="flex cursor-pointer items-start gap-3">
+          <input
+            type="checkbox"
+            className="focus-ring mt-0.5 h-4 w-4 rounded border-white/25 bg-black/40 accent-goldleaf"
+            checked={form.galleryImageFit ?? false}
+            onChange={(e) =>
+              setForm({ ...form, galleryImageFit: e.target.checked })
+            }
+          />
+          <span className="text-sm text-parchment/90">
+            {t("galleryImageFitLabel")}
+          </span>
+        </label>
+      </div>
       <label className="block space-y-2">
         <span className="text-xs uppercase tracking-wider text-parchment/45">
           Hero image path

@@ -236,6 +236,9 @@
     "pressAttrEn": "Kaynak satırı (İngilizce)",
     "pressAttrTr": "Kaynak satırı (Türkçe)",
     "pressUrl": "Kaynak URL (isteğe bağlı)",
-    "pressImage": "Görsel URL (isteğe bağlı)"
+    "pressImage": "Görsel URL (isteğe bağlı)",
+    "galleryDisplaySection": "Galeri sayfası",
+    "galleryImageFitLabel": "Tabloyu çerçeveye sığdır (kırpmadan tamamını göster)",
+    "galleryImageFitHint": "Kapalı: görsel kartı doldurur, kenarlar kırpılabilir (mevcut görünüm). Açık: tablonun tamamı çerçeve içinde görünür."
   }
 }
