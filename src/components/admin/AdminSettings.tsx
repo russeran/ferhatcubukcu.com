@@ -47,7 +47,7 @@ export function AdminSettings() {
   }
 
   if (loading || !form) {
-    return <p className="text-parchment/60">…</p>;
+    return <p className="text-ink-muted">…</p>;
   }
 
   return (
@@ -61,66 +61,66 @@ export function AdminSettings() {
         </p>
       ) : null}
       {saved ? (
-        <p className="text-sm text-patina" role="status">
+        <p className="admin-status" role="status">
           {t("saved")}
         </p>
       ) : null}
       <label className="block space-y-2">
-        <span className="text-xs uppercase tracking-wider text-parchment/45">
+        <span className="admin-label block">
           Artist name
         </span>
         <input
-          className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+          className="admin-input"
           value={form.artistName}
           onChange={(e) => setForm({ ...form, artistName: e.target.value })}
           required
         />
       </label>
       <label className="block space-y-2">
-        <span className="text-xs uppercase tracking-wider text-parchment/45">
+        <span className="admin-label block">
           Tagline EN
         </span>
         <input
-          className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+          className="admin-input"
           value={form.taglineEn}
           onChange={(e) => setForm({ ...form, taglineEn: e.target.value })}
         />
       </label>
       <label className="block space-y-2">
-        <span className="text-xs uppercase tracking-wider text-parchment/45">
+        <span className="admin-label block">
           Tagline TR
         </span>
         <input
-          className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+          className="admin-input"
           value={form.taglineTr}
           onChange={(e) => setForm({ ...form, taglineTr: e.target.value })}
         />
       </label>
-      <div className="space-y-3 rounded-lg border border-white/10 bg-black/15 p-4">
-        <p className="text-xs uppercase tracking-wider text-parchment/45">
+      <div className="space-y-3 admin-panel">
+        <p className="admin-label block">
           {t("galleryDisplaySection")}
         </p>
-        <p className="text-xs text-parchment/50">{t("galleryImageFitHint")}</p>
+        <p className="text-xs text-ink-faint">{t("galleryImageFitHint")}</p>
         <label className="flex cursor-pointer items-start gap-3">
           <input
             type="checkbox"
-            className="focus-ring mt-0.5 h-4 w-4 rounded border-white/25 bg-black/40 accent-goldleaf"
+            className="admin-checkbox mt-0.5"
             checked={form.galleryImageFit ?? false}
             onChange={(e) =>
               setForm({ ...form, galleryImageFit: e.target.checked })
             }
           />
-          <span className="text-sm text-parchment/90">
+          <span className="text-sm text-ink">
             {t("galleryImageFitLabel")}
           </span>
         </label>
       </div>
       <label className="block space-y-2">
-        <span className="text-xs uppercase tracking-wider text-parchment/45">
+        <span className="admin-label block">
           Hero image path
         </span>
         <input
-          className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+          className="admin-input"
           value={form.heroImage ?? ""}
           onChange={(e) =>
             setForm({ ...form, heroImage: e.target.value || undefined })
@@ -129,32 +129,32 @@ export function AdminSettings() {
         />
       </label>
       <label className="block space-y-2">
-        <span className="text-xs uppercase tracking-wider text-parchment/45">
+        <span className="admin-label block">
           Bio EN
         </span>
         <textarea
-          className="focus-ring min-h-[120px] w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+          className="admin-textarea"
           value={form.bioEn}
           onChange={(e) => setForm({ ...form, bioEn: e.target.value })}
         />
       </label>
       <label className="block space-y-2">
-        <span className="text-xs uppercase tracking-wider text-parchment/45">
+        <span className="admin-label block">
           Bio TR
         </span>
         <textarea
-          className="focus-ring min-h-[120px] w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+          className="admin-textarea"
           value={form.bioTr}
           onChange={(e) => setForm({ ...form, bioTr: e.target.value })}
         />
       </label>
       <label className="block space-y-2">
-        <span className="text-xs uppercase tracking-wider text-parchment/45">
+        <span className="admin-label block">
           Contact email
         </span>
         <input
           type="email"
-          className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+          className="admin-input"
           value={form.contactEmail}
           onChange={(e) =>
             setForm({ ...form, contactEmail: e.target.value })
@@ -162,11 +162,11 @@ export function AdminSettings() {
         />
       </label>
       <label className="block space-y-2">
-        <span className="text-xs uppercase tracking-wider text-parchment/45">
+        <span className="admin-label block">
           Instagram (handle or URL)
         </span>
         <input
-          className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+          className="admin-input"
           value={form.instagram ?? ""}
           onChange={(e) =>
             setForm({ ...form, instagram: e.target.value || undefined })
@@ -174,11 +174,11 @@ export function AdminSettings() {
         />
       </label>
       <label className="block space-y-2">
-        <span className="text-xs uppercase tracking-wider text-parchment/45">
+        <span className="admin-label block">
           Studio note EN
         </span>
         <textarea
-          className="focus-ring min-h-[72px] w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+          className="admin-textarea-sm"
           value={form.studioNoteEn ?? ""}
           onChange={(e) =>
             setForm({ ...form, studioNoteEn: e.target.value || undefined })
@@ -186,26 +186,26 @@ export function AdminSettings() {
         />
       </label>
       <label className="block space-y-2">
-        <span className="text-xs uppercase tracking-wider text-parchment/45">
+        <span className="admin-label block">
           Studio note TR
         </span>
         <textarea
-          className="focus-ring min-h-[72px] w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+          className="admin-textarea-sm"
           value={form.studioNoteTr ?? ""}
           onChange={(e) =>
             setForm({ ...form, studioNoteTr: e.target.value || undefined })
           }
         />
       </label>
-      <div className="space-y-4 rounded-lg border border-white/10 bg-black/15 p-4">
-        <p className="text-xs uppercase tracking-wider text-parchment/45">
+      <div className="space-y-4 admin-panel">
+        <p className="admin-label block">
           {t("pressQuotesSection")}
         </p>
-        <p className="text-xs text-parchment/50">{t("pressQuotesHint")}</p>
+        <p className="text-xs text-ink-faint">{t("pressQuotesHint")}</p>
         {(form.pressQuotes ?? []).map((q, i) => (
           <div
             key={q.id}
-            className="space-y-3 rounded-md border border-white/10 bg-black/20 p-4"
+            className="space-y-3 admin-panel"
           >
             <div className="flex justify-end">
               <button
@@ -224,9 +224,9 @@ export function AdminSettings() {
               </button>
             </div>
             <label className="block space-y-1">
-              <span className="text-xs text-parchment/55">{t("pressQuoteEn")}</span>
+              <span className="admin-field-label">{t("pressQuoteEn")}</span>
               <textarea
-                className="focus-ring min-h-[56px] w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+                className="admin-textarea-sm min-h-[56px]"
                 value={q.quoteEn}
                 onChange={(e) => {
                   const next = [...(form.pressQuotes ?? [])];
@@ -236,9 +236,9 @@ export function AdminSettings() {
               />
             </label>
             <label className="block space-y-1">
-              <span className="text-xs text-parchment/55">{t("pressQuoteTr")}</span>
+              <span className="admin-field-label">{t("pressQuoteTr")}</span>
               <textarea
-                className="focus-ring min-h-[56px] w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+                className="admin-textarea-sm min-h-[56px]"
                 value={q.quoteTr}
                 onChange={(e) => {
                   const next = [...(form.pressQuotes ?? [])];
@@ -248,9 +248,9 @@ export function AdminSettings() {
               />
             </label>
             <label className="block space-y-1">
-              <span className="text-xs text-parchment/55">{t("pressAttrEn")}</span>
+              <span className="admin-field-label">{t("pressAttrEn")}</span>
               <input
-                className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+                className="admin-input"
                 value={q.attributionEn}
                 onChange={(e) => {
                   const next = [...(form.pressQuotes ?? [])];
@@ -260,9 +260,9 @@ export function AdminSettings() {
               />
             </label>
             <label className="block space-y-1">
-              <span className="text-xs text-parchment/55">{t("pressAttrTr")}</span>
+              <span className="admin-field-label">{t("pressAttrTr")}</span>
               <input
-                className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+                className="admin-input"
                 value={q.attributionTr}
                 onChange={(e) => {
                   const next = [...(form.pressQuotes ?? [])];
@@ -272,9 +272,9 @@ export function AdminSettings() {
               />
             </label>
             <label className="block space-y-1">
-              <span className="text-xs text-parchment/55">{t("pressUrl")}</span>
+              <span className="admin-field-label">{t("pressUrl")}</span>
               <input
-                className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+                className="admin-input"
                 value={q.url ?? ""}
                 onChange={(e) => {
                   const next = [...(form.pressQuotes ?? [])];
@@ -284,9 +284,9 @@ export function AdminSettings() {
               />
             </label>
             <label className="block space-y-1">
-              <span className="text-xs text-parchment/55">{t("pressImage")}</span>
+              <span className="admin-field-label">{t("pressImage")}</span>
               <input
-                className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+                className="admin-input"
                 value={q.image ?? ""}
                 onChange={(e) => {
                   const next = [...(form.pressQuotes ?? [])];

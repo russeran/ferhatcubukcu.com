@@ -15,7 +15,7 @@ export function AdminNav() {
   const locale = useLocale();
 
   return (
-    <nav className="flex flex-wrap gap-2 border-b border-white/10 pb-6 text-sm">
+    <nav className="admin-nav text-sm">
       {items.map((item) => (
         <NextLink
           key={item.href}

@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { AdminArtworks } from "@/components/admin/AdminArtworks";
 import { AdminNav } from "@/components/admin/AdminNav";
+import { AdminPageShell } from "@/components/admin/AdminPageShell";
 import { AdminSignOut } from "@/components/admin/AdminSignOut";
 import { requireAdminSession } from "@/lib/admin-guard";
 import { getTranslations } from "next-intl/server";
@@ -13,24 +14,17 @@ export default async function AdminArtworksPage({ params }: Props) {
   const t = await getTranslations({ locale, namespace: "admin" });
 
   return (
-    <div className="admin-surface min-h-[calc(100vh-12rem)] rounded-2xl border border-white/10 bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 p-8 shadow-2xl md:p-12">
-      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        <div>
-          <h1 className="font-serif text-3xl text-parchment md:text-4xl">
-            {t("artworks")}
-          </h1>
-          <p className="mt-1 text-sm text-parchment/60">
-            Images up to 8MB · JPEG, PNG, WebP, GIF
-          </p>
-        </div>
-        <AdminSignOut />
-      </div>
-      <div className="mt-8 space-y-10">
+    <AdminPageShell
+      title={t("artworks")}
+      description="Images up to 8MB · JPEG, PNG, WebP, GIF"
+      actions={<AdminSignOut />}
+    >
+      <div className="admin-body !mt-0">
         <AdminNav />
-        <Suspense fallback={<p className="text-parchment/60">…</p>}>
+        <Suspense fallback={<p className="text-ink-muted">…</p>}>
           <AdminArtworks />
         </Suspense>
       </div>
-    </div>
+    </AdminPageShell>
   );
 }

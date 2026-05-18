@@ -196,7 +196,7 @@ export function AdminNews() {
   }
 
   if (loading) {
-    return <p className="text-parchment/60">…</p>;
+    return <p className="text-ink-muted">…</p>;
   }
 
   return (
@@ -210,13 +210,13 @@ export function AdminNews() {
         </p>
       ) : null}
 
-      <section id="admin-add-news" className="rounded-xl border border-white/10 bg-black/20 p-6">
-        <h2 className="font-serif text-xl text-goldleaf">{t("addNews")}</h2>
+      <section id="admin-add-news" className="admin-panel">
+        <h2 className="admin-section-title">{t("addNews")}</h2>
         <form onSubmit={addPost} className="mt-6 grid gap-4 md:grid-cols-2">
           <label className="space-y-1 md:col-span-2">
-            <span className="text-xs text-parchment/55">{t("newsKind")}</span>
+            <span className="admin-field-label">{t("newsKind")}</span>
             <select
-              className="focus-ring w-full max-w-md rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+              className="admin-input max-w-md"
               value={create.kind}
               onChange={(e) =>
                 setCreate({ ...create, kind: e.target.value as NewsKind })
@@ -230,9 +230,9 @@ export function AdminNews() {
             </select>
           </label>
           <label className="space-y-1">
-            <span className="text-xs text-parchment/55">{t("titleEn")}</span>
+            <span className="admin-field-label">{t("titleEn")}</span>
             <input
-              className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+              className="admin-input"
               value={create.titleEn}
               onChange={(e) =>
                 setCreate({ ...create, titleEn: e.target.value })
@@ -241,9 +241,9 @@ export function AdminNews() {
             />
           </label>
           <label className="space-y-1">
-            <span className="text-xs text-parchment/55">{t("titleTr")}</span>
+            <span className="admin-field-label">{t("titleTr")}</span>
             <input
-              className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+              className="admin-input"
               value={create.titleTr}
               onChange={(e) =>
                 setCreate({ ...create, titleTr: e.target.value })
@@ -252,9 +252,9 @@ export function AdminNews() {
             />
           </label>
           <label className="space-y-1 md:col-span-2">
-            <span className="text-xs text-parchment/55">{t("slug")}</span>
+            <span className="admin-field-label">{t("slug")}</span>
             <input
-              className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+              className="admin-input"
               value={create.slug}
               onChange={(e) =>
                 setCreate({ ...create, slug: e.target.value })
@@ -263,11 +263,11 @@ export function AdminNews() {
             />
           </label>
           <label className="space-y-1 md:col-span-2">
-            <span className="text-xs text-parchment/55">
+            <span className="admin-field-label">
               {t("newsExcerptEn")}
             </span>
             <textarea
-              className="focus-ring min-h-[56px] w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+              className="admin-textarea-sm min-h-[56px]"
               value={create.excerptEn}
               onChange={(e) =>
                 setCreate({ ...create, excerptEn: e.target.value })
@@ -276,11 +276,11 @@ export function AdminNews() {
             />
           </label>
           <label className="space-y-1 md:col-span-2">
-            <span className="text-xs text-parchment/55">
+            <span className="admin-field-label">
               {t("newsExcerptTr")}
             </span>
             <textarea
-              className="focus-ring min-h-[56px] w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+              className="admin-textarea-sm min-h-[56px]"
               value={create.excerptTr}
               onChange={(e) =>
                 setCreate({ ...create, excerptTr: e.target.value })
@@ -289,11 +289,11 @@ export function AdminNews() {
             />
           </label>
           <label className="space-y-1 md:col-span-2">
-            <span className="text-xs text-parchment/55">
+            <span className="admin-field-label">
               {t("newsBodyEn")}
             </span>
             <textarea
-              className="focus-ring min-h-[100px] w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+              className="admin-textarea min-h-[100px]"
               value={create.bodyEn}
               onChange={(e) =>
                 setCreate({ ...create, bodyEn: e.target.value })
@@ -302,11 +302,11 @@ export function AdminNews() {
             />
           </label>
           <label className="space-y-1 md:col-span-2">
-            <span className="text-xs text-parchment/55">
+            <span className="admin-field-label">
               {t("newsBodyTr")}
             </span>
             <textarea
-              className="focus-ring min-h-[100px] w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+              className="admin-textarea min-h-[100px]"
               value={create.bodyTr}
               onChange={(e) =>
                 setCreate({ ...create, bodyTr: e.target.value })
@@ -315,11 +315,11 @@ export function AdminNews() {
             />
           </label>
           <label className="space-y-1 md:col-span-2">
-            <span className="text-xs text-parchment/55">
+            <span className="admin-field-label">
               {t("newsExternalUrl")}
             </span>
             <input
-              className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+              className="admin-input"
               value={create.externalUrl}
               onChange={(e) =>
                 setCreate({ ...create, externalUrl: e.target.value })
@@ -328,13 +328,13 @@ export function AdminNews() {
             />
           </label>
           <label className="md:col-span-2">
-            <span className="text-xs uppercase tracking-wider text-parchment/45">
+            <span className="admin-label block">
               {t("newsImage")}
             </span>
             <input
               type="file"
               accept="image/*"
-              className="mt-2 block w-full text-sm text-parchment/80 file:mr-4 file:rounded-md file:border-0 file:bg-white/10 file:px-4 file:py-2 file:text-sm file:text-parchment"
+              className="admin-file-input"
               onChange={(e) => {
                 const f = e.target.files?.[0];
                 if (f) void uploadImage(f, "create");
@@ -342,7 +342,7 @@ export function AdminNews() {
               }}
             />
             {uploading ? (
-              <span className="mt-1 block text-xs text-parchment/50">
+              <span className="mt-1 block text-xs text-ink-faint">
                 Uploading…
               </span>
             ) : null}
@@ -365,9 +365,9 @@ export function AdminNews() {
               onChange={(e) =>
                 setCreate({ ...create, published: e.target.checked })
               }
-              className="h-4 w-4 rounded border-white/25 bg-black/40"
+              className="admin-checkbox"
             />
-            <span className="text-sm text-parchment/80">{t("published")}</span>
+            <span className="text-sm text-ink-muted">{t("published")}</span>
           </label>
           <div className="md:col-span-2">
             <button
@@ -381,17 +381,17 @@ export function AdminNews() {
       </section>
 
       <section className="space-y-6">
-        <h2 className="font-serif text-xl text-parchment">{t("news")}</h2>
+        <h2 className="admin-section-title">{t("news")}</h2>
         <ul className="space-y-6">
           {items.map((p) => (
             <li
               key={p.id}
               id={`admin-news-${p.id}`}
-              className="rounded-xl border border-white/10 bg-black/15 p-5"
+              className="admin-list-item"
             >
               <div className="flex flex-col gap-4 md:flex-row md:items-start">
                 {p.image ? (
-                  <div className="relative h-32 w-full shrink-0 overflow-hidden rounded-md bg-black/40 md:h-28 md:w-40">
+                  <div className="admin-thumb h-32 w-full shrink-0 md:h-28 md:w-40">
                     <Image
                       src={p.image}
                       alt=""
@@ -402,13 +402,13 @@ export function AdminNews() {
                   </div>
                 ) : null}
                 <div className="min-w-0 flex-1 space-y-1">
-                  <p className="text-xs uppercase tracking-wider text-parchment/50">
+                  <p className="text-xs uppercase tracking-wider text-ink-faint">
                     {t(`newsKind_${p.kind}`)}
                   </p>
-                  <p className="font-serif text-lg text-parchment">
+                  <p className="page-card-title">
                     {p.titleEn} / {p.titleTr}
                   </p>
-                  <p className="text-xs text-parchment/45">
+                  <p className="text-xs text-ink-faint">
                     /press/{p.slug} · order {p.order}
                   </p>
                   <div className="mt-3 flex flex-wrap gap-3">
@@ -436,11 +436,11 @@ export function AdminNews() {
                   className="mt-6 grid gap-4 border-t border-white/10 pt-6 md:grid-cols-2"
                 >
                   <label className="space-y-1 md:col-span-2">
-                    <span className="text-xs text-parchment/55">
+                    <span className="admin-field-label">
                       {t("newsKind")}
                     </span>
                     <select
-                      className="focus-ring w-full max-w-md rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+                      className="admin-input max-w-md"
                       value={edit.kind}
                       onChange={(e) =>
                         setEdit({ ...edit, kind: e.target.value as NewsKind })
@@ -454,11 +454,11 @@ export function AdminNews() {
                     </select>
                   </label>
                   <label className="space-y-1">
-                    <span className="text-xs text-parchment/55">
+                    <span className="admin-field-label">
                       {t("titleEn")}
                     </span>
                     <input
-                      className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+                      className="admin-input"
                       value={edit.titleEn}
                       onChange={(e) =>
                         setEdit({ ...edit, titleEn: e.target.value })
@@ -467,11 +467,11 @@ export function AdminNews() {
                     />
                   </label>
                   <label className="space-y-1">
-                    <span className="text-xs text-parchment/55">
+                    <span className="admin-field-label">
                       {t("titleTr")}
                     </span>
                     <input
-                      className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+                      className="admin-input"
                       value={edit.titleTr}
                       onChange={(e) =>
                         setEdit({ ...edit, titleTr: e.target.value })
@@ -480,9 +480,9 @@ export function AdminNews() {
                     />
                   </label>
                   <label className="space-y-1 md:col-span-2">
-                    <span className="text-xs text-parchment/55">{t("slug")}</span>
+                    <span className="admin-field-label">{t("slug")}</span>
                     <input
-                      className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+                      className="admin-input"
                       value={edit.slug}
                       onChange={(e) =>
                         setEdit({ ...edit, slug: e.target.value })
@@ -490,11 +490,11 @@ export function AdminNews() {
                     />
                   </label>
                   <label className="space-y-1 md:col-span-2">
-                    <span className="text-xs text-parchment/55">
+                    <span className="admin-field-label">
                       {t("newsExcerptEn")}
                     </span>
                     <textarea
-                      className="focus-ring min-h-[56px] w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+                      className="admin-textarea-sm min-h-[56px]"
                       value={edit.excerptEn}
                       onChange={(e) =>
                         setEdit({ ...edit, excerptEn: e.target.value })
@@ -503,11 +503,11 @@ export function AdminNews() {
                     />
                   </label>
                   <label className="space-y-1 md:col-span-2">
-                    <span className="text-xs text-parchment/55">
+                    <span className="admin-field-label">
                       {t("newsExcerptTr")}
                     </span>
                     <textarea
-                      className="focus-ring min-h-[56px] w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+                      className="admin-textarea-sm min-h-[56px]"
                       value={edit.excerptTr}
                       onChange={(e) =>
                         setEdit({ ...edit, excerptTr: e.target.value })
@@ -516,11 +516,11 @@ export function AdminNews() {
                     />
                   </label>
                   <label className="space-y-1 md:col-span-2">
-                    <span className="text-xs text-parchment/55">
+                    <span className="admin-field-label">
                       {t("newsBodyEn")}
                     </span>
                     <textarea
-                      className="focus-ring min-h-[100px] w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+                      className="admin-textarea min-h-[100px]"
                       value={edit.bodyEn}
                       onChange={(e) =>
                         setEdit({ ...edit, bodyEn: e.target.value })
@@ -529,11 +529,11 @@ export function AdminNews() {
                     />
                   </label>
                   <label className="space-y-1 md:col-span-2">
-                    <span className="text-xs text-parchment/55">
+                    <span className="admin-field-label">
                       {t("newsBodyTr")}
                     </span>
                     <textarea
-                      className="focus-ring min-h-[100px] w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+                      className="admin-textarea min-h-[100px]"
                       value={edit.bodyTr}
                       onChange={(e) =>
                         setEdit({ ...edit, bodyTr: e.target.value })
@@ -542,11 +542,11 @@ export function AdminNews() {
                     />
                   </label>
                   <label className="space-y-1 md:col-span-2">
-                    <span className="text-xs text-parchment/55">
+                    <span className="admin-field-label">
                       {t("newsExternalUrl")}
                     </span>
                     <input
-                      className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+                      className="admin-input"
                       value={edit.externalUrl}
                       onChange={(e) =>
                         setEdit({ ...edit, externalUrl: e.target.value })
@@ -554,13 +554,13 @@ export function AdminNews() {
                     />
                   </label>
                   <label className="md:col-span-2">
-                    <span className="text-xs uppercase tracking-wider text-parchment/45">
+                    <span className="admin-label block">
                       {t("newsImage")}
                     </span>
                     <input
                       type="file"
                       accept="image/*"
-                      className="mt-2 block w-full text-sm text-parchment/80 file:mr-4 file:rounded-md file:border-0 file:bg-white/10 file:px-4 file:py-2 file:text-sm file:text-parchment"
+                      className="admin-file-input"
                       onChange={(e) => {
                         const f = e.target.files?.[0];
                         if (f) void uploadImage(f, "edit");
@@ -568,16 +568,16 @@ export function AdminNews() {
                       }}
                     />
                     {uploading ? (
-                      <span className="mt-1 block text-xs text-parchment/50">
+                      <span className="mt-1 block text-xs text-ink-faint">
                         Uploading…
                       </span>
                     ) : null}
                   </label>
                   <label className="space-y-1">
-                    <span className="text-xs text-parchment/55">Order</span>
+                    <span className="admin-field-label">Order</span>
                     <input
                       type="number"
-                      className="focus-ring w-full rounded-md border border-white/15 bg-black/30 px-3 py-2 text-sm text-parchment"
+                      className="admin-input"
                       value={items.find((x) => x.id === editingId)?.order ?? 0}
                       onChange={(e) => {
                         const v = parseInt(e.target.value, 10);
@@ -597,9 +597,9 @@ export function AdminNews() {
                       onChange={(e) =>
                         setEdit({ ...edit, published: e.target.checked })
                       }
-                      className="h-4 w-4 rounded border-white/25 bg-black/40"
+                      className="admin-checkbox"
                     />
-                    <span className="text-sm text-parchment/80">
+                    <span className="text-sm text-ink-muted">
                       {t("published")}
                     </span>
                   </label>

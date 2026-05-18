@@ -1,4 +1,5 @@
 import { AdminLoginForm } from "@/components/admin/AdminLoginForm";
+import { AdminPageShell } from "@/components/admin/AdminPageShell";
 import { getSessionFromCookies } from "@/lib/auth";
 import { redirect } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
@@ -14,16 +15,11 @@ export default async function AdminLoginPage({ params }: Props) {
   const t = await getTranslations({ locale, namespace: "admin" });
 
   return (
-    <div className="admin-surface min-h-[calc(100vh-12rem)] rounded-2xl border border-white/10 bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 p-8 shadow-2xl md:p-14">
-      <h1 className="font-serif text-3xl text-parchment md:text-4xl">
-        {t("loginTitle")}
-      </h1>
-      <p className="mt-3 max-w-md text-sm text-parchment/60">
-        Secure admin · bilingual paintings & site copy
-      </p>
-      <div className="mt-10">
-        <AdminLoginForm />
-      </div>
-    </div>
+    <AdminPageShell
+      title={t("loginTitle")}
+      description="Secure admin · bilingual paintings & site copy"
+    >
+      <AdminLoginForm />
+    </AdminPageShell>
   );
 }

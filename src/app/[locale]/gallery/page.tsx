@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { Suspense } from "react";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { ArtworkInquiryLink } from "@/components/ArtworkInquiryLink";
 import { GallerySortSelect } from "@/components/GallerySortSelect";
 import { GalleryViewTabs } from "@/components/GalleryViewTabs";
-import { SoldStamp } from "@/components/SoldStamp";
+import { GalleryArtworkListingCard } from "@/components/GalleryArtworkListingCard";
 import { localeAlternates } from "@/lib/seo-helpers";
 import { sortPublishedArtworks, normalizeGallerySort } from "@/lib/gallery-sort";
 import { absoluteUrl } from "@/lib/site-url";
@@ -21,7 +20,6 @@ import {
   pickSeriesSpotlight,
   uniqueSeriesFromArtworks,
 } from "@/lib/gallery-series";
-import { IMAGE_BLUR_PLACEHOLDER } from "@/lib/image-blur";
 import { artworkInquiryHref } from "@/lib/artwork-inquiry";
 import { artworkCatalogMeta } from "@/lib/artwork-catalog-meta";
 import { galleryListingImageClass } from "@/lib/gallery-listing-image";
@@ -110,10 +108,13 @@ export default async function GalleryPage({ params, searchParams }: Props) {
     locale === "tr" ? settings.taglineTr : settings.taglineEn;
   const galleryImageFit = settings.galleryImageFit === true;
   const listingImageClass = galleryListingImageClass(galleryImageFit);
+  const viewPaintingLabel = t("viewPainting");
   const seriesSpotlight =
     view === "grid" && !seriesParam && seriesOptions.length > 0
       ? pickSeriesSpotlight(seriesOptions, publishedSorted)
       : null;
+  const showBrowseHint =
+    list.length > 0 || (seriesSpotlight?.works.length ?? 0) > 0;
 
   return (
     <PageShell wide>
@@ -157,6 +158,12 @@ export default async function GalleryPage({ params, searchParams }: Props) {
           )}
         </div>
       </header>
+
+      {showBrowseHint ? (
+        <p className="surface-caption mb-8 text-sm leading-relaxed text-ink-muted sm:mb-10">
+          {t("browseHint")}
+        </p>
+      ) : null}
 
       {seriesOptions.length > 0 ? (
         <div className="mb-8 flex flex-wrap items-center gap-2 border-b border-white/10 pb-8">
@@ -229,28 +236,19 @@ export default async function GalleryPage({ params, searchParams }: Props) {
                   key={a.id}
                   className="w-[46vw] max-w-[200px] shrink-0 sm:w-52 sm:max-w-none"
                 >
-                  <Link href={`/gallery/${a.slug}`} className="group block">
-                    <div className="gallery-image-frame gallery-image-frame-hover relative aspect-[4/5]">
-                      <Image
-                        src={a.image}
-                        alt={title}
-                        fill
-                        placeholder="blur"
-                        blurDataURL={IMAGE_BLUR_PLACEHOLDER}
-                        className={listingImageClass}
-                        sizes="200px"
-                      />
-                      {a.sold ? <SoldStamp label={t("sold")} /> : null}
-                    </div>
-                    <p className="page-card-title mt-3 text-sm">
-                      {title}
-                    </p>
-                    {meta ? (
-                      <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-ink-muted">
-                        {meta}
-                      </p>
-                    ) : null}
-                  </Link>
+                  <GalleryArtworkListingCard
+                    href={`/gallery/${a.slug}`}
+                    title={title}
+                    image={a.image}
+                    meta={meta}
+                    listingImageClass={listingImageClass}
+                    galleryImageFit={galleryImageFit}
+                    sold={a.sold}
+                    soldLabel={t("sold")}
+                    viewLabel={viewPaintingLabel}
+                    sizes="200px"
+                    captionSpacing="compact"
+                  />
                 </li>
               );
             })}
@@ -280,35 +278,20 @@ export default async function GalleryPage({ params, searchParams }: Props) {
                       key={a.id}
                       className="w-[72vw] max-w-[280px] shrink-0 sm:w-64 md:max-w-[300px]"
                     >
-                      <Link href={`/gallery/${a.slug}`} className="group block">
-                        <div className="gallery-image-frame gallery-image-frame-hover relative aspect-[4/5]">
-                          <Image
-                            src={a.image}
-                            alt={title}
-                            fill
-                            placeholder="blur"
-                            blurDataURL={IMAGE_BLUR_PLACEHOLDER}
-                            className={listingImageClass}
-                            sizes="280px"
-                          />
-                          {a.sold ? <SoldStamp label={t("sold")} /> : null}
-                        </div>
-                        <div className="mt-4 space-y-1">
-                          <h3 className="page-card-title text-lg">
-                            {title}
-                          </h3>
-                          {meta ? (
-                            <p className="text-sm leading-relaxed text-ink-muted">
-                              {meta}
-                            </p>
-                          ) : null}
-                          {price ? (
-                            <p className="text-sm font-medium text-ink/95">
-                              {price}
-                            </p>
-                          ) : null}
-                        </div>
-                      </Link>
+                      <GalleryArtworkListingCard
+                        href={`/gallery/${a.slug}`}
+                        title={title}
+                        image={a.image}
+                        meta={meta}
+                        price={price}
+                        listingImageClass={listingImageClass}
+                        galleryImageFit={galleryImageFit}
+                        sold={a.sold}
+                        soldLabel={t("sold")}
+                        viewLabel={viewPaintingLabel}
+                        sizes="280px"
+                        titleAs="h3"
+                      />
                       {isAdmin ? (
                         <PublicResourceAdminActions
                           locale={locale}
@@ -331,47 +314,29 @@ export default async function GalleryPage({ params, searchParams }: Props) {
             const title = locale === "tr" ? a.titleTr : a.titleEn;
             const meta = artworkCatalogMeta(a, locale);
             return (
-              <li key={a.id}>
-                <Link href={`/gallery/${a.slug}`} className="group block">
-                  <div className="gallery-image-frame gallery-image-frame-hover relative aspect-[4/5]">
-                    <Image
-                      src={a.image}
-                      alt={title}
-                      fill
-                      placeholder="blur"
-                      blurDataURL={IMAGE_BLUR_PLACEHOLDER}
-                      className={listingImageClass}
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    />
-                    {a.sold ? <SoldStamp label={t("sold")} /> : null}
-                    {!galleryImageFit ? (
-                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-umber-deep/30 via-transparent to-transparent opacity-0 transition duration-500 ease-out-expo group-hover:opacity-100" />
-                    ) : null}
-                  </div>
-                  <div className="mt-5 space-y-2">
-                    <h2 className="page-subsection-title">
-                      {title}
-                    </h2>
-                    {meta ? (
-                      <p className="text-sm leading-relaxed text-ink-muted">
-                        {meta}
-                      </p>
-                    ) : null}
-                    {price ? (
-                      <p className="text-sm font-medium text-ink/95">
-                        {price}
-                      </p>
-                    ) : null}
-                    {!a.sold ? (
-                      <ArtworkInquiryLink
-                        href={inquiryHref(title, a.slug)}
-                        className="link-cta inline-block text-xs uppercase tracking-editorial"
-                      >
-                        {t("inquiryCta")}
-                      </ArtworkInquiryLink>
-                    ) : null}
-                  </div>
-                </Link>
+              <li key={a.id} className="flex flex-col">
+                <GalleryArtworkListingCard
+                  href={`/gallery/${a.slug}`}
+                  title={title}
+                  image={a.image}
+                  meta={meta}
+                  price={price}
+                  listingImageClass={listingImageClass}
+                  galleryImageFit={galleryImageFit}
+                  sold={a.sold}
+                  soldLabel={t("sold")}
+                  viewLabel={viewPaintingLabel}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  titleAs="h2"
+                />
+                {!a.sold ? (
+                  <ArtworkInquiryLink
+                    href={inquiryHref(title, a.slug)}
+                    className="link-cta mt-4 inline-block text-xs uppercase tracking-editorial"
+                  >
+                    {t("inquiryCta")}
+                  </ArtworkInquiryLink>
+                ) : null}
                 {isAdmin ? (
                   <PublicResourceAdminActions
                     locale={locale}

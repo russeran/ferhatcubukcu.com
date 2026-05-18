@@ -33,17 +33,15 @@ export function AdminLoginForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="mx-auto max-w-sm space-y-6">
+    <form onSubmit={onSubmit} className="mx-auto mt-10 max-w-sm space-y-6">
       <label className="block space-y-2">
-        <span className="text-xs uppercase tracking-[0.2em] text-parchment/55">
-          {t("password")}
-        </span>
+        <span className="admin-label">{t("password")}</span>
         <input
           type="password"
           autoComplete="current-password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="focus-ring w-full rounded-md border border-white/15 bg-black/25 px-4 py-3 text-parchment placeholder:text-parchment/35"
+          className="admin-input"
           required
         />
       </label>

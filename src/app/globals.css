@@ -240,23 +240,84 @@ body {
   .accent-outline-btn {
     @apply inline-flex items-center justify-center rounded-full border-2 border-oxide bg-[#faf6f1] font-semibold text-oxide-deep shadow-[inset_0_1px_0_rgba(255,255,255,0.85)] transition hover:border-oxide-deep hover:bg-[#fffcf7];
   }
+  /* —— Admin (atelier tokens, same shell as public site) —— */
+  .admin-surface {
+    @apply relative min-h-[calc(100vh-12rem)] overflow-hidden rounded-md border border-white/10 bg-gradient-to-br from-parchment/95 via-parchment-warm/90 to-parchment-dark/85 p-8 shadow-gallery ring-1 ring-white/10 md:p-12;
+  }
+  .admin-header {
+    @apply mb-8 flex flex-col gap-4 md:mb-10 md:flex-row md:items-start md:justify-between;
+  }
+  .admin-title {
+    @apply font-serif text-3xl font-semibold tracking-tight text-ink md:text-4xl;
+  }
+  .admin-lead {
+    @apply mt-2 max-w-lg text-caption;
+  }
+  .admin-body {
+    @apply mt-8 space-y-10;
+  }
+  .admin-nav {
+    @apply flex flex-wrap gap-2 border-b border-white/10 pb-6;
+  }
+  .admin-panel {
+    @apply rounded-md border border-white/10 bg-anthracite-light/35 p-5 shadow-sm backdrop-blur-sm sm:p-6;
+  }
+  .admin-card {
+    @apply block rounded-md border border-white/10 bg-anthracite-light/30 p-6 transition duration-300 ease-out-expo hover:border-goldleaf/45 hover:bg-anthracite-light/50;
+  }
+  .admin-label {
+    @apply text-label;
+  }
+  .admin-field-label {
+    @apply block text-xs font-medium text-ink-muted;
+  }
+  .admin-section-title {
+    @apply page-section-title text-goldleaf;
+  }
+  .admin-status {
+    @apply text-sm text-goldleaf/90;
+  }
+  .admin-checkbox {
+    @apply focus-ring h-4 w-4 rounded border-white/25 bg-parchment/60 accent-goldleaf;
+  }
+  .admin-thumb {
+    @apply relative overflow-hidden rounded-md bg-anthracite-light/50 ring-1 ring-white/10;
+  }
+  .admin-input {
+    @apply form-control w-full;
+  }
+  .admin-textarea {
+    @apply admin-input min-h-[120px];
+  }
+  .admin-textarea-sm {
+    @apply admin-input min-h-[72px];
+  }
+  .admin-file-input {
+    @apply mt-2 block w-full text-sm text-ink-muted file:mr-4 file:rounded-sm file:border-0 file:bg-parchment/85 file:px-4 file:py-2 file:text-sm file:font-medium file:text-anthracite-deep file:transition hover:file:bg-parchment;
+  }
+  .admin-code {
+    @apply rounded-sm bg-anthracite-light/60 px-1.5 py-0.5 font-mono text-xs text-ink-muted;
+  }
+  .admin-list-item {
+    @apply admin-panel p-5;
+  }
   .btn-admin {
-    @apply inline-flex items-center justify-center rounded-full font-semibold text-white shadow-md transition disabled:opacity-50;
+    @apply inline-flex items-center justify-center rounded-sm font-semibold shadow-md transition disabled:opacity-50;
   }
   .btn-admin-edit {
-    @apply btn-admin bg-goldleaf px-4 py-1.5 text-xs uppercase tracking-wider hover:bg-goldleaf/90;
+    @apply btn-admin bg-goldleaf px-4 py-1.5 text-xs uppercase tracking-wider text-anthracite-deep hover:bg-goldleaf/90;
   }
   .btn-admin-delete {
-    @apply btn-admin bg-oxide px-4 py-1.5 text-xs uppercase tracking-wider hover:bg-oxide-deep;
+    @apply btn-admin bg-oxide px-4 py-1.5 text-xs uppercase tracking-wider text-white hover:bg-oxide-deep;
   }
   .btn-admin-primary {
-    @apply btn-admin bg-goldleaf px-6 py-2 text-sm hover:bg-goldleaf/90;
+    @apply btn-admin bg-goldleaf px-6 py-2 text-sm text-anthracite-deep hover:bg-goldleaf/90;
   }
   .btn-admin-add {
-    @apply btn-admin bg-goldleaf px-3 py-1.5 text-sm hover:bg-goldleaf/90;
+    @apply btn-admin bg-goldleaf px-3 py-1.5 text-sm text-anthracite-deep hover:bg-goldleaf/90;
   }
   .btn-admin-secondary {
-    @apply inline-flex items-center justify-center rounded-full border-2 border-white/30 bg-anthracite-light px-6 py-2 text-sm font-semibold text-white shadow-md transition hover:border-white/50 hover:bg-anthracite-dark disabled:opacity-50;
+    @apply btn-secondary rounded-sm px-6 py-2 text-sm font-semibold disabled:opacity-50;
   }
   .btn-admin-secondary-sm {
     @apply btn-admin-secondary px-3 py-1.5 text-sm font-medium normal-case tracking-normal;
