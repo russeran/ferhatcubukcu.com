@@ -23,6 +23,12 @@ const INNER_W = PAGE_W - 2 * PAGE_MARGIN;
 const COL_W = (INNER_W - COL_GUTTER) / 2;
 const ROW_H = THUMB_H + 8 + TEXT_ZONE + ROW_GAP;
 
+/** Vertical space used below the first header baseline (matches `drawHeader`). */
+const HEADER_DEPTH = 46;
+
+type CatalogRow = [leftIndex: number, rightIndex?: number];
+type CatalogPagePlan = CatalogRow[];
+
 /** Standard WinAnsi fonts in pdf-lib cannot encode all Unicode; map Turkish letters and fall back for the rest. */
 function textForPdfWinAnsi(input: string): string {
   const tr: Record<string, string> = {
@@ -247,6 +253,56 @@ async function drawCatalogCell(
   drawWrapped(page, url, cellX, ty - 2, 7, font, fontBold, false, maxChars + 4, rgb(0.45, 0.4, 0.38));
 }
 
+/** Same breaks as the legacy top-aligned flow, so footer reservation on the last page stays correct. */
+function planCatalogPages(workCount: number): CatalogPagePlan[] {
+  const pages: CatalogPagePlan[] = [];
+  let i = 0;
+  let rowTop = PAGE_H - PAGE_MARGIN;
+  let current: CatalogRow[] = [];
+  let pageNum = 0;
+
+  while (i < workCount) {
+    const isLastRow = i + 2 >= workCount;
+    const footerReserve = isLastRow ? LAST_PAGE_FOOTER : 0;
+    const minY = PAGE_MARGIN + footerReserve;
+
+    if (current.length === 0) {
+      rowTop =
+        pageNum === 0
+          ? PAGE_H - PAGE_MARGIN - HEADER_DEPTH
+          : PAGE_H - PAGE_MARGIN;
+    }
+
+    if (rowTop - ROW_H < minY) {
+      if (current.length > 0) {
+        pages.push(current);
+        current = [];
+        pageNum += 1;
+        rowTop = PAGE_H - PAGE_MARGIN;
+      }
+    }
+
+    current.push([i, i + 1 < workCount ? i + 1 : undefined]);
+    i += 2;
+    rowTop -= ROW_H;
+  }
+
+  if (current.length > 0) pages.push(current);
+  return pages;
+}
+
+function centeredBlockTop(
+  rowCount: number,
+  opts: { hasHeader: boolean; footerReserve: number }
+): number {
+  const available =
+    PAGE_H - 2 * PAGE_MARGIN - opts.footerReserve;
+  const headerDepth = opts.hasHeader ? HEADER_DEPTH : 0;
+  const contentHeight = headerDepth + rowCount * ROW_H;
+  const topPadding = Math.max(0, (available - contentHeight) / 2);
+  return PAGE_H - PAGE_MARGIN - topPadding;
+}
+
 export async function GET() {
   const settings = await readSettings();
   const works = (await readArtworks())
@@ -256,9 +312,6 @@ export async function GET() {
   const pdfDoc = await PDFDocument.create();
   const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
   const fontBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
-
-  let page = pdfDoc.addPage([PAGE_W, PAGE_H]);
-  let rowTop = PAGE_H - PAGE_MARGIN;
 
   const drawHeader = (p: PDFPage, top: number) => {
     let y = top;
@@ -287,14 +340,17 @@ export async function GET() {
     return y - 14;
   };
 
-  rowTop = drawHeader(page, rowTop);
+  const pagePlans = planCatalogPages(works.length);
 
   if (works.length === 0) {
+    const page = pdfDoc.addPage([PAGE_W, PAGE_H]);
+    const blockTop = centeredBlockTop(0, { hasHeader: true, footerReserve: 0 });
+    const bodyTop = drawHeader(page, blockTop);
     drawWrapped(
       page,
       "No published paintings are listed yet. Add or publish works in the admin panel.",
       PAGE_MARGIN,
-      rowTop,
+      bodyTop,
       10,
       font,
       fontBold,
@@ -303,40 +359,50 @@ export async function GET() {
     );
   }
 
-  for (let i = 0; i < works.length; i += 2) {
-    const isLastRow = i + 2 >= works.length;
-    const minY = isLastRow ? PAGE_MARGIN + LAST_PAGE_FOOTER : PAGE_MARGIN;
+  for (let p = 0; p < pagePlans.length; p++) {
+    const rows = pagePlans[p]!;
+    const isFirst = p === 0;
+    const isLast = p === pagePlans.length - 1;
+    const footerReserve = isLast ? LAST_PAGE_FOOTER : 0;
+    const blockTop = centeredBlockTop(rows.length, {
+      hasHeader: isFirst,
+      footerReserve,
+    });
 
-    if (rowTop - ROW_H < minY) {
-      page = pdfDoc.addPage([PAGE_W, PAGE_H]);
-      rowTop = PAGE_H - PAGE_MARGIN;
-    }
+    const page = pdfDoc.addPage([PAGE_W, PAGE_H]);
+    let rowTop = isFirst ? drawHeader(page, blockTop) : blockTop;
 
-    const left = works[i]!;
-    const right = works[i + 1];
-
-    await drawCatalogCell(page, pdfDoc, PAGE_MARGIN, rowTop, COL_W, left, font, fontBold);
-    if (right) {
+    for (const [leftIdx, rightIdx] of rows) {
+      const left = works[leftIdx]!;
       await drawCatalogCell(
         page,
         pdfDoc,
-        PAGE_MARGIN + COL_W + COL_GUTTER,
+        PAGE_MARGIN,
         rowTop,
         COL_W,
-        right,
+        left,
         font,
         fontBold
       );
+      if (rightIdx !== undefined) {
+        const right = works[rightIdx]!;
+        await drawCatalogCell(
+          page,
+          pdfDoc,
+          PAGE_MARGIN + COL_W + COL_GUTTER,
+          rowTop,
+          COL_W,
+          right,
+          font,
+          fontBold
+        );
+      }
+      rowTop -= ROW_H;
     }
-
-    rowTop -= ROW_H;
   }
 
   /** Footer in the bottom margin band (same `PAGE_MARGIN` as the top of each page). */
-  let lastPage = pdfDoc.getPages().at(-1)!;
-  if (rowTop < PAGE_MARGIN + LAST_PAGE_FOOTER) {
-    lastPage = pdfDoc.addPage([PAGE_W, PAGE_H]);
-  }
+  const lastPage = pdfDoc.getPages().at(-1)!;
   const footerRuleY = PAGE_MARGIN + 34;
   lastPage.drawLine({
     start: { x: PAGE_MARGIN, y: footerRuleY },
