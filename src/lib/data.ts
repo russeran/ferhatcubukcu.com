@@ -16,8 +16,9 @@ const NEWS_FILE = "news.json";
 const defaultSettings: SiteSettings = {
   artistName: "Ferhat Çubukçu",
   taglineEn:
-    "Fibonacci and the golden ratio in figurative composition",
-  taglineTr: "Figüratif kompozisyonda Fibonacci ve altın oran",
+    "Figurative composition shaped by the Fibonacci sequence and the golden ratio",
+  taglineTr:
+    "Fibonacci dizisi ve altın oranına dayanan figüratif kompozisyon",
   bioEn:
     "Ferhat Çubukçu (b. 4 March 1990, Bursa) is a painter based in Türkiye. He studied automotive technologies at Yüzüncü Yıl University and has painted for more than two decades, continuing training after high school at the Ertuğrul Topsakal Art Workshop. His work spans multiple media and formats, often at 80×100 cm and larger.\n\nHis approach grows from the spiral implied by the Fibonacci sequence’s approach to the golden ratio: spirals are woven into overall compositions and figures, with Fibonacci intervals considered on and between forms. He has shown in group exhibitions in Bursa, Van, and elsewhere in Türkiye. Replace this text anytime from the admin panel.",
   bioTr:
@@ -32,11 +33,21 @@ const defaultSettings: SiteSettings = {
   pressQuotes: [],
 };
 
+function hasLegacyHeroTagline(text: string): boolean {
+  return /istanbul|i̇stanbul|los\s*angeles|acrylic and oil/i.test(text);
+}
+
 function mergeSettings(parsed: Partial<SiteSettings>): SiteSettings {
   const merged = { ...defaultSettings, ...parsed } as SiteSettings & {
     behance?: string;
   };
   delete merged.behance;
+  if (merged.taglineEn && hasLegacyHeroTagline(merged.taglineEn)) {
+    merged.taglineEn = defaultSettings.taglineEn;
+  }
+  if (merged.taglineTr && hasLegacyHeroTagline(merged.taglineTr)) {
+    merged.taglineTr = defaultSettings.taglineTr;
+  }
   return merged;
 }
 
