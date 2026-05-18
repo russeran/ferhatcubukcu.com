@@ -1,4 +1,11 @@
 {
+  "errors": {
+    "notFoundCode": "404",
+    "notFoundTitle": "Page not found",
+    "notFoundBody": "The page or artwork you requested does not exist or may have been moved.",
+    "notFoundHome": "Home",
+    "notFoundGallery": "View gallery"
+  },
   "meta": {
     "title": "Ferhat Çubukçu — Painter",
     "description": "Contemporary painting — Fibonacci, golden ratio, and exhibition work."

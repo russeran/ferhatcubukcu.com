@@ -1,17 +1,17 @@
 {
-  "name": "Ferhat Çubukçu",
+  "name": "Ferhat Çubukçu — Painter",
   "short_name": "F. Çubukçu",
-  "description": "Painter — contemporary work.",
+  "description": "Contemporary painting — Fibonacci, golden ratio, and exhibition work.",
   "icons": [
     {
       "src": "/icon",
-      "sizes": "276x276",
+      "sizes": "32x32",
       "type": "image/png",
       "purpose": "any"
     },
     {
       "src": "/apple-icon",
-      "sizes": "276x276",
+      "sizes": "180x180",
       "type": "image/png",
       "purpose": "any maskable"
     },

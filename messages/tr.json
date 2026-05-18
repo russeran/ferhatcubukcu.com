@@ -1,4 +1,11 @@
 {
+  "errors": {
+    "notFoundCode": "404",
+    "notFoundTitle": "Sayfa bulunamadı",
+    "notFoundBody": "Aradığınız sayfa veya eser mevcut değil ya da taşınmış olabilir.",
+    "notFoundHome": "Ana sayfa",
+    "notFoundGallery": "Galeriyi gör"
+  },
   "meta": {
     "title": "Ferhat Çubukçu — Ressam",
     "description": "Çağdaş resim — Fibonacci, altın oran ve sergi çalışmaları."

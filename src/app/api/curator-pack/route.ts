@@ -9,15 +9,17 @@ export const dynamic = "force-dynamic";
 
 const PAGE_W = 595;
 const PAGE_H = 842;
-const MARGIN = 44;
+/** Equal top/bottom page margins (catalog pages). */
+const PAGE_MARGIN = 48;
 const COL_GUTTER = 20;
 const THUMB_H = 118;
 /** Space reserved under each thumbnail for title + meta + URL */
 const TEXT_ZONE = 58;
 const ROW_GAP = 14;
-const FOOTER_BLOCK = 72;
+/** Footer band on the last page — matched to first-page header depth for balance. */
+const LAST_PAGE_FOOTER = 56;
 
-const INNER_W = PAGE_W - 2 * MARGIN;
+const INNER_W = PAGE_W - 2 * PAGE_MARGIN;
 const COL_W = (INNER_W - COL_GUTTER) / 2;
 const ROW_H = THUMB_H + 8 + TEXT_ZONE + ROW_GAP;
 
@@ -122,7 +124,7 @@ async function fetchRasterForPdf(
 const INK = rgb(0.11, 0.09, 0.08);
 const MUTED = rgb(0.38, 0.34, 0.3);
 const LINE = rgb(0.72, 0.66, 0.58);
-const PANEL = rgb(0.96, 0.94, 0.9);
+const IMAGE_BG = rgb(1, 1, 1);
 
 function drawWrapped(
   page: PDFPage,
@@ -188,7 +190,7 @@ async function drawCatalogCell(
     y: cellBottom,
     width: colW,
     height: THUMB_H,
-    color: PANEL,
+    color: IMAGE_BG,
     borderColor: LINE,
     borderWidth: 0.85,
   });
@@ -256,12 +258,12 @@ export async function GET() {
   const fontBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
 
   let page = pdfDoc.addPage([PAGE_W, PAGE_H]);
-  let rowTop = PAGE_H - MARGIN;
+  let rowTop = PAGE_H - PAGE_MARGIN;
 
   const drawHeader = (p: PDFPage, top: number) => {
     let y = top;
     p.drawText(sanitizePdfLine(`${settings.artistName} — published works`), {
-      x: MARGIN,
+      x: PAGE_MARGIN,
       y,
       size: 15,
       font: fontBold,
@@ -269,7 +271,7 @@ export async function GET() {
     });
     y -= 20;
     p.drawText(`Curator pack · ${new Date().toISOString().slice(0, 10)}`, {
-      x: MARGIN,
+      x: PAGE_MARGIN,
       y,
       size: 8.5,
       font,
@@ -277,21 +279,21 @@ export async function GET() {
     });
     y -= 12;
     p.drawLine({
-      start: { x: MARGIN, y },
-      end: { x: PAGE_W - MARGIN, y },
+      start: { x: PAGE_MARGIN, y },
+      end: { x: PAGE_W - PAGE_MARGIN, y },
       thickness: 0.6,
       color: LINE,
     });
     return y - 14;
   };
 
-  rowTop = drawHeader(page, rowTop - 4);
+  rowTop = drawHeader(page, rowTop);
 
   if (works.length === 0) {
     drawWrapped(
       page,
       "No published paintings are listed yet. Add or publish works in the admin panel.",
-      MARGIN,
+      PAGE_MARGIN,
       rowTop,
       10,
       font,
@@ -301,23 +303,24 @@ export async function GET() {
     );
   }
 
-  const minY = MARGIN + FOOTER_BLOCK;
-
   for (let i = 0; i < works.length; i += 2) {
+    const isLastRow = i + 2 >= works.length;
+    const minY = isLastRow ? PAGE_MARGIN + LAST_PAGE_FOOTER : PAGE_MARGIN;
+
     if (rowTop - ROW_H < minY) {
       page = pdfDoc.addPage([PAGE_W, PAGE_H]);
-      rowTop = PAGE_H - MARGIN - 8;
+      rowTop = PAGE_H - PAGE_MARGIN;
     }
 
     const left = works[i]!;
     const right = works[i + 1];
 
-    await drawCatalogCell(page, pdfDoc, MARGIN, rowTop, COL_W, left, font, fontBold);
+    await drawCatalogCell(page, pdfDoc, PAGE_MARGIN, rowTop, COL_W, left, font, fontBold);
     if (right) {
       await drawCatalogCell(
         page,
         pdfDoc,
-        MARGIN + COL_W + COL_GUTTER,
+        PAGE_MARGIN + COL_W + COL_GUTTER,
         rowTop,
         COL_W,
         right,
@@ -329,12 +332,15 @@ export async function GET() {
     rowTop -= ROW_H;
   }
 
-  /** Footer fixed to bottom band of last page (body layout reserves `FOOTER_BLOCK`). */
-  const lastPage = pdfDoc.getPages().at(-1)!;
-  const footerRuleY = MARGIN + 52;
+  /** Footer in the bottom margin band (same `PAGE_MARGIN` as the top of each page). */
+  let lastPage = pdfDoc.getPages().at(-1)!;
+  if (rowTop < PAGE_MARGIN + LAST_PAGE_FOOTER) {
+    lastPage = pdfDoc.addPage([PAGE_W, PAGE_H]);
+  }
+  const footerRuleY = PAGE_MARGIN + 34;
   lastPage.drawLine({
-    start: { x: MARGIN, y: footerRuleY },
-    end: { x: PAGE_W - MARGIN, y: footerRuleY },
+    start: { x: PAGE_MARGIN, y: footerRuleY },
+    end: { x: PAGE_W - PAGE_MARGIN, y: footerRuleY },
     thickness: 0.5,
     color: LINE,
   });
@@ -342,7 +348,7 @@ export async function GET() {
   fy = drawWrapped(
     lastPage,
     `Contact: ${sanitizePdfLine(settings.contactEmail || "")}`,
-    MARGIN,
+    PAGE_MARGIN,
     fy,
     9,
     font,

@@ -1,5 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="">
-  <rect width="32" height="32" rx="2" fill="#1f1b16"/>
-  <path fill="none" stroke="#c6a04f" stroke-width="1.25" d="M6 24c0-8 4-14 10-16 6-2 10 2 10 8"/>
-  <circle cx="10" cy="10" r="2" fill="#9b2335"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Ferhat Çubukçu">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#383e42"/>
+      <stop offset="100%" stop-color="#2f3439"/>
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="5" fill="url(#bg)"/>
+  <path fill="none" stroke="#c9a85a" stroke-width="1.75" stroke-linecap="round" d="M6 24c0-8 4-14 10-16 6-2 10 2 10 8"/>
+  <circle cx="10" cy="10" r="2.25" fill="#922f3d"/>
 </svg>

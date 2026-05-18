@@ -10,6 +10,7 @@ import { NavNewsHub } from "@/components/NavNewsHub";
 import { cn } from "@/lib/utils";
 import { primaryNavLinks, pathMatchesNav } from "@/lib/site-nav";
 import { ArtistWordmark } from "@/components/ArtistWordmark";
+import { SiteBrandMarkSvg } from "@/components/SiteBrandMarkSvg";
 import { splitArtistName } from "@/lib/split-artist-name";
 
 const navBeforeHub = primaryNavLinks.slice(0, 2);
@@ -145,8 +146,9 @@ export function SiteHeader({
       <div className="relative z-10 mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-5 md:py-4">
         <Link
           href="/"
-          className="group inline-flex min-h-11 min-w-0 shrink self-center rounded-sm py-2 transition-opacity hover:opacity-[0.94]"
+          className="group inline-flex min-h-11 min-w-0 shrink items-center gap-2.5 self-center rounded-sm py-2 transition-opacity hover:opacity-[0.94] sm:gap-3"
         >
+          <SiteBrandMarkSvg className="hidden h-9 w-9 opacity-95 ring-1 ring-white/10 sm:block md:h-10 md:w-10" />
           <ArtistWordmark first={first} rest={rest} size="header" />
         </Link>
 

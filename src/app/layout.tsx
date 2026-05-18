@@ -22,8 +22,21 @@ const googleVerification =
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
-  /** `icon.png` / `apple-icon.png` (headshot) — Next injects links; `/favicon.ico` → `/icon` in next.config. */
   manifest: "/site.webmanifest",
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/icon", type: "image/png", sizes: "32x32" },
+    ],
+    apple: [{ url: "/apple-icon", type: "image/png", sizes: "180x180" }],
+  },
+  openGraph: {
+    type: "website",
+    siteName: "Ferhat Çubukçu",
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
   ...(googleVerification
     ? { verification: { google: googleVerification } }
     : {}),

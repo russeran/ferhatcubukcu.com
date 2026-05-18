@@ -22,13 +22,24 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const messages = (await import(`../../../messages/${locale}.json`)).default;
+  const title = messages.meta.title as string;
+  const description = messages.meta.description as string;
   return {
     title: {
-      default: messages.meta.title as string,
+      default: title,
       template: `%s · Ferhat Çubukçu`,
     },
-    description: messages.meta.description as string,
+    description,
     robots: { index: true, follow: true },
+    openGraph: {
+      locale: locale === "tr" ? "tr_TR" : "en_US",
+      title,
+      description,
+    },
+    twitter: {
+      title,
+      description,
+    },
   };
 }
 

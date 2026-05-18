@@ -12,7 +12,7 @@ export function PageShell({ children, wide, className }: Props) {
   return (
     <div
       className={cn(
-        "relative z-10",
+        "page-shell-frame relative z-10 animate-fade-up",
         wide ? "page-shell-wide" : "page-shell",
         className
       )}

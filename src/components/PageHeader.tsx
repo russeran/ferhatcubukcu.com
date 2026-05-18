@@ -11,6 +11,7 @@ type Props = {
 export function PageHeader({ eyebrow, title, lead, className }: Props) {
   return (
     <header className={cn("page-header", className)}>
+      <div className="gold-rule mb-4" aria-hidden />
       {eyebrow ? <p className="editorial-eyebrow">{eyebrow}</p> : null}
       <h1 className="page-title">{title}</h1>
       {lead ? <p className="page-lead">{lead}</p> : null}
