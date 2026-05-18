@@ -75,7 +75,7 @@ export function PublicResourceAdminActions({
         <NextLink
           href={editHref}
           prefetch={false}
-          className="rounded-full border border-umber-deep/20 bg-white/90 px-2.5 py-1 font-medium text-ink hover:border-oxide hover:text-oxide"
+          className="btn-admin-edit px-2.5 py-1 normal-case tracking-normal"
         >
           {kind === "artwork" ? t("editArtwork") : t("editNews")}
         </NextLink>
@@ -83,7 +83,7 @@ export function PublicResourceAdminActions({
           type="button"
           disabled={busy}
           onClick={() => void onDelete()}
-          className="rounded-full border-2 border-oxide bg-[#faf6f1] px-2.5 py-1 font-medium text-oxide-deep hover:bg-[#fffcf7] disabled:opacity-50"
+          className="btn-admin-delete px-2.5 py-1 normal-case tracking-normal"
         >
           {kind === "artwork" ? t("deleteArtwork") : t("deleteNews")}
         </button>

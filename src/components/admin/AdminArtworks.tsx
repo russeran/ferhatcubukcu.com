@@ -602,14 +602,14 @@ export function AdminArtworks() {
                   <div className="mt-4 flex flex-wrap gap-3">
                     <button
                       type="button"
-                      className="rounded-full border border-white/20 px-4 py-1.5 text-xs uppercase tracking-wider text-parchment hover:border-goldleaf hover:text-goldleaf"
+                      className="btn-admin-edit"
                       onClick={() => startEdit(a)}
                     >
                       Edit
                     </button>
                     <button
                       type="button"
-                      className="rounded-full border border-oxide/40 px-4 py-1.5 text-xs uppercase tracking-wider text-oxide hover:bg-oxide/15"
+                      className="btn-admin-delete"
                       onClick={() => remove(a.id)}
                     >
                       {t("delete")}
