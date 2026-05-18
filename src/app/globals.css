@@ -110,7 +110,7 @@ body {
     @apply max-w-prose text-pretty leading-relaxed text-ink-muted;
   }
   .prose-content {
-    @apply prose prose-neutral mx-auto max-w-prose prose-p:leading-relaxed prose-p:text-ink-muted prose-headings:text-ink;
+    @apply prose-atelier mx-auto;
   }
   .page-lead {
     @apply prose-atelier mt-6 max-w-xl text-base sm:mt-8 sm:text-lg;
