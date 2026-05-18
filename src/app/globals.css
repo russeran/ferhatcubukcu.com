@@ -219,6 +219,17 @@ body {
   .gallery-image-frame-hover {
     @apply group-hover:shadow-gallery-hover group-hover:ring-goldleaf/35;
   }
+  .gallery-image-frame-favorite {
+    @apply ring-2 ring-goldleaf/65;
+    box-shadow:
+      0 28px 56px -14px rgba(0, 0, 0, 0.48),
+      0 0 0 1px rgba(201, 168, 90, 0.4),
+      0 0 32px -6px rgba(201, 168, 90, 0.22),
+      inset 0 0 0 2px rgba(201, 168, 90, 0.12);
+  }
+  .gallery-image-frame-favorite.gallery-image-frame-hover {
+    @apply group-hover:ring-goldleaf/85;
+  }
   /** Home hero slideshow — warm mat, distinct from anthracite shell */
   .hero-slideshow-frame {
     @apply overflow-hidden rounded-md bg-gradient-to-br from-[#f8f4ed] via-[#f0ebe2] to-[#e2d9cc] ring-1 ring-white/40;

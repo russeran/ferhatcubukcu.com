@@ -46,6 +46,7 @@ const artworkInput = z.object({
   seriesTitleEn: z.string().max(120).optional(),
   seriesTitleTr: z.string().max(120).optional(),
   sold: z.boolean().optional(),
+  favorite: z.boolean().optional(),
   published: z.boolean(),
   slug: z.string().optional(),
 });
@@ -104,6 +105,7 @@ export async function POST(req: Request) {
     seriesTitleTr: normOptionalText(parsed.data.seriesTitleTr),
     order: maxOrder + 1,
     sold: parsed.data.sold ?? false,
+    favorite: parsed.data.favorite ?? false,
     published: parsed.data.published,
     createdAt: new Date().toISOString(),
   };

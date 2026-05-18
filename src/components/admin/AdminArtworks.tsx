@@ -31,6 +31,7 @@ const emptyForm = {
   seriesTitleTr: "",
   published: true,
   sold: false,
+  favorite: false,
   slug: "",
 };
 
@@ -195,6 +196,7 @@ export function AdminArtworks() {
       seriesTitleTr: a.seriesTitleTr ?? "",
       published: a.published,
       sold: Boolean(a.sold),
+      favorite: Boolean(a.favorite),
       slug: a.slug,
     });
   }
@@ -572,6 +574,20 @@ export function AdminArtworks() {
           <label className="flex items-center gap-3 md:col-span-2">
             <input
               type="checkbox"
+              checked={create.favorite}
+              onChange={(e) =>
+                setCreate({ ...create, favorite: e.target.checked })
+              }
+              className="admin-checkbox"
+            />
+            <span className="text-sm text-ink-muted">{t("markFavorite")}</span>
+          </label>
+          <p className="-mt-1 text-xs text-ink-faint md:col-span-2">
+            {t("favoriteHint")}
+          </p>
+          <label className="flex items-center gap-3 md:col-span-2">
+            <input
+              type="checkbox"
               checked={create.published}
               onChange={(e) =>
                 setCreate({ ...create, published: e.target.checked })
@@ -612,6 +628,11 @@ export function AdminArtworks() {
                   {a.sold ? (
                     <span className="absolute left-1.5 top-1.5 rounded bg-black/75 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-ink">
                       {t("statusSold")}
+                    </span>
+                  ) : null}
+                  {a.favorite ? (
+                    <span className="absolute right-1.5 top-1.5 rounded border border-goldleaf/50 bg-gradient-to-br from-parchment to-parchment-warm px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-anthracite-deep shadow-sm">
+                      {t("statusFavorite")}
                     </span>
                   ) : null}
                 </div>
@@ -963,6 +984,22 @@ export function AdminArtworks() {
                   </label>
                   <p className="-mt-1 text-xs text-ink-faint md:col-span-2">
                     {t("soldHint")}
+                  </p>
+                  <label className="flex items-center gap-3 md:col-span-2">
+                    <input
+                      type="checkbox"
+                      checked={edit.favorite}
+                      onChange={(e) =>
+                        setEdit({ ...edit, favorite: e.target.checked })
+                      }
+                      className="admin-checkbox"
+                    />
+                    <span className="text-sm text-ink-muted">
+                      {t("markFavorite")}
+                    </span>
+                  </label>
+                  <p className="-mt-1 text-xs text-ink-faint md:col-span-2">
+                    {t("favoriteHint")}
                   </p>
                   <label className="flex items-center gap-3 md:col-span-2">
                     <input

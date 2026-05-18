@@ -4,8 +4,11 @@ import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { HomeHeroSection } from "@/components/HomeHeroSection";
 import { HomeJsonLd } from "@/components/HomeJsonLd";
+import { FavoriteStamp } from "@/components/FavoriteStamp";
 import { SoldStamp } from "@/components/SoldStamp";
+import { artworksWithFavoritesFirst } from "@/lib/gallery-favorites";
 import { localeAlternates } from "@/lib/seo-helpers";
+import { cn } from "@/lib/utils";
 import { absoluteUrl } from "@/lib/site-url";
 import { readArtworks, readNewsPosts, readSettings } from "@/lib/data";
 import { resolvedNewsExcerpt, resolvedNewsTitle } from "@/lib/news-display";
@@ -58,12 +61,15 @@ export default async function HomePage({ params }: Props) {
   const allPublished = (await readArtworks())
     .filter((a) => a.published)
     .sort((a, b) => a.order - b.order);
-  const heroSlides = allPublished.slice(0, 10).map((a) => ({
+  const favoritesFirst = artworksWithFavoritesFirst(allPublished);
+  const favoriteLabel = tg("artistFavorite");
+  const heroSlides = favoritesFirst.slice(0, 10).map((a) => ({
     image: a.image,
     slug: a.slug,
     title: locale === "tr" ? a.titleTr : a.titleEn,
+    favorite: Boolean(a.favorite),
   }));
-  const artworks = allPublished.slice(0, 6);
+  const artworks = favoritesFirst.slice(0, 6);
 
   const newsTeaser = (await readNewsPosts())
     .filter((p) => p.published)
@@ -219,7 +225,12 @@ export default async function HomePage({ params }: Props) {
                 style={{ animationDelay: `${i * 70}ms` }}
               >
                 <Link href={`/gallery/${a.slug}`} className="group block">
-                  <div className="gallery-image-frame gallery-image-frame-hover relative aspect-[4/5]">
+                  <div
+                    className={cn(
+                      "gallery-image-frame gallery-image-frame-hover relative aspect-[4/5]",
+                      a.favorite && "gallery-image-frame-favorite"
+                    )}
+                  >
                     <Image
                       src={a.image}
                       alt={locale === "tr" ? a.titleTr : a.titleEn}
@@ -228,11 +239,22 @@ export default async function HomePage({ params }: Props) {
                       sizes="(max-width: 640px) 100vw, 33vw"
                     />
                     {a.sold ? <SoldStamp label={tg("sold")} /> : null}
+                    {a.favorite ? <FavoriteStamp label={favoriteLabel} /> : null}
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-umber-deep/35 via-umber-deep/5 to-transparent opacity-0 transition duration-500 ease-out-expo group-hover:opacity-100" />
                   </div>
                   <div className="mt-5 flex items-start justify-between gap-3">
                     <div>
-                      <p className="page-card-title sm:text-xl">
+                      {a.favorite ? (
+                        <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-goldleaf sm:text-xs">
+                          {favoriteLabel}
+                        </p>
+                      ) : null}
+                      <p
+                        className={cn(
+                          "page-card-title sm:text-xl",
+                          a.favorite && "text-goldleaf/95"
+                        )}
+                      >
                         {locale === "tr" ? a.titleTr : a.titleEn}
                       </p>
                       {a.year ? (

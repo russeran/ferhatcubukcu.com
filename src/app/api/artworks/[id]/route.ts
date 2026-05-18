@@ -49,6 +49,7 @@ const patchSchema = z.object({
   seriesTitleEn: z.string().max(120).optional(),
   seriesTitleTr: z.string().max(120).optional(),
   sold: z.boolean().optional(),
+  favorite: z.boolean().optional(),
   published: z.boolean().optional(),
   slug: z.string().optional(),
   order: z.number().int().optional(),
@@ -104,6 +105,9 @@ export async function PATCH(
   }
   if (patch.sold === undefined) {
     delete patch.sold;
+  }
+  if (patch.favorite === undefined) {
+    delete patch.favorite;
   }
   const updated: Artwork = {
     ...current,

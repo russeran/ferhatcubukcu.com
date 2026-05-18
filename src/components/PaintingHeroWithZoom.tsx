@@ -3,7 +3,9 @@
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
+import { FavoriteStamp } from "@/components/FavoriteStamp";
 import { SoldStamp } from "@/components/SoldStamp";
+import { cn } from "@/lib/utils";
 import {
   ZoomablePaintingFrame,
   zoomFrameNavBtnClass,
@@ -15,6 +17,8 @@ type Props = {
   alt: string;
   sold: boolean;
   soldLabel: string;
+  favorite?: boolean;
+  favoriteLabel?: string;
   openZoomLabel: string;
   closeLabel: string;
   zoomInLabel: string;
@@ -67,6 +71,8 @@ export function PaintingHeroWithZoom({
   alt,
   sold,
   soldLabel,
+  favorite,
+  favoriteLabel,
   openZoomLabel,
   closeLabel,
   zoomInLabel,
@@ -181,7 +187,10 @@ export function PaintingHeroWithZoom({
       <button
         type="button"
         onClick={openZoom}
-        className="group relative aspect-[3/4] w-full overflow-hidden rounded-md bg-white text-left shadow-gallery ring-1 ring-umber/10 lg:aspect-[4/5] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-goldleaf/50 focus-visible:ring-offset-2 focus-visible:ring-offset-parchment"
+        className={cn(
+          "group relative aspect-[3/4] w-full overflow-hidden rounded-md bg-white text-left shadow-gallery ring-1 ring-umber/10 lg:aspect-[4/5] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-goldleaf/50 focus-visible:ring-offset-2 focus-visible:ring-offset-parchment",
+          favorite && "gallery-image-frame-favorite ring-2 ring-goldleaf/65"
+        )}
         aria-label={openZoomLabel}
       >
         <Image
@@ -195,6 +204,9 @@ export function PaintingHeroWithZoom({
           blurDataURL={IMAGE_BLUR_PLACEHOLDER}
         />
         {sold ? <SoldStamp label={soldLabel} /> : null}
+        {favorite && favoriteLabel ? (
+          <FavoriteStamp label={favoriteLabel} />
+        ) : null}
         <span className="pointer-events-none absolute bottom-3 right-3 rounded-full border border-white/30 bg-umber-deep/85 px-3 py-1.5 font-sans text-[10px] font-semibold uppercase tracking-[0.2em] text-parchment shadow-md backdrop-blur-sm sm:text-[11px]">
           {openZoomLabel}
         </span>

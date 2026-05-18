@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
+import { FavoriteStamp } from "@/components/FavoriteStamp";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
@@ -10,6 +11,7 @@ export type HomeHeroSlide = {
   image: string;
   slug: string;
   title: string;
+  favorite?: boolean;
 };
 
 const ROTATE_MS = 5200;
@@ -29,7 +31,9 @@ export function HomeHeroGalleryShowcase({
   fallbackAlt,
 }: Props) {
   const t = useTranslations("home");
+  const tg = useTranslations("gallery");
   const [active, setActive] = useState(0);
+  const favoriteLabel = tg("artistFavorite");
 
   useEffect(() => {
     if (slides.length <= 1) return;
@@ -55,9 +59,11 @@ export function HomeHeroGalleryShowcase({
     );
   }
 
+  const activeFavorite = Boolean(slides[active]?.favorite);
+
   return (
     <div
-      className={frameClass}
+      className={cn(frameClass, activeFavorite && "gallery-image-frame-favorite")}
       aria-roledescription="carousel"
       aria-label={t("heroSlideshowAria")}
     >
@@ -86,6 +92,9 @@ export function HomeHeroGalleryShowcase({
             sizes="(max-width: 768px) 100vw, 50vw"
             priority={i === 0}
           />
+          {item.favorite && i === active ? (
+            <FavoriteStamp label={favoriteLabel} />
+          ) : null}
         </Link>
       ))}
       <div className="pointer-events-none absolute inset-0 z-[3] bg-gradient-to-br from-white/35 via-transparent to-anthracite/8" />

@@ -191,6 +191,8 @@ export default async function GalleryDetailPage({
             alt={title}
             sold={Boolean(artwork.sold)}
             soldLabel={t("sold")}
+            favorite={Boolean(artwork.favorite)}
+            favoriteLabel={t("artistFavorite")}
             openZoomLabel={t("paintingZoomOpen")}
             closeLabel={t("lightboxClose")}
             zoomInLabel={t("paintingZoomIn")}
@@ -209,8 +211,17 @@ export default async function GalleryDetailPage({
           />
           <div className="space-y-8">
             <header className="space-y-3 border-b border-umber/10 pb-8">
+              {artwork.favorite ? (
+                <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-goldleaf sm:text-xs">
+                  {t("artistFavorite")}
+                </p>
+              ) : null}
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
-                <h1 className="min-w-0 flex-1 font-serif text-3xl font-semibold leading-tight tracking-tight text-ink sm:text-4xl md:text-[2.75rem]">
+                <h1
+                  className={`min-w-0 flex-1 font-serif text-3xl font-semibold leading-tight tracking-tight sm:text-4xl md:text-[2.75rem] ${
+                    artwork.favorite ? "text-goldleaf/95" : "text-ink"
+                  }`}
+                >
                   {title}
                 </h1>
                 <ArtworkViewingRoom

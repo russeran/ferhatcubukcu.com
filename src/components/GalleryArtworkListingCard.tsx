@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
+import { FavoriteStamp } from "@/components/FavoriteStamp";
 import { SoldStamp } from "@/components/SoldStamp";
 import { IMAGE_BLUR_PLACEHOLDER } from "@/lib/image-blur";
 import { cn } from "@/lib/utils";
@@ -13,6 +14,8 @@ type Props = {
   galleryImageFit: boolean;
   sold?: boolean;
   soldLabel: string;
+  favorite?: boolean;
+  favoriteLabel?: string;
   viewLabel: string;
   price?: string | null;
   sizes: string;
@@ -30,6 +33,8 @@ export function GalleryArtworkListingCard({
   galleryImageFit,
   sold,
   soldLabel,
+  favorite,
+  favoriteLabel,
   viewLabel,
   price,
   sizes,
@@ -44,7 +49,12 @@ export function GalleryArtworkListingCard({
       href={href}
       className="group block cursor-pointer rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-goldleaf/80 focus-visible:ring-offset-2 focus-visible:ring-offset-anthracite"
     >
-      <div className="gallery-image-frame gallery-image-frame-hover relative aspect-[4/5]">
+      <div
+        className={cn(
+          "gallery-image-frame gallery-image-frame-hover relative aspect-[4/5]",
+          favorite && "gallery-image-frame-favorite"
+        )}
+      >
         <Image
           src={image}
           alt=""
@@ -55,6 +65,9 @@ export function GalleryArtworkListingCard({
           sizes={sizes}
         />
         {sold ? <SoldStamp label={soldLabel} /> : null}
+        {favorite && favoriteLabel ? (
+          <FavoriteStamp label={favoriteLabel} compact={captionSpacing === "compact"} />
+        ) : null}
         {!galleryImageFit ? (
           <div
             className="pointer-events-none absolute inset-0 bg-gradient-to-t from-umber-deep/35 via-transparent to-transparent opacity-0 transition duration-500 ease-out-expo group-hover:opacity-100 group-focus-visible:opacity-100"
@@ -71,11 +84,17 @@ export function GalleryArtworkListingCard({
         </div>
       </div>
       <div className={captionSpacing === "compact" ? "mt-3" : "mt-4 space-y-1"}>
+        {favorite && favoriteLabel ? (
+          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-goldleaf sm:text-xs">
+            {favoriteLabel}
+          </p>
+        ) : null}
         <TitleTag
           className={cn(
             titleAs === "h2" && "page-subsection-title",
             titleAs === "h3" && "page-card-title text-lg",
             titleAs === "p" && "page-card-title text-sm",
+            favorite && "text-goldleaf/95",
             titleClassName
           )}
         >

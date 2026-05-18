@@ -22,6 +22,7 @@ import {
 } from "@/lib/gallery-series";
 import { artworkInquiryHref } from "@/lib/artwork-inquiry";
 import { artworkCatalogMeta } from "@/lib/artwork-catalog-meta";
+import { artworksWithFavoritesFirst } from "@/lib/gallery-favorites";
 import { galleryListingImageClass } from "@/lib/gallery-listing-image";
 import { PageShell } from "@/components/PageShell";
 import { cn } from "@/lib/utils";
@@ -76,7 +77,9 @@ export default async function GalleryPage({ params, searchParams }: Props) {
     sort,
     locale
   );
-  const list = filterBySeriesSlug(publishedSorted, seriesParam);
+  const list = artworksWithFavoritesFirst(
+    filterBySeriesSlug(publishedSorted, seriesParam)
+  );
   const seriesOptions = uniqueSeriesFromArtworks(
     sortPublishedArtworks(
       all.filter((a) => a.published),
@@ -109,6 +112,7 @@ export default async function GalleryPage({ params, searchParams }: Props) {
   const galleryImageFit = settings.galleryImageFit === true;
   const listingImageClass = galleryListingImageClass(galleryImageFit);
   const viewPaintingLabel = t("viewPainting");
+  const favoriteLabel = t("artistFavorite");
   const seriesSpotlight =
     view === "grid" && !seriesParam && seriesOptions.length > 0
       ? pickSeriesSpotlight(seriesOptions, publishedSorted)
@@ -245,6 +249,8 @@ export default async function GalleryPage({ params, searchParams }: Props) {
                     galleryImageFit={galleryImageFit}
                     sold={a.sold}
                     soldLabel={t("sold")}
+                    favorite={a.favorite}
+                    favoriteLabel={favoriteLabel}
                     viewLabel={viewPaintingLabel}
                     sizes="200px"
                     captionSpacing="compact"
@@ -288,6 +294,8 @@ export default async function GalleryPage({ params, searchParams }: Props) {
                         galleryImageFit={galleryImageFit}
                         sold={a.sold}
                         soldLabel={t("sold")}
+                        favorite={a.favorite}
+                        favoriteLabel={favoriteLabel}
                         viewLabel={viewPaintingLabel}
                         sizes="280px"
                         titleAs="h3"
@@ -325,6 +333,8 @@ export default async function GalleryPage({ params, searchParams }: Props) {
                   galleryImageFit={galleryImageFit}
                   sold={a.sold}
                   soldLabel={t("sold")}
+                  favorite={a.favorite}
+                  favoriteLabel={favoriteLabel}
                   viewLabel={viewPaintingLabel}
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   titleAs="h2"
