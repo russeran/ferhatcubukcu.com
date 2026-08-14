@@ -80,17 +80,19 @@ export async function readSettings(): Promise<SiteSettings> {
     if (v && typeof v === "object" && !Array.isArray(v)) {
       return mergeSettings(v as Partial<SiteSettings>);
     }
-    return { ...defaultSettings };
   }
 
   const redis = getRedis();
   if (redis) {
-    const raw = await redis.get(redisKeys().settings);
-    const parsed = parseRedisJson<Partial<SiteSettings>>(raw);
-    if (parsed) {
-      return mergeSettings(parsed);
+    try {
+      const raw = await redis.get(redisKeys().settings);
+      const parsed = parseRedisJson<Partial<SiteSettings>>(raw);
+      if (parsed) {
+        return mergeSettings(parsed);
+      }
+    } catch (err) {
+      console.error("[redis] failed to read settings:", err);
     }
-    return { ...defaultSettings };
   }
 
   const file = path.join(getDataDir(), SETTINGS_FILE);
@@ -209,17 +211,19 @@ export async function readArtworks(): Promise<Artwork[]> {
     if (Array.isArray(v)) {
       return v as Artwork[];
     }
-    return defaultSeedArtworks();
   }
 
   const redis = getRedis();
   if (redis) {
-    const raw = await redis.get(redisKeys().artworks);
-    const parsed = parseRedisJson<Artwork[]>(raw);
-    if (parsed && Array.isArray(parsed)) {
-      return parsed;
+    try {
+      const raw = await redis.get(redisKeys().artworks);
+      const parsed = parseRedisJson<Artwork[]>(raw);
+      if (parsed && Array.isArray(parsed)) {
+        return parsed;
+      }
+    } catch (err) {
+      console.error("[redis] failed to read artworks:", err);
     }
-    return defaultSeedArtworks();
   }
 
   const file = path.join(getDataDir(), ARTWORKS_FILE);
@@ -305,17 +309,19 @@ export async function readNewsPosts(): Promise<NewsPost[]> {
     if (Array.isArray(v)) {
       return v as NewsPost[];
     }
-    return [];
   }
 
   const redis = getRedis();
   if (redis) {
-    const raw = await redis.get(redisKeys().news);
-    const parsed = parseRedisJson<NewsPost[]>(raw);
-    if (parsed && Array.isArray(parsed)) {
-      return parsed;
+    try {
+      const raw = await redis.get(redisKeys().news);
+      const parsed = parseRedisJson<NewsPost[]>(raw);
+      if (parsed && Array.isArray(parsed)) {
+        return parsed;
+      }
+    } catch (err) {
+      console.error("[redis] failed to read news:", err);
     }
-    return [];
   }
 
   const file = path.join(getDataDir(), NEWS_FILE);
