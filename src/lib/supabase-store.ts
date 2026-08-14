@@ -6,6 +6,9 @@ const DEFAULT_KV_BUCKET = "portfolio-site-kv";
 /** Public bucket for gallery images (when not using Vercel Blob). Auto-created on first use. */
 const DEFAULT_MEDIA_BUCKET = "portfolio-media";
 
+/** After one failed Supabase call, skip all subsequent calls in this process. */
+let supabaseDown = false;
+
 function kvBucketName(): string {
   return process.env.SUPABASE_KV_BUCKET?.trim() || DEFAULT_KV_BUCKET;
 }
@@ -16,17 +19,25 @@ function mediaBucketName(): string {
   );
 }
 
+let cachedClient: SupabaseClient | null | undefined;
+
 /** Project URL from Supabase → Settings → API (same as NEXT_PUBLIC_SUPABASE_URL). */
 export function getSupabaseAdmin(): SupabaseClient | null {
+  if (supabaseDown) return null;
+  if (cachedClient !== undefined) return cachedClient;
   const url = (
     process.env.SUPABASE_URL?.trim() ||
     process.env.NEXT_PUBLIC_SUPABASE_URL?.trim()
   );
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
-  if (!url || !key) return null;
-  return createClient(url, key, {
+  if (!url || !key) {
+    cachedClient = null;
+    return null;
+  }
+  cachedClient = createClient(url, key, {
     auth: { persistSession: false, autoRefreshToken: false },
   });
+  return cachedClient;
 }
 
 function isAlreadyExistsError(err: { message?: string } | null): boolean {
@@ -93,7 +104,8 @@ export async function supabaseGetJson(key: string): Promise<unknown | null> {
     const text = await data.text();
     return JSON.parse(text) as unknown;
   } catch (err) {
-    console.error(`[supabase] failed to read "${key}":`, err);
+    supabaseDown = true;
+    console.error(`[supabase] unreachable, falling back to next backend. Key "${key}":`, err);
     return null;
   }
 }
