@@ -84,15 +84,16 @@ async function ensureMediaBucket(sb: SupabaseClient): Promise<void> {
 export async function supabaseGetJson(key: string): Promise<unknown | null> {
   const sb = getSupabaseAdmin();
   if (!sb) return null;
-  await ensureKvBucket(sb);
-  const bucket = kvBucketName();
-  const path = `kv/${key}.json`;
-  const { data, error } = await sb.storage.from(bucket).download(path);
-  if (error || !data) return null;
   try {
+    await ensureKvBucket(sb);
+    const bucket = kvBucketName();
+    const filePath = `kv/${key}.json`;
+    const { data, error } = await sb.storage.from(bucket).download(filePath);
+    if (error || !data) return null;
     const text = await data.text();
     return JSON.parse(text) as unknown;
-  } catch {
+  } catch (err) {
+    console.error(`[supabase] failed to read "${key}":`, err);
     return null;
   }
 }
